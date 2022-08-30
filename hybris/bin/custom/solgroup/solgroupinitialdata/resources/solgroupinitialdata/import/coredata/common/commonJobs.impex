@@ -1,0 +1,17 @@
+INSERT_UPDATE ServicelayerJob ; code[unique=true]  		    	; springId							; springIdCronJobFactory ;  
+# Serviceleyer jobs for batchImportJobs
+                              ; importProductJob        		; importProductJob					;                        ;  
+                              ; importCustomerJob				; importCustomerJob					;                        ;  
+                              ; importPriceListsJob				; importPriceListsJob				;                        ;
+                              ; importStockJob					; importStockJob					;						 ;
+
+#ServiceLayer job for identityConfirmaion (common for all sites)
+                              ; identityConfirmationJob 		; identityConfirmationJob			;                        ;
+#ServiceLayer job for massive stock import job
+							  ; massiveStockImportJob			; solgroupMassiveStockJob			;						 ;
+                                
+# Scheduler import job
+                              ; schedulerImportJob				; schedulerImportJob				;                        ;
+#ServiceLayer job for newProductsNotification
+                              ; newProductsNotificationJob      ; newProductsNotificationJob        ;                        ;
+                              

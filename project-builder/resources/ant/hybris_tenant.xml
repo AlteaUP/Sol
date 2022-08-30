@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Ant build for UNIT TEST -->
+<project name="techedge-hybris-tenant">
+
+	<!-- IMPORT -->
+	<!-- All workspace paths needed -->
+	<import file="./paths.xml"/>
+
+	<!-- All libraries needed -->
+	<!-- <taskdef classpath="${build.lib.dir}/ant-contrib-1.0b3/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml" /> -->
+
+	<!-- All build xml needed -->
+	<import file="./hybris_env.xml" />
+
+
+	<!-- PROPERTies -->
+	
+
+	<!-- SCRIPTs -->
+
+
+	<!-- MACROs -->
+	<macrodef name="check-initialize" description="Check if a tenant must be initialized (property: to.init).">
+
+		<attribute name="tenant" default="master" />
+
+		<sequential>
+			<!-- <echo message="Checking initialization of tenant @{tenant}" /> -->
+			
+			<import-properties-from-file filepath="${build.temp.init.file}" prefix="temp" />
+			
+			<if>
+				<isset property="temp.init.@{tenant}" />
+				<then>
+					<!-- <echo message="Init @{tenant}: ${temp.init.@{tenant}}" /> -->
+					
+					<if>
+						<equals arg1="${temp.init.@{tenant}}" arg2="false" />
+						<then>
+							<property name="@{tenant}.to.init" value="false" />
+						</then>
+						<else>
+							<property name="@{tenant}.to.init" value="true" />
+						</else>
+					</if>
+				</then>
+				<else>
+					<!-- <echo message="Init @{tenant} not set" /> -->
+					
+					<property name="@{tenant}.to.init" value="true" />
+				</else>
+			</if>
+			
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="initialize">
+
+		<attribute name="tenant" default="master" />
+
+		<sequential>
+			<!-- <echo message="Initializing tenant @{tenant}" /> -->
+
+			<ant dir="${hybris.platform.dir}" target="initialize" inheritall="false">
+				<property name="tenant" value="@{tenant}"/>
+			</ant>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="update">
+
+		<attribute name="tenant" default="master" />
+
+		<sequential>
+			<!-- <echo message="Updating tenant @{tenant}" /> -->
+
+			<ant dir="${hybris.platform.dir}" target="updatesystem" inheritall="false">
+				<property name="tenant" value="@{tenant}"/>
+			</ant>
+		</sequential>
+	</macrodef>
+
+
+	<!-- TASKs -->
+
+
+	<!-- EXTENSION POINTs -->
+
+
+	<!-- TARGETs - Initialize and Update -->
+	<target name="initialize" depends="init-env" description="Initialize hybris master tenant. All database content will be removed.">
+		
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/db_splash_1.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Initializing hybris tenant MASTER..." />
+			</then>
+		</if>
+		
+		<check-initialize tenant="master" />
+		
+		<if>
+			<equals arg1="${master.to.init}" arg2="true" />
+			<then>
+				<echo message="Initializing tenant MASTER..." />
+				
+				<initialize tenant="master" />
+				
+				<export-property-to-file filepath="${build.temp.init.file}" propertyKey="init.master" propertyValue="false" />
+				
+				<reset-property name="init.master" value="false" />
+				
+				<echo message="Initialize tenant MASTER completed." />
+			</then>
+			<else>
+				<echo message="Tenant MASTER is already initialized." />
+			</else>
+		</if>
+	</target>
+
+	<target name="force-initialize" depends="init-env" description="Initialize hybris master tenant. All database content will be removed.">
+		
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/db_splash_1.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Initializing hybris tenant MASTER..." />
+			</then>
+		</if>
+
+		<echo message="Initializing tenant MASTER..." />
+		
+		<initialize tenant="master" />
+		
+		<export-property-to-file filepath="${build.temp.init.file}" propertyKey="init.master" propertyValue="false" />
+		
+		<reset-property name="init.master" value="false" />
+		
+		<echo message="Initialize tenant MASTER completed." />
+	</target>
+
+	<target name="update" depends="init-env" description="Update hybris master tenant.">
+		
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/db_splash_2.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Updating hybris tenant MASTER..." />
+			</then>
+		</if>
+
+		<echo message="Updating tenant MASTER..." />
+		
+		<update tenant="master" />
+		
+		<echo message="Update tenant MASTER completed." />
+	</target>
+	
+	<target name="junit-initialize" depends="initialize" description="Initialize hybris junit tenant.">
+
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/db_splash_1.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Initializing hybris tenant JUNIT..." />
+			</then>
+		</if>
+
+		<check-initialize tenant="junit" />
+		
+		<if>
+			<equals arg1="${junit.to.init}" arg2="true" />
+			<then>
+				<echo message="Initializing tenant JUNIT..." />
+				
+				<initialize tenant="junit" />
+				<!-- <ant dir="${hybris.platform.dir}" target="yunitinit" inheritall="false" /> -->
+				
+				<export-property-to-file filepath="${build.temp.init.file}" propertyKey="init.junit" propertyValue="false" />
+				
+				<reset-property name="init.junit" value="false" />
+				
+				<echo message="Initialize tenant JUNIT completed." />
+			</then>
+			<else>
+				<echo message="Tenant JUNIT is already initialized." />
+			</else>
+		</if>
+	</target>
+
+	<target name="force-junit-initialize" depends="initialize" description="Initialize hybris junit tenant.">
+
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/db_splash_1.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Initializing hybris tenant JUNIT..." />
+			</then>
+		</if>
+
+		<echo message="Initializing tenant JUNIT..." />
+		
+		<initialize tenant="junit" />
+		<!-- <ant dir="${hybris.platform.dir}" target="yunitinit" inheritall="false" /> -->
+		
+		<export-property-to-file filepath="${build.temp.init.file}" propertyKey="init.junit" propertyValue="false" />
+		
+		<reset-property name="init.junit" value="false" />
+		
+		<echo message="Initialize tenant JUNIT completed." />
+	</target>
+
+	<target name="junit-update" depends="junit-initialize" description="Update hybris junit tenant.">
+
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/db_splash_2.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Updating hybris tenant JUNIT..." />
+			</then>
+		</if>
+
+		<echo message="Updating tenant JUNIT..." />
+		
+		<update tenant="junit" />
+		<!-- <ant dir="${hybris.platform.dir}" target="yunitupdate" inheritall="false" /> -->
+		
+		<echo message="Update tenant JUNIT completed." />
+	</target>
+
+	<target name="tenant-initialize" depends="initialize" description="Initialize hybris junit tenant.">
+
+		<!-- hybris tenant name -->
+		<input message="Please enter a valid hybris tenant name to initialize:" addproperty="tenant.name" />
+		<fail unless="tenant.name" message="hybris tenant name not set" />
+		<if>
+			<equals arg1="${tenant.name}" arg2="" />
+			<then>
+				<fail message="hybris tenant name not set" />
+			</then>
+		</if>
+		
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/db_splash_1.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Initializing hybris tenant ${tenant.name}..." />
+			</then>
+		</if>
+
+		<check-initialize tenant="${tenant.name}" />
+		<propertycopy name="start.init" from="${tenant.name}.to.init" />
+		
+		<if>
+			<equals arg1="${start.init}" arg2="true" />
+			<then>
+				<echo message="Initializing tenant ${tenant.name}..." />
+				
+				<initialize tenant="${tenant.name}" />
+				
+				<export-property-to-file filepath="${build.temp.init.file}" propertyKey="init.${tenant.name}" propertyValue="false" />
+				
+				<reset-property name="init.${tenant.name}" value="false" />
+				
+				<echo message="Initialize tenant ${tenant.name} completed." />
+			</then>
+			<else>
+				<echo message="Tenant ${tenant.name} is already initialized." />
+			</else>
+		</if>
+	</target>
+
+	<target name="force-tenant-initialize" depends="initialize" description="Initialize hybris junit tenant.">
+
+		<!-- hybris tenant name -->
+		<input message="Please enter a valid hybris tenant name to initialize:" addproperty="tenant.name" />
+		<fail unless="tenant.name" message="hybris tenant name not set" />
+		<if>
+			<equals arg1="${tenant.name}" arg2="" />
+			<then>
+				<fail message="hybris tenant name not set" />
+			</then>
+		</if>
+		
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/db_splash_1.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Initializing hybris tenant ${tenant.name}..." />
+			</then>
+		</if>
+
+		<echo message="Initializing tenant ${tenant.name}..." />
+		
+		<initialize tenant="${tenant.name}" />
+		
+		<export-property-to-file filepath="${build.temp.init.file}" propertyKey="init.${tenant.name}" propertyValue="false" />
+		
+		<reset-property name="init.${tenant.name}" value="false" />
+		
+		<echo message="Initialize tenant ${tenant.name} completed." />
+	</target>
+
+	<target name="tenant-update" depends="junit-initialize" description="Update hybris junit tenant.">
+
+		<!-- hybris tenant name -->
+		<input message="Please enter a valid hybris tenant name to update:" addproperty="tenant.name" />
+		<fail unless="tenant.name" message="hybris tenant name not set" />
+		<if>
+			<equals arg1="${tenant.name}" arg2="" />
+			<then>
+				<fail message="hybris tenant name not set" />
+			</then>
+		</if>
+		
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/db_splash_2.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Updating hybris tenant ${tenant.name}..." />
+			</then>
+		</if>
+
+		<echo message="Updating tenant ${tenant.name}..." />
+		
+		<update tenant="${tenant.name}" />
+		
+		<echo message="Update tenant ${tenant.name} completed." />
+	</target>
+
+	
+	<!-- TARGETs - Other features -->
+	
+	<!-- TODO -->
+	<!-- primo test bloccato, verificare! -->
+	<target name="clear-admin-lock" depends="init-env, initialize" description="Remove lock on database caused by unfinished initialization or update.">
+
+		<echo message="Cleaning database lock..." />
+		
+		<ant dir="${hybris.platform.dir}" target="clearAdministrationLock" inheritall="false" />
+		
+		<echo message="Clean database lock completed." />
+	</target>
+
+	
+</project>

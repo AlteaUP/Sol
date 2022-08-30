@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:CustomerImport_Hybris xmlns:ns2="urn:solgroup:com:CustomerImport">
+  <header>
+    <sourceSystem>RAINBOW</sourceSystem>
+    <messageID>c66d72facaed11e7cb110000003c182e</messageID>
+    <timestamp>20171116 174704</timestamp>
+  </header>
+  <country>IT</country>
+  <companies>
+    <company>
+      <erpCode>1000</erpCode>
+      <name>SOL SPA</name>
+      <default>true</default>
+      <organizations1>
+		<organizationUnit1>
+          <erpCode>0000443134</erpCode>
+          <name>AMIACQUE SRL</name>
+          <activeState>1</activeState>
+          <currency />
+          <b2bUnits>
+            <b2bUnit>
+              <erpCode>0000443302</erpCode>
+              <name>AMIACQUE SRL</name>
+              <currency />
+              <vatID>03988160960</vatID>
+              <taxPayerCode>03988160960</taxPayerCode>
+              <clientType>C</clientType>
+              <creditState>1</creditState>
+              <vendorCode>V0000131</vendorCode>
+              <activeState>1</activeState>
+              <customers>
+                <customerId>0000443302@sol.it</customerId>
+              </customers>
+              <addresses>
+                <address>
+                  <erpCode>0000443302</erpCode>
+                  <street>LOCALITA' CASCINELLO VALERIO</street>
+                  <town>ROBECCO SUL NAVIGLIO </town>
+                  <postalCode>20087</postalCode>
+                  <country>IT</country>
+                  <shipping>true</shipping>
+                  <billing>false</billing>
+                </address>
+              </addresses>
+            </b2bUnit>
+          </b2bUnits>
+          <addresses>
+            <address>
+              <erpCode>0000443134</erpCode>
+              <street>VIA RIMINI, 34/36</street>
+              <town>MILANO</town>
+              <postalCode>20142</postalCode>
+              <country>IT</country>
+              <phone>02 89520326</phone>
+              <fax></fax>
+              <shipping>false</shipping>
+              <billing>true</billing>
+            </address>
+          </addresses>
+          <customers>
+            <customerId>0000443134@sol.it</customerId>
+          </customers>
+        </organizationUnit1>
+      </organizations1>
+	  <b2bUnits>
+		<b2bUnit>
+	         <erpCode>0000119250</erpCode>
+	         <name>STEROGLASS SRL</name>
+	         <currency />
+	         <vatID>01870870548</vatID>
+	         <taxPayerCode>01870870548</taxPayerCode>
+	         <clientType>C</clientType>
+	         <creditState>1</creditState>
+	         <activeState>1</activeState>
+	         <vendorCode>V0000232</vendorCode>
+	         <customers>
+	           <customerId>0000119250@sol.it</customerId>
+	         </customers>
+	         <addresses>
+	           <address>
+	             <erpCode>0000119250</erpCode>
+	             <street>STRADA ROMANO DI SOPRA 2/C</street>
+	             <town>PERUGIA</town>
+	             <postalCode>06132</postalCode>
+	             <country>IT</country>
+	             <phone>075609091</phone>
+	             <shipping>true</shipping>
+	             <billing>true</billing>
+	           </address>
+	         </addresses>
+	       </b2bUnit>
+	  </b2bUnits>
+
+      
+    </company>
+  </companies>
+</ns2:CustomerImport_Hybris>

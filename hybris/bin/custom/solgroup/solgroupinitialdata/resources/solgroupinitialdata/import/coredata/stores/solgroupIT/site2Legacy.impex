@@ -1,0 +1,9 @@
+$solPrefix = solgroupIT
+
+UPDATE CMSSite ; uid[unique=true] ; legacySystems(code)[mode=append] ;  
+               ; $solPrefix       ; RAMSES_IT                        ;  
+               ; $solPrefix       ; RAINBOW                          ;  
+
+
+UPDATE CMSSite ; uid[unique=true] ; countries(isocode) ;  
+               ; $solPrefix        ; IT,CH                           ;  

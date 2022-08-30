@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+
+<!-- 
+  WARNING: This is the Spring WEB configuration file. If you want to replace
+  items or managers you have to do this from the extensions core configuration 
+  file (corewebservices/resources/corewebservices-spring.xml) 
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xmlns:cxf="http://cxf.apache.org/core"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           				   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+           				   http://cxf.apache.org/jaxws 
+           				   http://cxf.apache.org/schemas/jaxws.xsd 
+           				   http://cxf.apache.org/jaxrs 
+           				   http://cxf.apache.org/schemas/jaxrs.xsd
+           				   http://cxf.apache.org/core 
+           				   http://cxf.apache.org/schemas/core.xsd
+           				   http://www.springframework.org/schema/aop 
+           				   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd            
+           				   http://www.springframework.org/schema/context 
+           				   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    <!--<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml"/>-->
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+
+    <!-- Spring managed FilterChain for hybris Filter stack -->
+    <bean id="solgroupwebservicesPlatformFilterChain" class="de.hybris.platform.servicelayer.web.PlatformFilterChain">
+        <constructor-arg>
+            <list>
+                <ref bean="log4jFilter"/>
+                <ref bean="dynamicTenantActivationFilter"/>
+                <ref bean="sessionFilter"/>
+                <ref bean="solgroupwebservicesSecureMediaFilter"/>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="solgroupwebservicesSecureMediaFilter" class="de.hybris.platform.servicelayer.web.SecureMediaFilter">
+        <property name="mediaPermissionService" ref="mediaPermissionService"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="userService" ref="userService"/>
+        <property name="mediaService" ref="mediaService"/>
+        <!-- <property name="secureMediaToken" value="securemedias"/>  securemedias is default but you may overwrite it -->
+    </bean>
+
+    <!-- 
+    ************************************
+		SOAP service: Product
+	************************************ 
+	-->
+    <jaxws:endpoint id="productImportjob" implementor="#productImportjobImpl" address="/productimportws">
+        <jaxws:serviceFactory>
+            <bean class="org.apache.cxf.jaxws.support.JaxWsServiceFactoryBean">
+                <property name="wrapped" value="true"/>
+            </bean>
+        </jaxws:serviceFactory>
+        <jaxws:properties>
+            <entry key="schema-validation-enabled" value="true"/>
+        </jaxws:properties>
+    </jaxws:endpoint>
+    <bean id="productImportjobImpl" class="com.solgroup.ws.importws.DefaultProductImportWS">
+        <property name="commonWsService" ref="commonWsService"/>
+    </bean>
+
+
+    <!-- 
+    ************************************
+		SOAP service: Customer
+	************************************ 
+	-->
+    <jaxws:endpoint id="customerImportjob" implementor="#customerImportjobImpl" address="/customerimportws">
+        <jaxws:serviceFactory>
+            <bean class="org.apache.cxf.jaxws.support.JaxWsServiceFactoryBean">
+                <property name="wrapped" value="true"/>
+            </bean>
+        </jaxws:serviceFactory>
+        <jaxws:properties>
+            <entry key="schema-validation-enabled" value="true"/>
+            <entry key="org.apache.cxf.stax.maxChildElements" value="100000"/>
+        </jaxws:properties>
+    </jaxws:endpoint>
+    <bean id="customerImportjobImpl" class="com.solgroup.ws.importws.DefaultCustomerImportWS">
+        <property name="commonWsService" ref="commonWsService"/>
+    </bean>
+
+
+    <!-- 
+    ************************************
+		SOAP service: PriceeList
+	************************************ 
+	-->
+
+    <jaxws:endpoint id="priceListImportjob" implementor="#pricelistImportjobImpl" address="/pricelistimportws">
+        <jaxws:serviceFactory>
+            <bean class="org.apache.cxf.jaxws.support.JaxWsServiceFactoryBean">
+                <property name="wrapped" value="true"/>
+            </bean>
+        </jaxws:serviceFactory>
+        <jaxws:properties>
+            <entry key="schema-validation-enabled" value="true"/>
+        </jaxws:properties>
+    </jaxws:endpoint>
+    <bean id="pricelistImportjobImpl" class="com.solgroup.ws.importws.DefaultPriceListImportWS">
+        <property name="commonWsService" ref="commonWsService"/>
+    </bean>
+
+    <!--
+    ************************************
+        SOAP service: order export response
+    ************************************
+    -->
+    <jaxws:endpoint id="confirmActionResponse" implementor="#confirmActionImpl" address="/confirmAction">
+        <jaxws:serviceFactory>
+            <bean class="org.apache.cxf.jaxws.support.JaxWsServiceFactoryBean">
+                <property name="wrapped" value="true"/>
+            </bean>
+        </jaxws:serviceFactory>
+        <jaxws:properties>
+            <entry key="schema-validation-enabled" value="true"/>
+        </jaxws:properties>
+    </jaxws:endpoint>
+    <bean id="confirmActionImpl" class="com.solgroup.ws.importws.DefaultConfirmActionResponseWS">
+        <property name="b2bOrderService" ref="b2bOrderService"/>
+        <property name="commonDao" ref="defaultCommonDao"/>
+        <property name="subOrderGenericDao" ref="subOrderGenericDao"/>
+        <property name="solGroupWSOrderService" ref="solGroupWSOrderService"/>
+    </bean>
+    
+	<alias name="defaultSubOrderDao" alias="subOrderGenericDao"/>
+	<bean name="defaultSubOrderDao"
+		  class="de.hybris.platform.servicelayer.internal.dao.DefaultGenericDao">
+		<constructor-arg value="SubOrder"/>
+	</bean>
+	
+	<!--
+    ************************************
+        SOAP service: order consignment response
+    ************************************
+    -->
+    <jaxws:endpoint id="orderConsignmentResponse" implementor="#orderConsignmentImpl" address="/orderConsignment">
+        <jaxws:serviceFactory>
+            <bean class="org.apache.cxf.jaxws.support.JaxWsServiceFactoryBean">
+                <property name="wrapped" value="true"/>
+            </bean>
+        </jaxws:serviceFactory>
+        <jaxws:properties>
+            <entry key="schema-validation-enabled" value="true"/>
+        </jaxws:properties>
+    </jaxws:endpoint>
+    <bean id="orderConsignmentImpl" class="com.solgroup.ws.importws.DefaultOrderConsignmentResponseWS">
+        <property name="commonWsService" ref="commonWsService"/>
+        <property name="b2bOrderService" ref="b2bOrderService"/>
+        <property name="commonDao" ref="defaultCommonDao"/>
+        <property name="businessProcessService" ref="defaultBusinessProcessService"/>
+        <property name="solGroupWSOrderService" ref="solGroupWSOrderService"/>
+        <property name="modelService" ref="modelService"/>
+        <property name="subOrderGenericDao" ref="subOrderGenericDao"/>
+        <property name="solGroupConsignmentService" ref="solGroupConsignmentService" />
+        <property name="solGroupProductService" ref="solGroupProductService" />
+        <property name="enumerationService" ref="enumerationService" />
+        <property name="sessionService" ref="sessionService" />
+        <property name="userService" ref="userService" />
+    </bean>
+
+	
+</beans>

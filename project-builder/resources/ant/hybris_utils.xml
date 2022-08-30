@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Ant build specific for hybris uses -->
+<project name="techedge-hybris-utils" basedir="./../../../">
+
+	<!-- IMPORT -->
+	<!-- All workspace paths needed -->
+	<import file="./paths.xml" />
+	
+	<!-- All build xml needed -->
+	<import file="./ant_utils.xml" />
+
+	<!-- All libraries needed -->
+	<taskdef classpath="${build.lib.dir}/ant-contrib-1.0b3/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml" />
+	<taskdef classpath="${build.lib.dir}/andariel-1.2.3/andariel-1.2.3.jar" resource="net/uworks/andariel/andariel.properties" />
+
+
+	<!-- PROPERTies -->
+
+
+	<!-- SCRIPTs -->
+	<scriptdef name="extract-extension-name" language="javascript">
+
+		<attribute name="path"/>
+		<attribute name="property"/>
+
+		<![CDATA[
+			var path = attributes.get("path");
+			var idx = path.lastIndexOf("/") + 1;
+			var name = path.substring(idx);
+
+			project.setProperty(attributes.get("property"), name);
+		]]>
+	</scriptdef>
+	
+	<scriptdef name="extract-extension-path" language="javascript">
+
+		<attribute name="path"/>
+		<attribute name="property"/>
+
+		<![CDATA[
+			var path = attributes.get("path");
+			var idx = path.indexOf("/custom/") + 8;
+			var name = path.substring(idx)
+			var names = project.getProperty(attributes.get("property"));
+
+			if(names) {
+				project.setProperty(attributes.get("property"), names + ";" + name);
+			} else {
+				project.setProperty(attributes.get("property"), name);
+			}
+		]]>
+	</scriptdef>
+
+
+	<!-- MACROs -->
+	<macrodef name="for-each-ext">
+
+		<element name="do" optional="false" />
+
+		<sequential>
+			<if>
+				<or>
+					<not>
+						<isset property="${extension.names}" />
+					</not>
+					
+					<equals arg1="${extension.names}" arg2="" />
+				</or>
+				<then>
+					<prepare-extension-list />
+				</then>
+			</if>
+		
+			<for list="${extension.names}" param="ext.name" delimiter=",">	
+				<sequential>
+					<do />
+				</sequential>
+			</for>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="if-has-core">
+
+		<attribute name="extname" />
+
+		<element name="do" />
+
+		<sequential>
+			<if>
+				<available file="${hybris.project.dir}/@{extname}/src" type="dir" />
+				<then>
+					<do />
+				</then>
+			</if>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="if-has-web">
+
+		<attribute name="extname" />
+
+		<element name="do" />
+
+		<sequential>
+			<if>
+				<available file="${hybris.project.dir}/@{extname}/web/webroot/WEB-INF/classes" type="dir" />
+				<then>
+					<do />
+				</then>
+			</if>
+		</sequential>	
+	</macrodef>
+	
+	<macrodef name="prepare-extension-list" 
+		description="Map localextension.xml to find out extensions names included in hybris platform (property: extension.names).">
+
+		<attribute name="configDir" default="${hybris.config.dir}" />
+		<attribute name="nameListSeparator" default="," />
+
+		<element name="additional-tasks" optional="yes" />
+
+		<sequential>
+			<if>
+				<and>
+					<available file="@{configDir}" />
+					<available file="@{configDir}/localextensions.xml" />
+				</and>
+				<then>
+					<xpath file="@{configDir}/localextensions.xml" expression="//extension[@name]/@name" 
+						delimiter="@{nameListSeparator}" outputproperty="extension.names" />
+
+					<!-- <echo message="${extension.names}" /> -->
+					
+					<!-- 
+					<for list="${extension.names}" param="name" delimiter=";">
+						<sequential>
+							<echo message="Current name: @{name}" />
+						</sequential>
+					</for>
+					-->
+				</then>
+				<else>
+					<fail message="@{configDir} or @{configDir}/localextensions.xml does not exist." />
+				</else>
+			</if>
+			
+			<additional-tasks />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="unzip-if-required" description="Unzip all *.zip archive in source directory to destination directory if required.">
+
+		<attribute name="srcDir" /> <!-- NB: may contain wildcards -->
+		<attribute name="includes" default="*.zip" />
+		<attribute name="excludes" default="" />
+		<attribute name="destDir" default="${basedir}" />
+		<attribute name="failOnEmptyArchive" default="false" />
+
+		<element name="additional-tasks" optional="yes" />
+
+		<sequential>
+			<!--
+			<echo message="srcDir: @{srcDir}" />
+			<echo message="includes: @{includes}" />
+			<echo message="excludes: @{excludes}" />
+			<echo message="destDir: @{destDir}" />
+			<echo message="failOnEmptyArchive: @{failOnEmptyArchive}" />
+			-->
+
+			<!-- cycle each file in @{srcDir} to unzip if required -->
+			<for param="file">
+				<path>
+					<fileset dir="@{srcDir}" includes="@{includes}" excludes="@{excludes}" />
+				</path>
+				<sequential>
+					<!-- <echo message="Current file: @{file}" /> -->
+					<basename property="filename-@{file}" file="@{file}" />
+
+					<!-- check each file for updates -->
+					<if>
+						<uptodate srcfile="@{file}" targetfile="${build.temp.dir}/touch/${filename-@{file}}.touch" />
+						<then>
+							<echo message="@{file} is up to date, no unzip required." />
+						</then>
+						<else>
+							<unzip src="@{file}" dest="@{destDir}" failOnEmptyArchive="@{failOnEmptyArchive}" overwrite="false">
+								<patternset>
+									<exclude name="META-INF" />
+									<exclude name="META-INF/*" />
+								</patternset>
+							</unzip>
+
+							<!-- create a separate dedicated touch file for each zip file -->
+							<touch file="${build.temp.dir}/touch/${filename-@{file}}.touch" mkdirs="true" />
+						</else>
+					</if>
+				</sequential>
+			</for>
+
+			<additional-tasks />
+		</sequential>
+	</macrodef>
+	
+
+	<!-- TASKs -->
+	<!-- EXTENSION POINTs -->
+	<!-- TARGETs -->
+
+	<!-- TODO -->
+	<target name="extgen" depends="init-env" description="">
+		<echo message="*** NOT YET IMPLEMENTED ***" />
+	</target>
+	
+	<!-- TODO -->
+	<target name="start-server" depends="init-env" description="">
+		<echo message="*** NOT YET IMPLEMENTED ***" />
+	</target>
+	
+	<!-- TODO -->
+	<target name="run-cronjobs" depends="init-env" description="">
+		<echo message="*** NOT YET IMPLEMENTED ***" />
+	</target>
+
+</project>

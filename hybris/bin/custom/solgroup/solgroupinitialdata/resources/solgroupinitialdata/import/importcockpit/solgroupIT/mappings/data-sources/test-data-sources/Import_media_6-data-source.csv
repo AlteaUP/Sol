@@ -1,0 +1,17 @@
+MEDIAFORMAT;IDENTIFIER;PATH;MIME TYPE;FOLDER;MEDIA CONTAINER
+# immagini
+30Wx30H;/30Wx30H/test_30x30.jpg;file:/mediafolder/import/images/30Wx30H/test_30x30.jpg;image/jpeg;images/solgroupITProductCatalg;media_container_test_media
+65Wx65H;/65Wx65H/test_65x65.jpg;file:/mediafolder/import/images/65Wx65H/test_65x65.jpg;image/jpeg;images/solgroupITProductCatalg;media_container_test_media
+96Wx96H;/96Wx96H/test_96x96.jpg;file:/mediafolder/import/images/96Wx96H/test_96x96.jpg;image/jpeg;images/solgroupITProductCatalg;media_container_test_media
+300Wx300H;/300Wx300H/test_300x300.jpg;file:/mediafolder/import/images/300Wx300H/test_300x300.jpg;image/jpeg;images/solgroupITProductCatalg;media_container_test_media
+515Wx515H;/515Wx515H/test_515x515.jpg;file:/mediafolder/import/images/515Wx515H/test_515x515.jpg;image/jpeg;images/solgroupITProductCatalg;media_container_test_media
+1200Wx1200H;/1200Wx1200H/test_1200x1200.jpg;file:/mediafolder/import/images/1200Wx1200H/test_1200x1200.jpg;image/jpeg;images/solgroupITProductCatalg;media_container_test_media
+30Wx30H;/30Wx30H/test2_30x30.jpg;file:/mediafolder/import/images/30Wx30H/test2_30x30.jpg;image/jpeg;images/solgroupITProductCatalg;nuovo_container
+65Wx65H;/65Wx65H/test2_65x65.jpg;file:/mediafolder/import/images/65Wx65H/test2_65x65.jpg;image/jpeg;images/solgroupITProductCatalg;nuovo_container
+96Wx96H;/96Wx96H/test2_96x96.jpg;file:/mediafolder/import/images/96Wx96H/test2_96x96.jpg;image/jpeg;images/solgroupITProductCatalg;nuovo_container
+300Wx300H;/300Wx300H/test2_300x300.jpg;file:/mediafolder/import/images/300Wx300H/test2_300x300.jpg;image/jpeg;images/solgroupITProductCatalg;nuovo_container
+515Wx515H;/515Wx515H/test2_515x515.jpg;file:/mediafolder/import/images/515Wx515H/test2_515x515.jpg;image/jpeg;images/solgroupITProductCatalg;nuovo_container
+1200Wx1200H;/1200Wx1200H/test2_1200x1200.jpg;file:/mediafolder/import/images/1200Wx1200H/test2_1200x1200.jpg;image/jpeg;images/solgroupITProductCatalg;nuovo_container
+# documenti
+;primo-documento.pdf;file:/mediafolder/import/documents/Sales+By+Hour+and+Site.pdf;application/pdf;documents;
+;secondo-documento.xls;file:/mediafolder/import/documents/Total+Sales.xls;application/vnd.ms-excel;application/excel;documents;

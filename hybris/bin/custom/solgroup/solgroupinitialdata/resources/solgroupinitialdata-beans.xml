@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<bean class="de.hybris.platform.commerceservices.setup.data.ImportData">
+		<property name="importSampleDataCommons" type="java.lang.Boolean" />
+		<property name="importSampleDataProducts" type="java.lang.Boolean"/>
+		<property name="importSampleDataProductsLegacySystem" type="java.lang.Boolean"/>
+		<property name="importSampleDataCustomers" type="java.lang.Boolean"/>
+		<property name="importSampleDataPrices" type="java.lang.Boolean"/>
+		<property name="importSampleDataStocks" type="java.lang.Boolean"/>
+		<property name="importSampleDataContentCatalog" type="java.lang.Boolean"/>
+		<property name="importSampleDataAgents" type="java.lang.Boolean" />
+		<property name="legacySystems" type="java.util.List&lt;String>"/>
+	</bean>
+
+</beans>

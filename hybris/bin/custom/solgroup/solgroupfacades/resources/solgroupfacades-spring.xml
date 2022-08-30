@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- [y] hybris Platform Copyright (c) 2017 SAP SE or an SAP affiliate company. 
+	All rights reserved. This software is the confidential and proprietary information 
+	of SAP ("Confidential Information"). You shall not disclose such Confidential 
+	Information and shall use it only in accordance with the terms of the license 
+	agreement you entered into with SAP. -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config />
+
+	<alias alias="simpleSuggestionFacade" name="defaultSimpleSuggestionFacade" />
+	<bean id="defaultSimpleSuggestionFacade"
+		class="com.solgroup.facades.suggestion.impl.DefaultSimpleSuggestionFacade">
+		<property name="simpleSuggestionService" ref="simpleSuggestionService" />
+		<property name="userService" ref="userService" />
+		<property name="categoryService" ref="categoryService" />
+		<property name="productService" ref="productService" />
+		<property name="productConverter" ref="carouselProductConverter" />
+		<property name="cartService" ref="cartService" />
+	</bean>
+
+	<bean id="carouselProductConverter" parent="defaultProductConverter">
+		<property name="populators">
+			<list merge="true">
+				<ref bean="productPricePopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="acceleratorVariantOptionDataConverter" alias="variantOptionDataConverter" />
+	<bean id="acceleratorVariantOptionDataConverter" parent="abstractPopulatingConverter">
+		<lookup-method name="createTarget" bean="variantOptionData" />
+		<property name="populators">
+			<list>
+				<ref bean="acceleratorVariantOptionDataPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultAcceleratorVariantOptionDataPopulator" alias="acceleratorVariantOptionDataPopulator" />
+	<bean id="defaultAcceleratorVariantOptionDataPopulator"
+		class="com.solgroup.facades.populators.AcceleratorVariantOptionDataPopulator"
+		parent="variantOptionDataPopulator">
+		<property name="mediaService" ref="mediaService" />
+		<property name="mediaContainerService" ref="mediaContainerService" />
+		<property name="typeService" ref="typeService" />
+		<property name="imageFormatMapping" ref="imageFormatMapping" />
+		<property name="variantAttributeMapping">
+			<map>
+				<entry key="ApparelStyleVariantProduct.style" value="styleSwatch" />
+			</map>
+		</property>
+	</bean>
+
+	<alias name="acceleratorGenderConverter" alias="genderConverter" />
+	<bean id="acceleratorGenderConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.solgroup.facades.product.data.GenderData" />
+		<property name="populators">
+			<list>
+				<ref bean="genderDataPopulator" />
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultGenderDataPopulator" alias="genderDataPopulator" />
+	<bean id="defaultGenderDataPopulator" class="com.solgroup.facades.populators.GenderDataPopulator">
+		<property name="typeService" ref="typeService" />
+	</bean>
+
+	<bean id="apparelProductPopulator" class="com.solgroup.facades.populators.ApparelProductPopulator">
+		<property name="genderConverter" ref="genderConverter" />
+	</bean>
+
+	<!-- Add the apparelProductPopulator to the productConverter -->
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="productConverter" />
+		<property name="add" ref="apparelProductPopulator" />
+	</bean>
+
+
+
+
+	<!-- accelerator Image Format Mappings -->
+	<alias name="acceleratorImageFormatMapping" alias="imageFormatMapping" />
+	<bean id="acceleratorImageFormatMapping" parent="defaultImageFormatMapping">
+		<property name="mapping">
+			<map>
+				<entry key="superZoom" value="1200Wx1200H" />
+				<entry key="zoom" value="515Wx515H" />
+				<entry key="store" value="365Wx246H" />
+				<entry key="product" value="300Wx300H" />
+				<entry key="thumbnail" value="96Wx96H" />
+				<entry key="cartIcon" value="65Wx65H" />
+				<entry key="styleSwatch" value="30Wx30H" />
+			</map>
+		</property>
+	</bean>
+
+	<alias name="acceleratorProductPrimaryImagePopulator" alias="productPrimaryImagePopulator" />
+	<bean id="acceleratorProductPrimaryImagePopulator" parent="defaultProductPrimaryImagePopulator">
+		<property name="imageFormats">
+			<list>
+				<value>zoom</value>
+				<value>product</value>
+				<value>thumbnail</value>
+				<value>cartIcon</value>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="acceleratorProductGalleryImagesPopulator" alias="productGalleryImagesPopulator" />
+	<bean id="acceleratorProductGalleryImagesPopulator" parent="defaultProductGalleryImagesPopulator">
+		<property name="imageFormats">
+			<list>
+				<value>superZoom</value>
+				<value>zoom</value>
+				<value>product</value>
+				<value>thumbnail</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="customerEmailContext"
+		class="com.solgroup.facades.process.email.context.CustomerEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="customerConverter" ref="customerConverter" />
+	</bean>
+
+	<bean id="forgottenPasswordEmailContext"
+		class="com.solgroup.facades.process.email.context.ForgottenPasswordEmailContext"
+		parent="customerEmailContext" scope="prototype">
+		<property name="customerConverter" ref="customerConverter" />
+	</bean>
+
+	<bean id="orderNotificationEmailContext"
+		class="com.solgroup.facades.process.email.context.OrderNotificationEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="orderConverter" ref="orderConverter" />
+	</bean>
+
+	<bean id="quoteNotificationEmailContext"
+		class="com.solgroup.facades.process.email.context.QuoteNotificationEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="quoteService" ref="quoteService" />
+		<property name="quoteConverter" ref="quoteConverter" />
+		<property name="solgroupCompanyService" ref="solgroupCompanyService" />
+	</bean>
+
+	<bean id="deliverySentEmailContext"
+		class="com.solgroup.facades.process.email.context.DeliverySentEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="consignmentConverter" ref="consignmentConverter" />
+		<property name="orderConverter" ref="orderConverter" />
+	</bean>
+
+	<bean id="readyForPickupEmailContext"
+		class="com.solgroup.facades.process.email.context.ReadyForPickupEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="consignmentConverter" ref="consignmentConverter" />
+	</bean>
+
+	<bean id="orderCancelledEmailContext"
+		class="com.solgroup.facades.process.email.context.OrderCancelledEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="orderConverter" ref="orderConverter" />
+	</bean>
+
+	<bean id="orderRefundEmailContext"
+		class="com.solgroup.facades.process.email.context.OrderRefundEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="orderConverter" ref="orderConverter" />
+	</bean>
+	<bean id="consignmentCollectionReminderEmailContext"
+		class="com.solgroup.facades.process.email.context.ConsignmentCollectionReminderEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="consignmentConverter" ref="consignmentConverter" />
+		<property name="formatFactory" ref="formatFactory" />
+		<property name="customerServiceUncollectedConsignmentStrategy"
+			ref="customerServiceUncollectedConsignmentStrategy" />
+		<property name="orderConverter" ref="orderConverter" />
+	</bean>
+
+	<bean id="orderPartiallyModifiedEmailContext"
+		class="com.solgroup.facades.process.email.context.OrderPartiallyModifiedEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="orderConverter" ref="orderConverter" />
+		<property name="orderEntryConverter" ref="orderEntryConverter" />
+		<property name="priceDataFactory" ref="priceDataFactory" />
+	</bean>
+
+	<bean id="orderPartiallyCanceledEmailContext"
+		class="com.solgroup.facades.process.email.context.OrderPartiallyCanceledEmailContext"
+		parent="orderPartiallyModifiedEmailContext" scope="prototype">
+	</bean>
+
+	<bean id="orderPartiallyRefundedEmailContext"
+		class="com.solgroup.facades.process.email.context.OrderPartiallyRefundedEmailContext"
+		parent="orderPartiallyModifiedEmailContext" scope="prototype">
+	</bean>
+
+	<bean id="notPickedUpConsignmentCanceledEmailContext"
+		class="com.solgroup.facades.process.email.context.NotPickedUpConsignmentCanceledEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="consignmentConverter" ref="consignmentConverter" />
+		<property name="priceDataFactory" ref="priceDataFactory" />
+	</bean>
+	
+	<bean id="trackingIdEmailContext"
+		class="com.solgroup.facades.process.email.context.TrackingIdEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="consignmentConverter" ref="consignmentConverter" />
+		<property name="orderConverter" ref="orderConverter" />
+	</bean>
+	
+	<bean id="deliveryConfirmationEmailContext"
+		class="com.solgroup.facades.process.email.context.DeliveryConfirmationEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="consignmentConverter" ref="consignmentConverter" />
+		<property name="orderConverter" ref="orderConverter" />
+	</bean>
+	
+	<bean id="agentAssociationRequestEmailContext"
+		class="com.solgroup.facades.process.email.context.AgentAssociationRequestEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+	</bean>
+
+	<alias name="yacceleratorSearchPagePointOfServiceDistancePopulator"
+		alias="searchPagePointOfServiceDistancePopulator" />
+	<bean id="yacceleratorSearchPagePointOfServiceDistancePopulator"
+		class="com.solgroup.facades.storefinder.populators.SearchPagePointOfServiceDistancePopulator">
+		<property name="pointOfServiceDistanceConverter" ref="pointOfServiceDistanceConverter" />
+	</bean>
+
+	<bean id="genderData" class="com.solgroup.facades.product.data.GenderData"
+		scope="prototype" />
+
+
+	<!-- ***************************** -->
+	<alias name="defaultSolGroupSolrSearchStatePopulator" alias="solrSearchStatePopulator" />
+	<bean id="defaultSolGroupSolrSearchStatePopulator"
+		class="com.solgroup.facades.populators.solrfacetsearch.SolGroupSolrSearchStatePopulator"
+		parent="defaultSolrSearchStatePopulator" />
+
+	<alias name="solGroupB2BUnitPopulator" alias="b2bUnitPopulator" />
+	<bean id="solGroupB2BUnitPopulator" class="com.solgroup.b2bcommercefacades.company.converters.populators.SolGroupB2BUnitPopulator" parent="defaultB2BUnitPopulator">
+		<!--  
+		<property name="addressConverter" ref="addressConverter" />
+		<property name="b2BUnitService" ref="b2bUnitService" />
+		-->
+	</bean>
+
+	<!--  
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="b2bUnitConverter" />
+		<property name="add" ref="solgroupB2BUnitPopulator" />
+	</bean>
+	-->
+
+	<alias name="solgroupB2BUnitNodePopulator" alias="solgroupB2BUnitNodePopulator" />
+	<bean id="solgroupB2BUnitNodePopulator"
+		class="com.solgroup.b2bcommercefacades.company.converters.populators.SolgroupB2BUnitNodePopulator" />
+
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="b2bUnitNodeConverter" />
+		<property name="add" ref="solgroupB2BUnitNodePopulator" />
+	</bean>
+
+
+	<alias name="solgroupB2BCustomerPopulator" alias="solgroupB2BCustomerPopulator" />
+	<bean id="solgroupB2BCustomerPopulator"
+		class="com.solgroup.b2bcommercefacades.company.converters.populators.SolgroupB2BCustomerPopulator">
+		<property name="b2bUnitService" ref="b2bUnitService" />
+	</bean>
+	
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="b2BCustomerConverter" />
+		<property name="add" ref="solgroupB2BCustomerPopulator" />
+	</bean>
+
+
+	<alias name="defaultSolgroupB2BUnitFacade" alias="b2bUnitFacade" />
+	<bean id="defaultSolgroupB2BUnitFacade" class="com.solgroup.b2bcommercefacades.company.impl.DefaultSolgroupB2BUnitFacade" parent="defaultB2BUnitFacade">
+		<property name="solGroupB2BUnitService" ref="solGroupB2BUnitService" />
+		<property name="userService" ref="userService" />
+		<property name="addressConverter" ref="addressConverter" />
+	</bean>
+	
+	<alias name="solGroupAddressPopulator" alias="addressPopulator" />
+	<bean id="solGroupAddressPopulator"
+		class="com.solgroup.commercefacades.user.converters.populator.SolgroupAddressPopulator" parent="defaultAddressPopulator" >
+	</bean>
+
+	<!--  
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="addressConverter" />
+		<property name="add" ref="solgroupAddressPopulator" />
+	</bean>
+	-->
+
+	<alias name="solGroupAddressReversePopulator" alias="addressReversePopulator" />
+	<bean id="solGroupAddressReversePopulator"
+		class="com.solgroup.commercefacades.user.converters.populator.SolgroupAddressReversePopulator" parent="defaultAddressReversePopulator">
+	</bean>
+
+	<!--  
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="addressReverseConverter" />
+		<property name="add" ref="solgroupAddressReversePopulator" />
+	</bean>
+	-->
+
+	<!-- BEGIN New Product Notification flow -->
+	<bean id="newProductsNotificationEmailContext"
+		  class="com.solgroup.facades.process.email.context.NewProductsNotificationEmailContext"
+		  parent="abstractEmailContext"
+		  scope="prototype">
+	</bean>
+	<!-- END New Product Notification flow -->
+
+	<bean id="identityConfirmationEmailContext"
+		class="com.solgroup.facades.process.email.context.IdentityConfirmationEmailContext"
+		parent="customerEmailContext" scope="prototype">
+		<property name="customerConverter" ref="customerConverter" />
+		<property name="path" value="/login/identityConfirmation/new" />
+	</bean>
+
+	<alias name="defaultSolGroupCustomerFacade" alias="customerFacade" />
+	<bean id="defaultSolGroupCustomerFacade" class="com.solgroup.facades.customer.impl.DefaultSolGroupCustomerFacade" parent="defaultB2BCustomerFacade">
+		<property name="solGroupCustomerAccountService" ref="solGroupCustomerAccountService" />
+		<property name="solGroupB2BCustomerService" ref="solGroupB2BCustomerService" />
+	</bean>
+
+	<alias name="defaultMiniCartConverter" alias="miniCartConverter"/>
+	<bean id="defaultMiniCartConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="de.hybris.platform.commercefacades.order.data.CartData"/>
+		<property name="populators">
+			<list>
+				<ref bean="solGroupMiniCartPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultSolGroupMiniCartPopulator" alias="solGroupMiniCartPopulator"/>
+	<bean id="defaultSolGroupMiniCartPopulator"
+			class="com.solgroup.facades.populators.cart.SolGroupMiniCartPopulator"
+			parent="defaultMiniCartPopulator"/>
+
+	<!-- Solr Facet Listeners -->
+	<!--
+	<bean id="customPriceListFacetSearchListener"
+		class="com.solgroup.facades.search.context.listeners.CustomPriceListFacetSearchListener">
+	</bean>
+
+	<bean id="customPriceListFacetSearchListenerDefinition" parent="solrListenerDefinition">
+		<property name="priority" value="100" />
+		<property name="listener" ref="customPriceListFacetSearchListener" />
+	</bean>
+	-->
+	
+	<alias name="solGroupSearchResultProductPopulator" alias="commerceSearchResultProductPopulator" />
+	<bean id="solGroupSearchResultProductPopulator" class="com.solgroup.facades.search.converters.populator.SolGroupSearchResultProductPopulator" parent="defaultCommerceSearchResultProductPopulator">
+		<property name="priceDataFactory" ref="priceDataFactory" />
+	</bean>
+
+	<alias name="defaultSolGroupB2BFlexibleSearchProductSearchFacade"
+		alias="b2bProductFlexibleSearchFacade" />
+	<bean id="defaultSolGroupB2BFlexibleSearchProductSearchFacade"
+		class="com.solgroup.facades.search.impl.DefaultSolGroupB2BFlexibleSearchProductSearchFacade">
+		<property name="b2bProductService" ref="b2bProductService" />
+		<property name="flexibleSearchConverter" ref="b2bFlexibleSearchConverter" />
+		<property name="productSearchPageVariantsPopulator" ref="productSearchPageVariantsPopulator" />
+	</bean>
+
+	<alias name="defaultSolGroupProductFacade" alias="solGroupProductFacade" />
+	<bean id="defaultSolGroupProductFacade"
+		class="com.solgroup.facades.product.impl.DefaultSolGroupProductFacade"
+		parent="productFacade">
+	</bean>
+
+		<alias name="defaultSolGroupOrderEntryPopulator" alias="orderEntryPopulator" />
+	<bean id="defaultSolGroupOrderEntryPopulator"
+		class="com.solgroup.facades.populators.SolGroupOrderEntryPopulator"
+		parent="defaultOrderEntryPopulator">
+		<property name="solGroupPriceDataFactory" ref="priceDataFactory" />
+	</bean>
+
+	<alias name="defaultSolGroupProductBasicPopulator" alias="productBasicPopulator" />
+	<bean id="defaultSolGroupProductBasicPopulator" parent="baseProductPopulator"
+		class="com.solgroup.facades.populators.SolGroupProductBasicPopulator">
+		<property name="productConfigurableChecker" ref="productConfigurableChecker" />
+	</bean>
+
+	<alias name="solGroupUserFacade" alias="userFacade" />
+	<bean id="solGroupUserFacade" class="com.solgroup.facades.user.impl.DefaultSolGroupUserFacade"
+		parent="defaultUserFacade">
+	</bean>
+
+	<alias name="defaultSolgroupB2BUserFacade" alias="solgroupB2BUserFacade" />
+	<bean id="defaultSolgroupB2BUserFacade"
+		class="com.solgroup.b2bcommercefacades.company.impl.DefaultSolgroupB2BUserFacade"
+		parent="b2bUserFacade" />
+
+
+	<alias name="solGroupCheckoutFacade" alias="b2bCheckoutFacade" />
+	<bean id="solGroupCheckoutFacade"
+		class="com.solgroup.facades.order.impl.DefaultSolGroupCheckoutFacade"
+		parent="defaultB2BCheckoutFacade">
+	</bean>
+
+	<alias name="defaultSolGroupB2BDeliveryAddressesLookupStrategy"
+		alias="b2bDeliveryAddressesLookupStrategy" />
+	<bean name="defaultSolGroupB2BDeliveryAddressesLookupStrategy"
+		class="com.solgroup.facades.services.checkout.impl.DefaultSolGroupB2BDeliveryAddressesLookupStrategy"
+		parent="defaultB2BDeliveryAddressesLookupStrategy">
+	</bean>
+
+	<alias name="defaultSolGroupProductPopulator" alias="productPopulator" />
+	<bean id="defaultSolGroupProductPopulator"
+		class="com.solgroup.facades.populators.product.DefaultSolGroupProductPopulator"
+		parent="defaultProductPopulator" >
+		<property name="configurationService" ref="configurationService" />
+	</bean>
+
+	<alias name="solGroupGroupOrderEntryPopulator" alias="groupOrderEntryPopulator" />
+	<bean id="solGroupGroupOrderEntryPopulator"
+		class="com.solgroup.facades.populators.product.SolGroupGroupOrderEntryPopulator"
+		parent="acceleratorGroupOrderEntryPopulator" />
+
+	<alias name="solGroupCartPopulator" alias="cartPopulator" />
+	<bean id="solGroupCartPopulator"
+		class="com.solgroup.facades.populators.cart.SolGroupCartPopulator">
+		<property name="promotionResultConverter" ref="promotionResultConverter" />
+		<property name="promotionsService" ref="promotionsService" />
+		<property name="modelService" ref="modelService" />
+		<property name="addressConverter" ref="addressConverter" />
+		<property name="deliveryModeConverter" ref="deliveryModeConverter" />
+		<property name="zoneDeliveryModeConverter" ref="zoneDeliveryModeConverter" />
+		<property name="creditCardPaymentInfoConverter" ref="creditCardPaymentInfoConverter" />
+		<property name="orderEntryConverter" ref="orderEntryConverter" />
+		<property name="priceDataFactory" ref="priceDataFactory" />
+		<property name="commonI18NService" ref="commonI18NService" />
+		<property name="typeService" ref="typeService" />
+		<property name="principalConverter" ref="principalConverter" />
+		<property name="entryGroupConverter" ref="entryGroupConverter" />
+		<property name="entryGroupService" ref="entryGroupService" />
+		<property name="commerceEntryGroupUtils" ref="commerceEntryGroupUtils" />
+		<property name="virtualEntryGroupStrategy" ref="virtualEntryGroupStrategy" />
+		<property name="orderCommentConverter" ref="orderCommentConverter" />
+		<property name="quoteConverter" ref="quoteConverter" />
+	</bean>
+
+
+	<!-- Readonly order grid -->
+	<alias name="solGroupOrderGridFormFacade" alias="orderGridFormFacade" />
+	<bean id="solGroupOrderGridFormFacade"
+		class="com.solgroup.facades.ordergridform.impl.DefaultSolGroupOrderGridFormFacade">
+	</bean>
+
+	<alias name="defaultSolGroupAssistedServiceFacade" alias="assistedServiceFacade" />
+	<bean id="defaultSolGroupAssistedServiceFacade"
+		class="com.solgroup.facades.assistedservice.impl.DefaultSolGroupAssistedServiceFacade"
+		parent="defaultAssistedServiceFacade">
+		<property name="solGroupB2BUnitService" ref="solGroupB2BUnitService" />
+		<property name="solGroupLoginService" ref="solGroupLoginService" />
+		<property name="customerListSearchService" ref="customerListSearchService" />
+	</bean>
+
+
+	<alias name="solGroupCustomerTicketFacade" alias="customerTicketFacade" />
+	<bean id="solGroupCustomerTicketFacade"
+		class="com.solgroup.facades.customerticketing.impl.DefaultSolGroupTicketFacade"
+		parent="defaultTicketFacade">
+		<property name="solGroupTicketService" ref="solGroupTicketService" />
+		<property name="solGroupTicketBusinessService" ref="ticketBusinessService" />
+		<property name="sessionService" ref="sessionService" />
+	</bean>
+
+	<alias name="defaultSolGroupAbstractOrderFacade" alias="solGroupAbstractOrderFacade" />
+	<bean id="defaultSolGroupAbstractOrderFacade"
+		class="com.solgroup.facades.abstractOrder.impl.DefaultSolGroupAbstractOrderFacade">
+		<property name="cartService" ref="cartService" />
+		<property name="quoteService" ref="quoteService" />
+		<property name="solGroupAbstractOrderService" ref="solGroupAbstractOrderService" />
+	</bean>
+
+	<!-- <alias name="defaultSolGroupProductVariantMatrixPopulator" alias="productVariantMatrixPopulator" />
+	<bean id="defaultSolGroupProductVariantMatrixPopulator"
+		class="com.solgroup.commercefacades.product.converters.populator.DefaultSolGroupProductVariantMatrixPopulator" parent="defaultProductVariantMatrixPopulator" >
+		<property name="commerceStockService" ref="commerceStockService" />
+		<property name="baseStoreService" ref="baseStoreService" />
+	</bean> -->
+	
+	<alias name="defaultSolGroupProductVariantMatrixPopulator" alias="productVariantMatrixPopulator" />
+	<bean id="defaultSolGroupProductVariantMatrixPopulator"
+		class="com.solgroup.commercefacades.product.converters.populator.DefaultSolGroupProductVariantMatrixPopulator" parent="defaultProductVariantMatrixPopulator" >
+		<property name="commerceStockService" ref="commerceStockService" />
+		<property name="baseStoreService" ref="baseStoreService" />
+	</bean>
+
+
+	<alias name="defaultProductExtendedPopulator" alias="productExtendedPopulator" />
+	<bean id="defaultProductExtendedPopulator" parent="baseProductPopulator"
+		class="com.solgroup.commercefacades.product.converter.populator.ProductExtendedPopulator">
+		<property name="priceDataFactory" ref="priceDataFactory" />
+		<property name="commercePriceService" ref="commercePriceService" />
+		<property name="userService" ref="userService" />
+	</bean>
+
+	<alias name="defaultProductExtendedPopulatorList" alias="productExtendedPopulatorList" />
+	<bean id="defaultProductExtendedPopulatorList" parent="abstractPopulatorList">
+		<property name="populators">
+			<list>
+				<ref bean="productExtendedPopulator" />
+			</list>
+		</property>
+	</bean>
+	
+	<alias name="defaultProductVariantMatrixExtendedPopulator" alias="productVariantMatrixExtendedPopulator" />
+	<bean id="defaultProductVariantMatrixExtendedPopulator" parent="defaultProductVariantMatrixPopulator"
+		class="com.solgroup.commercefacades.product.converters.populator.DefaultSolGroupProductVariantMatrix4CartPopulator">
+		<property name="commerceStockService" ref="commerceStockService" />
+		<property name="baseStoreService" ref="baseStoreService" />
+	</bean>
+
+	<!-- <alias name="defaultProductVariantMatrixExtendedPopulatorList" alias="productVariantMatrixExtendedPopulatorList" />
+	<bean id="defaultProductVariantMatrixExtendedPopulatorList" parent="abstractPopulatorList">
+		<property name="populators">
+			<list>
+				<ref bean="productVariantMatrixExtendedPopulator" />
+			</list>
+		</property>
+	</bean> -->
+
+	<alias name="defaultSolgroupProductConfiguredPopulator" alias="productVariantConfiguredPopulator" />
+	<bean id="defaultSolgroupProductConfiguredPopulator"
+		class="de.hybris.platform.commercefacades.converter.impl.DefaultConfigurablePopulator"
+		parent="defaultProductConfiguredPopulator">
+
+		<!-- <alias name="defaultSolgroupProductConfiguredPopulator" alias="productConfiguredPopulator"
+			/> -->
+		<!-- <bean id="defaultSolgroupProductConfiguredPopulator" parent="defaultProductConfiguredPopulator"> -->
+		<property name="populators">
+			<map key-type="de.hybris.platform.commercefacades.product.ProductOption"
+				merge="true">
+				<entry key="PRODUCT_EXTENDED" value-ref="productExtendedPopulator" />
+				<entry key="VARIANT_MATRIX_EXTENDED" value-ref="productVariantMatrixExtendedPopulator" />
+				<entry key="VARIANT_MATRIX" value-ref="productVariantMatrixPopulator" />
+				<entry key="VARIANT_MATRIX_BASE" value-ref="productVariantMatrixPopulator" />
+				<entry key="VARIANT_MATRIX_ALL_OPTIONS" value-ref="configVariantMatrixDataPopulator" />
+				<entry key="VARIANT_MATRIX_URL" value-ref="configVariantOptionDataUrlPopulator" />
+				<entry key="VARIANT_MATRIX_MEDIA" value-ref="configVariantOptionDataMediaPopulator" />
+				<entry key="VARIANT_MATRIX_PRICE" value-ref="configVariantOptionDataPricePopulator" />
+				<entry key="VARIANT_MATRIX_STOCK" value-ref="configVariantOptionDataStockPopulator" />
+				<entry key="URL" value-ref="productUrlPopulator" />
+				<entry key="IMAGES" value-ref="productPrimaryImagePopulator" />
+			</map>
+		</property>
+	</bean>
+
+	<alias name="defaultSolGroupPriceDataFactory" alias="priceDataFactory" />
+	<bean id="defaultSolGroupPriceDataFactory" class="com.solgroup.commercefacades.product.impl.DefaultSolGroupPriceDataFactory" parent="defaultPriceDataFactory" />
+
+	<alias name="solGroupProductPricePopulator" alias="productPricePopulator"/>
+	<bean id="solGroupProductPricePopulator" parent="baseProductPopulator"
+			class="com.solgroup.commercefacades.product.converter.populator.SolGroupProductPricePopulator">
+		<property name="solGroupPriceDataFactory" ref="priceDataFactory"/>
+		<property name="commercePriceService" ref="commercePriceService"/>
+	</bean>
+
+	<alias name="solGroupVariantOptionDataPricePopulator" alias="variantOptionDataPricePopulator"/>
+	<bean id="solGroupVariantOptionDataPricePopulator" class="com.solgroup.facades.populators.SolGroupVariantOptionDataPricePopulator">
+		<property name="commercePriceService" ref="commercePriceService"/>
+		<property name="solGroupPriceDataFactory" ref="priceDataFactory"/>
+	</bean>
+
+	<alias name="defaultSolGroupOrderFacade" alias="solGroupOrderFacade" />
+	<bean id="defaultSolGroupOrderFacade"
+		class="com.solgroup.facades.order.impl.DefaultSolGroupOrderFacade"
+		parent="defaultOrderFacade">
+		<property name="sessionService" ref="sessionService"/> 
+		<property name="customerAccountService" ref="solGroupCustomerAccountService" />
+	</bean>
+
+	<alias name="defaultSolGroupOrderHistoryPopulator" alias="orderHistoryPopulator"/>
+	<bean id="defaultSolGroupOrderHistoryPopulator"
+			class="com.solgroup.facades.populators.order.SolGroupOrderHistoryPopulator" parent="defaultOrderHistoryPopulator"/>
+	
+	<alias name="defaultSolGroupConsignmentPopulator" alias="consignmentPopulator"/>
+	<bean id="defaultSolGroupConsignmentPopulator"
+			class="com.solgroup.facades.populators.order.SolGroupConsignmentPopulator" parent="defaultConsignmentPopulator"/>
+			
+	<alias name="defaultSolGroupOrderPopulator" alias="orderPopulator"/>
+	<bean id="defaultSolGroupOrderPopulator"
+			class="com.solgroup.commercefacades.order.converters.populator.SolGroupOrderPopulator"
+			parent="defaultOrderPopulator">
+		<property name="invoicePaymentInfoConverter" ref="invoicePaymentInfoConverter"/>
+	</bean>
+	
+	<alias name="defaultInvoicePaymentInfoConverter" alias="invoicePaymentInfoConverter"/>
+	<bean id="defaultInvoicePaymentInfoConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="com.solgroup.commercefacades.order.data.InvoicePaymentInfoData"/>
+		<property name="populators">
+			<list>
+				<ref bean="invoicePaymentInfoPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultSolGroupInvoicePaymentInfoPopulator" alias="invoicePaymentInfoPopulator"/>
+	<bean id="defaultSolGroupInvoicePaymentInfoPopulator"
+			class="com.solgroup.commercefacades.order.converters.populator.SolGroupInvoicePaymentInfoPopulator">
+		<property name="addressConverter" ref="addressConverter"/>
+	</bean>
+	
+	<alias name="defaultSolGroupConsignmentFacade" alias="consignmentFacade"/>
+	<bean id="defaultSolGroupConsignmentFacade" class="com.solgroup.facades.consignment.impl.DefaultSolGroupConsignmentFacade">
+		<property name="solGroupConsignmentService" ref="solGroupConsignmentService"/>
+		<property name="consignmentConverter" ref="consignmentConverter"/>
+	</bean>
+	
+	<alias name="solGroupB2BCartPopulator" alias ="b2bCartPopulator" />
+	<bean id="solGroupB2BCartPopulator" class="com.solgroup.facades.populators.cart.SolGroupB2BCartPopulator" parent="baseOrderPopulator">
+		<property name="invoicePaymentInfoConverter" ref="invoicePaymentInfoConverter"/>
+		<property name="b2BCostCenterConverter" ref="b2bCostCenterConverter"/>
+		<property name="b2bPaymentTypeConverter" ref="paymentTypeDataConverter"/>
+		<property name="b2BCommentConverter" ref="b2bCommentConverter"/>
+		<property name="b2bCustomerConverter" ref="customerConverter"/>
+		<property name="b2bOrderService" ref="b2bOrderService"/>
+		<property name="solgroupCompanyService" ref="solgroupCompanyService"/>
+		<property name="configurationService" ref="configurationService"/>
+	</bean>
+
+	<alias name="defaultSolgroupCsvFacade" alias="csvFacade"/>
+	<bean id="defaultSolgroupCsvFacade" class="com.solgroup.acceleratorfacades.csv.impl.DefaultSolgroupCsvFacade">
+	</bean>
+	
+	<alias name="defaultSolGroupProductVariantFacade" alias="solGroupProductVariantFacade"/>
+    <bean id="defaultSolGroupProductVariantFacade"
+          class="com.solgroup.facades.product.impl.DefaultSolGroupProductVariantFacade"
+          parent="productVariantFacade">
+    </bean>
+	
+	<alias name="defaultSolGroupVariantProductSearchOptions" alias="productVariantSearchOptions"/>
+	<bean id="defaultSolGroupVariantProductSearchOptions" class="org.springframework.beans.factory.config.ListFactoryBean">
+	    <property name="sourceList">
+	        <list merge="true">
+	        	<value>PRODUCT_EXTENDED</value>
+	            <value>VARIANT_MATRIX_EXTENDED</value> 
+	            <value>VARIANT_MATRIX_PRICE</value>
+	            <value>URL</value>
+	        </list> 
+	    </property>
+	</bean>
+	
+	<alias name="defaultSolGroupB2BSolrProductSearchFacade" alias="b2bSolrProductSearchFacade"/>
+    <bean id="defaultSolGroupB2BSolrProductSearchFacade"
+          class="com.solgroup.facades.search.impl.DefaultSolGroupB2BSolrProductSearchFacade"
+          parent="defaultB2BSolrProductSearchFacade">
+    </bean>
+    
+    <alias name="defaultSolGroupB2BCommerceCartFacade" alias="solGroupB2BCommerceCartFacade" />
+    <bean id="defaultSolGroupB2BCommerceCartFacade" class="com.solgroup.facades.cart.impl.DefaultSolGroupB2BCommerceCartFacade" parent="b2bCartFacade">
+    	<property name="solGroupB2BCommerceCartService" ref="b2bCommerceCartService" />
+    </bean>
+    
+    <alias alias="b2bFlexibleSearchPopulator" name="defaultSolGroupB2BFlexibleSearchPopulator"/>
+	<bean id="defaultSolGroupB2BFlexibleSearchPopulator" parent="defaultB2BFlexibleSearchPopulator"
+		class="com.solgroup.facades.populators.search.DefaultSolGroupB2BFlexibleSearchPopulator">
+		<property name="productConfiguredPopulator" ref="productVariantConfiguredPopulator"/>
+	</bean>
+	
+	<alias name="solgroupCustomerPopulator" alias="solgroupCustomerPopulator" />
+	<bean id="solgroupCustomerPopulator" parent="b2bCustomerPopulator"
+		class="com.solgroup.commercefacades.user.converters.populator.SolgroupCustomerPopulator">
+	</bean>
+	
+	<bean parent="modifyPopulatorList">
+		<property name="list" ref="customerConverter"/>
+		<property name="add" ref="solgroupCustomerPopulator"/>
+	</bean>
+	
+	<alias name="defaultSolGroupStoreSessionFacade" alias="storeSessionFacade" />
+	<bean id="defaultSolGroupStoreSessionFacade" class="com.solgroup.facades.storesession.impl.DefaultSolGroupStoreSessionFacade" parent="defaultStoreSessionFacade">
+		<property name="cmsSiteService" ref="cmsSiteService" />
+	</bean>
+
+	<alias name="defaultSolGroupB2BWamIntegrationFacade" alias="solGroupB2BWamIntegrationFacade" />
+	<bean id="defaultSolGroupB2BWamIntegrationFacade" class="com.solgroup.facades.wamintegration.impl.DefaultSolGroupB2BWamIntegrationFacade">
+		<property name="solgroupB2BWamIntegrationService" ref="defaultSolgroupB2BWamIntegrationService" />
+		<property name="userService" ref="userService" />
+	</bean>
+
+</beans>

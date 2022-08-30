@@ -1,0 +1,160 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:solgroup:com:ProductsImport"
+	targetNamespace="urn:solgroup:com:ProductsImport">
+	<xsd:element name="ProductsImport_Hybris">
+		<xsd:complexType>
+			<xsd:all>
+
+				<xsd:element name="header">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="sourceSystem" type="xsd:string"/>
+							<xsd:element name="messageID" type="xsd:string"/>
+							<xsd:element name="timestamp" type="xsd:string"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+
+				<xsd:element maxOccurs="1" minOccurs="1" name="country" type="xsd:string"/>
+				<xsd:element name="baseProducts">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="baseProduct" maxOccurs="unbounded">
+								<xsd:complexType>
+									<xsd:sequence>
+										<xsd:element name="erpCode" type="xsd:string"> </xsd:element>
+										<xsd:element name="names">
+											<xsd:complexType>
+												<xsd:sequence>
+												<xsd:element name="name" maxOccurs="unbounded">
+												<xsd:complexType>
+												<xsd:simpleContent>
+												<xsd:extension base="xsd:string">
+												<xsd:attribute name="lang" type="xsd:string"
+												use="required"> </xsd:attribute>
+												</xsd:extension>
+												</xsd:simpleContent>
+												</xsd:complexType>
+												</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="commercialCategories" minOccurs="0">
+											<xsd:complexType>
+												<xsd:sequence>
+												<xsd:element name="commercialCategory"
+												maxOccurs="unbounded">
+												<xsd:complexType>
+												<xsd:sequence>
+												<xsd:element name="code" type="xsd:string">
+												</xsd:element>
+												</xsd:sequence>
+												</xsd:complexType>
+												</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="material" type="xsd:string"> </xsd:element>
+										<xsd:element name="stockable" type="xsd:boolean"
+											minOccurs="0"> </xsd:element>
+										<xsd:element name="weight" type="xsd:decimal" minOccurs="0"> </xsd:element>
+										<xsd:element name="um" type="xsd:string" minOccurs="0"> </xsd:element>
+										<xsd:element name="taxCode" type="xsd:string" minOccurs="0"> </xsd:element>
+										<xsd:element name="genericAttributes" minOccurs="0">
+											<xsd:complexType>
+												<xsd:sequence>
+												<xsd:element name="genericAttribute"
+												maxOccurs="unbounded">
+												<xsd:complexType>
+												<xsd:sequence>
+												<xsd:element name="key" type="xsd:string"> </xsd:element>
+												<xsd:element name="value" type="xsd:string">
+												</xsd:element>
+												</xsd:sequence>
+												</xsd:complexType>
+												</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+										<xsd:element name="status" type="xsd:string"> </xsd:element>
+										<xsd:element name="variants" minOccurs="0">
+											<xsd:complexType>
+												<xsd:sequence>
+												<xsd:element name="variant" maxOccurs="unbounded">
+												<xsd:complexType>
+												<xsd:sequence>
+												<xsd:element name="erpCode" type="xsd:string"> </xsd:element>
+												<xsd:element name="names">
+												<xsd:complexType>
+												<xsd:sequence>
+												<xsd:element name="name" maxOccurs="unbounded">
+												<xsd:complexType>
+												<xsd:simpleContent>
+												<xsd:extension base="xsd:string">
+												<xsd:attribute name="lang" type="xsd:string"
+												use="required"> </xsd:attribute>
+												</xsd:extension>
+												</xsd:simpleContent>
+												</xsd:complexType>
+												</xsd:element>
+												</xsd:sequence>
+												</xsd:complexType>
+												</xsd:element>
+												<xsd:element name="status" type="xsd:string"> </xsd:element>
+												<xsd:element name="variantsCategories"
+												minOccurs="0">
+												<xsd:complexType>
+												<xsd:sequence>
+												<xsd:element name="variantCategory"
+												maxOccurs="unbounded">
+												<xsd:complexType>
+												<xsd:sequence>
+												<xsd:element name="variantCategory"
+												type="xsd:string"> </xsd:element>
+												<xsd:element name="variantValueCategory"
+												type="xsd:string"> </xsd:element>
+												</xsd:sequence>
+												</xsd:complexType>
+												</xsd:element>
+												</xsd:sequence>
+												</xsd:complexType>
+												</xsd:element>
+												<xsd:element name="weight" type="xsd:decimal"
+												minOccurs="0"> </xsd:element>
+												<xsd:element name="um" type="xsd:string"
+												minOccurs="0"> </xsd:element>
+												<xsd:element name="taxCode" type="xsd:string"
+												minOccurs="0"> </xsd:element>
+												<xsd:element name="genericAttributes"
+												minOccurs="0">
+												<xsd:complexType>
+												<xsd:sequence>
+												<xsd:element name="genericAttribute"
+												maxOccurs="unbounded">
+												<xsd:complexType>
+												<xsd:sequence>
+												<xsd:element name="key" type="xsd:string"> </xsd:element>
+												<xsd:element name="value" type="xsd:string">
+												</xsd:element>
+												</xsd:sequence>
+												</xsd:complexType>
+												</xsd:element>
+												</xsd:sequence>
+												</xsd:complexType>
+												</xsd:element>
+												</xsd:sequence>
+												</xsd:complexType>
+												</xsd:element>
+												</xsd:sequence>
+											</xsd:complexType>
+										</xsd:element>
+									</xsd:sequence>
+								</xsd:complexType>
+							</xsd:element>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

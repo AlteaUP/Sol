@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Ant build for hybris system -->
+<project name="techedge-hybris-deployment-tables" default="all" basedir="./..">
+
+	<!-- TAGERTs - Code -->
+	<target name="check-deployment-tables" description="Check deployment tables declarations of custom items and relations.">
+
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/compile_splash.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Cheking hybris items deployment tables..." />
+			</then>
+		</if>
+			
+		<if>
+			<available file="${hybris.project.dir}" />
+			<then>
+				<echo message="Checking deployment tables..." />
+				
+				<for param="file">
+					<path>
+						<fileset dir="${hybris.project.dir}">
+							<include name="**/*-items.xml" />
+						</fileset>
+					</path>
+					<sequential>
+						<!-- Check items deployment -->
+						<xpath file="@{file}" expression="//itemtype[not(deployment) and @generate='true' and (not(@abstract='true') or @abstract='false') and not(@extends) and not(contains(description,'NODEP'))]/@code" 
+							delimiter=", " outputproperty="missing_item_deployment" />
+						<if>
+							<equals arg1="${missing_item_deployment}" arg2="" />
+							<else>
+								<echo>Missing items deployment table in @{file}</echo>
+								<echo>		Items: ${missing_item_deployment}</echo>
+								<property name="has_errors" value="true" />
+							</else>
+						</if>
+
+						<!-- Check relations deployment -->
+						<xpath file="@{file}" expression="//relation[not(deployment) and sourceElement/@cardinality = 'many' and targetElement/@cardinality = 'many' and not(contains(description,'NODEP'))]/@code" 
+							delimiter=", " outputproperty="missing_relation_deployment" />
+						<if>
+							<equals arg1="${missing_relation_deployment}" arg2="" />
+							<else>
+								<echo>Missing relations deployment table in @{file}</echo>
+								<echo>		Relations: ${missing_relation_deployment}</echo>
+								<property name="has_errors" value="true" />
+							</else>
+						</if>
+					</sequential>
+				</for>
+
+				<if>
+					<equals arg1="${has_errors}" arg2="true" />
+					<then>
+						<throw message="One or more items have an invalid deployment table. Check logs above." />
+					</then>
+				</if>
+				
+				<echo message="Check deployment tables completed." />
+			</then>
+			<else>
+				<fail message="Missing ${hybris.project.dir} dir." />
+			</else>
+		</if>
+	</target>
+
+
+</project>

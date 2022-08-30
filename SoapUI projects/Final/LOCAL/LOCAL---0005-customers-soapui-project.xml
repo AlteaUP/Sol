@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="f1088ebd-819a-451c-adff-1ed438b59db5" activeEnvironment="Default" name="LOCAL - 0005 - customer import" resourceRoot="" soapui-version="5.3.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="567329d2-1acb-4fc6-aaff-29f9af5bc898" wsaVersion="NONE" name="DefaultCustomerImportWSServiceSoapBinding" type="wsdl" bindingName="{http://importws.ws.solgroup.com/}DefaultCustomerImportWSServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="https://localhost:9002/solgroupwebservices/services/customerimportws?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="https://localhost:9002/solgroupwebservices/services/customerimportws?wsdl"><con:part><con:url>https://localhost:9002/solgroupwebservices/services/customerimportws?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="DefaultCustomerImportWSService" targetNamespace="http://importws.ws.solgroup.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://importws.ws.solgroup.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema targetNamespace="urn:solgroup:com:CustomerImport" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:solgroup:com:CustomerImport">
+      <xs:element name="CustomerImport_Hybris">
+        <xs:complexType>
+          <xs:all>
+            <xs:element name="header" type="tns:header"/>
+            <xs:element name="companies" type="tns:companies"/>
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="header">
+        <xs:sequence>
+          <xs:element name="sourceSystem" type="xs:string"/>
+          <xs:element name="messageID" type="xs:string"/>
+          <xs:element name="timestamp" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="companies">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="company">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="erpCode" type="xs:string"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="default" type="xs:boolean"/>
+                <xs:element minOccurs="0" name="organizations1" type="tns:organization1"/>
+                <xs:element minOccurs="0" name="b2bUnits" type="tns:b2bUnits"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="organization1">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="organizationUnit1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="erpCode" type="xs:string"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="b2bUnits" type="tns:b2bUnits"/>
+                <xs:element minOccurs="0" name="organization2" type="tns:organization2"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="b2bUnits">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="b2bUnit">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="erpCode" type="xs:string"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element minOccurs="0" name="vatID" type="xs:string"/>
+                <xs:element minOccurs="0" name="taxPayerCode" type="xs:string"/>
+                <xs:element minOccurs="0" name="publicClient" type="xs:boolean"/>
+                <xs:element minOccurs="0" name="clientType" type="xs:string"/>
+                <xs:element minOccurs="0" name="creditState" type="xs:string"/>
+                <xs:element minOccurs="0" name="activeState" type="xs:string"/>
+                <xs:element minOccurs="0" name="vendorCode" type="xs:string"/>
+                <xs:element name="customers" type="tns:customers"/>
+                <xs:element name="address" type="tns:address"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="customers">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="customerId" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="address">
+        <xs:sequence>
+          <xs:element name="erpCode" type="xs:string"/>
+          <xs:element name="street" type="xs:string"/>
+          <xs:element minOccurs="0" name="streetNumber" type="xs:string"/>
+          <xs:element name="town" type="xs:string"/>
+          <xs:element minOccurs="0" name="postalCode" type="xs:string"/>
+          <xs:element name="country" type="xs:string"/>
+          <xs:element minOccurs="0" name="email" type="xs:string"/>
+          <xs:element minOccurs="0" name="phone" type="xs:string"/>
+          <xs:element minOccurs="0" name="fax" type="xs:string"/>
+          <xs:element name="shipping" type="xs:boolean"/>
+          <xs:element name="billing" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="organization2">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="organizationUnit2">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="erpCode" type="xs:string"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="b2bUnits" type="tns:b2bUnits"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://importws.ws.solgroup.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="urn:solgroup:com:CustomerImport">
+      <xs:import namespace="urn:solgroup:com:CustomerImport"/>
+      <xs:element name="importData" type="tns:importData"/>
+      <xs:element name="importDataResponse" type="tns:importDataResponse"/>
+      <xs:complexType name="importData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Import_Hybris">
+            <xs:complexType>
+              <xs:all>
+                <xs:element name="header" type="ns1:header"/>
+                <xs:element name="companies" type="ns1:companies"/>
+              </xs:all>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="importDataResponse">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:element name="Exception" type="tns:Exception"/>
+      <xs:complexType name="Exception">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="importData">
+    <wsdl:part element="tns:importData" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="importDataResponse">
+    <wsdl:part element="tns:importDataResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="tns:Exception" name="Exception"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ImportWS">
+    <wsdl:operation name="importData">
+      <wsdl:input message="tns:importData" name="importData"></wsdl:input>
+      <wsdl:output message="tns:importDataResponse" name="importDataResponse"></wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DefaultCustomerImportWSServiceSoapBinding" type="tns:ImportWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="importData">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="importData">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="importDataResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DefaultCustomerImportWSService">
+    <wsdl:port binding="tns:DefaultCustomerImportWSServiceSoapBinding" name="DefaultCustomerImportWSPort">
+      <soap:address location="https://localhost:9002/solgroupwebservices/services/customerimportws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://marcodanielecoppola-TECRA-Z40-B:8088/mockDefaultCustomerImportWSServiceSoapBinding</con:endpoint><con:endpoint>https://localhost:9002/solgroupwebservices/services/customerimportws</con:endpoint></con:endpoints><con:operation id="dce15680-2e40-4ca7-8153-277b8cd849da" isOneWay="false" action="" name="importData" bindingOperationName="importData" type="Request-Response" outputName="importDataResponse" inputName="importData" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="7750b195-9770-4a89-b537-284ec3c1560e" name="Request_singleCompany_singleB2BUnit"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:9002/solgroupwebservices/services/customerimportws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+  <soapenv:Header />
+  <soapenv:Body>
+    <imp:importData>
+      <Import_Hybris>
+        <header>
+          <sourceSystem>RAMSES_IT</sourceSystem>
+          <messageID>1234567890</messageID>
+          <timestamp>?</timestamp>
+        </header>
+        <country>IT</country>
+        <companies>
+          <company>
+            <erpCode>1000</erpCode>
+            <name>Company Italia</name>
+            <default>true</default>
+            <b2bUnits>
+              <b2bUnit>
+                <erpCode>0000496006</erpCode>
+                <name>LA PIANURA C/O RESID.HELIOPOLIS SRL</name>
+	             <clientType>C</clientType>
+	             <creditState>0</creditState>
+	             <activeState>1</activeState>
+                <customers>
+                  <customerId>h725@sol.it</customerId>
+                </customers>
+                <addresses>
+	                <address>
+	                  <erpCode>125599</erpCode>
+	                  <street>Via S. Giulio</street>
+	                  <town>Cassano Magnago</town>
+	                  <postalCode>21012</postalCode>
+	                  <country>IT</country>
+	                  <shipping>true</shipping>
+	                  <billing>true</billing>
+	                </address>
+	                <address>
+	                  <erpCode>125600</erpCode>
+	                  <hybrisCode>1528972481293</hybrisCode>
+	                  <street>Via delle Finanzeeeeee</street>
+	                  <town>Catania</town>
+	                  <postalCode>95024</postalCode>
+	                  <country>IT</country>
+	                  <shipping>true</shipping>
+	                  <billing>true</billing>
+	                </address>
+			</addresses>
+              </b2bUnit>
+            </b2bUnits>
+          </company>
+        </companies>
+      </Import_Hybris>
+    </imp:importData>
+  </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>sap_po</con:username><con:password>CtzT~gV2b-GeZaSx</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importData"/><con:wsrmConfig version="1.2"/></con:call><con:call id="d50c4c32-361b-4d4e-b4ab-167a873184de" name="Request_singleCompany_multipleB2BUnit"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:9002/solgroupwebservices/services/customerimportws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+  <soapenv:Header />
+  <soapenv:Body>
+    <imp:importData>
+      <Import_Hybris>
+        <header>
+          <sourceSystem>RAMSES_IT</sourceSystem>
+          <messageID>1234567890</messageID>
+          <timestamp>?</timestamp>
+        </header>
+        <country>IT</country>
+        <companies>
+          <company>
+            <erpCode>0001</erpCode>
+            <name>Company Italia</name>
+            <default>true</default>
+            <b2bUnits>
+              <!-- 1st b2bUnit -->
+              <b2bUnit>
+                <erpCode>b0001</erpCode>
+                <name>B2BUnit Italia 1</name>
+                <activeState>1</activeState>
+                <customers>
+                  <customerId>giuseppe.bianchi@gmail.com</customerId>
+                </customers>
+                <addresses>
+	                <address>
+	                  <erpCode>Address_0001</erpCode>
+	                  <street>Via S. Giulio</street>
+	                  <town>Cassano Magnago</town>
+	                  <postalCode>21012</postalCode>
+	                  <country>it</country>
+	                  <shipping>true</shipping>
+	                  <billing>false</billing>
+	                </address>
+			</addresses>
+              </b2bUnit>
+              <!-- 2nd b2bUnit -->
+              <b2bUnit>
+                <erpCode>b0002</erpCode>
+                <name>B2BUnit Italia 2</name>
+                <activeState>1</activeState>
+                <customers>
+                  <customerId>mario.rossi@gmail.com</customerId>
+                </customers>
+                <addresses>
+	                <address>
+	                  <erpCode>Address_0002</erpCode>
+	                  <street>Via S. Pio X</street>
+	                  <town>Cassano Magnago</town>
+	                  <postalCode>21012</postalCode>
+	                  <country>it</country>
+	                  <shipping>true</shipping>
+	                  <billing>false</billing>
+	                </address>
+			</addresses>
+              </b2bUnit>
+            </b2bUnits>
+          </company>
+        </companies>
+      </Import_Hybris>
+    </imp:importData>
+  </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>sap_po</con:username><con:password>CtzT~gV2b-GeZaSx</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importData"/><con:wsrmConfig version="1.2"/></con:call><con:call id="7e42ac34-da19-48f7-a1a3-78fd9ba63c52" name="Request_singleCompany_singleOrg_multipleB2BUnit"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:9002/solgroupwebservices/services/customerimportws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+  <soapenv:Header />
+  <soapenv:Body>
+    <imp:importData>
+      <Import_Hybris>
+        <header>
+          <sourceSystem>RAMSES_IT</sourceSystem>
+          <messageID>1234567890</messageID>
+          <timestamp>20171107183540</timestamp>
+        </header>
+        <country>IT</country>
+        <companies>
+          <company>
+            <erpCode>0001</erpCode>
+            <name>Company Italia</name>
+            <default>true</default>
+
+		  <organizations1>
+		  	<organizationUnit1>
+	                <erpCode>org0001</erpCode>
+	                <name>Organization Italia 1</name>
+		            <b2bUnits>
+
+		              <b2bUnit>
+		                <erpCode>b0001</erpCode>
+		                <name>B2BUnit Italia 1</name>
+		                <clientType>C</clientType>
+		                <creditState>0</creditState>
+		                <activeState>1</activeState>
+		                <customers>
+		                  <customerId>leonardo.bonucci@milan.com</customerId>
+		                </customers>
+		                <addresses>
+			                <address>
+			                  <erpCode>Address_0001</erpCode>
+			                  <street>Via S. Giulio</street>
+			                  <town>Cassano Magnago</town>
+			                  <postalCode>21012</postalCode>
+			                  <country>IT</country>
+			                  <shipping>true</shipping>
+			                  <billing>true</billing>
+			                </address>
+					</addresses>
+		              </b2bUnit>
+
+		              <b2bUnit>
+		                <erpCode>b0001_11</erpCode>
+		                <name>B2BUnit Italia 2</name>
+		                <clientType>C</clientType>
+		                <creditState>0</creditState>
+		                <activeState>1</activeState>
+		                <customers>
+		                  <customerId>leonardo.bonucci2@milan.com</customerId>
+		                </customers>
+		                <addresses>
+			                <address>
+			                  <erpCode>Address_0001_11</erpCode>
+			                  <street>Via S. Giulio</street>
+			                  <town>Cassano Magnago</town>
+			                  <postalCode>21012</postalCode>
+			                  <country>IT</country>
+			                  <shipping>true</shipping>
+			                  <billing>true</billing>
+			                </address>
+					</addresses>
+		              </b2bUnit>
+
+				
+				</b2bUnits>
+				<customers>
+					<customerId>gigio.donnarumma@milan.com</customerId>
+				</customers>
+		  	</organizationUnit1>
+		  </organizations1>			
+            
+          </company>
+        </companies>
+      </Import_Hybris>
+    </imp:importData>
+  </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>sap_po</con:username><con:password>CtzT~gV2b-GeZaSx</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importData"/><con:wsrmConfig version="1.2"/></con:call><con:call id="0c413bf7-8125-4134-a8f6-c8cc7de8e10d" name="Request_singleCompany_multipleOrg_multipleB2BUnit"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:9002/solgroupwebservices/services/customerimportws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+  <soapenv:Header />
+  <soapenv:Body>
+    <imp:importData>
+      <Import_Hybris>
+        <header>
+          <sourceSystem>RAMSES_IT</sourceSystem>
+          <messageID>1234567890</messageID>
+          <timestamp>20171107183540</timestamp>
+        </header>
+        <country>IT</country>
+        <companies>
+          
+          <!-- Company 0001 -->
+          <company>
+			<erpCode>0001</erpCode>
+			<name>Company Italia</name>
+			<default>true</default>
+
+		  	<!-- Organizations list 1st level -->
+			<organizations1>
+				<!-- Organization unit 1st level - org0001 -->
+			  	<organizationUnit1>
+					<erpCode>org0001</erpCode>
+					<name>Organization Italia 1</name>
+					<!-- B2BUnit list for org unit org0001 -->	
+					<b2bUnits>
+						<!-- B2BUnit b0001 (into org0001) -->
+						<b2bUnit>
+							<erpCode>b0001</erpCode>
+							<name>B2BUnit Italia 1</name>
+							<activeState>1</activeState>
+							<!-- Customer for B2BUbit b0001 (into org0001) -->
+							<customers>
+								<customerId>leonardo.bonucci@milan.com</customerId>
+							</customers>
+							<!-- Addresses for B2bUnit b0001 -->
+							<addresses>
+								<!-- Address 0001 (only shipping) -->
+			                		<address>
+					                  <erpCode>Address_0001</erpCode>
+					                  <street>Via S. Giulio</street>
+					                  <town>Cassano Magnago</town>
+					                  <postalCode>21012</postalCode>
+					                  <country>it</country>
+					                  <shipping>true</shipping>
+					                  <billing>false</billing>
+								</address>
+							</addresses>
+						</b2bUnit>
+					</b2bUnits>
+
+					<!-- Organizations list 2nd level -->
+					<organizations2>
+						<!-- Organization unit 2nd level - org0002 -->
+				  		<organizationUnit2>
+							<erpCode>org0002</erpCode>
+							<name>Organization Italia 2</name>
+							<!-- B2BUnit list for org unit org0002 -->	
+							<b2bUnits>
+								<!-- B2BUnit b0002 (into org0002) -->
+								<b2bUnit>
+									<erpCode>b0002</erpCode>
+									<name>B2BUnit Italia 2</name>
+									<activeState>1</activeState>
+									<!-- Customers for B2BUnit b0002 -->
+									<customers>
+										<customerId>marco.vanbasten@milan.com</customerId>
+									</customers>
+									<!-- Addresses for B2BUnit b0002 -->
+									<addresses>
+										<!-- Address 0002 (only shipping) -->
+									 	<address>
+											<erpCode>Address_0002</erpCode>
+											<street>Via dello Stadio</street>
+											<town>Cassano Magnago</town>
+											<postalCode>21012</postalCode>
+											<country>it</country>
+											<shipping>true</shipping>
+											<billing>false</billing>
+										</address>
+									</addresses>		
+								</b2bUnit>
+							</b2bUnits>
+							<!-- Addresses for organization unit org0002 (only billing) -->
+ 							<addresses>
+ 								<address>
+									<erpCode>Address_0013</erpCode>
+									<street>Via S. Pio X</street>
+									<town>Cassano Magnago</town>
+									<postalCode>21012</postalCode>
+									<country>it</country>
+									<shipping>false</shipping>
+									<billing>true</billing>
+								</address>
+							</addresses>
+							<!-- Customers for org unit org0002 -->
+							<customers>
+								<customerId>andre.silva@milan.com</customerId>
+							</customers>
+						</organizationUnit2>
+					</organizations2>
+				
+					<!-- Addresses for organization unit org0001 -->
+	                	<addresses>
+		                	<!-- Address 0003 (only billing) -->
+		                	<address>
+							<erpCode>Address_0003</erpCode>
+							<street>Via Dubini</street>
+							<town>Cassano Magnago</town>
+							<postalCode>21012</postalCode>
+							<country>it</country>
+							<shipping>false</shipping>
+							<billing>true</billing>
+		                	</address>
+					</addresses>
+					<!-- Customers for organization unit unit org0001 -->
+					<customers>
+						<customerId>gigio.donnarumma@milan.com</customerId>
+					</customers>
+		  	</organizationUnit1>
+		  </organizations1>			
+
+            <!-- B2BUnits list for company -->
+            <b2bUnits>
+              <!-- B2BUnit 0003 (directly into company) -->
+              <b2bUnit>
+                <erpCode>b0003</erpCode>
+                <name>B2BUnit Italia 3</name>
+                <activeState>1</activeState>
+                <!-- Customer sfor B2BUnit 0003 -->
+                <customers>
+				<customerId>lucas.biglia@milan.com</customerId>
+                </customers>
+                <!-- Address list for B2BUnit 0003 -->
+                <addresses>
+	                <!-- Address 0004 (shipping and billing) -->
+	                <address>
+					<erpCode>Address_0004</erpCode>
+					<street>Via fri Mille</street>
+					<town>Cassano Magnago</town>
+					<postalCode>21012</postalCode>
+					<country>it</country>
+					<shipping>true</shipping>
+					<billing>true</billing>
+	                </address>
+			</addresses>
+              </b2bUnit>
+            </b2bUnits>
+            
+          </company>
+        </companies>
+      </Import_Hybris>
+    </imp:importData>
+  </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>sap_po</con:username><con:password>CtzT~gV2b-GeZaSx</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importData"/><con:wsrmConfig version="1.2"/></con:call><con:call id="c33e07f7-5111-476a-9fcb-6d2523f001ec" name="Request_multipleAddresses"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:9002/solgroupwebservices/services/customerimportws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+  <soapenv:Header />
+  <soapenv:Body>
+    <imp:importData>
+      <Import_Hybris>
+        <header>
+          <sourceSystem>RAMSES_IT</sourceSystem>
+          <messageID>1234567890</messageID>
+          <timestamp>?</timestamp>
+        </header>
+        <country>IT</country>
+
+		<companies>
+    			<company>
+      			<erpCode>1000</erpCode>
+      			<name>SOL SPA</name>
+      			<default>true</default>
+      			<organizations1>
+        				<organizationUnit1>
+          				<erpCode>0000496002</erpCode>
+          				<name>LA PIANURA SOC.COOP.SOC.ONLUS</name>
+          				<currency />
+          				<b2bUnits>
+	       					<b2bUnit>
+	         						<erpCode>0000496006</erpCode>
+              						<name>LA PIANURA C/O RESID.HELIOPOLIS SRL</name>
+              						<currency />
+	 				               <vatID>06943320967</vatID>
+					               <taxPayerCode>06943320967</taxPayerCode>
+					               <clientType>C</clientType>
+					               <creditState>0</creditState>
+					               <activeState>1</activeState>
+					               <vendorCode>V0000172</vendorCode>
+					               <customers>
+					                 <customerId>h725@sol.it</customerId>
+					               </customers>
+              						<addresses>
+						                <address>
+						                  <erpCode>125599</erpCode>
+						                  <street>VIA STRADA CERCA</street>
+						                  <town>BINASCO</town>
+						                  <postalCode>20082</postalCode>
+						                  <country>IT</country>
+						                  <shipping>true</shipping>
+						                  <billing>false</billing>
+						                </address>
+						                <address>
+						                  <erpCode>123</erpCode>
+						                  <street>VIA S. Giulio</street>
+						                  <town>Cassano Magnago</town>
+						                  <postalCode>21012</postalCode>
+						                  <country>IT</country>
+						                  <shipping>false</shipping>
+						                  <billing>true</billing>
+						                </address>
+						                <address>
+						                  <erpCode>456</erpCode>
+						                  <street>VIA S. Pio X</street>
+						                  <town>Cassano Magnago</town>
+						                  <postalCode>21012</postalCode>
+						                  <country>IT</country>
+						                  <shipping>true</shipping>
+						                  <billing>false</billing>
+						                </address>
+
+						              
+						              </addresses>
+					            </b2bUnit>
+          					</b2bUnits>
+     					</organizationUnit1>
+					</organizations1>
+				</company>
+			</companies>
+
+
+      </Import_Hybris>
+    </imp:importData>
+  </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>sap_po</con:username><con:password>CtzT~gV2b-GeZaSx</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importData"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

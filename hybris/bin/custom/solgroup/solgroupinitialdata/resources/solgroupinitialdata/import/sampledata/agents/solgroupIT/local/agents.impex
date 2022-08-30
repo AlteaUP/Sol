@@ -1,0 +1,74 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.
+# All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+
+$defaultPassword=123456
+#$agentGroups=customermanagergroup,asagentsalesmanagergroup,customersupportagentgroup
+$agentGroups=solAgentsGroup
+
+#INSERT_UPDATE UserGroup ; uid[unique=true]   ; locname[lang=en] ;  
+#                        ; salesemployeegroup ; Sales Employee   ;  
+#                        ; salesadmingroup    ; Sales Admin      ;  
+#                        ; salesmanagergroup  ; Sales Manager    ;  
+#                        ; salesapprovergroup ; Sales Approver   ;  
+
+#INSERT_UPDATE PrincipalGroupRelation ; source(uid)[unique=true] ; target(uid)[unique=true]
+#                                     ; salesemployeegroup       ; orgemployeegroup        ;  
+#                                     ; salesadmingroup          ; salesemployeegroup      ;  
+#                                     ; salesmanagergroup        ; salesemployeegroup      ;  
+#                                     ; salesapprovergroup       ; salesemployeegroup      ;  
+
+#$START_USERRIGHTS                    ;                          ;                         ;  ;                    ;   ;   ;   ;   ;   
+#Type                                 ; UID                      ; MemberOfGroups          ; Password; Target             ; read; change; create; remove; change_perm
+#UserGroup                            ; salesadmingroup          ;                         ;  ;                    ;   ;   ;   ;   ;   
+#                                     ;                          ;                         ;  ; OrgUnit            ; + ; + ; + ; + ; - 
+#                                     ;                          ;                         ;  ; Address            ; + ; + ; + ; - ; - 
+#                                     ;                          ;                         ;  ; Employee           ; + ; + ; + ; - ; - 
+#                                     ;                          ;                         ;  ; StoreEmployeeGroup ; + ; + ; + ; - ; - 
+#
+#UserGroup                            ; salesmanagergroup        ;                         ;  ;                    ;   ;   ;   ;   ;   
+#                                     ;                          ;                         ;  ; OrgUnit            ; + ; + ; - ; - ; - 
+#                                     ;                          ;                         ;  ; Address            ; + ; + ; - ; - ; - 
+#                                     ;                          ;                         ;  ; Employee           ; + ; + ; - ; - ; - 
+#                                     ;                          ;                         ;  ; OrgUnit.groups     ; + ; - ; - ; - ; - ;  
+#                                     ;                          ;                         ;  ; StoreEmployeeGroup ; + ; + ; - ; - ; - ;  
+#
+#UserGroup                            ; salesemployeegroup       ;                         ;  ;                    ;   ;   ;   ;   ;   
+#                                     ;                          ;                         ;  ; OrgUnit            ; + ; - ; - ; - ; - 
+#                                     ;                          ;                         ;  ; Address            ; + ; - ; - ; - ; - 
+#                                     ;                          ;                         ;  ; Employee           ; + ; - ; - ; - ; - 
+#                                     ;                          ;                         ;  ; StoreEmployeeGroup ; + ; - ; - ; - ; - ;  
+#                                     ;                          ;                         ;  ; UserGroup          ; + ; - ; - ; - ; - 
+#                                     ;                          ;                         ;  ; Quote              ; + ; - ; - ; - ; - 
+#$END_USERRIGHTS                      ;                          ;                         ;  ;                    ;   ;   ;   ;   ;   
+
+
+INSERT_UPDATE Employee ; uid[unique=true]    ; name                     ; vendorCode ; groups(uid)[default=$agentGroups] ; password[default=$defaultPassword] ;  
+#                       ; solagent@sol.it     ; Assisted Service Agent 1 ; V0000172   ; salesadmingroup,customermanagergroup,asagentsalesmanagergroup,customersupportagentgroup ;                                    ;  
+#                       ; c.pettigiani@sol.it ; Claudio Pettigiani       ; V0000128   ; salesadmingroup,customermanagergroup,asagentsalesmanagergroup,customersupportagentgroup ;                                    ;  
+#                       ; m.catania@sol.it    ; Massimiliano Catania     ; V0000686   ; salesadmingroup,customermanagergroup,asagentsalesmanagergroup,customersupportagentgroup ;                                    ;  
+#                       ; d.forni@sol.it      ; Daniele Forni            ; V0000005   ; salesadmingroup,customermanagergroup,asagentsalesmanagergroup,customersupportagentgroup ;                                    ;  
+                       ; solagent@sol.it     ; Assisted Service Agent 1 ; V0000172   ;                                   ;                                    ;  
+                       ; c.pettigiani@sol.it ; Claudio Pettigiani       ; V0000128   ;                                   ;                                    ;  
+                       ; m.catania@sol.it    ; Massimiliano Catania     ; V0000686   ;                                   ;                                    ;  
+                       ; d.forni@sol.it      ; Daniele Forni            ; V0000005   ;                                   ;                                    ;  
+
+
+
+# Search restricions for CS Module (each agent is enabled to see only tickets, customers, and orders related wiht its vendor code)													          
+INSERT_UPDATE SearchRestriction ; code[unique=true]                                ; principal(uid)            ; query                                                                                                                                                                      ; restrictedType(code) ; active ; generate
+                                ; csticket_customersupportagentgroup_restriction   ; customersupportagentgroup ; {item:assignedAgent}=?session.user                                                                                                                                         ; CsTicket             ; true   ; true    
+                                ; cscustomer_customersupportagentgroup_restriction ; customersupportagentgroup ; {item.defaultB2BUnit} IN ({{ select {b.pk} from {B2BUnit as b} where {b.vendorCode} IN ( {{ select {e.vendorCode} from {Employee as e} where {e.pk}=?session.user }} ) }}) ; B2BCustomer          ; true   ; true    
+                                ; csorder_customersupportagentgroup_restriction    ; customersupportagentgroup ; {item.unit} IN ({{ select {b.pk} from {B2BUnit as b} where {b.vendorCode} IN ( {{ select {e.vendorCode} from {Employee as e} where {e.pk}=?session.user }} ) }})           ; AbstractOrder        ; true   ; true    
+                                
+
+                                
+                                

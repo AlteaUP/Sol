@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Ant build for UNIT TEST -->
+<project name="techedge-hybris-documentation">
+
+	<!-- IMPORT -->
+	<!-- All workspace paths needed -->
+	<import file="./paths.xml"/>
+
+	<!-- All libraries needed -->
+	<!-- <taskdef classpath="${build.lib.dir}/ant-contrib-1.0b3/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml" /> -->
+	
+	<!-- All build xml needed -->
+	<import file="./hybris_env.xml" />
+	
+	<import file="./documentation.xml" />
+	
+
+	<!-- PROPERTies -->
+	
+
+	<!-- SCRIPTs -->
+
+
+	<!-- MACROs -->
+	
+
+	<!-- TASKs -->
+
+
+	<!-- EXTENSION POINTs -->
+
+
+	<!-- TARGETs -->
+	<!-- TODO -->
+	<target name="prepare-doc" depends="init-env">
+		
+		<echo message="*** NOT YET IMPLEMENTED ***" />
+	</target>
+
+	<!-- TODO -->
+	<target name="build-doc" depends="init-env, prepare-doc">
+		
+		<echo message="*** NOT YET IMPLEMENTED ***" />
+	</target>
+
+
+</project>

@@ -1,0 +1,687 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="ad3d4274-64a6-4b1e-b6f1-156dfe8d6de2" activeEnvironment="Default" name="LOCAL - 0006 - priceList import" resourceRoot="" soapui-version="5.3.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="1e8b6b89-d8e6-4609-9291-03c7970ab400" wsaVersion="NONE" name="DefaultPriceListImportWSServiceSoapBinding" type="wsdl" bindingName="{http://importws.ws.solgroup.com/}DefaultPriceListImportWSServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="https://localhost:9002/solgroupwebservices/services/pricelistimportws?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="https://localhost:9002/solgroupwebservices/services/pricelistimportws?wsdl"><con:part><con:url>https://localhost:9002/solgroupwebservices/services/pricelistimportws?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="DefaultPriceListImportWSService" targetNamespace="http://importws.ws.solgroup.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://importws.ws.solgroup.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema targetNamespace="urn:solgroup:com:CustomerPriceListsImport" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="CustomerPriceListsImport_Hybris">
+        <xs:complexType>
+          <xs:all>
+            <xs:element name="header">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="sourceSystem" type="xs:string"/>
+                  <xs:element name="messageID" type="xs:string"/>
+                  <xs:element name="timestamp" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="country" type="xs:string"/>
+            <xs:element name="customerPriceLists">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element maxOccurs="unbounded" name="customerPriceList">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="companyLegacyCode" type="xs:string"/>
+                        <xs:element name="legacyCode" type="xs:string"/>
+                        <xs:element default="EUR" minOccurs="0" name="currency" type="xs:string"/>
+                        <xs:element minOccurs="0" name="priceRowList">
+                          <xs:complexType>
+                            <xs:sequence>
+                              <xs:element maxOccurs="unbounded" name="priceRow">
+                                <xs:complexType>
+                                  <xs:sequence>
+                                    <xs:element name="productCode" type="xs:string"/>
+                                    <xs:element name="price" type="xs:decimal"/>
+                                    <xs:element name="scale" type="xs:string"/>
+                                    <xs:element name="um" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="startDate" type="xs:dateTime"/>
+                                    <xs:element minOccurs="0" name="endDate" type="xs:dateTime"/>
+                                  </xs:sequence>
+                                </xs:complexType>
+                              </xs:element>
+                            </xs:sequence>
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://importws.ws.solgroup.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="urn:solgroup:com:CustomerPriceListsImport">
+      <xs:import namespace="urn:solgroup:com:CustomerPriceListsImport"/>
+      <xs:element name="importData" type="tns:importData"/>
+      <xs:element name="importDataResponse" type="tns:importDataResponse"/>
+      <xs:complexType name="importData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Import_Hybris">
+            <xs:complexType>
+              <xs:all>
+                <xs:element name="header">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="sourceSystem" type="xs:string"/>
+                      <xs:element name="messageID" type="xs:string"/>
+                      <xs:element name="timestamp" type="xs:string"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="country" type="xs:string"/>
+                <xs:element name="customerPriceLists">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element maxOccurs="unbounded" name="customerPriceList">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="companyLegacyCode" type="xs:string"/>
+                            <xs:element name="legacyCode" type="xs:string"/>
+                            <xs:element default="EUR" minOccurs="0" name="currency" type="xs:string"/>
+                            <xs:element minOccurs="0" name="priceRowList">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element maxOccurs="unbounded" name="priceRow">
+                                    <xs:complexType>
+                                      <xs:sequence>
+                                        <xs:element name="productCode" type="xs:string"/>
+                                        <xs:element name="price" type="xs:decimal"/>
+                                        <xs:element name="scale" type="xs:string"/>
+                                        <xs:element name="um" type="xs:string"/>
+                                        <xs:element minOccurs="0" name="startDate" type="xs:dateTime"/>
+                                        <xs:element minOccurs="0" name="endDate" type="xs:dateTime"/>
+                                      </xs:sequence>
+                                    </xs:complexType>
+                                  </xs:element>
+                                </xs:sequence>
+                              </xs:complexType>
+                            </xs:element>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:all>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="importDataResponse">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:element name="Exception" type="tns:Exception"/>
+      <xs:complexType name="Exception">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="importData">
+    <wsdl:part element="tns:importData" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="importDataResponse">
+    <wsdl:part element="tns:importDataResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="tns:Exception" name="Exception"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ImportWS">
+    <wsdl:operation name="importData">
+      <wsdl:input message="tns:importData" name="importData"></wsdl:input>
+      <wsdl:output message="tns:importDataResponse" name="importDataResponse"></wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DefaultPriceListImportWSServiceSoapBinding" type="tns:ImportWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="importData">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="importData">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="importDataResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DefaultPriceListImportWSService">
+    <wsdl:port binding="tns:DefaultPriceListImportWSServiceSoapBinding" name="DefaultPriceListImportWSPort">
+      <soap:address location="https://localhost:9002/solgroupwebservices/services/pricelistimportws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://localhost:9002/solgroupwebservices/services/pricelistimportws</con:endpoint></con:endpoints><con:operation id="dd7242a8-bb6a-4552-b608-dd4864888506" isOneWay="false" action="" name="importData" bindingOperationName="importData" type="Request-Response" outputName="importDataResponse" inputName="importData" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="d65cf1d2-040a-4d7a-b3a4-25557d526745" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://solgroupit.local:9002/solgroupwebservices/services/pricelistimportws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+  <soapenv:Header />
+  <soapenv:Body>
+    <imp:importData>
+      <!--Optional:-->
+      <Import_Hybris>
+        <!--You may enter the following 2 items in any order-->
+        <header>
+          <sourceSystem>RAMSES_IT</sourceSystem>
+          <messageID />
+          <timestamp>?</timestamp>
+        </header>
+        <country>IT</country>
+        <customerPriceLists>
+          <customerPriceList>
+            <companyLegacyCode></companyLegacyCode>
+            <legacyCode></legacyCode>
+            <currency>EUR</currency>
+            <priceRowList>
+              <priceRow>
+				    <productCode>p17063</productCode>
+				    <price>1200</price>
+				    <scale>1</scale>
+				    <um>pieces</um>
+				    <startDate>2017-09-13T12:12:12</startDate>
+				    <endDate>2020-12-13T12:12:12</endDate>
+              </priceRow>
+            </priceRowList>
+          </customerPriceList>
+        </customerPriceLists>
+      </Import_Hybris>
+    </imp:importData>
+  </soapenv:Body>
+</soapenv:Envelope>
+]]></con:request><con:credentials><con:username>sap_po</con:username><con:password>CtzT~gV2b-GeZaSx</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:preemptive>false</con:preemptive><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importData"/><con:wsrmConfig version="1.2"/></con:call><con:call id="a93de37b-83ac-4564-bb96-5a3331edea9b" name="Request 2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:9002/solgroupwebservices/services/pricelistimportws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+  <soapenv:Header />
+  <soapenv:Body>
+    <imp:importData>
+      <Import_Hybris>
+        <header>
+          <sourceSystem>RAMSES_IT</sourceSystem>
+          <messageID />
+          <timestamp></timestamp>
+        </header>
+        <country>IT</country>
+        <customerPriceLists>
+          <customerPriceList>
+            <companyLegacyCode>1000</companyLegacyCode>
+            <legacyCode>0000496006</legacyCode>
+            <currency>EUR</currency>
+            <priceRowList>
+
+              <priceRow>
+                <productCode>1938</productCode>
+                <price>1.15</price>
+                <scale>1</scale>
+                <um>mc</um>
+                <startDate>2017-09-13T12:12:12</startDate>
+                <endDate>2020-12-13T12:12:12</endDate>
+              </priceRow>
+
+              <priceRow>
+                <productCode>1939</productCode>
+                <price>1.20</price>
+                <scale>1</scale>
+                <um>mc</um>
+
+              </priceRow>
+
+              <priceRow>
+                <productCode>1940</productCode>
+                <price>1.25</price>
+                <scale>1</scale>
+                <um>mc</um>
+              </priceRow>
+
+              <priceRow>
+                <productCode>1962</productCode>
+                <price>2.12</price>
+                <scale>1</scale>
+                <um>mc</um>
+              </priceRow>
+              <priceRow>
+                <productCode>t2</productCode>
+                <price>2.14</price>
+                <scale>1</scale>
+                <um>mc</um>
+              </priceRow>
+              <priceRow>
+                <productCode>t3</productCode>
+                <price>2.16</price>
+                <scale>1</scale>
+                <um>mc</um>
+              </priceRow>
+              <priceRow>
+                <productCode>t4</productCode>
+                <price>2.18</price>
+                <scale>1</scale>
+                <um>mc</um>
+              </priceRow>
+
+              <priceRow>
+                <productCode>t5</productCode>
+                <price>3.02</price>
+                <scale>1</scale>
+                <um>mc</um>
+              </priceRow>
+
+              <priceRow>
+                <productCode>19620</productCode>
+                <price>2.50</price>
+                <scale>1</scale>
+                <um>mc</um>
+              </priceRow>
+              <priceRow>
+                <productCode>t9</productCode>
+                <price>2.53</price>
+                <scale>1</scale>
+                <um>mc</um>
+              </priceRow>
+
+              <priceRow>
+                <productCode>241</productCode>
+                <price>3.50</price>
+                <scale>1</scale>
+                <um>mc</um>
+              </priceRow>
+              <priceRow>
+                <productCode>241x</productCode>
+                <price>3.51</price>
+                <scale>1</scale>
+                <um>mc</um>
+              </priceRow>
+
+              <priceRow>
+                <productCode>294</productCode>
+                <price>5</price>
+                <scale>1</scale>
+                <um>mc</um>
+              </priceRow>
+              <priceRow>
+                <productCode>295</productCode>
+                <price>5.80</price>
+                <scale>1</scale>
+                <um>mc</um>
+              </priceRow>
+
+              <priceRow>
+                <productCode>239</productCode>
+                <price>9.85</price>
+                <scale>1</scale>
+                <um>mc</um>
+              </priceRow>
+              <priceRow>
+                <productCode>240</productCode>
+                <price>9.88</price>
+                <scale>1</scale>
+                <um>mc</um>
+              </priceRow>
+
+              <priceRow>
+                <productCode>221</productCode>
+                <price>0.85</price>
+                <scale>1</scale>
+                <um>mc</um>
+              </priceRow>
+              <priceRow>
+                <productCode>229</productCode>
+                <price>0.70</price>
+                <scale>1</scale>
+                <um>mc</um>
+              </priceRow>
+
+              <priceRow>
+                <productCode>233</productCode>
+                <price>1.85</price>
+                <scale>1</scale>
+                <um>mc</um>
+              </priceRow>
+
+              <priceRow>
+                <productCode>234</productCode>
+                <price>4.85</price>
+                <scale>1</scale>
+                <um>mc</um>
+              </priceRow>
+              
+              
+              <priceRow>
+                <productCode>136</productCode>
+                <price>7.85</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+              <priceRow>
+                <productCode>659</productCode>
+                <price>7.70</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+
+              <priceRow>
+                <productCode>137</productCode>
+                <price>7.85</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+              <priceRow>
+                <productCode>659</productCode>
+                <price>7.70</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+
+              <priceRow>
+                <productCode>140</productCode>
+                <price>6.85</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+              <priceRow>
+                <productCode>642</productCode>
+                <price>6.40</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+
+              <priceRow>
+                <productCode>p194</productCode>
+                <price>5.55</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+
+            </priceRowList>
+          </customerPriceList>
+
+
+          <customerPriceList>
+            <companyLegacyCode />
+            <legacyCode />
+            <currency>EUR</currency>
+            <priceRowList>
+
+              <priceRow>
+                <productCode>1938</productCode>
+                <price>3.15</price>
+                <scale>1</scale>
+                <um>mc</um>
+                <startDate>2017-09-01T00:00:01</startDate>
+                <endDate>2020-12-31T23:59:59</endDate>
+              </priceRow>
+              <priceRow>
+                <productCode>1939</productCode>
+                <price>3.20</price>
+                <scale>1</scale>
+                <um>mc</um>
+                <startDate>2017-09-01T00:00:01</startDate>
+                <endDate>2020-12-31T23:59:59</endDate>
+              </priceRow>
+              <priceRow>
+                <productCode>1940</productCode>
+                <price>3.25</price>
+                <scale>1</scale>
+                <um>mc</um>
+                <startDate>2017-09-01T00:00:01</startDate>
+                <endDate>2020-12-31T23:59:59</endDate>
+              </priceRow>
+
+              <priceRow>
+                <productCode>1962</productCode>
+                <price>4.12</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+              <priceRow>
+                <productCode>t2</productCode>
+                <price>4.14</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+              <priceRow>
+                <productCode>t3</productCode>
+                <price>4.16</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+              <priceRow>
+                <productCode>t4</productCode>
+                <price>4.18</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+
+              <priceRow>
+                <productCode>t5</productCode>
+                <price>5.02</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+
+              <priceRow>
+                <productCode>19620</productCode>
+                <price>4.50</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+              <priceRow>
+                <productCode>t9</productCode>
+                <price>4.53</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+
+              <priceRow>
+                <productCode>241</productCode>
+                <price>5.50</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+              <priceRow>
+                <productCode>241x</productCode>
+                <price>5.51</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+
+              <priceRow>
+                <productCode>294</productCode>
+                <price>7</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+              <priceRow>
+                <productCode>295</productCode>
+                <price>7.80</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+
+              <priceRow>
+                <productCode>239</productCode>
+                <price>11.85</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+              <priceRow>
+                <productCode>240</productCode>
+                <price>11.88</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+
+              <priceRow>
+                <productCode>221</productCode>
+                <price>2.85</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+              <priceRow>
+                <productCode>229</productCode>
+                <price>2.70</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+
+              <priceRow>
+                <productCode>233</productCode>
+                <price>3.85</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+
+              <priceRow>
+                <productCode>234</productCode>
+                <price>6.85</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+             
+              
+              <priceRow>
+                <productCode>136</productCode>
+                <price>9.85</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+              <priceRow>
+                <productCode>659</productCode>
+                <price>9.70</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+
+              <priceRow>
+                <productCode>137</productCode>
+                <price>9.85</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+              <priceRow>
+                <productCode>659</productCode>
+                <price>9.70</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+
+              <priceRow>
+                <productCode>140</productCode>
+                <price>8.85</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+              <priceRow>
+                <productCode>642</productCode>
+                <price>8.40</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+
+              <priceRow>
+                <productCode>p194</productCode>
+                <price>7.55</price>
+                <scale>1</scale>
+                <um>mc</um>
+                
+                
+              </priceRow>
+
+            </priceRowList>
+          </customerPriceList>
+        </customerPriceLists>
+      </Import_Hybris>
+    </imp:importData>
+  </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>sap_po</con:username><con:password>CtzT~gV2b-GeZaSx</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importData"/><con:wsrmConfig version="1.2"/></con:call><con:call id="d6eb359f-3a41-4d2a-af78-9dc058a705fc" name="Copy of Request 2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:9002/solgroupwebservices/services/pricelistimportws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+  <soapenv:Header />
+  <soapenv:Body>
+    <imp:importData>
+      <Import_Hybris>
+        <header>
+          <sourceSystem>RAMSES_IT</sourceSystem>
+          <messageID />
+          <timestamp></timestamp>
+        </header>
+        <country>IT</country>
+        <customerPriceLists>
+          <customerPriceList>
+            <companyLegacyCode>1000</companyLegacyCode>
+            <legacyCode>0000496006</legacyCode>
+            <currency>EUR</currency>
+            <priceRowList>
+
+              <priceRow>
+                <productCode>X00620</productCode>
+                <price>35</price>
+                <scale>1</scale>
+                <um>mc</um>
+                <startDate>2017-09-13T12:12:12</startDate>
+                <endDate>2020-12-13T12:12:12</endDate>
+              </priceRow>
+
+            </priceRowList>
+          </customerPriceList>
+        </customerPriceLists>
+      </Import_Hybris>
+    </imp:importData>
+  </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>sap_po</con:username><con:password>CtzT~gV2b-GeZaSx</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importData"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

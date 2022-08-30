@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Ant build for COVERAGE -->
+<project name="techedge-coverage" basedir="./../../../">
+
+	<!-- IMPORT -->
+	<!-- All workspace paths needed -->
+	<import file="./paths.xml" />
+
+	<!-- All build xml needed -->
+	<import file="./ant_utils.xml" />
+	
+
+	<!-- PROPERTies -->
+	<path id="cobertura.classpath">
+		<fileset dir="${build.lib.dir}/cobertura-2.0.3/" >
+			<include name="cobertura-2.0.3.jar" />
+			<include name="lib/**/*.jar" />
+		</fileset>
+	</path>
+	<taskdef classpathref="cobertura.classpath" resource="tasks.properties" />
+
+
+	<!-- SCRIPTs -->
+
+
+	<!-- MACROs -->
+	<macrodef name="cobertura-project-setup">
+
+		<sequential>
+			<for-each-ext>
+				<do>
+					<!-- Prapare source path -->				
+					<if-has-core extname="@{ext.name}">
+						<do>
+							<write-on-file filename="${build.temp.project.file}">
+								<out><![CDATA[
+		<fileset dir="${hybris.project.dir}/@{ext.name}/src" id="ext.@{ext.name}.srcfiles">
+			<include name="**/*.java" />
+		</fileset>
+]]></out>
+							</write-on-file>
+
+							<!-- Prepare class path -->			
+							<write-on-file filename="${build.temp.project.file}">
+								<out><![CDATA[
+		<path id="ext.@{ext.name}.classes">
+			<fileset dir="${hybris.project.dir}/@{ext.name}">
+				<include name="classes/**/*.class"/>				
+				<exclude name="**/Generated*.class"/>
+				<exclude name="**/*Test.class"/>
+			</fileset>
+		</path>
+]]></out>
+							</write-on-file>
+						</do>
+					</if-has-core>
+				</do>
+			</for-each-ext>
+
+			
+			<!-- Prepare Cobertura Instrumentation -->
+			<write-on-file filename="${build.temp.project.file}">
+				<out><![CDATA[
+		<target name="coverage-project-instrument-internal" >
+			<delete file="${artifacts.cobertura.file}" />
+			<cobertura-instrument datafile="${artifacts.cobertura.file}">
+			<includeClasses regex=".*" />
+			<excludeClasses regex=".*\.Test.*" />
+
+			<instrumentationClasspath>
+]]></out>
+			</write-on-file>
+			
+			<for-each-ext>
+				<do>
+					<if-has-core extname="@{ext.name}">
+						<do>
+							<write-on-file filename="${build.temp.project.file}">
+								<out><![CDATA[
+			<path refid="ext.@{ext.name}.classes" />
+]]></out>
+							</write-on-file>	
+						</do>
+					</if-has-core>
+				</do>
+			</for-each-ext>
+			
+			<write-on-file filename="${build.temp.project.file}">
+				<out><![CDATA[
+			</instrumentationClasspath>
+			</cobertura-instrument>
+		</target>
+]]></out>
+			</write-on-file>
+			
+			
+			<!-- Prepare Cobertura Report -->
+			<write-on-file filename="${build.temp.project.file}">
+				<out><![CDATA[
+		<target name="coverage-project-report-internal" >
+			<!-- NEED to reference EVERY single source fileset -->
+			<cobertura-report format="html" destdir="${artifacts.dir}/cobertura/" datafile="${artifacts.cobertura.file}">
+]]></out>
+			</write-on-file>
+			
+			<for-each-ext>
+				<do>
+					<if-has-core extname="@{ext.name}">
+						<do>
+							<write-on-file filename="${build.temp.project.file}">
+								<out><![CDATA[
+			<fileset refid="ext.@{ext.name}.srcfiles" />
+]]></out>
+							</write-on-file>
+						</do>
+					</if-has-core>
+				</do>
+			</for-each-ext>
+			
+			<write-on-file filename="${build.temp.project.file}">
+				<out><![CDATA[
+			</cobertura-report>
+			<cobertura-report format="xml" destdir="${artifacts.dir}/cobertura/" datafile="${artifacts.cobertura.file}">
+]]></out>
+			</write-on-file>
+			
+			<for-each-ext>
+				<do>
+					<if-has-core extname="@{ext.name}">
+						<do>
+							<write-on-file filename="${build.temp.project.file}">
+								<out><![CDATA[
+			<fileset refid="ext.@{ext.name}.srcfiles" />
+]]></out>
+							</write-on-file>
+						</do>
+					</if-has-core>
+				</do>
+			</for-each-ext>
+			
+			<write-on-file filename="${build.temp.project.file}">
+				<out><![CDATA[
+			</cobertura-report>
+		</target>
+]]></out>
+			</write-on-file>
+
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="cobertura-project-init">
+
+		<sequential>
+			<copy todir="${hybris.platform.dir}/ext/core/lib" >
+				<fileset dir="${build.lib.dir}/cobertura-2.0.3/lib">
+					<include name="*.jar" />
+				</fileset>
+				
+				<fileset dir="${build.lib.dir}/cobertura-2.0.3/">
+					<include name="*.jar" />
+				</fileset>
+			</copy>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="cobertura-project-instrument">
+
+		<sequential>
+			<if>
+				<available file="${build.temp.project.file}" />
+				<then>	
+					<ant antfile="${build.temp.project.file}" target="coverage-project-instrument-internal" inheritAll="true" />
+				</then>
+				<else>
+					<fail message="${build.temp.project.file} does not exist." />
+				</else>
+			</if>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="cobertura-project-report">
+
+		<sequential>
+			<if>
+				<available file="${build.temp.project.file}" />
+				<then>
+					<ant antfile="${build.temp.project.file}" target="coverage-project-report-internal" inheritAll="true" />
+				</then>
+				<else>
+					<fail message="${build.temp.project.file} does not exist." />
+				</else>
+			</if>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="cobertura-project-clean">
+
+		<sequential>
+			<list-files-in-dir dir="${build.lib.dir}/cobertura-2.0.3/" includes="cobertura*.jar" propertyToSet="file.list" />
+			<for list="${file.list}" param="file" delimiter=",">
+				<sequential>
+					<!-- <echo message="File to delete: @{file}" /> -->
+					
+					<delete file="${hybris.platform.dir}/ext/core/lib/@{file}" failonerror="false" />
+				</sequential>
+			</for>
+		</sequential>
+	</macrodef>
+	
+
+	<!-- TASKs -->
+
+
+	<!-- EXTENSION POINTs -->
+
+
+	<!-- TARGETs -->
+
+
+</project>

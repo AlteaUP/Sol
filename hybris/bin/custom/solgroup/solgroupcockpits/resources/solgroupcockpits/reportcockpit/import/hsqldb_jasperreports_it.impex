@@ -1,0 +1,40 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#
+# Localise hsqldb jasper reports
+#
+
+# Language
+$lang=it
+
+$defaultCatalog=Default
+$defaultCatalogVersion=Staged
+$catalogVersion=catalogVersion(catalog(id[default='$defaultCatalog']),version[default='$defaultCatalogVersion'])[unique=true,default='$defaultCatalog:$defaultCatalogVersion']
+
+
+# Create Countries
+UPDATE JasperMedia ; code[unique=true]        ; $catalogVersion ; title[lang=$lang]                   ; reportDescription[lang=$lang]                                                      
+                   ; averageOrderValueBySite  ;                 ; "Valore medio dell'ordine per sito" ; "Questo widget visualizza il valore medio dell'ordine per intervallo di tempo"     
+                   ; orderVolumeBySite        ;                 ; "Volume degli ordini per sito"      ; "Visualizza quanti ordini sono stati effettuati in un determinato periodo di tempo"
+                   ; salesByCountryAndSite    ;                 ; "Vendite per Paese e Sito"          ; "Questo Widget visualizza le entrate per Paese"                                    
+                   ; salesByHourAndSite       ;                 ; "Vendite per ora e sito"            ; "Visualizza vendite totali per ora su un periodo di 24 ore"                        
+                   ; salesPerCategoryBySite   ;                 ; "Vendite per categoria per sito"    ; "Questo widget mostra le vendite per categoria per un dato periodo di tempo"       
+                   ; salesPerRegionBySite     ;                 ; "Vendite per regione per sito"      ; "Questo widget visualizza le vendite per ogni regione di un paese"                 
+                   ; topSellingProductsBySite ;                 ; "Prodotti più venduti per sito"     ; "Visualizza un elenco dei 5 prodotti più venduti nel sistema"                      
+                   ; totalSalesBySite         ;                 ; "Vendite totali per sito"           ; "Visualizza le vendite totali in un determinato periodo di tempo per sito"         
+                   ; averageOrderValue        ;                 ; "Valore medio dell'ordine"          ; "Questo widget visualizza il valore medio dell'ordine per intervallo di tempo"     
+                   ; orderVolume              ;                 ; "Volume degli ordini per sito"      ; "Visualizza quanti ordini sono stati effettuati in un determinato periodo di tempo"
+                   ; salesByCountry           ;                 ; "Vendite per Paese e Sito"          ; "Questo Widget visualizza le entrate per Paese"                                    
+                   ; salesByHour              ;                 ; "Vendite per ora e sito"            ; "Visualizza vendite totali per ora su un periodo di 24 ore"                        
+                   ; salesPerCategory         ;                 ; "Vendite per categoria"             ; "Questo widget mostra le vendite per categoria per un dato periodo di tempo"       
+                   ; salesPerRegion           ;                 ; "Vendite per regione"               ; "Questo widget visualizza le vendite per ogni regione di un paese"                 
+                   ; topSellingProducts       ;                 ; "Prodotti più venduti"              ; "Visualizza un elenco dei 5 prodotti più venduti nel sistema"                      
+                   ; totalSales               ;                 ; "Vendite totali"                    ; "Visualizza le vendite totali in un determinato periodo di tempo"                  

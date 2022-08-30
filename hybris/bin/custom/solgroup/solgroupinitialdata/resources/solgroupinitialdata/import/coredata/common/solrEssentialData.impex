@@ -1,0 +1,44 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+
+# Import config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+
+
+INSERT_UPDATE ServicelayerJob;code[unique=true];springid
+#;solrQueryStatisticsCollectorJob;solrQueryStatisticsCollectorJob
+#;solrUpdateSynonymsJob;solrUpdateSynonymsJob
+
+# Creates the Solr server configurations
+INSERT_UPDATE SolrServerConfig;name[unique=true];mode(code)
+#;Default;standalone
+#;Local Standalone;standalone
+#;Local Cloud;cloud
+;SolgroupStandalone;standalone
+
+
+# Creates the endpoints for the Solr server configurations
+INSERT_UPDATE SolrEndpointUrl;solrServerConfig(name)[unique=true];url[unique=true];master
+#;Default;http://localhost:8983/solr;true
+#;Local Standalone;http://localhost:8983/solr;true
+#;Local Cloud;localhost:9983;
+#;SolgroupStandalone;http://192.168.60.36:8983/solr;true
+;SolgroupStandalone;$config-solrUrl;true
+
+# Creates the indexer configurations
+INSERT_UPDATE SolrIndexConfig;name[unique=true];batchSize;numberOfThreads;indexMode(code)
+#;Default;100;1;DIRECT
+#;Direct;100;1;DIRECT
+#;Two-Phase;100;1;TWO_PHASE
+
+# Creates the search configurations
+INSERT_UPDATE SolrSearchConfig;description[unique=true];pageSize
+#;Default;20

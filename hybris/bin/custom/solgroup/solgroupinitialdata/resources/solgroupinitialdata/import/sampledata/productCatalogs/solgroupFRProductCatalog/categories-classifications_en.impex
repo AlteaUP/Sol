@@ -1,0 +1,139 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Category Classifications into SolGroup FR Store (English)
+
+$solPrefix=solgroupFR
+
+# Macros / Replacement Parameter definitions
+$productCatalog=$solPrefixProductCatalog
+$productCatalogName=$solPrefix Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$classCatalogVersion=catalogversion(catalog(id[default='$solPrefixClassification']),version[default='1.0'])[unique=true,default='$solPrefixClassification:1.0']
+$classSystemVersion=systemVersion(catalog(id[default='$solPrefixClassification']),version[default='1.0'])[unique=true]
+$class=classificationClass(ClassificationClass.code,$classCatalogVersion)[unique=true]
+
+$lang=en
+
+# Insert Classifications
+UPDATE ClassificationClass;$classCatalogVersion;code[unique=true];name[lang=$lang]
+;;$solPrefix_CSC_1;Dati tecnici riduttore
+;;$solPrefix_CSC_2;Componenti riduttore
+;;$solPrefix_CSC_3;Caratteristiche fisiche maschere
+;;$solPrefix_CSC_4;Dati tecnici filtro
+;;$solPrefix_CSC_5;Dati tecnici EMONO
+;;$solPrefix_CSC_6;Identificazione Farmaco
+;;$solPrefix_CSC_7;Dati tecnici carrello
+;;$solPrefix_CSC_8;Dati tecnici flussimetri
+;;$solPrefix_CSC_9;Caratteristiche GAS
+;;$solPrefix_CSC_10;Applicazioni GAS
+;;$solPrefix_CSC_11;Composizione
+;;$solPrefix_CSC_12;Attributi Materiali Gas
+;;$solPrefix_CSC_13;Proprietà meccaniche (filo)
+;;$solPrefix_CSC_14;Proprietà chimiche (filo)
+;;$solPrefix_CSC_15;Caratteristiche d'uso (saldatrice)
+
+# Insert Classification Attributes
+INSERT_UPDATE ClassificationAttribute;$classSystemVersion;code[unique=true];name[lang=$lang]
+;;$solPrefix_CSC_ATT_1;Pressione d'ingresso
+;;$solPrefix_CSC_ATT_2;Pressione d'Uscita
+;;$solPrefix_CSC_ATT_3;Portata massima
+;;$solPrefix_CSC_ATT_4;Portata massima
+;;$solPrefix_CSC_ATT_5;Altezza
+;;$solPrefix_CSC_ATT_6;Lunghezza
+;;$solPrefix_CSC_ATT_7;Profondità
+;;$solPrefix_CSC_ATT_8;Peso
+;;$solPrefix_CSC_ATT_9;materiale corpo e calotta
+;;$solPrefix_CSC_ATT_10;valvola di sovrapressione
+;;$solPrefix_CSC_ATT_11;Filtro in ingresso
+;;$solPrefix_CSC_ATT_12;Membrana del riduttore
+;;$solPrefix_CSC_ATT_13;Seggio riduttore
+;;$solPrefix_CSC_ATT_14;Molle
+;;$solPrefix_CSC_ATT_15;Pastiglia valvola sovrapressione
+;;$solPrefix_CSC_ATT_16;Flussimetro
+;;$solPrefix_CSC_ATT_17;Galleggiante aereo flussimetro
+;;$solPrefix_CSC_ATT_18;Uscita
+;;$solPrefix_CSC_ATT_19;Volume comprimibile
+;;$solPrefix_CSC_ATT_20;Raccordo
+;;$solPrefix_CSC_ATT_21;Tensione di alimentazione
+;;$solPrefix_CSC_ATT_22;Frequenza
+;;$solPrefix_CSC_ATT_23;Potenza nominale max
+;;$solPrefix_CSC_ATT_24;Livello di Pressione sonora
+;;$solPrefix_CSC_ATT_25;Diametro ruote
+;;$solPrefix_CSC_ATT_26;Colore
+;;$solPrefix_CSC_ATT_27;Sterilità
+;;$solPrefix_CSC_ATT_28;Materiale
+;;$solPrefix_CSC_ATT_29;Diametro
+;;$solPrefix_CSC_ATT_30;Caduta di pressione
+;;$solPrefix_CSC_ATT_31;Antibasculamento
+;;$solPrefix_CSC_ATT_32;AIC
+;;$solPrefix_CSC_ATT_33;PREMIUM / COMFORT
+;;$solPrefix_CSC_ATT_34;Stato fisico
+;;$solPrefix_CSC_ATT_35;Proprietà
+;;$solPrefix_CSC_ATT_36;Informazioni di sicurezza
+;;$solPrefix_CSC_ATT_37;Impatto ambientale
+;;$solPrefix_CSC_ATT_38;Normative di riferimento
+;;$solPrefix_CSC_ATT_39;Ogiva
+;;$solPrefix_CSC_ATT_40;Corpo
+;;$solPrefix_CSC_ATT_41;Valvola
+;;$solPrefix_CSC_ATT_42;Connessione di uscita
+;;$solPrefix_CSC_ATT_43;Etichetta
+;;$solPrefix_CSC_ATT_44;Designazione trasporto
+;;$solPrefix_CSC_ATT_45;PROCESSI DI OSSICOMBUSTIONE - OSSITAGLIO
+;;$solPrefix_CSC_ATT_46;PROCESSI DI OSSICOMBUSTIONE - SALDOBRASATURA
+;;$solPrefix_CSC_ATT_47;MIG – MAG - FILO PIENO
+;;$solPrefix_CSC_ATT_48;MIG – MAG - FILO ANIMATO
+;;$solPrefix_CSC_ATT_49;TIG - SALDATURA TIG
+;;$solPrefix_CSC_ATT_50;TIG - PROTEZIONE AL ROVESCIO
+;;$solPrefix_CSC_ATT_51;SALDATURA PLASMA - GAS PLASMA
+;;$solPrefix_CSC_ATT_52;SALDATURA PLASMA - GAS DI PROTEZIONE
+;;$solPrefix_CSC_ATT_53;TAGLIO PLASMA - GAS PLASMA
+;;$solPrefix_CSC_ATT_54;TAGLIO PLASMA - GAS DI PROTEZIONE
+;;$solPrefix_CSC_ATT_55;TAGLIO LASER - GAS LASERANTE
+;;$solPrefix_CSC_ATT_56;TAGLIO LASER - GAS DI ASSISTENZA
+;;$solPrefix_CSC_ATT_57;SALDATURA LASER - GAS LASERANTE
+;;$solPrefix_CSC_ATT_58;SALDATURA LASER - GAS DI ASSISTENZA
+;;$solPrefix_CSC_ATT_59;Unità di misura
+;;$solPrefix_CSC_ATT_60;Pressione bar
+;;$solPrefix_CSC_ATT_61;Classificazione ISO 14175
+;;$solPrefix_CSC_ATT_62;CO2
+;;$solPrefix_CSC_ATT_63;O2
+;;$solPrefix_CSC_ATT_64;N2
+;;$solPrefix_CSC_ATT_65;He
+;;$solPrefix_CSC_ATT_66;H2
+;;$solPrefix_CSC_ATT_67;Ar
+;;$solPrefix_CSC_ATT_68;ATTACCO
+;;$solPrefix_CSC_ATT_69;
+;;$solPrefix_CSC_ATT_70;
+;;$solPrefix_CSC_ATT_71;POSIZIONE
+;;$solPrefix_CSC_ATT_72;DIAMETRO
+;;$solPrefix_CSC_ATT_73;NUMERO DI POSTI
+;;$solPrefix_CSC_ATT_74;LUNGHEZZA
+;;$solPrefix_CSC_ATT_75;ALIMENTAZIONE
+;;$solPrefix_CSC_ATT_76;VERSIONE
+;;$solPrefix_CSC_ATT_77;PORTATA
+;;$solPrefix_CSC_ATT_78;VOLUME
+;;$solPrefix_CSC_ATT_79;Mn
+;;$solPrefix_CSC_ATT_80;P
+;;$solPrefix_CSC_ATT_81;S
+;;$solPrefix_CSC_ATT_82;Cr
+;;$solPrefix_CSC_ATT_83;Ni
+;;$solPrefix_CSC_ATT_84;Mo
+;;$solPrefix_CSC_ATT_85;Cu
+;;$solPrefix_CSC_ATT_86;C
+;;$solPrefix_CSC_ATT_87;Gas consigliato
+;;$solPrefix_CSC_ATT_88;YS - Rp
+;;$solPrefix_CSC_ATT_89;TS - Rm
+;;$solPrefix_CSC_ATT_90;IS - KV
+;;$solPrefix_CSC_ATT_91;EI - A5
+;;$solPrefix_CSC_ATT_92;Si
+;;$solPrefix_CSC_ATT_93;Campi di impiego
+;;$solPrefix_CSC_ATT_94;Materiali saldabili
+;;$solPrefix_CSC_ATT_95;Concentrazione

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Ant build for settings -->
+<project name="techedge-paths">
+
+	<!-- Splash enable/disable -->
+	<property name="splash.enabled" 	value="false" />
+	
+	
+	<!-- General paths -->
+	<property name="artifacts.dir" 		value="${basedir}/artifacts" />
+	<property name="dist.dir" 	 		value="${basedir}/dist" />
+	<property name="hybris.dir" 		value="${basedir}/hybris" />
+	<property name="build.dir"   		value="${basedir}/project-builder" />
+
+
+	<!-- artifacts paths -->
+	<property name="artifacts.cobertura.file" value="${artifacts.dir}/cobertura/cobertura.ser"/>
+
+
+	<!-- dist paths -->
+	<property name="dist.test.dir" 		value="${dist.dir}/test" />
+
+
+	<!-- project-builder paths -->
+	<property name="build.res.dir"     	value="${build.dir}/resources" />
+	<property name="build.temp.dir" 	value="${build.dir}/temp" />
+	<property name="build.zip.dir" 		value="${build.dir}/hybris-modules" />
+	<!-- ./resources/ -->
+	<property name="build.config.dir" 	value="${build.res.dir}/custom_config" />
+	<property name="build.img.dir" 		value="${build.res.dir}/img" />
+	<property name="build.lib.dir" 		value="${build.res.dir}/lib" />
+	<!-- ./custom_config/ -->
+	<property name="build.default.init.file" 	value="${build.config.dir}/platform_init/init.properties" />
+	<!-- ./temp/ -->
+	<property name="build.temp.init.file" 		value="${build.temp.dir}/init/init.properties" />
+	<property name="build.temp.project.file" 	value="${build.temp.dir}/project-def.xml" />
+
+
+	<!-- hybris paths -->
+	<property name="hybris.bin.dir" 		value="${hybris.dir}/bin" />
+	<property name="hybris.config.dir" 		value="${hybris.dir}/config" />
+	<property name="hybris.data.dir" 		value="${hybris.dir}/data" />
+	<property name="hybris.project.dir" 	value="${hybris.dir}/bin/custom" />
+	<property name="hybris.platform.dir" 	value="${hybris.dir}/bin/platform" />
+	<property name="hybris.temp.dir" 		value="${hybris.dir}/temp" />
+	<!-- ./temp/ -->
+	<property name="hybris.dist.dir" 		value="${hybris.temp.dir}/hybris/hybrisServer" />
+	<!-- ./config/ -->
+	<property name="hybris.eclipse.file" 			value="${hybris.config.dir}/.project" />
+	<property name="hybris.eclipse.file.default" 	value="${hybris.config.dir}/default/.project.default" />
+	<property name="hybris.config.file" 			value="${hybris.config.dir}/local.properties" />
+	<property name="hybris.config.file.default" 	value="${hybris.config.dir}/default/local.properties.default" />
+	<property name="hybris.ext.file" 				value="${hybris.config.dir}/localextensions.xml" />
+	<property name="hybris.ext.file.default" 		value="${hybris.config.dir}/default/localextensions.xml.default" />
+	<property name="hybris.junit.file" 				value="${hybris.config.dir}/junitexcludelist.txt" />
+	<property name="hybris.junit.file.default"   	value="${hybris.config.dir}/default/junitexcludelist.txt.default" />
+
+	<!-- >=5.1 additional features paths -->
+	<property name="hybris.mobile.dir" 	value="${basedir}/hybris-mobile-apps" /> <!-- Mobile Apps SDK - only SUITE -->
+	<property name="hybris.oms.dir" 	value="${basedir}/hybris-oms" /> <!-- Order Management Services - SUITE and AcceleratorB2C -->
+	<property name="hybris.sbg.dir" 	value="${basedir}/hybris-sbg" /> <!-- Subscription Billing Gateway - SUITE and TelcoAccelerator -->
+
+</project>

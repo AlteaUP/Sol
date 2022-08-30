@@ -1,0 +1,1715 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+
+$solPrefix = solgroupFR
+
+$contentCatalog=$solPrefixContentCatalog
+$contentCatalogName=SolGroupI FR Content Catalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCatalog=$solPrefixProductCatalog
+$productCatalogName=SolGroup FR Product Catalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$picture=media(code, $contentCV);
+$image=image(code, $contentCV);
+$media=media(code, $contentCV);
+$page=page(uid, $contentCV);
+$contentPage=contentPage(uid, $contentCV);
+$product=product(code, $productCV)
+$category=category(code, $productCV)
+$siteResource=jar:com.solgroup.core.constants.SolgroupCoreConstants&/solgroupinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$productResource=jar:com.solgroup.core.constants.SolgroupCoreConstants&/solgroupinitialdata/import/sampledata/productCatalogs/$productCatalog
+$jarResourceCms=jar:com.solgroup.core.constants.SolgroupCoreConstants&/solgroupinitialdata/import/sampledata/cockpits/cmscockpit
+$addonExtensionName=b2bacceleratoraddon
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV);
+$siteUid=$solPrefix
+
+# CMS Site Settings
+UPDATE CMSSite;uid[unique=true];defaultPreviewCategory(code, $productCV);defaultPreviewProduct(code, $productCV);theme(code)
+;$siteUid;1355;2116282;solgroup
+
+###### Navigation Start ######
+## navigation is in tree structure ##
+## level 0 ##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;children(uid,$contentCV)[mode=append]
+;root;;root;;
+
+##- level 1. SiteRoot -##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&componentRef);&nodeRef
+;SiteRootNode;;SiteRootNode;root;;SiteRootNode
+
+##-- level 2. children of SiteRoot --##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&componentRef);&nodeRef
+;$solPrefixNavNode;;SolGroup FR Site;SiteRootNode;;$solPrefixNavNode
+
+##--- level 3. children of solgroupFRNavNode ---##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&componentRef);&nodeRef
+;MyAccountNavNode;;My Account;$solPrefixNavNode;;MyAccountNavNode
+;OrderToolsNavNode;;Order Tools;$solPrefixNavNode;;OrderToolsNavNode
+;$solPrefixCategoryNavNode;;Categories;$solPrefixNavNode;;$solPrefixCategoryNavNode
+;FooterNavNode;;Footer Pages;$solPrefixNavNode;;FooterNavNode
+
+
+##---- level 4. children of My Account Nav ----##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef
+;PersonalDetailsNavNode;;Personal Details;MyAccountNavNode;;PersonalDetailsNavNode
+;UpdateEmailNavNode;;Update Email;MyAccountNavNode;;UpdateEmailNavNode
+;PaymentDetailsNavNode;;Payment Details;MyAccountNavNode;;PaymentDetailsNavNode
+;UpdatePasswordNavNode;;Update Password;MyAccountNavNode;;UpdatePasswordNavNode
+;OrderHistoryNavNode;;Order History;MyAccountNavNode;;OrderHistoryNavNode
+;AddressBookNavNode;;Address Book;MyAccountNavNode;;AddressBookNavNode
+;MyQuotesNavNode;;My Quotes;MyAccountNavNode;;MyQuotesNavNode
+;ApprovalDashboardNavNode;;Approval Dashboard;MyAccountNavNode;;ApprovalDashboardNavNode
+#;MyReplenishmentOrdersNavNode;;My Replenishment Orders;MyAccountNavNode;;MyReplenishmentOrdersNavNode
+;SavedCartsNavNode;;Saved Carts;MyAccountNavNode;;SavedCartsNavNode
+## entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true];name;navigationNode(&nodeRef);item(&linkRef);
+;PersonalDetailsNavNodeEntry;;PersonalDetailsNavNodeEntry;PersonalDetailsNavNode;PersonalDetailsLink;
+;UpdateEmailNavNodeEntry;;UpdateEmailNavNodeEntry;UpdateEmailNavNode;UpdateEmailLink;
+;UpdatePasswordNavNodeEntry;;UpdatePasswordNavNodeEntry;UpdatePasswordNavNode;UpdatePasswordLink;
+;AddressBookNavNodeEntry;;AddressBookNavNodeEntry;AddressBookNavNode;AddressBookLink;
+;PaymentDetailsNavNodeEntry;;PaymentDetailsNavNodeEntry;PaymentDetailsNavNode;PaymentDetailsLink;
+;OrderHistoryNavNodeEntry;;OrderHistoryNavNodeEntry;OrderHistoryNavNode;OrderHistoryLink;
+;SavedCartsNavNodeEntry;;SavedCartsNavNodeEntry;SavedCartsNavNode;SavedCartsLink;
+;MyQuotesNavNodeEntry;;MyQuotesNavNodeEntry;MyQuotesNavNode;MyQuotesLink;
+#;MyReplenishmentOrdersNavNodeEntry;;MyReplenishmentOrdersNavNodeEntry;MyReplenishmentOrdersNavNode;MyReplenishmentOrdersLink;
+;ApprovalDashboardNavNodeEntry;;ApprovalDashboardNavNodeEntry;ApprovalDashboardNavNode;ApprovalDashboardLink;
+## links of the above navigattion entries ##
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;&linkRef;target(code)[default='sameWindow']
+;;PersonalDetailsLink;PersonalDetailsLink;/my-account/update-profile;PersonalDetailsLink;
+;;UpdateEmailLink;UpdateEmailLink;/my-account/update-email;UpdateEmailLink;
+;;UpdatePasswordLink;UpdatePasswordLink;/my-account/update-password;UpdatePasswordLink;
+;;AddressBookLink;AddressBookLink;/my-account/address-book;AddressBookLink;
+;;PaymentDetailsLink;PaymentDetailsLink;/my-account/payment-details;PaymentDetailsLink;
+;;OrderHistoryLink;OrderHistoryLink;/my-account/orders;OrderHistoryLink;
+;;SavedCartsLink;SavedCartsLink;/my-account/saved-carts;SavedCartsLink;
+;;MyQuotesLink;MyQuotesLink;/my-account/my-quotes;MyQuotesLink;
+#;;MyReplenishmentOrdersLink;MyReplenishmentOrdersLink;/my-account/my-replenishment;MyReplenishmentOrdersLink;
+;;ApprovalDashboardLink;ApprovalDashboardLink;/my-account/approval-dashboard;ApprovalDashboardLink;
+
+
+##---- level 4. children of Order Tools ----##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef
+;OrderFormsNavNode;;Order Forms;OrderToolsNavNode;;OrderFormsNavNode
+;QuickOrderNavNode;;Quick Order;OrderToolsNavNode;;QuickOrderNavNode
+;ImportSavedCartNavNode;;Import Saved Cart;OrderToolsNavNode;;ImportSavedCartNavNode
+## entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true];name;navigationNode(&nodeRef);item(&linkRef);
+;OrderFormsNavNodeEntry;;OrderFormsNavNodeEntry;OrderFormsNavNode;OrderFormsLink;
+;QuickOrderNavNodeEntry;;QuickOrderNavNodeEntry;QuickOrderNavNode;QuickOrderLink;
+;ImportSavedCartNavNodeEntry;;ImportSavedCartNavNodeEntry;ImportSavedCartNavNode;ImportSavedCartLink;
+## links of the above navigattion entries ##
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;styleAttributes;&linkRef;target(code)[default='sameWindow']
+;;OrderFormsLink;Order Forms Link;/search/advanced;;OrderFormsLink;;
+;;QuickOrderLink;Quick Order Link;/quickOrder;;QuickOrderLink;;
+;;ImportSavedCartLink;Import Saved Cart Link;/import/csv/saved-cart;;ImportSavedCartLink;;
+
+
+########################################################
+######## SolGroup Top bar categories ###################
+########################################################
+
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef
+;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_010000 Gas;$solPrefixCategoryNavNode;;$solPrefix_TBC_010000_NavNode
+;$solPrefix_TBC_010100_NavNode;;$solPrefix_TBC_010100 Acetilene - C2H2;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_010100_NavNode
+;$solPrefix_TBC_010101_NavNode;;$solPrefix_TBC_010101 Industriale;$solPrefix_TBC_010100_NavNode;;$solPrefix_TBC_010101_NavNode
+;$solPrefix_TBC_010102_NavNode;;$solPrefix_TBC_010102 Puro;$solPrefix_TBC_010100_NavNode;;$solPrefix_TBC_010102_NavNode
+;$solPrefix_TBC_010200_NavNode;;$solPrefix_TBC_010200 Ammoniaca anidra -NH3;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_010200_NavNode
+;$solPrefix_TBC_010201_NavNode;;$solPrefix_TBC_010201 Industriale;$solPrefix_TBC_010200_NavNode;;$solPrefix_TBC_010201_NavNode
+;$solPrefix_TBC_010202_NavNode;;$solPrefix_TBC_010202 Puro;$solPrefix_TBC_010200_NavNode;;$solPrefix_TBC_010202_NavNode
+;$solPrefix_TBC_010203_NavNode;;$solPrefix_TBC_010203 Refrigerante;$solPrefix_TBC_010200_NavNode;;$solPrefix_TBC_010203_NavNode
+;$solPrefix_TBC_010300_NavNode;;$solPrefix_TBC_010300 Anidride Carbonica - CO2;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_010300_NavNode
+;$solPrefix_TBC_010301_NavNode;;$solPrefix_TBC_010301 Alimentare;$solPrefix_TBC_010300_NavNode;;$solPrefix_TBC_010301_NavNode
+;$solPrefix_TBC_010302_NavNode;;$solPrefix_TBC_010302 Industriale;$solPrefix_TBC_010300_NavNode;;$solPrefix_TBC_010302_NavNode
+;$solPrefix_TBC_010303_NavNode;;$solPrefix_TBC_010303 Medicale;$solPrefix_TBC_010300_NavNode;;$solPrefix_TBC_010303_NavNode
+;$solPrefix_TBC_010304_NavNode;;$solPrefix_TBC_010304 Puro;$solPrefix_TBC_010300_NavNode;;$solPrefix_TBC_010304_NavNode
+;$solPrefix_TBC_010305_NavNode;;$solPrefix_TBC_010305 Ghiaccio Secco;$solPrefix_TBC_010300_NavNode;;$solPrefix_TBC_010305_NavNode
+;$solPrefix_TBC_010306_NavNode;;$solPrefix_TBC_010306 Ghiaccio secco - Service Kit;$solPrefix_TBC_010300_NavNode;;$solPrefix_TBC_010306_NavNode
+;$solPrefix_TBC_010400_NavNode;;$solPrefix_TBC_010400 Anidride Solforosa - SO2;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_010400_NavNode
+;$solPrefix_TBC_010401_NavNode;;$solPrefix_TBC_010401 Alimentare;$solPrefix_TBC_010400_NavNode;;$solPrefix_TBC_010401_NavNode
+;$solPrefix_TBC_010402_NavNode;;$solPrefix_TBC_010402 Industriale;$solPrefix_TBC_010400_NavNode;;$solPrefix_TBC_010402_NavNode
+;$solPrefix_TBC_010500_NavNode;;$solPrefix_TBC_010500 Argon - Ar;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_010500_NavNode
+;$solPrefix_TBC_010501_NavNode;;$solPrefix_TBC_010501 Alimentare;$solPrefix_TBC_010500_NavNode;;$solPrefix_TBC_010501_NavNode
+;$solPrefix_TBC_010502_NavNode;;$solPrefix_TBC_010502 Industriale;$solPrefix_TBC_010500_NavNode;;$solPrefix_TBC_010502_NavNode
+;$solPrefix_TBC_010503_NavNode;;$solPrefix_TBC_010503 Medicale;$solPrefix_TBC_010500_NavNode;;$solPrefix_TBC_010503_NavNode
+;$solPrefix_TBC_010504_NavNode;;$solPrefix_TBC_010504 Puro;$solPrefix_TBC_010500_NavNode;;$solPrefix_TBC_010504_NavNode
+;$solPrefix_TBC_010600_NavNode;;$solPrefix_TBC_010600 Azoto - N2;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_010600_NavNode
+;$solPrefix_TBC_010601_NavNode;;$solPrefix_TBC_010601 Alimentare;$solPrefix_TBC_010600_NavNode;;$solPrefix_TBC_010601_NavNode
+;$solPrefix_TBC_010602_NavNode;;$solPrefix_TBC_010602 Industriale;$solPrefix_TBC_010600_NavNode;;$solPrefix_TBC_010602_NavNode
+;$solPrefix_TBC_010603_NavNode;;$solPrefix_TBC_010603 Medicale;$solPrefix_TBC_010600_NavNode;;$solPrefix_TBC_010603_NavNode
+;$solPrefix_TBC_010604_NavNode;;$solPrefix_TBC_010604 Puro;$solPrefix_TBC_010600_NavNode;;$solPrefix_TBC_010604_NavNode
+;$solPrefix_TBC_010700_NavNode;;$solPrefix_TBC_010700 Elio - He;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_010700_NavNode
+;$solPrefix_TBC_010701_NavNode;;$solPrefix_TBC_010701 Industriale;$solPrefix_TBC_010700_NavNode;;$solPrefix_TBC_010701_NavNode
+;$solPrefix_TBC_010702_NavNode;;$solPrefix_TBC_010702 Flygas;$solPrefix_TBC_010700_NavNode;;$solPrefix_TBC_010702_NavNode
+;$solPrefix_TBC_010703_NavNode;;$solPrefix_TBC_010703 Medicale;$solPrefix_TBC_010700_NavNode;;$solPrefix_TBC_010703_NavNode
+;$solPrefix_TBC_010704_NavNode;;$solPrefix_TBC_010704 Puro;$solPrefix_TBC_010700_NavNode;;$solPrefix_TBC_010704_NavNode
+;$solPrefix_TBC_010800_NavNode;;$solPrefix_TBC_010800 Esafluoruro di Zolfo - SF6;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_010800_NavNode
+;$solPrefix_TBC_010801_NavNode;;$solPrefix_TBC_010801 Dielettrico;$solPrefix_TBC_010800_NavNode;;$solPrefix_TBC_010801_NavNode
+;$solPrefix_TBC_010802_NavNode;;$solPrefix_TBC_010802 Industriale;$solPrefix_TBC_010800_NavNode;;$solPrefix_TBC_010802_NavNode
+;$solPrefix_TBC_010803_NavNode;;$solPrefix_TBC_010803 Medicale;$solPrefix_TBC_010800_NavNode;;$solPrefix_TBC_010803_NavNode
+;$solPrefix_TBC_010804_NavNode;;$solPrefix_TBC_010804 Puro;$solPrefix_TBC_010800_NavNode;;$solPrefix_TBC_010804_NavNode
+;$solPrefix_TBC_010900_NavNode;;$solPrefix_TBC_010900 Idrogeno - H2;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_010900_NavNode
+;$solPrefix_TBC_010901_NavNode;;$solPrefix_TBC_010901 Industriale;$solPrefix_TBC_010900_NavNode;;$solPrefix_TBC_010901_NavNode
+;$solPrefix_TBC_010902_NavNode;;$solPrefix_TBC_010902 Puro;$solPrefix_TBC_010900_NavNode;;$solPrefix_TBC_010902_NavNode
+;$solPrefix_TBC_011000_NavNode;;$solPrefix_TBC_011000 Monossido d'Azoto - NO;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_011000_NavNode
+;$solPrefix_TBC_011001_NavNode;;$solPrefix_TBC_011001 Medicale;$solPrefix_TBC_011000_NavNode;;$solPrefix_TBC_011001_NavNode
+;$solPrefix_TBC_011100_NavNode;;$solPrefix_TBC_011100 Propilene - C3H6;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_011100_NavNode
+;$solPrefix_TBC_011101_NavNode;;$solPrefix_TBC_011101 Industriale;$solPrefix_TBC_011100_NavNode;;$solPrefix_TBC_011101_NavNode
+;$solPrefix_TBC_011102_NavNode;;$solPrefix_TBC_011102 Puro;$solPrefix_TBC_011100_NavNode;;$solPrefix_TBC_011102_NavNode
+;$solPrefix_TBC_011200_NavNode;;$solPrefix_TBC_011200 Protossido d'Azoto - N2O;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_011200_NavNode
+;$solPrefix_TBC_011201_NavNode;;$solPrefix_TBC_011201 Alimentare;$solPrefix_TBC_011200_NavNode;;$solPrefix_TBC_011201_NavNode
+;$solPrefix_TBC_011202_NavNode;;$solPrefix_TBC_011202 Industriale;$solPrefix_TBC_011200_NavNode;;$solPrefix_TBC_011202_NavNode
+;$solPrefix_TBC_011203_NavNode;;$solPrefix_TBC_011203 Medicale;$solPrefix_TBC_011200_NavNode;;$solPrefix_TBC_011203_NavNode
+;$solPrefix_TBC_011204_NavNode;;$solPrefix_TBC_011204 Puro;$solPrefix_TBC_011200_NavNode;;$solPrefix_TBC_011204_NavNode
+;$solPrefix_TBC_011300_NavNode;;$solPrefix_TBC_011300 Ossigeno - O;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_011300_NavNode
+;$solPrefix_TBC_011301_NavNode;;$solPrefix_TBC_011301 Alimentare;$solPrefix_TBC_011300_NavNode;;$solPrefix_TBC_011301_NavNode
+;$solPrefix_TBC_011302_NavNode;;$solPrefix_TBC_011302 Industriale;$solPrefix_TBC_011300_NavNode;;$solPrefix_TBC_011302_NavNode
+;$solPrefix_TBC_011303_NavNode;;$solPrefix_TBC_011303 Medicale;$solPrefix_TBC_011300_NavNode;;$solPrefix_TBC_011303_NavNode
+;$solPrefix_TBC_011304_NavNode;;$solPrefix_TBC_011304 Puro;$solPrefix_TBC_011300_NavNode;;$solPrefix_TBC_011304_NavNode
+;$solPrefix_TBC_011400_NavNode;;$solPrefix_TBC_011400 GPL - MAPP - Propano;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_011400_NavNode
+;$solPrefix_TBC_011500_NavNode;;$solPrefix_TBC_011500 Miscele Alimentari;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_011500_NavNode
+;$solPrefix_TBC_011501_NavNode;;$solPrefix_TBC_011501 AliSOL;$solPrefix_TBC_011500_NavNode;;$solPrefix_TBC_011501_NavNode
+;$solPrefix_TBC_011502_NavNode;;$solPrefix_TBC_011502 FruttaSOL;$solPrefix_TBC_011500_NavNode;;$solPrefix_TBC_011502_NavNode
+;$solPrefix_TBC_011600_NavNode;;$solPrefix_TBC_011600 Miscele Medicali;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_011600_NavNode
+;$solPrefix_TBC_011601_NavNode;;$solPrefix_TBC_011601 Aria;$solPrefix_TBC_011600_NavNode;;$solPrefix_TBC_011601_NavNode
+;$solPrefix_TBC_011602_NavNode;;$solPrefix_TBC_011602 Donopa;$solPrefix_TBC_011600_NavNode;;$solPrefix_TBC_011602_NavNode
+;$solPrefix_TBC_011603_NavNode;;$solPrefix_TBC_011603 Neophyr;$solPrefix_TBC_011600_NavNode;;$solPrefix_TBC_011603_NavNode
+;$solPrefix_TBC_011604_NavNode;;$solPrefix_TBC_011604 Altre miscele;$solPrefix_TBC_011600_NavNode;;$solPrefix_TBC_011604_NavNode
+;$solPrefix_TBC_011700_NavNode;;$solPrefix_TBC_011700 Miscele Industriali;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_011700_NavNode
+;$solPrefix_TBC_011701_NavNode;;$solPrefix_TBC_011701 Aria;$solPrefix_TBC_011700_NavNode;;$solPrefix_TBC_011701_NavNode
+;$solPrefix_TBC_011702_NavNode;;$solPrefix_TBC_011702 Enermix Premium;$solPrefix_TBC_011700_NavNode;;$solPrefix_TBC_011702_NavNode
+;$solPrefix_TBC_011703_NavNode;;$solPrefix_TBC_011703 Enermix Comfort;$solPrefix_TBC_011700_NavNode;;$solPrefix_TBC_011703_NavNode
+;$solPrefix_TBC_011704_NavNode;;$solPrefix_TBC_011704 LaserSOL;$solPrefix_TBC_011700_NavNode;;$solPrefix_TBC_011704_NavNode
+;$solPrefix_TBC_011705_NavNode;;$solPrefix_TBC_011705 Altre miscele;$solPrefix_TBC_011700_NavNode;;$solPrefix_TBC_011705_NavNode
+;$solPrefix_TBC_011800_NavNode;;$solPrefix_TBC_011800 Miscele Specialty;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_011800_NavNode
+;$solPrefix_TBC_011801_NavNode;;$solPrefix_TBC_011801 Miscele standard e speciali;$solPrefix_TBC_011800_NavNode;;$solPrefix_TBC_011801_NavNode
+;$solPrefix_TBC_011802_NavNode;;$solPrefix_TBC_011802 Miscele certificate;$solPrefix_TBC_011800_NavNode;;$solPrefix_TBC_011802_NavNode
+;$solPrefix_TBC_011803_NavNode;;$solPrefix_TBC_011803 Miscele di alta precisione;$solPrefix_TBC_011800_NavNode;;$solPrefix_TBC_011803_NavNode
+;$solPrefix_TBC_011900_NavNode;;$solPrefix_TBC_011900 Gas Refrigeranti;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_011900_NavNode
+;$solPrefix_TBC_011901_NavNode;;$solPrefix_TBC_011901 Refrigeranti HFC;$solPrefix_TBC_011900_NavNode;;$solPrefix_TBC_011901_NavNode
+;$solPrefix_TBC_011902_NavNode;;$solPrefix_TBC_011902 Refrigeranti Naturali;$solPrefix_TBC_011900_NavNode;;$solPrefix_TBC_011902_NavNode
+;$solPrefix_TBC_011903_NavNode;;$solPrefix_TBC_011903 Refrigeranti HFO;$solPrefix_TBC_011900_NavNode;;$solPrefix_TBC_011903_NavNode
+;$solPrefix_TBC_011904_NavNode;;$solPrefix_TBC_011904 Refrigeranti HC - Idrocarburi;$solPrefix_TBC_011900_NavNode;;$solPrefix_TBC_011904_NavNode
+;$solPrefix_TBC_012000_NavNode;;$solPrefix_TBC_012000 Altri gas;$solPrefix_TBC_010000_NavNode;;$solPrefix_TBC_012000_NavNode
+;$solPrefix_TBC_012001_NavNode;;$solPrefix_TBC_012001 1,3 Butadiene C4H6;$solPrefix_TBC_012000_NavNode;;$solPrefix_TBC_012001_NavNode
+;$solPrefix_TBC_012002_NavNode;;$solPrefix_TBC_012002 Acido Cloridrico - HCl;$solPrefix_TBC_012000_NavNode;;$solPrefix_TBC_012002_NavNode
+;$solPrefix_TBC_012003_NavNode;;$solPrefix_TBC_012003 Esafluoroetano - C2F6;$solPrefix_TBC_012000_NavNode;;$solPrefix_TBC_012003_NavNode
+;$solPrefix_TBC_012004_NavNode;;$solPrefix_TBC_012004 Etano - C2H6;$solPrefix_TBC_012000_NavNode;;$solPrefix_TBC_012004_NavNode
+;$solPrefix_TBC_012005_NavNode;;$solPrefix_TBC_012005 Etilene - C2H4;$solPrefix_TBC_012000_NavNode;;$solPrefix_TBC_012005_NavNode
+;$solPrefix_TBC_012006_NavNode;;$solPrefix_TBC_012006 Idrogeno Solforato - H2S;$solPrefix_TBC_012000_NavNode;;$solPrefix_TBC_012006_NavNode
+;$solPrefix_TBC_012007_NavNode;;$solPrefix_TBC_012007 Iso-Butano - C4H10;$solPrefix_TBC_012000_NavNode;;$solPrefix_TBC_012007_NavNode
+;$solPrefix_TBC_012008_NavNode;;$solPrefix_TBC_012008 Isobutilene o Isobutene;$solPrefix_TBC_012000_NavNode;;$solPrefix_TBC_012008_NavNode
+;$solPrefix_TBC_012009_NavNode;;$solPrefix_TBC_012009 Krypton - Kr;$solPrefix_TBC_012000_NavNode;;$solPrefix_TBC_012009_NavNode
+;$solPrefix_TBC_012010_NavNode;;$solPrefix_TBC_012010 Metano - CH4;$solPrefix_TBC_012000_NavNode;;$solPrefix_TBC_012010_NavNode
+;$solPrefix_TBC_012011_NavNode;;$solPrefix_TBC_012011 Neon - Ne;$solPrefix_TBC_012000_NavNode;;$solPrefix_TBC_012011_NavNode
+;$solPrefix_TBC_012012_NavNode;;$solPrefix_TBC_012012 Normal-Butano C4H10;$solPrefix_TBC_012000_NavNode;;$solPrefix_TBC_012012_NavNode
+;$solPrefix_TBC_012013_NavNode;;$solPrefix_TBC_012013 Octafluoropropano C3F8;$solPrefix_TBC_012000_NavNode;;$solPrefix_TBC_012013_NavNode
+;$solPrefix_TBC_012014_NavNode;;$solPrefix_TBC_012014 Ossido di Azoto - NO;$solPrefix_TBC_012000_NavNode;;$solPrefix_TBC_012014_NavNode
+;$solPrefix_TBC_012015_NavNode;;$solPrefix_TBC_012015 Ossido di Carbonio - CO;$solPrefix_TBC_012000_NavNode;;$solPrefix_TBC_012015_NavNode
+;$solPrefix_TBC_012016_NavNode;;$solPrefix_TBC_012016 Propadiene o Allene - C3H4;$solPrefix_TBC_012000_NavNode;;$solPrefix_TBC_012016_NavNode
+;$solPrefix_TBC_012017_NavNode;;$solPrefix_TBC_012017 Propano - C3H8;$solPrefix_TBC_012000_NavNode;;$solPrefix_TBC_012017_NavNode
+;$solPrefix_TBC_012018_NavNode;;$solPrefix_TBC_012018 Xenon - Xe;$solPrefix_TBC_012000_NavNode;;$solPrefix_TBC_012018_NavNode
+;$solPrefix_TBC_020000_NavNode;;$solPrefix_TBC_020000 GAS Equipments;$solPrefixCategoryNavNode;;$solPrefix_TBC_020000_NavNode
+;$solPrefix_TBC_020100_NavNode;;$solPrefix_TBC_020100 Riduttori di pressione;$solPrefix_TBC_020000_NavNode;;$solPrefix_TBC_020100_NavNode
+;$solPrefix_TBC_020101_NavNode;;$solPrefix_TBC_020101 Alimentare;$solPrefix_TBC_020100_NavNode;;$solPrefix_TBC_020101_NavNode
+;$solPrefix_TBC_020102_NavNode;;$solPrefix_TBC_020102 Industriale;$solPrefix_TBC_020100_NavNode;;$solPrefix_TBC_020102_NavNode
+;$solPrefix_TBC_020103_NavNode;;$solPrefix_TBC_020103 Puro;$solPrefix_TBC_020100_NavNode;;$solPrefix_TBC_020103_NavNode
+;$solPrefix_TBC_020200_NavNode;;$solPrefix_TBC_020200 Posti presa;$solPrefix_TBC_020000_NavNode;;$solPrefix_TBC_020200_NavNode
+;$solPrefix_TBC_020201_NavNode;;$solPrefix_TBC_020201 Alimentare;$solPrefix_TBC_020200_NavNode;;$solPrefix_TBC_020201_NavNode
+;$solPrefix_TBC_020202_NavNode;;$solPrefix_TBC_020202 Industriale;$solPrefix_TBC_020200_NavNode;;$solPrefix_TBC_020202_NavNode
+;$solPrefix_TBC_020203_NavNode;;$solPrefix_TBC_020203 Puro;$solPrefix_TBC_020200_NavNode;;$solPrefix_TBC_020203_NavNode
+;$solPrefix_TBC_020300_NavNode;;$solPrefix_TBC_020300 Centrali di decompressione;$solPrefix_TBC_020000_NavNode;;$solPrefix_TBC_020300_NavNode
+;$solPrefix_TBC_020301_NavNode;;$solPrefix_TBC_020301 Alimentare;$solPrefix_TBC_020300_NavNode;;$solPrefix_TBC_020301_NavNode
+;$solPrefix_TBC_020302_NavNode;;$solPrefix_TBC_020302 Industriale;$solPrefix_TBC_020300_NavNode;;$solPrefix_TBC_020302_NavNode
+;$solPrefix_TBC_020303_NavNode;;$solPrefix_TBC_020303 Puro;$solPrefix_TBC_020300_NavNode;;$solPrefix_TBC_020303_NavNode
+;$solPrefix_TBC_020400_NavNode;;$solPrefix_TBC_020400 Serpentine e fruste;$solPrefix_TBC_020000_NavNode;;$solPrefix_TBC_020400_NavNode
+;$solPrefix_TBC_020401_NavNode;;$solPrefix_TBC_020401 Alimentare;$solPrefix_TBC_020400_NavNode;;$solPrefix_TBC_020401_NavNode
+;$solPrefix_TBC_020402_NavNode;;$solPrefix_TBC_020402 Industriale;$solPrefix_TBC_020400_NavNode;;$solPrefix_TBC_020402_NavNode
+;$solPrefix_TBC_020403_NavNode;;$solPrefix_TBC_020403 Puro;$solPrefix_TBC_020400_NavNode;;$solPrefix_TBC_020403_NavNode
+;$solPrefix_TBC_020500_NavNode;;$solPrefix_TBC_020500 Valvole antiritorno di fiamma;$solPrefix_TBC_020000_NavNode;;$solPrefix_TBC_020500_NavNode
+;$solPrefix_TBC_020501_NavNode;;$solPrefix_TBC_020501 Alimentare;$solPrefix_TBC_020500_NavNode;;$solPrefix_TBC_020501_NavNode
+;$solPrefix_TBC_020502_NavNode;;$solPrefix_TBC_020502 Industriale;$solPrefix_TBC_020500_NavNode;;$solPrefix_TBC_020502_NavNode
+;$solPrefix_TBC_020503_NavNode;;$solPrefix_TBC_020503 Puro;$solPrefix_TBC_020500_NavNode;;$solPrefix_TBC_020503_NavNode
+;$solPrefix_TBC_020600_NavNode;;$solPrefix_TBC_020600 Valvole di linea;$solPrefix_TBC_020000_NavNode;;$solPrefix_TBC_020600_NavNode
+;$solPrefix_TBC_020601_NavNode;;$solPrefix_TBC_020601 Alimentare;$solPrefix_TBC_020600_NavNode;;$solPrefix_TBC_020601_NavNode
+;$solPrefix_TBC_020602_NavNode;;$solPrefix_TBC_020602 Industriale;$solPrefix_TBC_020600_NavNode;;$solPrefix_TBC_020602_NavNode
+;$solPrefix_TBC_020603_NavNode;;$solPrefix_TBC_020603 Puro;$solPrefix_TBC_020600_NavNode;;$solPrefix_TBC_020603_NavNode
+;$solPrefix_TBC_020700_NavNode;;$solPrefix_TBC_020700 Raccorderia;$solPrefix_TBC_020000_NavNode;;$solPrefix_TBC_020700_NavNode
+;$solPrefix_TBC_020800_NavNode;;$solPrefix_TBC_020800 Rastrelliere e accessori gas compressi;$solPrefix_TBC_020000_NavNode;;$solPrefix_TBC_020800_NavNode
+;$solPrefix_TBC_020900_NavNode;;$solPrefix_TBC_020900 Generatori da laboratorio;$solPrefix_TBC_020000_NavNode;;$solPrefix_TBC_020900_NavNode
+;$solPrefix_TBC_020901_NavNode;;$solPrefix_TBC_020901 Azoto;$solPrefix_TBC_020900_NavNode;;$solPrefix_TBC_020901_NavNode
+;$solPrefix_TBC_020902_NavNode;;$solPrefix_TBC_020902 Aria;$solPrefix_TBC_020900_NavNode;;$solPrefix_TBC_020902_NavNode
+;$solPrefix_TBC_020903_NavNode;;$solPrefix_TBC_020903 Azoto - Aria;$solPrefix_TBC_020900_NavNode;;$solPrefix_TBC_020903_NavNode
+;$solPrefix_TBC_020904_NavNode;;$solPrefix_TBC_020904 Idrogeno;$solPrefix_TBC_020900_NavNode;;$solPrefix_TBC_020904_NavNode
+;$solPrefix_TBC_030000_NavNode;;$solPrefix_TBC_030000 Medical GAS Equipments;$solPrefixCategoryNavNode;;$solPrefix_TBC_030000_NavNode
+;$solPrefix_TBC_030100_NavNode;;$solPrefix_TBC_030100 Accessori;$solPrefix_TBC_030000_NavNode;;$solPrefix_TBC_030100_NavNode
+;$solPrefix_TBC_030101_NavNode;;$solPrefix_TBC_030101 Flussimetri;$solPrefix_TBC_030100_NavNode;;$solPrefix_TBC_030101_NavNode
+;$solPrefix_TBC_030102_NavNode;;$solPrefix_TBC_030102 Regolatori del vuoto;$solPrefix_TBC_030100_NavNode;;$solPrefix_TBC_030102_NavNode
+;$solPrefix_TBC_030103_NavNode;;$solPrefix_TBC_030103 Umidificatori;$solPrefix_TBC_030100_NavNode;;$solPrefix_TBC_030103_NavNode
+;$solPrefix_TBC_030104_NavNode;;$solPrefix_TBC_030104 Carrelli portabombola;$solPrefix_TBC_030100_NavNode;;$solPrefix_TBC_030104_NavNode
+;$solPrefix_TBC_030200_NavNode;;$solPrefix_TBC_030200 Servizio Ossido Nitrico;$solPrefix_TBC_030000_NavNode;;$solPrefix_TBC_030200_NavNode
+;$solPrefix_TBC_030201_NavNode;;$solPrefix_TBC_030201 Dispositivi per sistema NoxBox;$solPrefix_TBC_030200_NavNode;;$solPrefix_TBC_030201_NavNode
+;$solPrefix_TBC_030202_NavNode;;$solPrefix_TBC_030202 Dispositivi per taratura sistema somministrazione/monitoraggio;$solPrefix_TBC_030200_NavNode;;$solPrefix_TBC_030202_NavNode
+;$solPrefix_TBC_030300_NavNode;;$solPrefix_TBC_030300 Servizio Analgesia;$solPrefix_TBC_030000_NavNode;;$solPrefix_TBC_030300_NavNode
+;$solPrefix_TBC_030301_NavNode;;$solPrefix_TBC_030301 Dispositivo per evacuazione EMONO;$solPrefix_TBC_030300_NavNode;;$solPrefix_TBC_030301_NavNode
+;$solPrefix_TBC_030302_NavNode;;$solPrefix_TBC_030302 Accessori Somministrazione /Evacuazione del farmaco;$solPrefix_TBC_030300_NavNode;;$solPrefix_TBC_030302_NavNode
+;$solPrefix_TBC_030400_NavNode;;$solPrefix_TBC_030400 Riduttori di pressione;$solPrefix_TBC_030000_NavNode;;$solPrefix_TBC_030400_NavNode
+;$solPrefix_TBC_030500_NavNode;;$solPrefix_TBC_030500 Posti presa;$solPrefix_TBC_030000_NavNode;;$solPrefix_TBC_030500_NavNode
+;$solPrefix_TBC_030600_NavNode;;$solPrefix_TBC_030600 Centrali di decompressione;$solPrefix_TBC_030000_NavNode;;$solPrefix_TBC_030600_NavNode
+;$solPrefix_TBC_030700_NavNode;;$solPrefix_TBC_030700 Serpentine e fruste;$solPrefix_TBC_030000_NavNode;;$solPrefix_TBC_030700_NavNode
+;$solPrefix_TBC_030800_NavNode;;$solPrefix_TBC_030800 Valvole antiritorno di fiamma;$solPrefix_TBC_030000_NavNode;;$solPrefix_TBC_030800_NavNode
+;$solPrefix_TBC_030900_NavNode;;$solPrefix_TBC_030900 Valvole di linea;$solPrefix_TBC_030000_NavNode;;$solPrefix_TBC_030900_NavNode
+;$solPrefix_TBC_031000_NavNode;;$solPrefix_TBC_031000 Servizio Ossido Nitrico;$solPrefix_TBC_030000_NavNode;;$solPrefix_TBC_031000_NavNode
+;$solPrefix_TBC_040000_NavNode;;$solPrefix_TBC_040000 Welding products;$solPrefixCategoryNavNode;;$solPrefix_TBC_040000_NavNode
+;$solPrefix_TBC_040100_NavNode;;$solPrefix_TBC_040100 Saldatura MIG / MAG;$solPrefix_TBC_040000_NavNode;;$solPrefix_TBC_040100_NavNode
+;$solPrefix_TBC_040101_NavNode;;$solPrefix_TBC_040101 Gas di protezione;$solPrefix_TBC_040100_NavNode;;$solPrefix_TBC_040101_NavNode
+;$solPrefix_TBC_040102_NavNode;;$solPrefix_TBC_040102 Torce;$solPrefix_TBC_040100_NavNode;;$solPrefix_TBC_040102_NavNode
+;$solPrefix_TBC_040103_NavNode;;$solPrefix_TBC_040103 Impianti di saldatura;$solPrefix_TBC_040100_NavNode;;$solPrefix_TBC_040103_NavNode
+;$solPrefix_TBC_040104_NavNode;;$solPrefix_TBC_040104 Consumabili;$solPrefix_TBC_040100_NavNode;;$solPrefix_TBC_040104_NavNode
+;$solPrefix_TBC_040200_NavNode;;$solPrefix_TBC_040200 Saldatura TIG;$solPrefix_TBC_040000_NavNode;;$solPrefix_TBC_040200_NavNode
+;$solPrefix_TBC_040201_NavNode;;$solPrefix_TBC_040201 Gas di protezione;$solPrefix_TBC_040200_NavNode;;$solPrefix_TBC_040201_NavNode
+;$solPrefix_TBC_040202_NavNode;;$solPrefix_TBC_040202 Torce;$solPrefix_TBC_040200_NavNode;;$solPrefix_TBC_040202_NavNode
+;$solPrefix_TBC_040203_NavNode;;$solPrefix_TBC_040203 Impianti di saldatura;$solPrefix_TBC_040200_NavNode;;$solPrefix_TBC_040203_NavNode
+;$solPrefix_TBC_040204_NavNode;;$solPrefix_TBC_040204 Accessori;$solPrefix_TBC_040200_NavNode;;$solPrefix_TBC_040204_NavNode
+;$solPrefix_TBC_040205_NavNode;;$solPrefix_TBC_040205 Consumabili;$solPrefix_TBC_040200_NavNode;;$solPrefix_TBC_040205_NavNode
+;$solPrefix_TBC_040300_NavNode;;$solPrefix_TBC_040300 Saldatura ad elettrodo;$solPrefix_TBC_040000_NavNode;;$solPrefix_TBC_040300_NavNode
+;$solPrefix_TBC_040301_NavNode;;$solPrefix_TBC_040301 Impianti di saldatura;$solPrefix_TBC_040300_NavNode;;$solPrefix_TBC_040301_NavNode
+;$solPrefix_TBC_040400_NavNode;;$solPrefix_TBC_040400 Processi Ossi-gas;$solPrefix_TBC_040000_NavNode;;$solPrefix_TBC_040400_NavNode
+;$solPrefix_TBC_040401_NavNode;;$solPrefix_TBC_040401 Gas di processo;$solPrefix_TBC_040400_NavNode;;$solPrefix_TBC_040401_NavNode
+;$solPrefix_TBC_040402_NavNode;;$solPrefix_TBC_040402 Riduttori di pressione;$solPrefix_TBC_040400_NavNode;;$solPrefix_TBC_040402_NavNode
+;$solPrefix_TBC_040403_NavNode;;$solPrefix_TBC_040403 Cannelli;$solPrefix_TBC_040400_NavNode;;$solPrefix_TBC_040403_NavNode
+;$solPrefix_TBC_040404_NavNode;;$solPrefix_TBC_040404 Valvole di sicurezza;$solPrefix_TBC_040400_NavNode;;$solPrefix_TBC_040404_NavNode
+;$solPrefix_TBC_040405_NavNode;;$solPrefix_TBC_040405 Accessori;$solPrefix_TBC_040400_NavNode;;$solPrefix_TBC_040405_NavNode
+;$solPrefix_TBC_040406_NavNode;;$solPrefix_TBC_040406 Consumabili;$solPrefix_TBC_040400_NavNode;;$solPrefix_TBC_040406_NavNode
+;$solPrefix_TBC_040500_NavNode;;$solPrefix_TBC_040500 Processi Plasma;$solPrefix_TBC_040000_NavNode;;$solPrefix_TBC_040500_NavNode
+;$solPrefix_TBC_040501_NavNode;;$solPrefix_TBC_040501 Gas plasma;$solPrefix_TBC_040500_NavNode;;$solPrefix_TBC_040501_NavNode
+;$solPrefix_TBC_040502_NavNode;;$solPrefix_TBC_040502 Gas di protezione;$solPrefix_TBC_040500_NavNode;;$solPrefix_TBC_040502_NavNode
+;$solPrefix_TBC_040503_NavNode;;$solPrefix_TBC_040503 Impianti di saldatura;$solPrefix_TBC_040500_NavNode;;$solPrefix_TBC_040503_NavNode
+;$solPrefix_TBC_040504_NavNode;;$solPrefix_TBC_040504 Impianti di Taglio;$solPrefix_TBC_040500_NavNode;;$solPrefix_TBC_040504_NavNode
+;$solPrefix_TBC_040600_NavNode;;$solPrefix_TBC_040600 Proccessi Laser;$solPrefix_TBC_040000_NavNode;;$solPrefix_TBC_040600_NavNode
+;$solPrefix_TBC_040601_NavNode;;$solPrefix_TBC_040601 Miscele laseranti;$solPrefix_TBC_040600_NavNode;;$solPrefix_TBC_040601_NavNode
+;$solPrefix_TBC_040602_NavNode;;$solPrefix_TBC_040602 Gas di processo;$solPrefix_TBC_040600_NavNode;;$solPrefix_TBC_040602_NavNode
+;$solPrefix_TBC_040700_NavNode;;$solPrefix_TBC_040700 Finitura;$solPrefix_TBC_040000_NavNode;;$solPrefix_TBC_040700_NavNode
+;$solPrefix_TBC_040701_NavNode;;$solPrefix_TBC_040701 Dischi abrasivi;$solPrefix_TBC_040700_NavNode;;$solPrefix_TBC_040701_NavNode
+;$solPrefix_TBC_040702_NavNode;;$solPrefix_TBC_040702 Prodotti chimici;$solPrefix_TBC_040700_NavNode;;$solPrefix_TBC_040702_NavNode
+;$solPrefix_TBC_040800_NavNode;;$solPrefix_TBC_040800 Aspirazione Fumi;$solPrefix_TBC_040000_NavNode;;$solPrefix_TBC_040800_NavNode
+;$solPrefix_TBC_040801_NavNode;;$solPrefix_TBC_040801 Aspiratori portatili;$solPrefix_TBC_040800_NavNode;;$solPrefix_TBC_040801_NavNode
+;$solPrefix_TBC_050000_NavNode;;$solPrefix_TBC_050000 Cryo products;$solPrefixCategoryNavNode;;$solPrefix_TBC_050000_NavNode
+;$solPrefix_TBC_050100_NavNode;;$solPrefix_TBC_050100 Cryoblasting;$solPrefix_TBC_050000_NavNode;;$solPrefix_TBC_050100_NavNode
+;$solPrefix_TBC_050101_NavNode;;$solPrefix_TBC_050101 Microclean;$solPrefix_TBC_050100_NavNode;;$solPrefix_TBC_050101_NavNode
+;$solPrefix_TBC_050102_NavNode;;$solPrefix_TBC_050102 Snow Cleaning;$solPrefix_TBC_050100_NavNode;;$solPrefix_TBC_050102_NavNode
+;$solPrefix_TBC_050103_NavNode;;$solPrefix_TBC_050103 Blaster;$solPrefix_TBC_050100_NavNode;;$solPrefix_TBC_050103_NavNode
+;$solPrefix_TBC_050104_NavNode;;$solPrefix_TBC_050104 Scatole poilistirolo;$solPrefix_TBC_050100_NavNode;;$solPrefix_TBC_050104_NavNode
+;$solPrefix_TBC_050105_NavNode;;$solPrefix_TBC_050105 Pastigliatrice dryice;$solPrefix_TBC_050100_NavNode;;$solPrefix_TBC_050105_NavNode
+;$solPrefix_TBC_050106_NavNode;;$solPrefix_TBC_050106 Gel refrigerante;$solPrefix_TBC_050100_NavNode;;$solPrefix_TBC_050106_NavNode
+;$solPrefix_TBC_050200_NavNode;;$solPrefix_TBC_050200 Contenitori criobiologici e criogenici (dewar);$solPrefix_TBC_050000_NavNode;;$solPrefix_TBC_050200_NavNode
+;$solPrefix_TBC_050201_NavNode;;$solPrefix_TBC_050201 Contenitori per stoccaggio di campioni biologici;$solPrefix_TBC_050200_NavNode;;$solPrefix_TBC_050201_NavNode
+;$solPrefix_TBC_050202_NavNode;;$solPrefix_TBC_050202 Contenitori per stoccaggio e trasporto di azoto liquido;$solPrefix_TBC_050200_NavNode;;$solPrefix_TBC_050202_NavNode
+;$solPrefix_TBC_050300_NavNode;;$solPrefix_TBC_050300 Congelatori;$solPrefix_TBC_050000_NavNode;;$solPrefix_TBC_050300_NavNode
+;$solPrefix_TBC_050301_NavNode;;$solPrefix_TBC_050301 Congelatori a discesa programmata della temperatura;$solPrefix_TBC_050300_NavNode;;$solPrefix_TBC_050301_NavNode
+;$solPrefix_TBC_050302_NavNode;;$solPrefix_TBC_050302 Congelatori meccanici;$solPrefix_TBC_050300_NavNode;;$solPrefix_TBC_050302_NavNode
+;$solPrefix_TBC_050400_NavNode;;$solPrefix_TBC_050400 Sistemi hardware e software per Criobiologia;$solPrefix_TBC_050000_NavNode;;$solPrefix_TBC_050400_NavNode
+;$solPrefix_TBC_050401_NavNode;;$solPrefix_TBC_050401 Centraline di controllo;$solPrefix_TBC_050400_NavNode;;$solPrefix_TBC_050401_NavNode
+;$solPrefix_TBC_050402_NavNode;;$solPrefix_TBC_050402 Stampanti e lettori;$solPrefix_TBC_050400_NavNode;;$solPrefix_TBC_050402_NavNode
+;$solPrefix_TBC_050403_NavNode;;$solPrefix_TBC_050403 Software di tracciabilità e archiviazione;$solPrefix_TBC_050400_NavNode;;$solPrefix_TBC_050403_NavNode
+;$solPrefix_TBC_060000_NavNode;;$solPrefix_TBC_060000 Dispositivi medici;$solPrefixCategoryNavNode;;$solPrefix_TBC_060000_NavNode
+;$solPrefix_TBC_070000_NavNode;;$solPrefix_TBC_070000 DPI;$solPrefixCategoryNavNode;;$solPrefix_TBC_070000_NavNode
+;$solPrefix_TBC_070100_NavNode;;$solPrefix_TBC_070100 DPI;$solPrefix_TBC_070000_NavNode;;$solPrefix_TBC_070100_NavNode
+;$solPrefix_TBC_070101_NavNode;;$solPrefix_TBC_070101 Protezione Viso;$solPrefix_TBC_070100_NavNode;;$solPrefix_TBC_070101_NavNode
+;$solPrefix_TBC_070102_NavNode;;$solPrefix_TBC_070102 Protezione Arti;$solPrefix_TBC_070100_NavNode;;$solPrefix_TBC_070102_NavNode
+;$solPrefix_TBC_070103_NavNode;;$solPrefix_TBC_070103 Protezione Corpo;$solPrefix_TBC_070100_NavNode;;$solPrefix_TBC_070103_NavNode
+;$solPrefix_TBC_070104_NavNode;;$solPrefix_TBC_070104 Sistemi di aspirazione fumi;$solPrefix_TBC_070100_NavNode;;$solPrefix_TBC_070104_NavNode
+;$solPrefix_TBC_070105_NavNode;;$solPrefix_TBC_070105 Impianti e quadri di controllo - SolMet;$solPrefix_TBC_070100_NavNode;;$solPrefix_TBC_070105_NavNode
+;$solPrefix_TBC_070106_NavNode;;$solPrefix_TBC_070106 Autoproduzione di ossigeno - OxySOL;$solPrefix_TBC_070100_NavNode;;$solPrefix_TBC_070106_NavNode
+;$solPrefix_TBC_070107_NavNode;;$solPrefix_TBC_070107 Autoproduzione di azoto - NitroSOL;$solPrefix_TBC_070100_NavNode;;$solPrefix_TBC_070107_NavNode
+;$solPrefix_TBC_070108_NavNode;;$solPrefix_TBC_070108 Trattamento acque di processo e reflue;$solPrefix_TBC_070100_NavNode;;$solPrefix_TBC_070108_NavNode
+;$solPrefix_TBC_070109_NavNode;;$solPrefix_TBC_070109 Controlli non distruttivi - SOLcontrol;$solPrefix_TBC_070100_NavNode;;$solPrefix_TBC_070109_NavNode
+;$solPrefix_TBC_070110_NavNode;;$solPrefix_TBC_070110 Pulizia criogenica - DryBlast;$solPrefix_TBC_070100_NavNode;;$solPrefix_TBC_070110_NavNode
+;$solPrefix_TBC_070200_NavNode;;$solPrefix_TBC_070200 DPI criogenici;$solPrefix_TBC_070000_NavNode;;$solPrefix_TBC_070200_NavNode
+;$solPrefix_TBC_070201_NavNode;;$solPrefix_TBC_070201 Sistemi per travaso azoto in sicurezza;$solPrefix_TBC_070200_NavNode;;$solPrefix_TBC_070201_NavNode
+;$solPrefix_TBC_070202_NavNode;;$solPrefix_TBC_070202 DPI criogenici;$solPrefix_TBC_070200_NavNode;;$solPrefix_TBC_070202_NavNode
+;$solPrefix_TBC_070203_NavNode;;$solPrefix_TBC_070203 DPI sicurezza;$solPrefix_TBC_070200_NavNode;;$solPrefix_TBC_070203_NavNode
+;;;;;;;
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;&linkRef;&componentRef;target(code)[default='sameWindow']
+;;$solPrefix_TBC_010000_NavLink;$solPrefix_TBC_010000 Gas Link;/c/$solPrefix_TBC_010000;$solPrefix_TBC_010000_NavLink;$solPrefix_TBC_010000_NavLink;
+;;$solPrefix_TBC_010100_NavLink;$solPrefix_TBC_010100 Acetilene - C2H2 Link;/c/$solPrefix_TBC_010100;$solPrefix_TBC_010100_NavLink;$solPrefix_TBC_010100_NavLink;
+;;$solPrefix_TBC_010101_NavLink;$solPrefix_TBC_010101 Industriale Link;/c/$solPrefix_TBC_010101;$solPrefix_TBC_010101_NavLink;$solPrefix_TBC_010101_NavLink;
+;;$solPrefix_TBC_010102_NavLink;$solPrefix_TBC_010102 Puro Link;/c/$solPrefix_TBC_010102;$solPrefix_TBC_010102_NavLink;$solPrefix_TBC_010102_NavLink;
+;;$solPrefix_TBC_010200_NavLink;$solPrefix_TBC_010200 Ammoniaca anidra -NH3 Link;/c/$solPrefix_TBC_010200;$solPrefix_TBC_010200_NavLink;$solPrefix_TBC_010200_NavLink;
+;;$solPrefix_TBC_010201_NavLink;$solPrefix_TBC_010201 Industriale Link;/c/$solPrefix_TBC_010201;$solPrefix_TBC_010201_NavLink;$solPrefix_TBC_010201_NavLink;
+;;$solPrefix_TBC_010202_NavLink;$solPrefix_TBC_010202 Puro Link;/c/$solPrefix_TBC_010202;$solPrefix_TBC_010202_NavLink;$solPrefix_TBC_010202_NavLink;
+;;$solPrefix_TBC_010203_NavLink;$solPrefix_TBC_010203 Refrigerante Link;/c/$solPrefix_TBC_010203;$solPrefix_TBC_010203_NavLink;$solPrefix_TBC_010203_NavLink;
+;;$solPrefix_TBC_010300_NavLink;$solPrefix_TBC_010300 Anidride Carbonica - CO2 Link;/c/$solPrefix_TBC_010300;$solPrefix_TBC_010300_NavLink;$solPrefix_TBC_010300_NavLink;
+;;$solPrefix_TBC_010301_NavLink;$solPrefix_TBC_010301 Alimentare Link;/c/$solPrefix_TBC_010301;$solPrefix_TBC_010301_NavLink;$solPrefix_TBC_010301_NavLink;
+;;$solPrefix_TBC_010302_NavLink;$solPrefix_TBC_010302 Industriale Link;/c/$solPrefix_TBC_010302;$solPrefix_TBC_010302_NavLink;$solPrefix_TBC_010302_NavLink;
+;;$solPrefix_TBC_010303_NavLink;$solPrefix_TBC_010303 Medicale Link;/c/$solPrefix_TBC_010303;$solPrefix_TBC_010303_NavLink;$solPrefix_TBC_010303_NavLink;
+;;$solPrefix_TBC_010304_NavLink;$solPrefix_TBC_010304 Puro Link;/c/$solPrefix_TBC_010304;$solPrefix_TBC_010304_NavLink;$solPrefix_TBC_010304_NavLink;
+;;$solPrefix_TBC_010305_NavLink;$solPrefix_TBC_010305 Ghiaccio Secco Link;/c/$solPrefix_TBC_010305;$solPrefix_TBC_010305_NavLink;$solPrefix_TBC_010305_NavLink;
+;;$solPrefix_TBC_010306_NavLink;$solPrefix_TBC_010306 Ghiaccio secco - Service Kit Link;/c/$solPrefix_TBC_010306;$solPrefix_TBC_010306_NavLink;$solPrefix_TBC_010306_NavLink;
+;;$solPrefix_TBC_010400_NavLink;$solPrefix_TBC_010400 Anidride Solforosa - SO2 Link;/c/$solPrefix_TBC_010400;$solPrefix_TBC_010400_NavLink;$solPrefix_TBC_010400_NavLink;
+;;$solPrefix_TBC_010401_NavLink;$solPrefix_TBC_010401 Alimentare Link;/c/$solPrefix_TBC_010401;$solPrefix_TBC_010401_NavLink;$solPrefix_TBC_010401_NavLink;
+;;$solPrefix_TBC_010402_NavLink;$solPrefix_TBC_010402 Industriale Link;/c/$solPrefix_TBC_010402;$solPrefix_TBC_010402_NavLink;$solPrefix_TBC_010402_NavLink;
+;;$solPrefix_TBC_010500_NavLink;$solPrefix_TBC_010500 Argon - Ar Link;/c/$solPrefix_TBC_010500;$solPrefix_TBC_010500_NavLink;$solPrefix_TBC_010500_NavLink;
+;;$solPrefix_TBC_010501_NavLink;$solPrefix_TBC_010501 Alimentare Link;/c/$solPrefix_TBC_010501;$solPrefix_TBC_010501_NavLink;$solPrefix_TBC_010501_NavLink;
+;;$solPrefix_TBC_010502_NavLink;$solPrefix_TBC_010502 Industriale Link;/c/$solPrefix_TBC_010502;$solPrefix_TBC_010502_NavLink;$solPrefix_TBC_010502_NavLink;
+;;$solPrefix_TBC_010503_NavLink;$solPrefix_TBC_010503 Medicale Link;/c/$solPrefix_TBC_010503;$solPrefix_TBC_010503_NavLink;$solPrefix_TBC_010503_NavLink;
+;;$solPrefix_TBC_010504_NavLink;$solPrefix_TBC_010504 Puro Link;/c/$solPrefix_TBC_010504;$solPrefix_TBC_010504_NavLink;$solPrefix_TBC_010504_NavLink;
+;;$solPrefix_TBC_010600_NavLink;$solPrefix_TBC_010600 Azoto - N2 Link;/c/$solPrefix_TBC_010600;$solPrefix_TBC_010600_NavLink;$solPrefix_TBC_010600_NavLink;
+;;$solPrefix_TBC_010601_NavLink;$solPrefix_TBC_010601 Alimentare Link;/c/$solPrefix_TBC_010601;$solPrefix_TBC_010601_NavLink;$solPrefix_TBC_010601_NavLink;
+;;$solPrefix_TBC_010602_NavLink;$solPrefix_TBC_010602 Industriale Link;/c/$solPrefix_TBC_010602;$solPrefix_TBC_010602_NavLink;$solPrefix_TBC_010602_NavLink;
+;;$solPrefix_TBC_010603_NavLink;$solPrefix_TBC_010603 Medicale Link;/c/$solPrefix_TBC_010603;$solPrefix_TBC_010603_NavLink;$solPrefix_TBC_010603_NavLink;
+;;$solPrefix_TBC_010604_NavLink;$solPrefix_TBC_010604 Puro Link;/c/$solPrefix_TBC_010604;$solPrefix_TBC_010604_NavLink;$solPrefix_TBC_010604_NavLink;
+;;$solPrefix_TBC_010700_NavLink;$solPrefix_TBC_010700 Elio - He Link;/c/$solPrefix_TBC_010700;$solPrefix_TBC_010700_NavLink;$solPrefix_TBC_010700_NavLink;
+;;$solPrefix_TBC_010701_NavLink;$solPrefix_TBC_010701 Industriale Link;/c/$solPrefix_TBC_010701;$solPrefix_TBC_010701_NavLink;$solPrefix_TBC_010701_NavLink;
+;;$solPrefix_TBC_010702_NavLink;$solPrefix_TBC_010702 Flygas Link;/c/$solPrefix_TBC_010702;$solPrefix_TBC_010702_NavLink;$solPrefix_TBC_010702_NavLink;
+;;$solPrefix_TBC_010703_NavLink;$solPrefix_TBC_010703 Medicale Link;/c/$solPrefix_TBC_010703;$solPrefix_TBC_010703_NavLink;$solPrefix_TBC_010703_NavLink;
+;;$solPrefix_TBC_010704_NavLink;$solPrefix_TBC_010704 Puro Link;/c/$solPrefix_TBC_010704;$solPrefix_TBC_010704_NavLink;$solPrefix_TBC_010704_NavLink;
+;;$solPrefix_TBC_010800_NavLink;$solPrefix_TBC_010800 Esafluoruro di Zolfo - SF6 Link;/c/$solPrefix_TBC_010800;$solPrefix_TBC_010800_NavLink;$solPrefix_TBC_010800_NavLink;
+;;$solPrefix_TBC_010801_NavLink;$solPrefix_TBC_010801 Dielettrico Link;/c/$solPrefix_TBC_010801;$solPrefix_TBC_010801_NavLink;$solPrefix_TBC_010801_NavLink;
+;;$solPrefix_TBC_010802_NavLink;$solPrefix_TBC_010802 Industriale Link;/c/$solPrefix_TBC_010802;$solPrefix_TBC_010802_NavLink;$solPrefix_TBC_010802_NavLink;
+;;$solPrefix_TBC_010803_NavLink;$solPrefix_TBC_010803 Medicale Link;/c/$solPrefix_TBC_010803;$solPrefix_TBC_010803_NavLink;$solPrefix_TBC_010803_NavLink;
+;;$solPrefix_TBC_010804_NavLink;$solPrefix_TBC_010804 Puro Link;/c/$solPrefix_TBC_010804;$solPrefix_TBC_010804_NavLink;$solPrefix_TBC_010804_NavLink;
+;;$solPrefix_TBC_010900_NavLink;$solPrefix_TBC_010900 Idrogeno - H2 Link;/c/$solPrefix_TBC_010900;$solPrefix_TBC_010900_NavLink;$solPrefix_TBC_010900_NavLink;
+;;$solPrefix_TBC_010901_NavLink;$solPrefix_TBC_010901 Industriale Link;/c/$solPrefix_TBC_010901;$solPrefix_TBC_010901_NavLink;$solPrefix_TBC_010901_NavLink;
+;;$solPrefix_TBC_010902_NavLink;$solPrefix_TBC_010902 Puro Link;/c/$solPrefix_TBC_010902;$solPrefix_TBC_010902_NavLink;$solPrefix_TBC_010902_NavLink;
+;;$solPrefix_TBC_011000_NavLink;$solPrefix_TBC_011000 Monossido d'Azoto - NO Link;/c/$solPrefix_TBC_011000;$solPrefix_TBC_011000_NavLink;$solPrefix_TBC_011000_NavLink;
+;;$solPrefix_TBC_011001_NavLink;$solPrefix_TBC_011001 Medicale Link;/c/$solPrefix_TBC_011001;$solPrefix_TBC_011001_NavLink;$solPrefix_TBC_011001_NavLink;
+;;$solPrefix_TBC_011100_NavLink;$solPrefix_TBC_011100 Propilene - C3H6 Link;/c/$solPrefix_TBC_011100;$solPrefix_TBC_011100_NavLink;$solPrefix_TBC_011100_NavLink;
+;;$solPrefix_TBC_011101_NavLink;$solPrefix_TBC_011101 Industriale Link;/c/$solPrefix_TBC_011101;$solPrefix_TBC_011101_NavLink;$solPrefix_TBC_011101_NavLink;
+;;$solPrefix_TBC_011102_NavLink;$solPrefix_TBC_011102 Puro Link;/c/$solPrefix_TBC_011102;$solPrefix_TBC_011102_NavLink;$solPrefix_TBC_011102_NavLink;
+;;$solPrefix_TBC_011200_NavLink;$solPrefix_TBC_011200 Protossido d'Azoto - N2O Link;/c/$solPrefix_TBC_011200;$solPrefix_TBC_011200_NavLink;$solPrefix_TBC_011200_NavLink;
+;;$solPrefix_TBC_011201_NavLink;$solPrefix_TBC_011201 Alimentare Link;/c/$solPrefix_TBC_011201;$solPrefix_TBC_011201_NavLink;$solPrefix_TBC_011201_NavLink;
+;;$solPrefix_TBC_011202_NavLink;$solPrefix_TBC_011202 Industriale Link;/c/$solPrefix_TBC_011202;$solPrefix_TBC_011202_NavLink;$solPrefix_TBC_011202_NavLink;
+;;$solPrefix_TBC_011203_NavLink;$solPrefix_TBC_011203 Medicale Link;/c/$solPrefix_TBC_011203;$solPrefix_TBC_011203_NavLink;$solPrefix_TBC_011203_NavLink;
+;;$solPrefix_TBC_011204_NavLink;$solPrefix_TBC_011204 Puro Link;/c/$solPrefix_TBC_011204;$solPrefix_TBC_011204_NavLink;$solPrefix_TBC_011204_NavLink;
+;;$solPrefix_TBC_011300_NavLink;$solPrefix_TBC_011300 Ossigeno - O Link;/c/$solPrefix_TBC_011300;$solPrefix_TBC_011300_NavLink;$solPrefix_TBC_011300_NavLink;
+;;$solPrefix_TBC_011301_NavLink;$solPrefix_TBC_011301 Alimentare Link;/c/$solPrefix_TBC_011301;$solPrefix_TBC_011301_NavLink;$solPrefix_TBC_011301_NavLink;
+;;$solPrefix_TBC_011302_NavLink;$solPrefix_TBC_011302 Industriale Link;/c/$solPrefix_TBC_011302;$solPrefix_TBC_011302_NavLink;$solPrefix_TBC_011302_NavLink;
+;;$solPrefix_TBC_011303_NavLink;$solPrefix_TBC_011303 Medicale Link;/c/$solPrefix_TBC_011303;$solPrefix_TBC_011303_NavLink;$solPrefix_TBC_011303_NavLink;
+;;$solPrefix_TBC_011304_NavLink;$solPrefix_TBC_011304 Puro Link;/c/$solPrefix_TBC_011304;$solPrefix_TBC_011304_NavLink;$solPrefix_TBC_011304_NavLink;
+;;$solPrefix_TBC_011400_NavLink;$solPrefix_TBC_011400 GPL - MAPP - Propano Link;/c/$solPrefix_TBC_011400;$solPrefix_TBC_011400_NavLink;$solPrefix_TBC_011400_NavLink;
+;;$solPrefix_TBC_011500_NavLink;$solPrefix_TBC_011500 Miscele Alimentari Link;/c/$solPrefix_TBC_011500;$solPrefix_TBC_011500_NavLink;$solPrefix_TBC_011500_NavLink;
+;;$solPrefix_TBC_011501_NavLink;$solPrefix_TBC_011501 AliSOL Link;/c/$solPrefix_TBC_011501;$solPrefix_TBC_011501_NavLink;$solPrefix_TBC_011501_NavLink;
+;;$solPrefix_TBC_011502_NavLink;$solPrefix_TBC_011502 FruttaSOL Link;/c/$solPrefix_TBC_011502;$solPrefix_TBC_011502_NavLink;$solPrefix_TBC_011502_NavLink;
+;;$solPrefix_TBC_011600_NavLink;$solPrefix_TBC_011600 Miscele Medicali Link;/c/$solPrefix_TBC_011600;$solPrefix_TBC_011600_NavLink;$solPrefix_TBC_011600_NavLink;
+;;$solPrefix_TBC_011601_NavLink;$solPrefix_TBC_011601 Aria Link;/c/$solPrefix_TBC_011601;$solPrefix_TBC_011601_NavLink;$solPrefix_TBC_011601_NavLink;
+;;$solPrefix_TBC_011602_NavLink;$solPrefix_TBC_011602 Donopa Link;/c/$solPrefix_TBC_011602;$solPrefix_TBC_011602_NavLink;$solPrefix_TBC_011602_NavLink;
+;;$solPrefix_TBC_011603_NavLink;$solPrefix_TBC_011603 Neophyr Link;/c/$solPrefix_TBC_011603;$solPrefix_TBC_011603_NavLink;$solPrefix_TBC_011603_NavLink;
+;;$solPrefix_TBC_011604_NavLink;$solPrefix_TBC_011604 Altre miscele Link;/c/$solPrefix_TBC_011604;$solPrefix_TBC_011604_NavLink;$solPrefix_TBC_011604_NavLink;
+;;$solPrefix_TBC_011700_NavLink;$solPrefix_TBC_011700 Miscele Industriali Link;/c/$solPrefix_TBC_011700;$solPrefix_TBC_011700_NavLink;$solPrefix_TBC_011700_NavLink;
+;;$solPrefix_TBC_011701_NavLink;$solPrefix_TBC_011701 Aria Link;/c/$solPrefix_TBC_011701;$solPrefix_TBC_011701_NavLink;$solPrefix_TBC_011701_NavLink;
+;;$solPrefix_TBC_011702_NavLink;$solPrefix_TBC_011702 Enermix Premium Link;/c/$solPrefix_TBC_011702;$solPrefix_TBC_011702_NavLink;$solPrefix_TBC_011702_NavLink;
+;;$solPrefix_TBC_011703_NavLink;$solPrefix_TBC_011703 Enermix Comfort Link;/c/$solPrefix_TBC_011703;$solPrefix_TBC_011703_NavLink;$solPrefix_TBC_011703_NavLink;
+;;$solPrefix_TBC_011704_NavLink;$solPrefix_TBC_011704 LaserSOL Link;/c/$solPrefix_TBC_011704;$solPrefix_TBC_011704_NavLink;$solPrefix_TBC_011704_NavLink;
+;;$solPrefix_TBC_011705_NavLink;$solPrefix_TBC_011705 Altre miscele Link;/c/$solPrefix_TBC_011705;$solPrefix_TBC_011705_NavLink;$solPrefix_TBC_011705_NavLink;
+;;$solPrefix_TBC_011800_NavLink;$solPrefix_TBC_011800 Miscele Specialty Link;/c/$solPrefix_TBC_011800;$solPrefix_TBC_011800_NavLink;$solPrefix_TBC_011800_NavLink;
+;;$solPrefix_TBC_011801_NavLink;$solPrefix_TBC_011801 Miscele standard e speciali Link;/c/$solPrefix_TBC_011801;$solPrefix_TBC_011801_NavLink;$solPrefix_TBC_011801_NavLink;
+;;$solPrefix_TBC_011802_NavLink;$solPrefix_TBC_011802 Miscele certificate Link;/c/$solPrefix_TBC_011802;$solPrefix_TBC_011802_NavLink;$solPrefix_TBC_011802_NavLink;
+;;$solPrefix_TBC_011803_NavLink;$solPrefix_TBC_011803 Miscele di alta precisione Link;/c/$solPrefix_TBC_011803;$solPrefix_TBC_011803_NavLink;$solPrefix_TBC_011803_NavLink;
+;;$solPrefix_TBC_011900_NavLink;$solPrefix_TBC_011900 Gas Refrigeranti Link;/c/$solPrefix_TBC_011900;$solPrefix_TBC_011900_NavLink;$solPrefix_TBC_011900_NavLink;
+;;$solPrefix_TBC_011901_NavLink;$solPrefix_TBC_011901 Refrigeranti HFC Link;/c/$solPrefix_TBC_011901;$solPrefix_TBC_011901_NavLink;$solPrefix_TBC_011901_NavLink;
+;;$solPrefix_TBC_011902_NavLink;$solPrefix_TBC_011902 Refrigeranti Naturali Link;/c/$solPrefix_TBC_011902;$solPrefix_TBC_011902_NavLink;$solPrefix_TBC_011902_NavLink;
+;;$solPrefix_TBC_011903_NavLink;$solPrefix_TBC_011903 Refrigeranti HFO Link;/c/$solPrefix_TBC_011903;$solPrefix_TBC_011903_NavLink;$solPrefix_TBC_011903_NavLink;
+;;$solPrefix_TBC_011904_NavLink;$solPrefix_TBC_011904 Refrigeranti HC - Idrocarburi Link;/c/$solPrefix_TBC_011904;$solPrefix_TBC_011904_NavLink;$solPrefix_TBC_011904_NavLink;
+;;$solPrefix_TBC_012000_NavLink;$solPrefix_TBC_012000 Altri gas Link;/c/$solPrefix_TBC_012000;$solPrefix_TBC_012000_NavLink;$solPrefix_TBC_012000_NavLink;
+;;$solPrefix_TBC_012001_NavLink;$solPrefix_TBC_012001 1,3 Butadiene C4H6 Link;/c/$solPrefix_TBC_012001;$solPrefix_TBC_012001_NavLink;$solPrefix_TBC_012001_NavLink;
+;;$solPrefix_TBC_012002_NavLink;$solPrefix_TBC_012002 Acido Cloridrico - HCl Link;/c/$solPrefix_TBC_012002;$solPrefix_TBC_012002_NavLink;$solPrefix_TBC_012002_NavLink;
+;;$solPrefix_TBC_012003_NavLink;$solPrefix_TBC_012003 Esafluoroetano - C2F6 Link;/c/$solPrefix_TBC_012003;$solPrefix_TBC_012003_NavLink;$solPrefix_TBC_012003_NavLink;
+;;$solPrefix_TBC_012004_NavLink;$solPrefix_TBC_012004 Etano - C2H6 Link;/c/$solPrefix_TBC_012004;$solPrefix_TBC_012004_NavLink;$solPrefix_TBC_012004_NavLink;
+;;$solPrefix_TBC_012005_NavLink;$solPrefix_TBC_012005 Etilene - C2H4 Link;/c/$solPrefix_TBC_012005;$solPrefix_TBC_012005_NavLink;$solPrefix_TBC_012005_NavLink;
+;;$solPrefix_TBC_012006_NavLink;$solPrefix_TBC_012006 Idrogeno Solforato - H2S Link;/c/$solPrefix_TBC_012006;$solPrefix_TBC_012006_NavLink;$solPrefix_TBC_012006_NavLink;
+;;$solPrefix_TBC_012007_NavLink;$solPrefix_TBC_012007 Iso-Butano - C4H10 Link;/c/$solPrefix_TBC_012007;$solPrefix_TBC_012007_NavLink;$solPrefix_TBC_012007_NavLink;
+;;$solPrefix_TBC_012008_NavLink;$solPrefix_TBC_012008 Isobutilene o Isobutene Link;/c/$solPrefix_TBC_012008;$solPrefix_TBC_012008_NavLink;$solPrefix_TBC_012008_NavLink;
+;;$solPrefix_TBC_012009_NavLink;$solPrefix_TBC_012009 Krypton - Kr Link;/c/$solPrefix_TBC_012009;$solPrefix_TBC_012009_NavLink;$solPrefix_TBC_012009_NavLink;
+;;$solPrefix_TBC_012010_NavLink;$solPrefix_TBC_012010 Metano - CH4 Link;/c/$solPrefix_TBC_012010;$solPrefix_TBC_012010_NavLink;$solPrefix_TBC_012010_NavLink;
+;;$solPrefix_TBC_012011_NavLink;$solPrefix_TBC_012011 Neon - Ne Link;/c/$solPrefix_TBC_012011;$solPrefix_TBC_012011_NavLink;$solPrefix_TBC_012011_NavLink;
+;;$solPrefix_TBC_012012_NavLink;$solPrefix_TBC_012012 Normal-Butano C4H10 Link;/c/$solPrefix_TBC_012012;$solPrefix_TBC_012012_NavLink;$solPrefix_TBC_012012_NavLink;
+;;$solPrefix_TBC_012013_NavLink;$solPrefix_TBC_012013 Octafluoropropano C3F8 Link;/c/$solPrefix_TBC_012013;$solPrefix_TBC_012013_NavLink;$solPrefix_TBC_012013_NavLink;
+;;$solPrefix_TBC_012014_NavLink;$solPrefix_TBC_012014 Ossido di Azoto - NO Link;/c/$solPrefix_TBC_012014;$solPrefix_TBC_012014_NavLink;$solPrefix_TBC_012014_NavLink;
+;;$solPrefix_TBC_012015_NavLink;$solPrefix_TBC_012015 Ossido di Carbonio - CO Link;/c/$solPrefix_TBC_012015;$solPrefix_TBC_012015_NavLink;$solPrefix_TBC_012015_NavLink;
+;;$solPrefix_TBC_012016_NavLink;$solPrefix_TBC_012016 Propadiene o Allene - C3H4 Link;/c/$solPrefix_TBC_012016;$solPrefix_TBC_012016_NavLink;$solPrefix_TBC_012016_NavLink;
+;;$solPrefix_TBC_012017_NavLink;$solPrefix_TBC_012017 Propano - C3H8 Link;/c/$solPrefix_TBC_012017;$solPrefix_TBC_012017_NavLink;$solPrefix_TBC_012017_NavLink;
+;;$solPrefix_TBC_012018_NavLink;$solPrefix_TBC_012018 Xenon - Xe Link;/c/$solPrefix_TBC_012018;$solPrefix_TBC_012018_NavLink;$solPrefix_TBC_012018_NavLink;
+;;$solPrefix_TBC_020000_NavLink;$solPrefix_TBC_020000 GAS Equipments Link;/c/$solPrefix_TBC_020000;$solPrefix_TBC_020000_NavLink;$solPrefix_TBC_020000_NavLink;
+;;$solPrefix_TBC_020100_NavLink;$solPrefix_TBC_020100 Riduttori di pressione Link;/c/$solPrefix_TBC_020100;$solPrefix_TBC_020100_NavLink;$solPrefix_TBC_020100_NavLink;
+;;$solPrefix_TBC_020101_NavLink;$solPrefix_TBC_020101 Alimentare Link;/c/$solPrefix_TBC_020101;$solPrefix_TBC_020101_NavLink;$solPrefix_TBC_020101_NavLink;
+;;$solPrefix_TBC_020102_NavLink;$solPrefix_TBC_020102 Industriale Link;/c/$solPrefix_TBC_020102;$solPrefix_TBC_020102_NavLink;$solPrefix_TBC_020102_NavLink;
+;;$solPrefix_TBC_020103_NavLink;$solPrefix_TBC_020103 Puro Link;/c/$solPrefix_TBC_020103;$solPrefix_TBC_020103_NavLink;$solPrefix_TBC_020103_NavLink;
+;;$solPrefix_TBC_020200_NavLink;$solPrefix_TBC_020200 Posti presa Link;/c/$solPrefix_TBC_020200;$solPrefix_TBC_020200_NavLink;$solPrefix_TBC_020200_NavLink;
+;;$solPrefix_TBC_020201_NavLink;$solPrefix_TBC_020201 Alimentare Link;/c/$solPrefix_TBC_020201;$solPrefix_TBC_020201_NavLink;$solPrefix_TBC_020201_NavLink;
+;;$solPrefix_TBC_020202_NavLink;$solPrefix_TBC_020202 Industriale Link;/c/$solPrefix_TBC_020202;$solPrefix_TBC_020202_NavLink;$solPrefix_TBC_020202_NavLink;
+;;$solPrefix_TBC_020203_NavLink;$solPrefix_TBC_020203 Puro Link;/c/$solPrefix_TBC_020203;$solPrefix_TBC_020203_NavLink;$solPrefix_TBC_020203_NavLink;
+;;$solPrefix_TBC_020300_NavLink;$solPrefix_TBC_020300 Centrali di decompressione Link;/c/$solPrefix_TBC_020300;$solPrefix_TBC_020300_NavLink;$solPrefix_TBC_020300_NavLink;
+;;$solPrefix_TBC_020301_NavLink;$solPrefix_TBC_020301 Alimentare Link;/c/$solPrefix_TBC_020301;$solPrefix_TBC_020301_NavLink;$solPrefix_TBC_020301_NavLink;
+;;$solPrefix_TBC_020302_NavLink;$solPrefix_TBC_020302 Industriale Link;/c/$solPrefix_TBC_020302;$solPrefix_TBC_020302_NavLink;$solPrefix_TBC_020302_NavLink;
+;;$solPrefix_TBC_020303_NavLink;$solPrefix_TBC_020303 Puro Link;/c/$solPrefix_TBC_020303;$solPrefix_TBC_020303_NavLink;$solPrefix_TBC_020303_NavLink;
+;;$solPrefix_TBC_020400_NavLink;$solPrefix_TBC_020400 Serpentine e fruste Link;/c/$solPrefix_TBC_020400;$solPrefix_TBC_020400_NavLink;$solPrefix_TBC_020400_NavLink;
+;;$solPrefix_TBC_020401_NavLink;$solPrefix_TBC_020401 Alimentare Link;/c/$solPrefix_TBC_020401;$solPrefix_TBC_020401_NavLink;$solPrefix_TBC_020401_NavLink;
+;;$solPrefix_TBC_020402_NavLink;$solPrefix_TBC_020402 Industriale Link;/c/$solPrefix_TBC_020402;$solPrefix_TBC_020402_NavLink;$solPrefix_TBC_020402_NavLink;
+;;$solPrefix_TBC_020403_NavLink;$solPrefix_TBC_020403 Puro Link;/c/$solPrefix_TBC_020403;$solPrefix_TBC_020403_NavLink;$solPrefix_TBC_020403_NavLink;
+;;$solPrefix_TBC_020500_NavLink;$solPrefix_TBC_020500 Valvole antiritorno di fiamma Link;/c/$solPrefix_TBC_020500;$solPrefix_TBC_020500_NavLink;$solPrefix_TBC_020500_NavLink;
+;;$solPrefix_TBC_020501_NavLink;$solPrefix_TBC_020501 Alimentare Link;/c/$solPrefix_TBC_020501;$solPrefix_TBC_020501_NavLink;$solPrefix_TBC_020501_NavLink;
+;;$solPrefix_TBC_020502_NavLink;$solPrefix_TBC_020502 Industriale Link;/c/$solPrefix_TBC_020502;$solPrefix_TBC_020502_NavLink;$solPrefix_TBC_020502_NavLink;
+;;$solPrefix_TBC_020503_NavLink;$solPrefix_TBC_020503 Puro Link;/c/$solPrefix_TBC_020503;$solPrefix_TBC_020503_NavLink;$solPrefix_TBC_020503_NavLink;
+;;$solPrefix_TBC_020600_NavLink;$solPrefix_TBC_020600 Valvole di linea Link;/c/$solPrefix_TBC_020600;$solPrefix_TBC_020600_NavLink;$solPrefix_TBC_020600_NavLink;
+;;$solPrefix_TBC_020601_NavLink;$solPrefix_TBC_020601 Alimentare Link;/c/$solPrefix_TBC_020601;$solPrefix_TBC_020601_NavLink;$solPrefix_TBC_020601_NavLink;
+;;$solPrefix_TBC_020602_NavLink;$solPrefix_TBC_020602 Industriale Link;/c/$solPrefix_TBC_020602;$solPrefix_TBC_020602_NavLink;$solPrefix_TBC_020602_NavLink;
+;;$solPrefix_TBC_020603_NavLink;$solPrefix_TBC_020603 Puro Link;/c/$solPrefix_TBC_020603;$solPrefix_TBC_020603_NavLink;$solPrefix_TBC_020603_NavLink;
+;;$solPrefix_TBC_020700_NavLink;$solPrefix_TBC_020700 Raccorderia Link;/c/$solPrefix_TBC_020700;$solPrefix_TBC_020700_NavLink;$solPrefix_TBC_020700_NavLink;
+;;$solPrefix_TBC_020800_NavLink;$solPrefix_TBC_020800 Rastrelliere e accessori gas compressi Link;/c/$solPrefix_TBC_020800;$solPrefix_TBC_020800_NavLink;$solPrefix_TBC_020800_NavLink;
+;;$solPrefix_TBC_020900_NavLink;$solPrefix_TBC_020900 Generatori da laboratorio Link;/c/$solPrefix_TBC_020900;$solPrefix_TBC_020900_NavLink;$solPrefix_TBC_020900_NavLink;
+;;$solPrefix_TBC_020901_NavLink;$solPrefix_TBC_020901 Azoto Link;/c/$solPrefix_TBC_020901;$solPrefix_TBC_020901_NavLink;$solPrefix_TBC_020901_NavLink;
+;;$solPrefix_TBC_020902_NavLink;$solPrefix_TBC_020902 Aria Link;/c/$solPrefix_TBC_020902;$solPrefix_TBC_020902_NavLink;$solPrefix_TBC_020902_NavLink;
+;;$solPrefix_TBC_020903_NavLink;$solPrefix_TBC_020903 Azoto - Aria Link;/c/$solPrefix_TBC_020903;$solPrefix_TBC_020903_NavLink;$solPrefix_TBC_020903_NavLink;
+;;$solPrefix_TBC_020904_NavLink;$solPrefix_TBC_020904 Idrogeno Link;/c/$solPrefix_TBC_020904;$solPrefix_TBC_020904_NavLink;$solPrefix_TBC_020904_NavLink;
+;;$solPrefix_TBC_030000_NavLink;$solPrefix_TBC_030000 Medical GAS Equipments Link;/c/$solPrefix_TBC_030000;$solPrefix_TBC_030000_NavLink;$solPrefix_TBC_030000_NavLink;
+;;$solPrefix_TBC_030100_NavLink;$solPrefix_TBC_030100 Accessori Link;/c/$solPrefix_TBC_030100;$solPrefix_TBC_030100_NavLink;$solPrefix_TBC_030100_NavLink;
+;;$solPrefix_TBC_030101_NavLink;$solPrefix_TBC_030101 Flussimetri Link;/c/$solPrefix_TBC_030101;$solPrefix_TBC_030101_NavLink;$solPrefix_TBC_030101_NavLink;
+;;$solPrefix_TBC_030102_NavLink;$solPrefix_TBC_030102 Regolatori del vuoto Link;/c/$solPrefix_TBC_030102;$solPrefix_TBC_030102_NavLink;$solPrefix_TBC_030102_NavLink;
+;;$solPrefix_TBC_030103_NavLink;$solPrefix_TBC_030103 Umidificatori Link;/c/$solPrefix_TBC_030103;$solPrefix_TBC_030103_NavLink;$solPrefix_TBC_030103_NavLink;
+;;$solPrefix_TBC_030104_NavLink;$solPrefix_TBC_030104 Carrelli portabombola Link;/c/$solPrefix_TBC_030104;$solPrefix_TBC_030104_NavLink;$solPrefix_TBC_030104_NavLink;
+;;$solPrefix_TBC_030200_NavLink;$solPrefix_TBC_030200 Servizio Ossido Nitrico Link;/c/$solPrefix_TBC_030200;$solPrefix_TBC_030200_NavLink;$solPrefix_TBC_030200_NavLink;
+;;$solPrefix_TBC_030201_NavLink;$solPrefix_TBC_030201 Dispositivi per sistema NoxBox Link;/c/$solPrefix_TBC_030201;$solPrefix_TBC_030201_NavLink;$solPrefix_TBC_030201_NavLink;
+;;$solPrefix_TBC_030202_NavLink;$solPrefix_TBC_030202 Dispositivi per taratura sistema somministrazione/monitoraggio Link;/c/$solPrefix_TBC_030202;$solPrefix_TBC_030202_NavLink;$solPrefix_TBC_030202_NavLink;
+;;$solPrefix_TBC_030300_NavLink;$solPrefix_TBC_030300 Servizio Analgesia Link;/c/$solPrefix_TBC_030300;$solPrefix_TBC_030300_NavLink;$solPrefix_TBC_030300_NavLink;
+;;$solPrefix_TBC_030301_NavLink;$solPrefix_TBC_030301 Dispositivo per evacuazione EMONO Link;/c/$solPrefix_TBC_030301;$solPrefix_TBC_030301_NavLink;$solPrefix_TBC_030301_NavLink;
+;;$solPrefix_TBC_030302_NavLink;$solPrefix_TBC_030302 Accessori Somministrazione /Evacuazione del farmaco Link;/c/$solPrefix_TBC_030302;$solPrefix_TBC_030302_NavLink;$solPrefix_TBC_030302_NavLink;
+;;$solPrefix_TBC_030400_NavLink;$solPrefix_TBC_030400 Riduttori di pressione Link;/c/$solPrefix_TBC_030400;$solPrefix_TBC_030400_NavLink;$solPrefix_TBC_030400_NavLink;
+;;$solPrefix_TBC_030500_NavLink;$solPrefix_TBC_030500 Posti presa Link;/c/$solPrefix_TBC_030500;$solPrefix_TBC_030500_NavLink;$solPrefix_TBC_030500_NavLink;
+;;$solPrefix_TBC_030600_NavLink;$solPrefix_TBC_030600 Centrali di decompressione Link;/c/$solPrefix_TBC_030600;$solPrefix_TBC_030600_NavLink;$solPrefix_TBC_030600_NavLink;
+;;$solPrefix_TBC_030700_NavLink;$solPrefix_TBC_030700 Serpentine e fruste Link;/c/$solPrefix_TBC_030700;$solPrefix_TBC_030700_NavLink;$solPrefix_TBC_030700_NavLink;
+;;$solPrefix_TBC_030800_NavLink;$solPrefix_TBC_030800 Valvole antiritorno di fiamma Link;/c/$solPrefix_TBC_030800;$solPrefix_TBC_030800_NavLink;$solPrefix_TBC_030800_NavLink;
+;;$solPrefix_TBC_030900_NavLink;$solPrefix_TBC_030900 Valvole di linea Link;/c/$solPrefix_TBC_030900;$solPrefix_TBC_030900_NavLink;$solPrefix_TBC_030900_NavLink;
+;;$solPrefix_TBC_031000_NavLink;$solPrefix_TBC_031000 Servizio Ossido Nitrico Link;/c/$solPrefix_TBC_031000;$solPrefix_TBC_031000_NavLink;$solPrefix_TBC_031000_NavLink;
+;;$solPrefix_TBC_040000_NavLink;$solPrefix_TBC_040000 Welding products Link;/c/$solPrefix_TBC_040000;$solPrefix_TBC_040000_NavLink;$solPrefix_TBC_040000_NavLink;
+;;$solPrefix_TBC_040100_NavLink;$solPrefix_TBC_040100 Saldatura MIG / MAG Link;/c/$solPrefix_TBC_040100;$solPrefix_TBC_040100_NavLink;$solPrefix_TBC_040100_NavLink;
+;;$solPrefix_TBC_040101_NavLink;$solPrefix_TBC_040101 Gas di protezione Link;/c/$solPrefix_TBC_040101;$solPrefix_TBC_040101_NavLink;$solPrefix_TBC_040101_NavLink;
+;;$solPrefix_TBC_040102_NavLink;$solPrefix_TBC_040102 Torce Link;/c/$solPrefix_TBC_040102;$solPrefix_TBC_040102_NavLink;$solPrefix_TBC_040102_NavLink;
+;;$solPrefix_TBC_040103_NavLink;$solPrefix_TBC_040103 Impianti di saldatura Link;/c/$solPrefix_TBC_040103;$solPrefix_TBC_040103_NavLink;$solPrefix_TBC_040103_NavLink;
+;;$solPrefix_TBC_040104_NavLink;$solPrefix_TBC_040104 Consumabili Link;/c/$solPrefix_TBC_040104;$solPrefix_TBC_040104_NavLink;$solPrefix_TBC_040104_NavLink;
+;;$solPrefix_TBC_040200_NavLink;$solPrefix_TBC_040200 Saldatura TIG Link;/c/$solPrefix_TBC_040200;$solPrefix_TBC_040200_NavLink;$solPrefix_TBC_040200_NavLink;
+;;$solPrefix_TBC_040201_NavLink;$solPrefix_TBC_040201 Gas di protezione Link;/c/$solPrefix_TBC_040201;$solPrefix_TBC_040201_NavLink;$solPrefix_TBC_040201_NavLink;
+;;$solPrefix_TBC_040202_NavLink;$solPrefix_TBC_040202 Torce Link;/c/$solPrefix_TBC_040202;$solPrefix_TBC_040202_NavLink;$solPrefix_TBC_040202_NavLink;
+;;$solPrefix_TBC_040203_NavLink;$solPrefix_TBC_040203 Impianti di saldatura Link;/c/$solPrefix_TBC_040203;$solPrefix_TBC_040203_NavLink;$solPrefix_TBC_040203_NavLink;
+;;$solPrefix_TBC_040204_NavLink;$solPrefix_TBC_040204 Accessori Link;/c/$solPrefix_TBC_040204;$solPrefix_TBC_040204_NavLink;$solPrefix_TBC_040204_NavLink;
+;;$solPrefix_TBC_040205_NavLink;$solPrefix_TBC_040205 Consumabili Link;/c/$solPrefix_TBC_040205;$solPrefix_TBC_040205_NavLink;$solPrefix_TBC_040205_NavLink;
+;;$solPrefix_TBC_040300_NavLink;$solPrefix_TBC_040300 Saldatura ad elettrodo Link;/c/$solPrefix_TBC_040300;$solPrefix_TBC_040300_NavLink;$solPrefix_TBC_040300_NavLink;
+;;$solPrefix_TBC_040301_NavLink;$solPrefix_TBC_040301 Impianti di saldatura Link;/c/$solPrefix_TBC_040301;$solPrefix_TBC_040301_NavLink;$solPrefix_TBC_040301_NavLink;
+;;$solPrefix_TBC_040400_NavLink;$solPrefix_TBC_040400 Processi Ossi-gas Link;/c/$solPrefix_TBC_040400;$solPrefix_TBC_040400_NavLink;$solPrefix_TBC_040400_NavLink;
+;;$solPrefix_TBC_040401_NavLink;$solPrefix_TBC_040401 Gas di processo Link;/c/$solPrefix_TBC_040401;$solPrefix_TBC_040401_NavLink;$solPrefix_TBC_040401_NavLink;
+;;$solPrefix_TBC_040402_NavLink;$solPrefix_TBC_040402 Riduttori di pressione Link;/c/$solPrefix_TBC_040402;$solPrefix_TBC_040402_NavLink;$solPrefix_TBC_040402_NavLink;
+;;$solPrefix_TBC_040403_NavLink;$solPrefix_TBC_040403 Cannelli Link;/c/$solPrefix_TBC_040403;$solPrefix_TBC_040403_NavLink;$solPrefix_TBC_040403_NavLink;
+;;$solPrefix_TBC_040404_NavLink;$solPrefix_TBC_040404 Valvole di sicurezza Link;/c/$solPrefix_TBC_040404;$solPrefix_TBC_040404_NavLink;$solPrefix_TBC_040404_NavLink;
+;;$solPrefix_TBC_040405_NavLink;$solPrefix_TBC_040405 Accessori Link;/c/$solPrefix_TBC_040405;$solPrefix_TBC_040405_NavLink;$solPrefix_TBC_040405_NavLink;
+;;$solPrefix_TBC_040406_NavLink;$solPrefix_TBC_040406 Consumabili Link;/c/$solPrefix_TBC_040406;$solPrefix_TBC_040406_NavLink;$solPrefix_TBC_040406_NavLink;
+;;$solPrefix_TBC_040500_NavLink;$solPrefix_TBC_040500 Processi Plasma Link;/c/$solPrefix_TBC_040500;$solPrefix_TBC_040500_NavLink;$solPrefix_TBC_040500_NavLink;
+;;$solPrefix_TBC_040501_NavLink;$solPrefix_TBC_040501 Gas plasma Link;/c/$solPrefix_TBC_040501;$solPrefix_TBC_040501_NavLink;$solPrefix_TBC_040501_NavLink;
+;;$solPrefix_TBC_040502_NavLink;$solPrefix_TBC_040502 Gas di protezione Link;/c/$solPrefix_TBC_040502;$solPrefix_TBC_040502_NavLink;$solPrefix_TBC_040502_NavLink;
+;;$solPrefix_TBC_040503_NavLink;$solPrefix_TBC_040503 Impianti di saldatura Link;/c/$solPrefix_TBC_040503;$solPrefix_TBC_040503_NavLink;$solPrefix_TBC_040503_NavLink;
+;;$solPrefix_TBC_040504_NavLink;$solPrefix_TBC_040504 Impianti di Taglio Link;/c/$solPrefix_TBC_040504;$solPrefix_TBC_040504_NavLink;$solPrefix_TBC_040504_NavLink;
+;;$solPrefix_TBC_040600_NavLink;$solPrefix_TBC_040600 Proccessi Laser Link;/c/$solPrefix_TBC_040600;$solPrefix_TBC_040600_NavLink;$solPrefix_TBC_040600_NavLink;
+;;$solPrefix_TBC_040601_NavLink;$solPrefix_TBC_040601 Miscele laseranti Link;/c/$solPrefix_TBC_040601;$solPrefix_TBC_040601_NavLink;$solPrefix_TBC_040601_NavLink;
+;;$solPrefix_TBC_040602_NavLink;$solPrefix_TBC_040602 Gas di processo Link;/c/$solPrefix_TBC_040602;$solPrefix_TBC_040602_NavLink;$solPrefix_TBC_040602_NavLink;
+;;$solPrefix_TBC_040700_NavLink;$solPrefix_TBC_040700 Finitura Link;/c/$solPrefix_TBC_040700;$solPrefix_TBC_040700_NavLink;$solPrefix_TBC_040700_NavLink;
+;;$solPrefix_TBC_040701_NavLink;$solPrefix_TBC_040701 Dischi abrasivi Link;/c/$solPrefix_TBC_040701;$solPrefix_TBC_040701_NavLink;$solPrefix_TBC_040701_NavLink;
+;;$solPrefix_TBC_040702_NavLink;$solPrefix_TBC_040702 Prodotti chimici Link;/c/$solPrefix_TBC_040702;$solPrefix_TBC_040702_NavLink;$solPrefix_TBC_040702_NavLink;
+;;$solPrefix_TBC_040800_NavLink;$solPrefix_TBC_040800 Aspirazione Fumi Link;/c/$solPrefix_TBC_040800;$solPrefix_TBC_040800_NavLink;$solPrefix_TBC_040800_NavLink;
+;;$solPrefix_TBC_040801_NavLink;$solPrefix_TBC_040801 Aspiratori portatili Link;/c/$solPrefix_TBC_040801;$solPrefix_TBC_040801_NavLink;$solPrefix_TBC_040801_NavLink;
+;;$solPrefix_TBC_050000_NavLink;$solPrefix_TBC_050000 Cryo products Link;/c/$solPrefix_TBC_050000;$solPrefix_TBC_050000_NavLink;$solPrefix_TBC_050000_NavLink;
+;;$solPrefix_TBC_050100_NavLink;$solPrefix_TBC_050100 Cryoblasting Link;/c/$solPrefix_TBC_050100;$solPrefix_TBC_050100_NavLink;$solPrefix_TBC_050100_NavLink;
+;;$solPrefix_TBC_050101_NavLink;$solPrefix_TBC_050101 Microclean Link;/c/$solPrefix_TBC_050101;$solPrefix_TBC_050101_NavLink;$solPrefix_TBC_050101_NavLink;
+;;$solPrefix_TBC_050102_NavLink;$solPrefix_TBC_050102 Snow Cleaning Link;/c/$solPrefix_TBC_050102;$solPrefix_TBC_050102_NavLink;$solPrefix_TBC_050102_NavLink;
+;;$solPrefix_TBC_050103_NavLink;$solPrefix_TBC_050103 Blaster Link;/c/$solPrefix_TBC_050103;$solPrefix_TBC_050103_NavLink;$solPrefix_TBC_050103_NavLink;
+;;$solPrefix_TBC_050104_NavLink;$solPrefix_TBC_050104 Scatole poilistirolo Link;/c/$solPrefix_TBC_050104;$solPrefix_TBC_050104_NavLink;$solPrefix_TBC_050104_NavLink;
+;;$solPrefix_TBC_050105_NavLink;$solPrefix_TBC_050105 Pastigliatrice dryice Link;/c/$solPrefix_TBC_050105;$solPrefix_TBC_050105_NavLink;$solPrefix_TBC_050105_NavLink;
+;;$solPrefix_TBC_050106_NavLink;$solPrefix_TBC_050106 Gel refrigerante Link;/c/$solPrefix_TBC_050106;$solPrefix_TBC_050106_NavLink;$solPrefix_TBC_050106_NavLink;
+;;$solPrefix_TBC_050200_NavLink;$solPrefix_TBC_050200 Contenitori criobiologici e criogenici (dewar) Link;/c/$solPrefix_TBC_050200;$solPrefix_TBC_050200_NavLink;$solPrefix_TBC_050200_NavLink;
+;;$solPrefix_TBC_050201_NavLink;$solPrefix_TBC_050201 Contenitori per stoccaggio di campioni biologici Link;/c/$solPrefix_TBC_050201;$solPrefix_TBC_050201_NavLink;$solPrefix_TBC_050201_NavLink;
+;;$solPrefix_TBC_050202_NavLink;$solPrefix_TBC_050202 Contenitori per stoccaggio e trasporto di azoto liquido Link;/c/$solPrefix_TBC_050202;$solPrefix_TBC_050202_NavLink;$solPrefix_TBC_050202_NavLink;
+;;$solPrefix_TBC_050300_NavLink;$solPrefix_TBC_050300 Congelatori Link;/c/$solPrefix_TBC_050300;$solPrefix_TBC_050300_NavLink;$solPrefix_TBC_050300_NavLink;
+;;$solPrefix_TBC_050301_NavLink;$solPrefix_TBC_050301 Congelatori a discesa programmata della temperatura Link;/c/$solPrefix_TBC_050301;$solPrefix_TBC_050301_NavLink;$solPrefix_TBC_050301_NavLink;
+;;$solPrefix_TBC_050302_NavLink;$solPrefix_TBC_050302 Congelatori meccanici Link;/c/$solPrefix_TBC_050302;$solPrefix_TBC_050302_NavLink;$solPrefix_TBC_050302_NavLink;
+;;$solPrefix_TBC_050400_NavLink;$solPrefix_TBC_050400 Sistemi hardware e software per Criobiologia Link;/c/$solPrefix_TBC_050400;$solPrefix_TBC_050400_NavLink;$solPrefix_TBC_050400_NavLink;
+;;$solPrefix_TBC_050401_NavLink;$solPrefix_TBC_050401 Centraline di controllo Link;/c/$solPrefix_TBC_050401;$solPrefix_TBC_050401_NavLink;$solPrefix_TBC_050401_NavLink;
+;;$solPrefix_TBC_050402_NavLink;$solPrefix_TBC_050402 Stampanti e lettori Link;/c/$solPrefix_TBC_050402;$solPrefix_TBC_050402_NavLink;$solPrefix_TBC_050402_NavLink;
+;;$solPrefix_TBC_050403_NavLink;$solPrefix_TBC_050403 Software di tracciabilità e archiviazione Link;/c/$solPrefix_TBC_050403;$solPrefix_TBC_050403_NavLink;$solPrefix_TBC_050403_NavLink;
+;;$solPrefix_TBC_060000_NavLink;$solPrefix_TBC_060000 Dispositivi medici Link;/c/$solPrefix_TBC_060000;$solPrefix_TBC_060000_NavLink;$solPrefix_TBC_060000_NavLink;
+;;$solPrefix_TBC_070000_NavLink;$solPrefix_TBC_070000 DPI Link;/c/$solPrefix_TBC_070000;$solPrefix_TBC_070000_NavLink;$solPrefix_TBC_070000_NavLink;
+;;$solPrefix_TBC_070100_NavLink;$solPrefix_TBC_070100 DPI Link;/c/$solPrefix_TBC_070100;$solPrefix_TBC_070100_NavLink;$solPrefix_TBC_070100_NavLink;
+;;$solPrefix_TBC_070101_NavLink;$solPrefix_TBC_070101 Protezione Viso Link;/c/$solPrefix_TBC_070101;$solPrefix_TBC_070101_NavLink;$solPrefix_TBC_070101_NavLink;
+;;$solPrefix_TBC_070102_NavLink;$solPrefix_TBC_070102 Protezione Arti Link;/c/$solPrefix_TBC_070102;$solPrefix_TBC_070102_NavLink;$solPrefix_TBC_070102_NavLink;
+;;$solPrefix_TBC_070103_NavLink;$solPrefix_TBC_070103 Protezione Corpo Link;/c/$solPrefix_TBC_070103;$solPrefix_TBC_070103_NavLink;$solPrefix_TBC_070103_NavLink;
+;;$solPrefix_TBC_070104_NavLink;$solPrefix_TBC_070104 Sistemi di aspirazione fumi Link;/c/$solPrefix_TBC_070104;$solPrefix_TBC_070104_NavLink;$solPrefix_TBC_070104_NavLink;
+;;$solPrefix_TBC_070105_NavLink;$solPrefix_TBC_070105 Impianti e quadri di controllo - SolMet Link;/c/$solPrefix_TBC_070105;$solPrefix_TBC_070105_NavLink;$solPrefix_TBC_070105_NavLink;
+;;$solPrefix_TBC_070106_NavLink;$solPrefix_TBC_070106 Autoproduzione di ossigeno - OxySOL Link;/c/$solPrefix_TBC_070106;$solPrefix_TBC_070106_NavLink;$solPrefix_TBC_070106_NavLink;
+;;$solPrefix_TBC_070107_NavLink;$solPrefix_TBC_070107 Autoproduzione di azoto - NitroSOL Link;/c/$solPrefix_TBC_070107;$solPrefix_TBC_070107_NavLink;$solPrefix_TBC_070107_NavLink;
+;;$solPrefix_TBC_070108_NavLink;$solPrefix_TBC_070108 Trattamento acque di processo e reflue Link;/c/$solPrefix_TBC_070108;$solPrefix_TBC_070108_NavLink;$solPrefix_TBC_070108_NavLink;
+;;$solPrefix_TBC_070109_NavLink;$solPrefix_TBC_070109 Controlli non distruttivi - SOLcontrol Link;/c/$solPrefix_TBC_070109;$solPrefix_TBC_070109_NavLink;$solPrefix_TBC_070109_NavLink;
+;;$solPrefix_TBC_070110_NavLink;$solPrefix_TBC_070110 Pulizia criogenica - DryBlast Link;/c/$solPrefix_TBC_070110;$solPrefix_TBC_070110_NavLink;$solPrefix_TBC_070110_NavLink;
+;;$solPrefix_TBC_070200_NavLink;$solPrefix_TBC_070200 DPI criogenici Link;/c/$solPrefix_TBC_070200;$solPrefix_TBC_070200_NavLink;$solPrefix_TBC_070200_NavLink;
+;;$solPrefix_TBC_070201_NavLink;$solPrefix_TBC_070201 Sistemi per travaso azoto in sicurezza Link;/c/$solPrefix_TBC_070201;$solPrefix_TBC_070201_NavLink;$solPrefix_TBC_070201_NavLink;
+;;$solPrefix_TBC_070202_NavLink;$solPrefix_TBC_070202 DPI criogenici Link;/c/$solPrefix_TBC_070202;$solPrefix_TBC_070202_NavLink;$solPrefix_TBC_070202_NavLink;
+;;$solPrefix_TBC_070203_NavLink;$solPrefix_TBC_070203 DPI sicurezza Link;/c/$solPrefix_TBC_070203;$solPrefix_TBC_070203_NavLink;$solPrefix_TBC_070203_NavLink;
+;;;;;;;
+INSERT_UPDATE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true];name;navigationNode(&nodeRef);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV)
+;$solPrefix_TBC_010000_NavEntry;;$solPrefix_TBC_010000 Gas Navigation entry;$solPrefix_TBC_010000_NavNode;$solPrefix_TBC_010000_NavLink
+;$solPrefix_TBC_010100_NavEntry;;$solPrefix_TBC_010100 Acetilene - C2H2 Navigation entry;$solPrefix_TBC_010100_NavNode;$solPrefix_TBC_010100_NavLink
+;$solPrefix_TBC_010101_NavEntry;;$solPrefix_TBC_010101 Industriale Navigation entry;$solPrefix_TBC_010101_NavNode;$solPrefix_TBC_010101_NavLink
+;$solPrefix_TBC_010102_NavEntry;;$solPrefix_TBC_010102 Puro Navigation entry;$solPrefix_TBC_010102_NavNode;$solPrefix_TBC_010102_NavLink
+;$solPrefix_TBC_010200_NavEntry;;$solPrefix_TBC_010200 Ammoniaca anidra -NH3 Navigation entry;$solPrefix_TBC_010200_NavNode;$solPrefix_TBC_010200_NavLink
+;$solPrefix_TBC_010201_NavEntry;;$solPrefix_TBC_010201 Industriale Navigation entry;$solPrefix_TBC_010201_NavNode;$solPrefix_TBC_010201_NavLink
+;$solPrefix_TBC_010202_NavEntry;;$solPrefix_TBC_010202 Puro Navigation entry;$solPrefix_TBC_010202_NavNode;$solPrefix_TBC_010202_NavLink
+;$solPrefix_TBC_010203_NavEntry;;$solPrefix_TBC_010203 Refrigerante Navigation entry;$solPrefix_TBC_010203_NavNode;$solPrefix_TBC_010203_NavLink
+;$solPrefix_TBC_010300_NavEntry;;$solPrefix_TBC_010300 Anidride Carbonica - CO2 Navigation entry;$solPrefix_TBC_010300_NavNode;$solPrefix_TBC_010300_NavLink
+;$solPrefix_TBC_010301_NavEntry;;$solPrefix_TBC_010301 Alimentare Navigation entry;$solPrefix_TBC_010301_NavNode;$solPrefix_TBC_010301_NavLink
+;$solPrefix_TBC_010302_NavEntry;;$solPrefix_TBC_010302 Industriale Navigation entry;$solPrefix_TBC_010302_NavNode;$solPrefix_TBC_010302_NavLink
+;$solPrefix_TBC_010303_NavEntry;;$solPrefix_TBC_010303 Medicale Navigation entry;$solPrefix_TBC_010303_NavNode;$solPrefix_TBC_010303_NavLink
+;$solPrefix_TBC_010304_NavEntry;;$solPrefix_TBC_010304 Puro Navigation entry;$solPrefix_TBC_010304_NavNode;$solPrefix_TBC_010304_NavLink
+;$solPrefix_TBC_010305_NavEntry;;$solPrefix_TBC_010305 Ghiaccio Secco Navigation entry;$solPrefix_TBC_010305_NavNode;$solPrefix_TBC_010305_NavLink
+;$solPrefix_TBC_010306_NavEntry;;$solPrefix_TBC_010306 Ghiaccio secco - Service Kit Navigation entry;$solPrefix_TBC_010306_NavNode;$solPrefix_TBC_010306_NavLink
+;$solPrefix_TBC_010400_NavEntry;;$solPrefix_TBC_010400 Anidride Solforosa - SO2 Navigation entry;$solPrefix_TBC_010400_NavNode;$solPrefix_TBC_010400_NavLink
+;$solPrefix_TBC_010401_NavEntry;;$solPrefix_TBC_010401 Alimentare Navigation entry;$solPrefix_TBC_010401_NavNode;$solPrefix_TBC_010401_NavLink
+;$solPrefix_TBC_010402_NavEntry;;$solPrefix_TBC_010402 Industriale Navigation entry;$solPrefix_TBC_010402_NavNode;$solPrefix_TBC_010402_NavLink
+;$solPrefix_TBC_010500_NavEntry;;$solPrefix_TBC_010500 Argon - Ar Navigation entry;$solPrefix_TBC_010500_NavNode;$solPrefix_TBC_010500_NavLink
+;$solPrefix_TBC_010501_NavEntry;;$solPrefix_TBC_010501 Alimentare Navigation entry;$solPrefix_TBC_010501_NavNode;$solPrefix_TBC_010501_NavLink
+;$solPrefix_TBC_010502_NavEntry;;$solPrefix_TBC_010502 Industriale Navigation entry;$solPrefix_TBC_010502_NavNode;$solPrefix_TBC_010502_NavLink
+;$solPrefix_TBC_010503_NavEntry;;$solPrefix_TBC_010503 Medicale Navigation entry;$solPrefix_TBC_010503_NavNode;$solPrefix_TBC_010503_NavLink
+;$solPrefix_TBC_010504_NavEntry;;$solPrefix_TBC_010504 Puro Navigation entry;$solPrefix_TBC_010504_NavNode;$solPrefix_TBC_010504_NavLink
+;$solPrefix_TBC_010600_NavEntry;;$solPrefix_TBC_010600 Azoto - N2 Navigation entry;$solPrefix_TBC_010600_NavNode;$solPrefix_TBC_010600_NavLink
+;$solPrefix_TBC_010601_NavEntry;;$solPrefix_TBC_010601 Alimentare Navigation entry;$solPrefix_TBC_010601_NavNode;$solPrefix_TBC_010601_NavLink
+;$solPrefix_TBC_010602_NavEntry;;$solPrefix_TBC_010602 Industriale Navigation entry;$solPrefix_TBC_010602_NavNode;$solPrefix_TBC_010602_NavLink
+;$solPrefix_TBC_010603_NavEntry;;$solPrefix_TBC_010603 Medicale Navigation entry;$solPrefix_TBC_010603_NavNode;$solPrefix_TBC_010603_NavLink
+;$solPrefix_TBC_010604_NavEntry;;$solPrefix_TBC_010604 Puro Navigation entry;$solPrefix_TBC_010604_NavNode;$solPrefix_TBC_010604_NavLink
+;$solPrefix_TBC_010700_NavEntry;;$solPrefix_TBC_010700 Elio - He Navigation entry;$solPrefix_TBC_010700_NavNode;$solPrefix_TBC_010700_NavLink
+;$solPrefix_TBC_010701_NavEntry;;$solPrefix_TBC_010701 Industriale Navigation entry;$solPrefix_TBC_010701_NavNode;$solPrefix_TBC_010701_NavLink
+;$solPrefix_TBC_010702_NavEntry;;$solPrefix_TBC_010702 Flygas Navigation entry;$solPrefix_TBC_010702_NavNode;$solPrefix_TBC_010702_NavLink
+;$solPrefix_TBC_010703_NavEntry;;$solPrefix_TBC_010703 Medicale Navigation entry;$solPrefix_TBC_010703_NavNode;$solPrefix_TBC_010703_NavLink
+;$solPrefix_TBC_010704_NavEntry;;$solPrefix_TBC_010704 Puro Navigation entry;$solPrefix_TBC_010704_NavNode;$solPrefix_TBC_010704_NavLink
+;$solPrefix_TBC_010800_NavEntry;;$solPrefix_TBC_010800 Esafluoruro di Zolfo - SF6 Navigation entry;$solPrefix_TBC_010800_NavNode;$solPrefix_TBC_010800_NavLink
+;$solPrefix_TBC_010801_NavEntry;;$solPrefix_TBC_010801 Dielettrico Navigation entry;$solPrefix_TBC_010801_NavNode;$solPrefix_TBC_010801_NavLink
+;$solPrefix_TBC_010802_NavEntry;;$solPrefix_TBC_010802 Industriale Navigation entry;$solPrefix_TBC_010802_NavNode;$solPrefix_TBC_010802_NavLink
+;$solPrefix_TBC_010803_NavEntry;;$solPrefix_TBC_010803 Medicale Navigation entry;$solPrefix_TBC_010803_NavNode;$solPrefix_TBC_010803_NavLink
+;$solPrefix_TBC_010804_NavEntry;;$solPrefix_TBC_010804 Puro Navigation entry;$solPrefix_TBC_010804_NavNode;$solPrefix_TBC_010804_NavLink
+;$solPrefix_TBC_010900_NavEntry;;$solPrefix_TBC_010900 Idrogeno - H2 Navigation entry;$solPrefix_TBC_010900_NavNode;$solPrefix_TBC_010900_NavLink
+;$solPrefix_TBC_010901_NavEntry;;$solPrefix_TBC_010901 Industriale Navigation entry;$solPrefix_TBC_010901_NavNode;$solPrefix_TBC_010901_NavLink
+;$solPrefix_TBC_010902_NavEntry;;$solPrefix_TBC_010902 Puro Navigation entry;$solPrefix_TBC_010902_NavNode;$solPrefix_TBC_010902_NavLink
+;$solPrefix_TBC_011000_NavEntry;;$solPrefix_TBC_011000 Monossido d'Azoto - NO Navigation entry;$solPrefix_TBC_011000_NavNode;$solPrefix_TBC_011000_NavLink
+;$solPrefix_TBC_011001_NavEntry;;$solPrefix_TBC_011001 Medicale Navigation entry;$solPrefix_TBC_011001_NavNode;$solPrefix_TBC_011001_NavLink
+;$solPrefix_TBC_011100_NavEntry;;$solPrefix_TBC_011100 Propilene - C3H6 Navigation entry;$solPrefix_TBC_011100_NavNode;$solPrefix_TBC_011100_NavLink
+;$solPrefix_TBC_011101_NavEntry;;$solPrefix_TBC_011101 Industriale Navigation entry;$solPrefix_TBC_011101_NavNode;$solPrefix_TBC_011101_NavLink
+;$solPrefix_TBC_011102_NavEntry;;$solPrefix_TBC_011102 Puro Navigation entry;$solPrefix_TBC_011102_NavNode;$solPrefix_TBC_011102_NavLink
+;$solPrefix_TBC_011200_NavEntry;;$solPrefix_TBC_011200 Protossido d'Azoto - N2O Navigation entry;$solPrefix_TBC_011200_NavNode;$solPrefix_TBC_011200_NavLink
+;$solPrefix_TBC_011201_NavEntry;;$solPrefix_TBC_011201 Alimentare Navigation entry;$solPrefix_TBC_011201_NavNode;$solPrefix_TBC_011201_NavLink
+;$solPrefix_TBC_011202_NavEntry;;$solPrefix_TBC_011202 Industriale Navigation entry;$solPrefix_TBC_011202_NavNode;$solPrefix_TBC_011202_NavLink
+;$solPrefix_TBC_011203_NavEntry;;$solPrefix_TBC_011203 Medicale Navigation entry;$solPrefix_TBC_011203_NavNode;$solPrefix_TBC_011203_NavLink
+;$solPrefix_TBC_011204_NavEntry;;$solPrefix_TBC_011204 Puro Navigation entry;$solPrefix_TBC_011204_NavNode;$solPrefix_TBC_011204_NavLink
+;$solPrefix_TBC_011300_NavEntry;;$solPrefix_TBC_011300 Ossigeno - O Navigation entry;$solPrefix_TBC_011300_NavNode;$solPrefix_TBC_011300_NavLink
+;$solPrefix_TBC_011301_NavEntry;;$solPrefix_TBC_011301 Alimentare Navigation entry;$solPrefix_TBC_011301_NavNode;$solPrefix_TBC_011301_NavLink
+;$solPrefix_TBC_011302_NavEntry;;$solPrefix_TBC_011302 Industriale Navigation entry;$solPrefix_TBC_011302_NavNode;$solPrefix_TBC_011302_NavLink
+;$solPrefix_TBC_011303_NavEntry;;$solPrefix_TBC_011303 Medicale Navigation entry;$solPrefix_TBC_011303_NavNode;$solPrefix_TBC_011303_NavLink
+;$solPrefix_TBC_011304_NavEntry;;$solPrefix_TBC_011304 Puro Navigation entry;$solPrefix_TBC_011304_NavNode;$solPrefix_TBC_011304_NavLink
+;$solPrefix_TBC_011400_NavEntry;;$solPrefix_TBC_011400 GPL - MAPP - Propano Navigation entry;$solPrefix_TBC_011400_NavNode;$solPrefix_TBC_011400_NavLink
+;$solPrefix_TBC_011500_NavEntry;;$solPrefix_TBC_011500 Miscele Alimentari Navigation entry;$solPrefix_TBC_011500_NavNode;$solPrefix_TBC_011500_NavLink
+;$solPrefix_TBC_011501_NavEntry;;$solPrefix_TBC_011501 AliSOL Navigation entry;$solPrefix_TBC_011501_NavNode;$solPrefix_TBC_011501_NavLink
+;$solPrefix_TBC_011502_NavEntry;;$solPrefix_TBC_011502 FruttaSOL Navigation entry;$solPrefix_TBC_011502_NavNode;$solPrefix_TBC_011502_NavLink
+;$solPrefix_TBC_011600_NavEntry;;$solPrefix_TBC_011600 Miscele Medicali Navigation entry;$solPrefix_TBC_011600_NavNode;$solPrefix_TBC_011600_NavLink
+;$solPrefix_TBC_011601_NavEntry;;$solPrefix_TBC_011601 Aria Navigation entry;$solPrefix_TBC_011601_NavNode;$solPrefix_TBC_011601_NavLink
+;$solPrefix_TBC_011602_NavEntry;;$solPrefix_TBC_011602 Donopa Navigation entry;$solPrefix_TBC_011602_NavNode;$solPrefix_TBC_011602_NavLink
+;$solPrefix_TBC_011603_NavEntry;;$solPrefix_TBC_011603 Neophyr Navigation entry;$solPrefix_TBC_011603_NavNode;$solPrefix_TBC_011603_NavLink
+;$solPrefix_TBC_011604_NavEntry;;$solPrefix_TBC_011604 Altre miscele Navigation entry;$solPrefix_TBC_011604_NavNode;$solPrefix_TBC_011604_NavLink
+;$solPrefix_TBC_011700_NavEntry;;$solPrefix_TBC_011700 Miscele Industriali Navigation entry;$solPrefix_TBC_011700_NavNode;$solPrefix_TBC_011700_NavLink
+;$solPrefix_TBC_011701_NavEntry;;$solPrefix_TBC_011701 Aria Navigation entry;$solPrefix_TBC_011701_NavNode;$solPrefix_TBC_011701_NavLink
+;$solPrefix_TBC_011702_NavEntry;;$solPrefix_TBC_011702 Enermix Premium Navigation entry;$solPrefix_TBC_011702_NavNode;$solPrefix_TBC_011702_NavLink
+;$solPrefix_TBC_011703_NavEntry;;$solPrefix_TBC_011703 Enermix Comfort Navigation entry;$solPrefix_TBC_011703_NavNode;$solPrefix_TBC_011703_NavLink
+;$solPrefix_TBC_011704_NavEntry;;$solPrefix_TBC_011704 LaserSOL Navigation entry;$solPrefix_TBC_011704_NavNode;$solPrefix_TBC_011704_NavLink
+;$solPrefix_TBC_011705_NavEntry;;$solPrefix_TBC_011705 Altre miscele Navigation entry;$solPrefix_TBC_011705_NavNode;$solPrefix_TBC_011705_NavLink
+;$solPrefix_TBC_011800_NavEntry;;$solPrefix_TBC_011800 Miscele Specialty Navigation entry;$solPrefix_TBC_011800_NavNode;$solPrefix_TBC_011800_NavLink
+;$solPrefix_TBC_011801_NavEntry;;$solPrefix_TBC_011801 Miscele standard e speciali Navigation entry;$solPrefix_TBC_011801_NavNode;$solPrefix_TBC_011801_NavLink
+;$solPrefix_TBC_011802_NavEntry;;$solPrefix_TBC_011802 Miscele certificate Navigation entry;$solPrefix_TBC_011802_NavNode;$solPrefix_TBC_011802_NavLink
+;$solPrefix_TBC_011803_NavEntry;;$solPrefix_TBC_011803 Miscele di alta precisione Navigation entry;$solPrefix_TBC_011803_NavNode;$solPrefix_TBC_011803_NavLink
+;$solPrefix_TBC_011900_NavEntry;;$solPrefix_TBC_011900 Gas Refrigeranti Navigation entry;$solPrefix_TBC_011900_NavNode;$solPrefix_TBC_011900_NavLink
+;$solPrefix_TBC_011901_NavEntry;;$solPrefix_TBC_011901 Refrigeranti HFC Navigation entry;$solPrefix_TBC_011901_NavNode;$solPrefix_TBC_011901_NavLink
+;$solPrefix_TBC_011902_NavEntry;;$solPrefix_TBC_011902 Refrigeranti Naturali Navigation entry;$solPrefix_TBC_011902_NavNode;$solPrefix_TBC_011902_NavLink
+;$solPrefix_TBC_011903_NavEntry;;$solPrefix_TBC_011903 Refrigeranti HFO Navigation entry;$solPrefix_TBC_011903_NavNode;$solPrefix_TBC_011903_NavLink
+;$solPrefix_TBC_011904_NavEntry;;$solPrefix_TBC_011904 Refrigeranti HC - Idrocarburi Navigation entry;$solPrefix_TBC_011904_NavNode;$solPrefix_TBC_011904_NavLink
+;$solPrefix_TBC_012000_NavEntry;;$solPrefix_TBC_012000 Altri gas Navigation entry;$solPrefix_TBC_012000_NavNode;$solPrefix_TBC_012000_NavLink
+;$solPrefix_TBC_012001_NavEntry;;$solPrefix_TBC_012001 1,3 Butadiene C4H6 Navigation entry;$solPrefix_TBC_012001_NavNode;$solPrefix_TBC_012001_NavLink
+;$solPrefix_TBC_012002_NavEntry;;$solPrefix_TBC_012002 Acido Cloridrico - HCl Navigation entry;$solPrefix_TBC_012002_NavNode;$solPrefix_TBC_012002_NavLink
+;$solPrefix_TBC_012003_NavEntry;;$solPrefix_TBC_012003 Esafluoroetano - C2F6 Navigation entry;$solPrefix_TBC_012003_NavNode;$solPrefix_TBC_012003_NavLink
+;$solPrefix_TBC_012004_NavEntry;;$solPrefix_TBC_012004 Etano - C2H6 Navigation entry;$solPrefix_TBC_012004_NavNode;$solPrefix_TBC_012004_NavLink
+;$solPrefix_TBC_012005_NavEntry;;$solPrefix_TBC_012005 Etilene - C2H4 Navigation entry;$solPrefix_TBC_012005_NavNode;$solPrefix_TBC_012005_NavLink
+;$solPrefix_TBC_012006_NavEntry;;$solPrefix_TBC_012006 Idrogeno Solforato - H2S Navigation entry;$solPrefix_TBC_012006_NavNode;$solPrefix_TBC_012006_NavLink
+;$solPrefix_TBC_012007_NavEntry;;$solPrefix_TBC_012007 Iso-Butano - C4H10 Navigation entry;$solPrefix_TBC_012007_NavNode;$solPrefix_TBC_012007_NavLink
+;$solPrefix_TBC_012008_NavEntry;;$solPrefix_TBC_012008 Isobutilene o Isobutene Navigation entry;$solPrefix_TBC_012008_NavNode;$solPrefix_TBC_012008_NavLink
+;$solPrefix_TBC_012009_NavEntry;;$solPrefix_TBC_012009 Krypton - Kr Navigation entry;$solPrefix_TBC_012009_NavNode;$solPrefix_TBC_012009_NavLink
+;$solPrefix_TBC_012010_NavEntry;;$solPrefix_TBC_012010 Metano - CH4 Navigation entry;$solPrefix_TBC_012010_NavNode;$solPrefix_TBC_012010_NavLink
+;$solPrefix_TBC_012011_NavEntry;;$solPrefix_TBC_012011 Neon - Ne Navigation entry;$solPrefix_TBC_012011_NavNode;$solPrefix_TBC_012011_NavLink
+;$solPrefix_TBC_012012_NavEntry;;$solPrefix_TBC_012012 Normal-Butano C4H10 Navigation entry;$solPrefix_TBC_012012_NavNode;$solPrefix_TBC_012012_NavLink
+;$solPrefix_TBC_012013_NavEntry;;$solPrefix_TBC_012013 Octafluoropropano C3F8 Navigation entry;$solPrefix_TBC_012013_NavNode;$solPrefix_TBC_012013_NavLink
+;$solPrefix_TBC_012014_NavEntry;;$solPrefix_TBC_012014 Ossido di Azoto - NO Navigation entry;$solPrefix_TBC_012014_NavNode;$solPrefix_TBC_012014_NavLink
+;$solPrefix_TBC_012015_NavEntry;;$solPrefix_TBC_012015 Ossido di Carbonio - CO Navigation entry;$solPrefix_TBC_012015_NavNode;$solPrefix_TBC_012015_NavLink
+;$solPrefix_TBC_012016_NavEntry;;$solPrefix_TBC_012016 Propadiene o Allene - C3H4 Navigation entry;$solPrefix_TBC_012016_NavNode;$solPrefix_TBC_012016_NavLink
+;$solPrefix_TBC_012017_NavEntry;;$solPrefix_TBC_012017 Propano - C3H8 Navigation entry;$solPrefix_TBC_012017_NavNode;$solPrefix_TBC_012017_NavLink
+;$solPrefix_TBC_012018_NavEntry;;$solPrefix_TBC_012018 Xenon - Xe Navigation entry;$solPrefix_TBC_012018_NavNode;$solPrefix_TBC_012018_NavLink
+;$solPrefix_TBC_020000_NavEntry;;$solPrefix_TBC_020000 GAS Equipments Navigation entry;$solPrefix_TBC_020000_NavNode;$solPrefix_TBC_020000_NavLink
+;$solPrefix_TBC_020100_NavEntry;;$solPrefix_TBC_020100 Riduttori di pressione Navigation entry;$solPrefix_TBC_020100_NavNode;$solPrefix_TBC_020100_NavLink
+;$solPrefix_TBC_020101_NavEntry;;$solPrefix_TBC_020101 Alimentare Navigation entry;$solPrefix_TBC_020101_NavNode;$solPrefix_TBC_020101_NavLink
+;$solPrefix_TBC_020102_NavEntry;;$solPrefix_TBC_020102 Industriale Navigation entry;$solPrefix_TBC_020102_NavNode;$solPrefix_TBC_020102_NavLink
+;$solPrefix_TBC_020103_NavEntry;;$solPrefix_TBC_020103 Puro Navigation entry;$solPrefix_TBC_020103_NavNode;$solPrefix_TBC_020103_NavLink
+;$solPrefix_TBC_020200_NavEntry;;$solPrefix_TBC_020200 Posti presa Navigation entry;$solPrefix_TBC_020200_NavNode;$solPrefix_TBC_020200_NavLink
+;$solPrefix_TBC_020201_NavEntry;;$solPrefix_TBC_020201 Alimentare Navigation entry;$solPrefix_TBC_020201_NavNode;$solPrefix_TBC_020201_NavLink
+;$solPrefix_TBC_020202_NavEntry;;$solPrefix_TBC_020202 Industriale Navigation entry;$solPrefix_TBC_020202_NavNode;$solPrefix_TBC_020202_NavLink
+;$solPrefix_TBC_020203_NavEntry;;$solPrefix_TBC_020203 Puro Navigation entry;$solPrefix_TBC_020203_NavNode;$solPrefix_TBC_020203_NavLink
+;$solPrefix_TBC_020300_NavEntry;;$solPrefix_TBC_020300 Centrali di decompressione Navigation entry;$solPrefix_TBC_020300_NavNode;$solPrefix_TBC_020300_NavLink
+;$solPrefix_TBC_020301_NavEntry;;$solPrefix_TBC_020301 Alimentare Navigation entry;$solPrefix_TBC_020301_NavNode;$solPrefix_TBC_020301_NavLink
+;$solPrefix_TBC_020302_NavEntry;;$solPrefix_TBC_020302 Industriale Navigation entry;$solPrefix_TBC_020302_NavNode;$solPrefix_TBC_020302_NavLink
+;$solPrefix_TBC_020303_NavEntry;;$solPrefix_TBC_020303 Puro Navigation entry;$solPrefix_TBC_020303_NavNode;$solPrefix_TBC_020303_NavLink
+;$solPrefix_TBC_020400_NavEntry;;$solPrefix_TBC_020400 Serpentine e fruste Navigation entry;$solPrefix_TBC_020400_NavNode;$solPrefix_TBC_020400_NavLink
+;$solPrefix_TBC_020401_NavEntry;;$solPrefix_TBC_020401 Alimentare Navigation entry;$solPrefix_TBC_020401_NavNode;$solPrefix_TBC_020401_NavLink
+;$solPrefix_TBC_020402_NavEntry;;$solPrefix_TBC_020402 Industriale Navigation entry;$solPrefix_TBC_020402_NavNode;$solPrefix_TBC_020402_NavLink
+;$solPrefix_TBC_020403_NavEntry;;$solPrefix_TBC_020403 Puro Navigation entry;$solPrefix_TBC_020403_NavNode;$solPrefix_TBC_020403_NavLink
+;$solPrefix_TBC_020500_NavEntry;;$solPrefix_TBC_020500 Valvole antiritorno di fiamma Navigation entry;$solPrefix_TBC_020500_NavNode;$solPrefix_TBC_020500_NavLink
+;$solPrefix_TBC_020501_NavEntry;;$solPrefix_TBC_020501 Alimentare Navigation entry;$solPrefix_TBC_020501_NavNode;$solPrefix_TBC_020501_NavLink
+;$solPrefix_TBC_020502_NavEntry;;$solPrefix_TBC_020502 Industriale Navigation entry;$solPrefix_TBC_020502_NavNode;$solPrefix_TBC_020502_NavLink
+;$solPrefix_TBC_020503_NavEntry;;$solPrefix_TBC_020503 Puro Navigation entry;$solPrefix_TBC_020503_NavNode;$solPrefix_TBC_020503_NavLink
+;$solPrefix_TBC_020600_NavEntry;;$solPrefix_TBC_020600 Valvole di linea Navigation entry;$solPrefix_TBC_020600_NavNode;$solPrefix_TBC_020600_NavLink
+;$solPrefix_TBC_020601_NavEntry;;$solPrefix_TBC_020601 Alimentare Navigation entry;$solPrefix_TBC_020601_NavNode;$solPrefix_TBC_020601_NavLink
+;$solPrefix_TBC_020602_NavEntry;;$solPrefix_TBC_020602 Industriale Navigation entry;$solPrefix_TBC_020602_NavNode;$solPrefix_TBC_020602_NavLink
+;$solPrefix_TBC_020603_NavEntry;;$solPrefix_TBC_020603 Puro Navigation entry;$solPrefix_TBC_020603_NavNode;$solPrefix_TBC_020603_NavLink
+;$solPrefix_TBC_020700_NavEntry;;$solPrefix_TBC_020700 Raccorderia Navigation entry;$solPrefix_TBC_020700_NavNode;$solPrefix_TBC_020700_NavLink
+;$solPrefix_TBC_020800_NavEntry;;$solPrefix_TBC_020800 Rastrelliere e accessori gas compressi Navigation entry;$solPrefix_TBC_020800_NavNode;$solPrefix_TBC_020800_NavLink
+;$solPrefix_TBC_020900_NavEntry;;$solPrefix_TBC_020900 Generatori da laboratorio Navigation entry;$solPrefix_TBC_020900_NavNode;$solPrefix_TBC_020900_NavLink
+;$solPrefix_TBC_020901_NavEntry;;$solPrefix_TBC_020901 Azoto Navigation entry;$solPrefix_TBC_020901_NavNode;$solPrefix_TBC_020901_NavLink
+;$solPrefix_TBC_020902_NavEntry;;$solPrefix_TBC_020902 Aria Navigation entry;$solPrefix_TBC_020902_NavNode;$solPrefix_TBC_020902_NavLink
+;$solPrefix_TBC_020903_NavEntry;;$solPrefix_TBC_020903 Azoto - Aria Navigation entry;$solPrefix_TBC_020903_NavNode;$solPrefix_TBC_020903_NavLink
+;$solPrefix_TBC_020904_NavEntry;;$solPrefix_TBC_020904 Idrogeno Navigation entry;$solPrefix_TBC_020904_NavNode;$solPrefix_TBC_020904_NavLink
+;$solPrefix_TBC_030000_NavEntry;;$solPrefix_TBC_030000 Medical GAS Equipments Navigation entry;$solPrefix_TBC_030000_NavNode;$solPrefix_TBC_030000_NavLink
+;$solPrefix_TBC_030100_NavEntry;;$solPrefix_TBC_030100 Accessori Navigation entry;$solPrefix_TBC_030100_NavNode;$solPrefix_TBC_030100_NavLink
+;$solPrefix_TBC_030101_NavEntry;;$solPrefix_TBC_030101 Flussimetri Navigation entry;$solPrefix_TBC_030101_NavNode;$solPrefix_TBC_030101_NavLink
+;$solPrefix_TBC_030102_NavEntry;;$solPrefix_TBC_030102 Regolatori del vuoto Navigation entry;$solPrefix_TBC_030102_NavNode;$solPrefix_TBC_030102_NavLink
+;$solPrefix_TBC_030103_NavEntry;;$solPrefix_TBC_030103 Umidificatori Navigation entry;$solPrefix_TBC_030103_NavNode;$solPrefix_TBC_030103_NavLink
+;$solPrefix_TBC_030104_NavEntry;;$solPrefix_TBC_030104 Carrelli portabombola Navigation entry;$solPrefix_TBC_030104_NavNode;$solPrefix_TBC_030104_NavLink
+;$solPrefix_TBC_030200_NavEntry;;$solPrefix_TBC_030200 Servizio Ossido Nitrico Navigation entry;$solPrefix_TBC_030200_NavNode;$solPrefix_TBC_030200_NavLink
+;$solPrefix_TBC_030201_NavEntry;;$solPrefix_TBC_030201 Dispositivi per sistema NoxBox Navigation entry;$solPrefix_TBC_030201_NavNode;$solPrefix_TBC_030201_NavLink
+;$solPrefix_TBC_030202_NavEntry;;$solPrefix_TBC_030202 Dispositivi per taratura sistema somministrazione/monitoraggio Navigation entry;$solPrefix_TBC_030202_NavNode;$solPrefix_TBC_030202_NavLink
+;$solPrefix_TBC_030300_NavEntry;;$solPrefix_TBC_030300 Servizio Analgesia Navigation entry;$solPrefix_TBC_030300_NavNode;$solPrefix_TBC_030300_NavLink
+;$solPrefix_TBC_030301_NavEntry;;$solPrefix_TBC_030301 Dispositivo per evacuazione EMONO Navigation entry;$solPrefix_TBC_030301_NavNode;$solPrefix_TBC_030301_NavLink
+;$solPrefix_TBC_030302_NavEntry;;$solPrefix_TBC_030302 Accessori Somministrazione /Evacuazione del farmaco Navigation entry;$solPrefix_TBC_030302_NavNode;$solPrefix_TBC_030302_NavLink
+;$solPrefix_TBC_030400_NavEntry;;$solPrefix_TBC_030400 Riduttori di pressione Navigation entry;$solPrefix_TBC_030400_NavNode;$solPrefix_TBC_030400_NavLink
+;$solPrefix_TBC_030500_NavEntry;;$solPrefix_TBC_030500 Posti presa Navigation entry;$solPrefix_TBC_030500_NavNode;$solPrefix_TBC_030500_NavLink
+;$solPrefix_TBC_030600_NavEntry;;$solPrefix_TBC_030600 Centrali di decompressione Navigation entry;$solPrefix_TBC_030600_NavNode;$solPrefix_TBC_030600_NavLink
+;$solPrefix_TBC_030700_NavEntry;;$solPrefix_TBC_030700 Serpentine e fruste Navigation entry;$solPrefix_TBC_030700_NavNode;$solPrefix_TBC_030700_NavLink
+;$solPrefix_TBC_030800_NavEntry;;$solPrefix_TBC_030800 Valvole antiritorno di fiamma Navigation entry;$solPrefix_TBC_030800_NavNode;$solPrefix_TBC_030800_NavLink
+;$solPrefix_TBC_030900_NavEntry;;$solPrefix_TBC_030900 Valvole di linea Navigation entry;$solPrefix_TBC_030900_NavNode;$solPrefix_TBC_030900_NavLink
+;$solPrefix_TBC_031000_NavEntry;;$solPrefix_TBC_031000 Servizio Ossido Nitrico Navigation entry;$solPrefix_TBC_031000_NavNode;$solPrefix_TBC_031000_NavLink
+;$solPrefix_TBC_040000_NavEntry;;$solPrefix_TBC_040000 Welding products Navigation entry;$solPrefix_TBC_040000_NavNode;$solPrefix_TBC_040000_NavLink
+;$solPrefix_TBC_040100_NavEntry;;$solPrefix_TBC_040100 Saldatura MIG / MAG Navigation entry;$solPrefix_TBC_040100_NavNode;$solPrefix_TBC_040100_NavLink
+;$solPrefix_TBC_040101_NavEntry;;$solPrefix_TBC_040101 Gas di protezione Navigation entry;$solPrefix_TBC_040101_NavNode;$solPrefix_TBC_040101_NavLink
+;$solPrefix_TBC_040102_NavEntry;;$solPrefix_TBC_040102 Torce Navigation entry;$solPrefix_TBC_040102_NavNode;$solPrefix_TBC_040102_NavLink
+;$solPrefix_TBC_040103_NavEntry;;$solPrefix_TBC_040103 Impianti di saldatura Navigation entry;$solPrefix_TBC_040103_NavNode;$solPrefix_TBC_040103_NavLink
+;$solPrefix_TBC_040104_NavEntry;;$solPrefix_TBC_040104 Consumabili Navigation entry;$solPrefix_TBC_040104_NavNode;$solPrefix_TBC_040104_NavLink
+;$solPrefix_TBC_040200_NavEntry;;$solPrefix_TBC_040200 Saldatura TIG Navigation entry;$solPrefix_TBC_040200_NavNode;$solPrefix_TBC_040200_NavLink
+;$solPrefix_TBC_040201_NavEntry;;$solPrefix_TBC_040201 Gas di protezione Navigation entry;$solPrefix_TBC_040201_NavNode;$solPrefix_TBC_040201_NavLink
+;$solPrefix_TBC_040202_NavEntry;;$solPrefix_TBC_040202 Torce Navigation entry;$solPrefix_TBC_040202_NavNode;$solPrefix_TBC_040202_NavLink
+;$solPrefix_TBC_040203_NavEntry;;$solPrefix_TBC_040203 Impianti di saldatura Navigation entry;$solPrefix_TBC_040203_NavNode;$solPrefix_TBC_040203_NavLink
+;$solPrefix_TBC_040204_NavEntry;;$solPrefix_TBC_040204 Accessori Navigation entry;$solPrefix_TBC_040204_NavNode;$solPrefix_TBC_040204_NavLink
+;$solPrefix_TBC_040205_NavEntry;;$solPrefix_TBC_040205 Consumabili Navigation entry;$solPrefix_TBC_040205_NavNode;$solPrefix_TBC_040205_NavLink
+;$solPrefix_TBC_040300_NavEntry;;$solPrefix_TBC_040300 Saldatura ad elettrodo Navigation entry;$solPrefix_TBC_040300_NavNode;$solPrefix_TBC_040300_NavLink
+;$solPrefix_TBC_040301_NavEntry;;$solPrefix_TBC_040301 Impianti di saldatura Navigation entry;$solPrefix_TBC_040301_NavNode;$solPrefix_TBC_040301_NavLink
+;$solPrefix_TBC_040400_NavEntry;;$solPrefix_TBC_040400 Processi Ossi-gas Navigation entry;$solPrefix_TBC_040400_NavNode;$solPrefix_TBC_040400_NavLink
+;$solPrefix_TBC_040401_NavEntry;;$solPrefix_TBC_040401 Gas di processo Navigation entry;$solPrefix_TBC_040401_NavNode;$solPrefix_TBC_040401_NavLink
+;$solPrefix_TBC_040402_NavEntry;;$solPrefix_TBC_040402 Riduttori di pressione Navigation entry;$solPrefix_TBC_040402_NavNode;$solPrefix_TBC_040402_NavLink
+;$solPrefix_TBC_040403_NavEntry;;$solPrefix_TBC_040403 Cannelli Navigation entry;$solPrefix_TBC_040403_NavNode;$solPrefix_TBC_040403_NavLink
+;$solPrefix_TBC_040404_NavEntry;;$solPrefix_TBC_040404 Valvole di sicurezza Navigation entry;$solPrefix_TBC_040404_NavNode;$solPrefix_TBC_040404_NavLink
+;$solPrefix_TBC_040405_NavEntry;;$solPrefix_TBC_040405 Accessori Navigation entry;$solPrefix_TBC_040405_NavNode;$solPrefix_TBC_040405_NavLink
+;$solPrefix_TBC_040406_NavEntry;;$solPrefix_TBC_040406 Consumabili Navigation entry;$solPrefix_TBC_040406_NavNode;$solPrefix_TBC_040406_NavLink
+;$solPrefix_TBC_040500_NavEntry;;$solPrefix_TBC_040500 Processi Plasma Navigation entry;$solPrefix_TBC_040500_NavNode;$solPrefix_TBC_040500_NavLink
+;$solPrefix_TBC_040501_NavEntry;;$solPrefix_TBC_040501 Gas plasma Navigation entry;$solPrefix_TBC_040501_NavNode;$solPrefix_TBC_040501_NavLink
+;$solPrefix_TBC_040502_NavEntry;;$solPrefix_TBC_040502 Gas di protezione Navigation entry;$solPrefix_TBC_040502_NavNode;$solPrefix_TBC_040502_NavLink
+;$solPrefix_TBC_040503_NavEntry;;$solPrefix_TBC_040503 Impianti di saldatura Navigation entry;$solPrefix_TBC_040503_NavNode;$solPrefix_TBC_040503_NavLink
+;$solPrefix_TBC_040504_NavEntry;;$solPrefix_TBC_040504 Impianti di Taglio Navigation entry;$solPrefix_TBC_040504_NavNode;$solPrefix_TBC_040504_NavLink
+;$solPrefix_TBC_040600_NavEntry;;$solPrefix_TBC_040600 Proccessi Laser Navigation entry;$solPrefix_TBC_040600_NavNode;$solPrefix_TBC_040600_NavLink
+;$solPrefix_TBC_040601_NavEntry;;$solPrefix_TBC_040601 Miscele laseranti Navigation entry;$solPrefix_TBC_040601_NavNode;$solPrefix_TBC_040601_NavLink
+;$solPrefix_TBC_040602_NavEntry;;$solPrefix_TBC_040602 Gas di processo Navigation entry;$solPrefix_TBC_040602_NavNode;$solPrefix_TBC_040602_NavLink
+;$solPrefix_TBC_040700_NavEntry;;$solPrefix_TBC_040700 Finitura Navigation entry;$solPrefix_TBC_040700_NavNode;$solPrefix_TBC_040700_NavLink
+;$solPrefix_TBC_040701_NavEntry;;$solPrefix_TBC_040701 Dischi abrasivi Navigation entry;$solPrefix_TBC_040701_NavNode;$solPrefix_TBC_040701_NavLink
+;$solPrefix_TBC_040702_NavEntry;;$solPrefix_TBC_040702 Prodotti chimici Navigation entry;$solPrefix_TBC_040702_NavNode;$solPrefix_TBC_040702_NavLink
+;$solPrefix_TBC_040800_NavEntry;;$solPrefix_TBC_040800 Aspirazione Fumi Navigation entry;$solPrefix_TBC_040800_NavNode;$solPrefix_TBC_040800_NavLink
+;$solPrefix_TBC_040801_NavEntry;;$solPrefix_TBC_040801 Aspiratori portatili Navigation entry;$solPrefix_TBC_040801_NavNode;$solPrefix_TBC_040801_NavLink
+;$solPrefix_TBC_050000_NavEntry;;$solPrefix_TBC_050000 Cryo products Navigation entry;$solPrefix_TBC_050000_NavNode;$solPrefix_TBC_050000_NavLink
+;$solPrefix_TBC_050100_NavEntry;;$solPrefix_TBC_050100 Cryoblasting Navigation entry;$solPrefix_TBC_050100_NavNode;$solPrefix_TBC_050100_NavLink
+;$solPrefix_TBC_050101_NavEntry;;$solPrefix_TBC_050101 Microclean Navigation entry;$solPrefix_TBC_050101_NavNode;$solPrefix_TBC_050101_NavLink
+;$solPrefix_TBC_050102_NavEntry;;$solPrefix_TBC_050102 Snow Cleaning Navigation entry;$solPrefix_TBC_050102_NavNode;$solPrefix_TBC_050102_NavLink
+;$solPrefix_TBC_050103_NavEntry;;$solPrefix_TBC_050103 Blaster Navigation entry;$solPrefix_TBC_050103_NavNode;$solPrefix_TBC_050103_NavLink
+;$solPrefix_TBC_050104_NavEntry;;$solPrefix_TBC_050104 Scatole poilistirolo Navigation entry;$solPrefix_TBC_050104_NavNode;$solPrefix_TBC_050104_NavLink
+;$solPrefix_TBC_050105_NavEntry;;$solPrefix_TBC_050105 Pastigliatrice dryice Navigation entry;$solPrefix_TBC_050105_NavNode;$solPrefix_TBC_050105_NavLink
+;$solPrefix_TBC_050106_NavEntry;;$solPrefix_TBC_050106 Gel refrigerante Navigation entry;$solPrefix_TBC_050106_NavNode;$solPrefix_TBC_050106_NavLink
+;$solPrefix_TBC_050200_NavEntry;;$solPrefix_TBC_050200 Contenitori criobiologici e criogenici (dewar) Navigation entry;$solPrefix_TBC_050200_NavNode;$solPrefix_TBC_050200_NavLink
+;$solPrefix_TBC_050201_NavEntry;;$solPrefix_TBC_050201 Contenitori per stoccaggio di campioni biologici Navigation entry;$solPrefix_TBC_050201_NavNode;$solPrefix_TBC_050201_NavLink
+;$solPrefix_TBC_050202_NavEntry;;$solPrefix_TBC_050202 Contenitori per stoccaggio e trasporto di azoto liquido Navigation entry;$solPrefix_TBC_050202_NavNode;$solPrefix_TBC_050202_NavLink
+;$solPrefix_TBC_050300_NavEntry;;$solPrefix_TBC_050300 Congelatori Navigation entry;$solPrefix_TBC_050300_NavNode;$solPrefix_TBC_050300_NavLink
+;$solPrefix_TBC_050301_NavEntry;;$solPrefix_TBC_050301 Congelatori a discesa programmata della temperatura Navigation entry;$solPrefix_TBC_050301_NavNode;$solPrefix_TBC_050301_NavLink
+;$solPrefix_TBC_050302_NavEntry;;$solPrefix_TBC_050302 Congelatori meccanici Navigation entry;$solPrefix_TBC_050302_NavNode;$solPrefix_TBC_050302_NavLink
+;$solPrefix_TBC_050400_NavEntry;;$solPrefix_TBC_050400 Sistemi hardware e software per Criobiologia Navigation entry;$solPrefix_TBC_050400_NavNode;$solPrefix_TBC_050400_NavLink
+;$solPrefix_TBC_050401_NavEntry;;$solPrefix_TBC_050401 Centraline di controllo Navigation entry;$solPrefix_TBC_050401_NavNode;$solPrefix_TBC_050401_NavLink
+;$solPrefix_TBC_050402_NavEntry;;$solPrefix_TBC_050402 Stampanti e lettori Navigation entry;$solPrefix_TBC_050402_NavNode;$solPrefix_TBC_050402_NavLink
+;$solPrefix_TBC_050403_NavEntry;;$solPrefix_TBC_050403 Software di tracciabilità e archiviazione Navigation entry;$solPrefix_TBC_050403_NavNode;$solPrefix_TBC_050403_NavLink
+;$solPrefix_TBC_060000_NavEntry;;$solPrefix_TBC_060000 Dispositivi medici Navigation entry;$solPrefix_TBC_060000_NavNode;$solPrefix_TBC_060000_NavLink
+;$solPrefix_TBC_070000_NavEntry;;$solPrefix_TBC_070000 DPI Navigation entry;$solPrefix_TBC_070000_NavNode;$solPrefix_TBC_070000_NavLink
+;$solPrefix_TBC_070100_NavEntry;;$solPrefix_TBC_070100 DPI Navigation entry;$solPrefix_TBC_070100_NavNode;$solPrefix_TBC_070100_NavLink
+;$solPrefix_TBC_070101_NavEntry;;$solPrefix_TBC_070101 Protezione Viso Navigation entry;$solPrefix_TBC_070101_NavNode;$solPrefix_TBC_070101_NavLink
+;$solPrefix_TBC_070102_NavEntry;;$solPrefix_TBC_070102 Protezione Arti Navigation entry;$solPrefix_TBC_070102_NavNode;$solPrefix_TBC_070102_NavLink
+;$solPrefix_TBC_070103_NavEntry;;$solPrefix_TBC_070103 Protezione Corpo Navigation entry;$solPrefix_TBC_070103_NavNode;$solPrefix_TBC_070103_NavLink
+;$solPrefix_TBC_070104_NavEntry;;$solPrefix_TBC_070104 Sistemi di aspirazione fumi Navigation entry;$solPrefix_TBC_070104_NavNode;$solPrefix_TBC_070104_NavLink
+;$solPrefix_TBC_070105_NavEntry;;$solPrefix_TBC_070105 Impianti e quadri di controllo - SolMet Navigation entry;$solPrefix_TBC_070105_NavNode;$solPrefix_TBC_070105_NavLink
+;$solPrefix_TBC_070106_NavEntry;;$solPrefix_TBC_070106 Autoproduzione di ossigeno - OxySOL Navigation entry;$solPrefix_TBC_070106_NavNode;$solPrefix_TBC_070106_NavLink
+;$solPrefix_TBC_070107_NavEntry;;$solPrefix_TBC_070107 Autoproduzione di azoto - NitroSOL Navigation entry;$solPrefix_TBC_070107_NavNode;$solPrefix_TBC_070107_NavLink
+;$solPrefix_TBC_070108_NavEntry;;$solPrefix_TBC_070108 Trattamento acque di processo e reflue Navigation entry;$solPrefix_TBC_070108_NavNode;$solPrefix_TBC_070108_NavLink
+;$solPrefix_TBC_070109_NavEntry;;$solPrefix_TBC_070109 Controlli non distruttivi - SOLcontrol Navigation entry;$solPrefix_TBC_070109_NavNode;$solPrefix_TBC_070109_NavLink
+;$solPrefix_TBC_070110_NavEntry;;$solPrefix_TBC_070110 Pulizia criogenica - DryBlast Navigation entry;$solPrefix_TBC_070110_NavNode;$solPrefix_TBC_070110_NavLink
+;$solPrefix_TBC_070200_NavEntry;;$solPrefix_TBC_070200 DPI criogenici Navigation entry;$solPrefix_TBC_070200_NavNode;$solPrefix_TBC_070200_NavLink
+;$solPrefix_TBC_070201_NavEntry;;$solPrefix_TBC_070201 Sistemi per travaso azoto in sicurezza Navigation entry;$solPrefix_TBC_070201_NavNode;$solPrefix_TBC_070201_NavLink
+;$solPrefix_TBC_070202_NavEntry;;$solPrefix_TBC_070202 DPI criogenici Navigation entry;$solPrefix_TBC_070202_NavNode;$solPrefix_TBC_070202_NavLink
+;$solPrefix_TBC_070203_NavEntry;;$solPrefix_TBC_070203 DPI sicurezza Navigation entry;$solPrefix_TBC_070203_NavNode;$solPrefix_TBC_070203_NavLink
+
+############# End Solgroup top bar categories
+
+
+
+##---- level 4. children of FooterNavNode ----##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef
+;AcceleratorNavNode;;Accelerator Pages;FooterNavNode;;AcceleratorNavNode
+;HybrisNavNode;;Hybris Pages;FooterNavNode;;HybrisNavNode
+;FollowUsNavNode;;Follow Us Pages;FooterNavNode;;FollowUsNavNode
+
+##----- level 5. children of HybrisNavNode -----##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef
+;AboutAcceleratorNavNode;;About Accelerator Page;AcceleratorNavNode;;AboutAcceleratorNavNode
+;DocumentationNavNode;;Documentation Page;AcceleratorNavNode;;DocumentationNavNode
+## entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true];name;navigationNode(&nodeRef);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;AboutAcceleratorNavNodeEntry;;About Accelerator Navigation Node Entry;AboutAcceleratorNavNode;AboutAcceleratorLink;
+;DocumentationNavNodeEntry;;Documentation Navigation Node Entry;DocumentationNavNode;DocumentationLink;
+## links of the above navigation nodes ##
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;&linkRef;&componentRef;target(code)[default='sameWindow']
+;;AboutAcceleratorLink;About Accelerator Link;"http://www.hybris.com/multichannel-accelerator";AboutAcceleratorLink;AboutAcceleratorLink;newWindow
+;;DocumentationLink;Documentation Link;"https://help.hybris.com";DocumentationLink;DocumentationLink;newWindow
+
+##----- level 5. children of AcceleratorNavNode -----##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef
+;AboutHybrisNavNode;;About Hybris Page;HybrisNavNode;;AboutHybrisNavNode
+;ContactUsNavNode;;Contact Us Page;HybrisNavNode;;ContactUsNavNode
+## entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true];name;navigationNode(&nodeRef);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;AboutHybrisNavNodeEntry;;About Hybris Navigation Node Entry;AboutHybrisNavNode;AboutHybrisLink;
+;ContactUsNavNodeEntry;;Contact Us Navigation Node Entry;ContactUsNavNode;ContactUsLink;
+## links of the above navigation nodes ##
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;&linkRef;&componentRef;target(code)[default='sameWindow']
+;;AboutHybrisLink;About Hybris Link;"http://www.hybris.com";AboutHybrisLink;AboutHybrisLink;newWindow
+;;ContactUsLink;Contact Us Link;"http://www.hybris.com/contact";ContactUsLink;ContactUsLink;newWindow
+
+##----- level 5. children of FollowUsNavNode -----##
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef
+;AgileCommerceBlogNavNode;;Agile Commerce Blog Page;FollowUsNavNode;;AgileCommerceBlogNavNode
+;LinkedInNavNode;;LinkedIn Page;FollowUsNavNode;;LinkedInNavNode
+;FacebookNavNode;;Facebook Page;FollowUsNavNode;;FacebookNavNode
+;TwitterNavNode;;Twitter Page;FollowUsNavNode;;TwitterNavNode
+## entries of the above navigation nodes ##
+INSERT_UPDATE CMSNavigationEntry;uid[unique=true];$contentCV[unique=true];name;navigationNode(&nodeRef);item(CMSLinkComponent.uid,CMSLinkComponent.$contentCV);
+;AgileCommerceBlogNavNodeEntry;;Agile Commerce Blog Navigation Node Entry;AgileCommerceBlogNavNode;AgileCommerceBlogLink;
+;LinkedInNavNodeEntry;;LinkedIn Navigation Node Entry;LinkedInNavNode;LinkedInLink;
+;FacebookNavNodeEntry;;Facebook Navigation Node Entry;FacebookNavNode;FacebookLink;
+;TwitterNavNodeEntry;;Twitter Navigation Node Entry;TwitterNavNode;TwitterLink;
+## links of the above navigation nodes ##
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;&linkRef;&componentRef;target(code)[default='sameWindow']
+;;AgileCommerceBlogLink;Agile Commerce Blog Link;"http://www.agile-commerce.com/";AgileCommerceBlogLink;AgileCommerceBlogLink;newWindow
+;;LinkedInLink;Linked In Link;"http://www.linkedin.com/company/97435";LinkedInLink;LinkedInLink;newWindow
+;;FacebookLink;Facebook Link;"http://www.facebook.com/hybrissoftware";FacebookLink;FacebookLink;newWindow
+;;TwitterLink;Twitter Link;"http://twitter.com/#!/hybris_software";TwitterLink;TwitterLink;newWindow
+
+###### Navigation End ######
+
+
+###### ConentSlot for Templates Start ######
+## site logo slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;SiteLogoSlot;SiteLogoComponent
+
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink
+;;SiteLogoComponent;Site Logo Component;SiteLogoComponent;"/"
+
+## homepage navigation link slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;HomepageNavLinkSlot;HomepageNavLink
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;&linkRef;&componentRef;target(code)[default='sameWindow']
+;;HomepageNavLink;Home Page Nav Link;/;HomepageNavLink;HomepageNavLink
+
+## navigation bar slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid, $contentCV)
+;;NavigationBarSlot;$solPrefixCategoryNavComponent,breadcrumbComponent
+
+INSERT_UPDATE BreadcrumbComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;breadcrumbComponent;Breadcrumb CMS Component;breadcrumbComponent
+
+INSERT_UPDATE CategoryNavigationComponent;$contentCV[unique=true];uid[unique=true];name;styleClass;&componentRef;navigationNode(&nodeRef);wrapAfter
+;;$solPrefixCategoryNavComponent;Category Navigation Component;;$solPrefixCategoryNavComponent;$solPrefixCategoryNavNode;10
+
+## miniCart slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;MiniCartSlot;OrderToolsComponent,MiniCart
+
+INSERT_UPDATE NavigationComponent;$contentCV[unique=true];uid[unique=true];name;styleClass;&componentRef;navigationNode(&nodeRef)
+;;OrderToolsComponent;Order Tools Component;nav-order-tools;OrderToolsComponent;OrderToolsNavNode
+
+INSERT_UPDATE MiniCartComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;totalDisplay(code);shownProductCount;lightboxBannerComponent(&componentRef)
+;;MiniCart;Mini Cart;MiniCart;SUBTOTAL;3;LightboxHomeDeliveryBannerComponent
+
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink
+;;LightboxHomeDeliveryBannerComponent;Lightbox Home Delivery Banner Component;LightboxHomeDeliveryBannerComponent;
+
+## tabs slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;TabsSlot;TabPanelContainer
+
+# CMS tabs components
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;ProductDetailsTabComponent;Product Details Tab;/WEB-INF/views/responsive/pages/product/productDetailsTab.jsp;;ProductDetailsTabComponent
+;;ProductSpecsTabComponent;Product Specification Tab;/WEB-INF/views/responsive/pages/product/productSpecsTab.jsp;;ProductSpecsTabComponent
+#;;ProductReviewsTabComponent;Product Reviews Tab;/WEB-INF/views/responsive/pages/product/productReviewsTab.jsp;;ProductReviewsTabComponent
+
+#INSERT_UPDATE CMSTabParagraphComponent;$contentCV[unique=true];uid[unique=true];name;visible;&componentRef
+#;;deliveryTab;Delivery tab;true;deliveryTab
+
+INSERT_UPDATE CMSTabParagraphContainer;$contentCV[unique=true];uid[unique=true];name;visible;simpleCMSComponents(uid, $contentCV);&componentRef
+;;TabPanelContainer;Tab container;true;ProductDetailsTabComponent,ProductSpecsTabComponent;TabPanelContainer
+
+
+## footer slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;FooterSlot;FooterNavigationComponent
+
+INSERT_UPDATE FooterNavigationComponent;$contentCV[unique=true];uid[unique=true];wrapAfter;&componentRef;showLanguageCurrency;navigationNode(&nodeRef)
+;;FooterNavigationComponent;4;FooterNavigationComponent;true;FooterNavNode;
+
+## headerlinks slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(uid,$contentCV)
+;;HeaderLinksSlot;MyAccountComponent
+
+INSERT_UPDATE NavigationComponent;$contentCV[unique=true];uid[unique=true];name;styleClass;&componentRef;navigationNode(&nodeRef)
+;;MyAccountComponent;My Account;accNavComponent;MyAccountComponent;MyAccountNavNode
+
+## search box slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;SearchBoxSlot;SearchBox
+
+INSERT_UPDATE SearchBoxComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;SearchBox;Search Box;SearchBox
+
+## variant selector slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;VariantSelectorSlot;VariantSelector
+
+INSERT_UPDATE ProductVariantSelectorComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;VariantSelector;Product Variant Selector;VariantSelector
+
+## add to cart slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;AddToCartSlot;AddToCart
+
+INSERT_UPDATE ProductAddToCartComponent;$contentCV[unique=true];uid[unique=true];name;actions(&actionRef);&componentRef
+;;AddToCart;Product Add To Cart;AddToCartAction,PickUpInStoreAction,ShareOnSocialNetworkAction;AddToCart
+
+INSERT_UPDATE AddToCartAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;AddToCartAction;/cart/add;Product Add To Cart Action;ActionRestriction;AddToCartAction
+
+INSERT_UPDATE PickUpInStoreAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;PickUpInStoreAction;/store-pickup/{productCode}/pointOfServices;Pickup in Store Action;ActionRestriction;PickUpInStoreAction
+
+INSERT_UPDATE ShareOnSocialNetworkAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;ShareOnSocialNetworkAction;/;Share On Social Network Action;ActionRestriction;ShareOnSocialNetworkAction
+
+## upselling slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;UpSellingSlot;Similar
+
+INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;&componentRef
+;;Similar;Similar;SIMILAR;5;Similar
+
+## cross selling slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;CrossSellingSlot;accessories
+
+INSERT_UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;&componentRef
+;;accessories;Accessories;ACCESSORIES;5;accessories
+
+## product left refinement slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;ProductLeftRefinements;RefinementFacetComponent
+
+INSERT_UPDATE ProductRefinementComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;RefinementFacetComponent;Product Refinement Facet Component;RefinementFacetComponent
+
+## productList slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;ProductListSlot;Product List Slot for Product List;true;ProductListComponent;;;
+
+INSERT_UPDATE CMSProductListComponent;$contentCV[unique=true];uid[unique=true];name;actions(uid,$contentCV);&componentRef
+;;ProductListComponent;Product List Component;ListPickUpInStoreAction,ListAddToCartAction,ListOrderFormAction;ProductListComponent
+
+## productGrid slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;ProductGridSlot;Product Grid Slot for Product List;true;ProductGridComponent;;;
+
+INSERT_UPDATE ProductGridComponent;$contentCV[unique=true];uid[unique=true];name;actions(uid,$contentCV);&componentRef
+;;ProductGridComponent;Product Grid Component;ListPickUpInStoreAction,ListAddToCartAction,ListOrderFormAction;ProductGridComponent
+
+## searchResultList slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SearchResultsListSlot;Search Result List Slot for Search List;true;SearchResultsList;;;
+
+INSERT_UPDATE SearchResultsListComponent;$contentCV[unique=true];uid[unique=true];name;actions(uid,$contentCV);&componentRef
+;;SearchResultsList;Search Result List Component;ListPickUpInStoreAction,ListAddToCartAction,ListOrderFormAction;SearchResultsList
+
+## searchResultGrid slot ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SearchResultsGridSlot;Search Result Grid Slot for Search List;true;SearchResultsGrid;;;
+
+INSERT_UPDATE SearchResultsGridComponent;$contentCV[unique=true];uid[unique=true];name;actions(uid,$contentCV);&componentRef
+;;SearchResultsGrid;Search Result Grid Component;ListPickUpInStoreAction,ListAddToCartAction,ListOrderFormAction;SearchResultsGrid
+
+## cms actions used in product list/gird, search result list/grid slot ##
+INSERT_UPDATE ListPickUpInStoreAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;ListPickUpInStoreAction;/store-pickup/{productCode}/pointOfServices;Pickup in Store Action;ActionRestriction;ListPickUpInStoreAction
+
+INSERT_UPDATE ListAddToCartAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;ListAddToCartAction;/cart/add;Product Add To Cart Action;ActionRestriction;ListAddToCartAction
+
+INSERT_UPDATE ListOrderFormAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;ListOrderFormAction;/orderForm;Order Form Action;ActionRestriction;ListOrderFormAction
+###### ConentSlot for Templates End ######
+
+
+###### modify some pages Start ######
+## make Product grid, Search grid page default ##
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];defaultPage
+;;search;false
+;;searchGrid;true
+
+UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];defaultPage
+;;productList;false
+;;productGrid;true
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];linkComponents(&linkRef);;;;;
+;;storefinderPage;StoreFinderLink
+;;login;LoginLink
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;&linkRef;&componentRef;target(code)[default='sameWindow']
+;;LoginLink;Login Link;/login;LoginLink;LoginLink
+;;StoreFinderLink;Store Finder Link;/store-finder;StoreFinderLink;StoreFinderLink
+
+REMOVE ContentPage;$contentCV[unique=true];uid[unique=true]
+;;account
+;;profile
+###### modify some pages End ######
+
+
+###### Login page Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='login'];contentSlot(uid,$contentCV)[unique=true];;;
+;;LeftContentSlot-login;LeftContentSlot;;LeftContentSlot-login;;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;LeftContentSlot-login;Left Content Slot for Customer Login;true;ReturningCustomerLoginComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;ReturningCustomerLoginComponent;Returning Customer Login Component;accountReturningCustomerLogin.jsp;;ReturningCustomerLoginComponent
+###### Login page end ######
+
+
+###### Homepage Start ######
+## Based on landingLayout2Page.jsp ##
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='homepage'];contentSlot(uid,$contentCV)[unique=true]
+#Truck banner section
+;;Section1-Homepage;Section1;;Section1Slot-Homepage
+#Sections for application categories
+;;Section2A-Homepage;Section2A;;Section2ASlot-Homepage
+;;Section2B-Homepage;Section2B;;Section2BSlot-Homepage
+;;Section2C-Homepage;Section2C;;Section2CSlot-Homepage
+#Other sections
+;;Section3-Homepage;Section3;;Section3Slot-Homepage
+;;Section5-Homepage;Section5;;Section5Slot-Homepage
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+#Slot with truck banner
+;;Section1Slot-Homepage;Section1 Slot for Homepage;true;$solPrefixHompageSplashBannerComponent
+#Slot woth images for application categories
+;;Section2ASlot-Homepage;Section2A Slot for Homepage;true;$solPrefixHompageEnergyBannerComponent,$solPrefixHompageFoodBannerComponent,$solPrefixHompageMedicalBannerComponent
+;;Section2BSlot-Homepage;Section2B Slot for Homepage;true;$solPrefixHompageMetalProductionBannerComponent,$solPrefixHompageMetalFabricationBannerComponent,$solPrefixHompageOilBannerComponent
+;;Section2CSlot-Homepage;Section2C Slot for Homepage;true;$solPrefixHompagePharmaBannerComponent,$solPrefixHompageSpecialityBannerComponent,$solPrefixHompageSpecialityBannerComponent
+#Other slot
+;;Section3Slot-Homepage;Section3 Slot for Homepage;true;$solPrefixHomepageNewProductCarouselComponent,$solPrefixHomepageProductCarouselComponent
+;;Section4Slot-Homepage;Section4 Slot for Homepage;true;$solPrefixHompage25%BannerComponent,$solPrefixHompage30dayBannerComponent,$solPrefixHompage6pmBannerComponent,$solPrefixHompage24/7BannerComponent
+
+## slot 2C and 5: nothing to display ##
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)
+;;Section2CSlot-Homepage;
+;;Section5Slot-Homepage;
+
+## components in slot 1 ##
+INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV[unique=true];uid[unique=true];name;urlLink;&componentRef
+#;;$solPrefixHompageBrandsBannerComponent;$solPrefix Homepage Brands Banner Component;/Brands/c/brands;$solPrefixHompageBrandsBannerComponent
+;;$solPrefixHompageSplashBannerComponent;$solPrefix Homepage Splash Banner Component;/Open-Catalogue/Tools/c/1355;$solPrefixHompageSplashBannerComponent
+
+## components in slots for application categories ##
+INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV[unique=true];uid[unique=true];name;urlLink;&componentRef
+;;$solPrefixHompageEnergyBannerComponent;$solPrefix Energy Banner Component;/Open-Catalogue/Tools/Angle-Grinders/c/1595;$solPrefixHompageEnergyBannerComponent
+;;$solPrefixHompageFoodBannerComponent;$solPrefix Food Banner Component;/Open-Catalogue/Tools/Angle-Grinders/c/1595;$solPrefixHompageFoodBannerComponent
+;;$solPrefixHompageMedicalBannerComponent;$solPrefix Medical Banner Component;/Open-Catalogue/Tools/Angle-Grinders/c/1595;$solPrefixHompageMedicalBannerComponent
+;;$solPrefixHompageMetalProductionBannerComponent;$solPrefix Metal Banner Component;/Open-Catalogue/Tools/Angle-Grinders/c/1595;$solPrefixHompageMetalProductionBannerComponent
+;;$solPrefixHompageMetalFabricationBannerComponent;$solPrefix Metal fabrication Banner Component;/Open-Catalogue/Tools/Angle-Grinders/c/1595;$solPrefixHompageMetalFabricationBannerComponent
+;;$solPrefixHompageOilBannerComponent;$solPrefix Oil Banner Component;/Open-Catalogue/Tools/Angle-Grinders/c/1595;$solPrefixHompageOilBannerComponent
+;;$solPrefixHompagePharmaBannerComponent;$solPrefix Pharma Banner Component;/Open-Catalogue/Tools/Angle-Grinders/c/1595;$solPrefixHompagePharmaBannerComponent
+;;$solPrefixHompageSpecialityBannerComponent;$solPrefix Speciality Banner Component;/Open-Catalogue/Tools/Angle-Grinders/c/1595;$solPrefixHompageSpecialityBannerComponent
+
+
+## components in slot 3 ##
+INSERT_UPDATE ProductCarouselComponent;$contentCV[unique=true];uid[unique=true];name;products(code,$productCV);scroll(code);popup;&componentRef
+;;$solPrefixHomepageNewProductCarouselComponent;What's New $solPrefix Homepage Product Carousel;3755219,3881018,3592865,2116279,3755204,1128762,3092788;allVisible;false;$solPrefixHomepageNewProductCarouselComponent
+;;$solPrefixHomepageProductCarouselComponent;$solPrefix Homepage Product Carousel;3755205,3755211,3756505,3793682,2221933,2116275,2116282;allVisible;false;$solPrefixHomepageProductCarouselComponent
+
+## This component is not used currently, but still import for future use ##
+INSERT_UPDATE ProductCarouselComponent;$contentCV[unique=true];uid[unique=true];name;products(code,$productCV);scroll(code);popup;searchQuery;categoryCode;&componentRef
+;;PremiumbuyersgroupHomepageProductCarouselComponent;Premium buyer Homepage Product Carousel;;allVisible;false;:topRated:price:$500-$999.99:price:$200-$499.99;1;PremiumbuyersgroupHomepageProductCarouselComponent
+
+## components in slot 4 ##
+INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV[unique=true];uid[unique=true];name;urlLink;&componentRef
+;;$solPrefixHompage25%BannerComponent;SolGroup FR Homepage 25% Great Deal Banner Component;;$solPrefixHompage25%BannerComponent
+;;$solPrefixHompage30dayBannerComponent;SolGroup FR Homepage 30 Day Banner Component;;$solPrefixHompage30dayBannerComponent
+;;$solPrefixHompage6pmBannerComponent;SolGroup FR Homepage 6pm Banner Component;;$solPrefixHompage6pmBannerComponent
+;;$solPrefixHompage24/7BannerComponent;SolGroup FR Homepage 24/7 Banner Component;;$solPrefixHompage24/7BannerComponent
+###### Homepage End ######
+
+
+###### Search Results Page Start ######
+## search result empty page ##
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='searchEmpty'];contentSlot(uid,$contentCV)[unique=true]
+;;Top-searchEmpty;TopContent;;TopContent-searchEmpty
+;;Side-searchEmpty;SideContent;;SideContent-searchEmpty
+;;Middle-searchEmpty;MiddleContent;;MiddleContent-searchEmpty
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;TopContent-searchEmpty;Top Slot for searchEmpty;true;
+;;SideContent-searchEmpty;Side Slot for searchEmpty;true;
+;;MiddleContent-searchEmpty;Middle Slot for searchEmpty;true;NoSearchResultsParagraphComponent
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;NoSearchResultsParagraphComponent;No Search Results Paragraph Component;NoSearchResultsParagraphComponent
+
+## search page ##
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='search'];contentSlot(uid,$contentCV)[unique=true]
+;;Section4-search;Section4;;Section4Slot-search
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;Section4Slot-search;Section4 Slot for search;true;SearchResultsSideBanner
+
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink
+;;SearchResultsSideBanner;Search Results Side Banner;SearchResultsSideBanner;#
+###### Search Results Page Start End ######
+
+
+###### Cart Page Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='cartPage'];contentSlot(uid,$contentCV)[unique=true]
+;;TopContentSlotForCartPage;TopContent;;TopContent-cartPage
+;;EmptyCartMiddleForCartPage;EmptyCartMiddleContent;;EmptyCartMiddleContent-cartPage
+;;CenterLeftContentSlotForCartPage;CenterLeftContentSlot;;CenterLeftContentSlot-cartPage
+;;CenterRightContentSlotForCartPage;CenterRightContentSlot;;CenterRightContentSlot-cartPage
+;;BottomContentSlotForCartPage;BottomContentSlot;;BottomContentSlot-cartPage
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;TopContent-cartPage;Top Slot for Cart Page;true;NextDayDeliveryBanner120,CartComponent
+;;EmptyCartMiddleContent-cartPage;Empty Cart Middle Slot for Cart Page;true;EmptyCartParagraphComponent
+;;CenterLeftContentSlot-cartPage;Center Left Content Slot for Cart Page;true;PromotionsComponent,PotentialPromotionsComponent
+;;CenterRightContentSlot-cartPage;Center Right Content Slot for Cart Page;true;CartTotalsComponent
+;;BottomContentSlot-cartPage;Bottom Content Slot for Cart Page;true;CheckoutComponent,CartSuggestions
+
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink
+;;NextDayDeliveryBanner120;Next Day Delivery Banner (120);NextDayDeliveryBanner120;#
+;;HelpBanner;Help Banner;HelpBanner;# not used currently, but leave it there in case needed in future
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;CartComponent;Cart Display Component;cartDisplay.jsp;;CartComponent
+;;PromotionsComponent;Promotions Component;cartPromotionsDisplay.jsp;;PromotionsComponent
+;;PotentialPromotionsComponent;Potential Promotions Component;potentialPromotionsDisplay.jsp;;PotentialPromotionsComponent
+;;CartTotalsComponent;Cart Totals Display Component;/WEB-INF/views/responsive/pages/cart/cartTotalsDisplay.jsp;;CartTotalsComponent
+;;CheckoutComponent;Checkout Display Component;checkoutDisplay.jsp;;CheckoutComponent
+
+INSERT_UPDATE CartSuggestionComponent;$contentCV[unique=true];uid[unique=true];name;productReferenceTypes(code);maximumNumberProducts;filterPurchased;&componentRef
+;;CartSuggestions;Cart Suggestions;ACCESSORIES,SIMILAR;20;true;CartSuggestions
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;EmptyCartParagraphComponent;Empty Cart Paragraph Component;EmptyCartParagraphComponent
+###### Cart Page End ######
+
+
+###### Quote Edit Page Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='quoteEditPage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;TopContent-quoteEditPage;TopContent;;TopContentSlot-quoteEditPage;;;
+;;BodyContent-quoteEditPage;BodyContent;;BodyContentSlot-quoteEditPage;;;
+;;BottomContent-quoteEditPage;BottomContent;;BottomContentSlot-quoteEditPage;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;TopContentSlot-quoteEditPage;Top Content Slot for Quote Edit Page;true;QuoteHeadlineComponent;;;
+;;BodyContentSlot-quoteEditPage;Body Content Slot for Quote Edit Page;true;QuoteEditDetailsComponent,QuoteCartEntriesComponent;;;
+;;BottomContentSlot-quoteEditPage;Bottom Content Slot for Quote Edit Page;true;CartTotalsComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;QuoteHeadlineComponent;Quote Headline Component;/WEB-INF/views/responsive/pages/quote/quoteHeadline.jsp;;QuoteHeadlineComponent
+;;QuoteEditDetailsComponent;Quote Edit Details Component;/WEB-INF/views/responsive/pages/quote/quoteEditDetails.jsp;;QuoteEditDetailsComponent
+;;QuoteCartEntriesComponent;Quote Cart Entries Component;/WEB-INF/views/responsive/pages/quote/quoteCartEntries.jsp;;QuoteCartEntriesComponent
+###### Quote Edit Page End ######
+
+
+###### Checkout Login Page Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='checkout-login'];contentSlot(uid,$contentCV)[unique=true]
+;;Bottom-checkoutLogin;BottomContent;;BottomContent-checkoutLogin
+;;LeftContentSlot-checkout-login;LeftContentSlot;;LeftContentSlot-checkout-login
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;BottomContent-checkoutLogin;Bottom Slot for Checkout Login Page;true;HelpParagraphComponent
+;;LeftContentSlot-checkout-login;Left Content Slot for Checkout Login;true;ReturningCustomerCheckoutLoginComponent
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;HelpParagraphComponent;Help Paragraph Component;HelpParagraphComponent
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;ReturningCustomerCheckoutLoginComponent;Returning Customer Checkout Login Component;checkouReturningCustomerLogin.jsp;;ReturningCustomerCheckoutLoginComponent
+###### Checkout Login Page End ######
+
+
+###### Checkout Summary / Proceed to Checkout Page Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true];contentSlot(uid,$contentCV)[unique=true]
+;;Side-multiStepCheckoutSummaryPage;SideContent;multiStepCheckoutSummaryPage;SideContent-multiStepCheckoutSummaryPage
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;SideContent-multiStepCheckoutSummaryPage;Side Slot for multiStepCheckoutSummaryPage;true;HelpParagraphComponent
+###### Checkout Summary / Proceed to Checkout Page End ######
+
+
+###### Store Finder Page Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='storefinderPage'];contentSlot(uid,$contentCV)[unique=true]
+;;Side-StoreFinderPage;SideContent;;SideContent-StoreFinderPage
+;;Middle-StoreFinderPage;MiddleContent;;MiddleContent-StoreFinderPage
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef)
+;;SideContent-StoreFinderPage;Side Slot for Store Finder Page;true;StoreFinderSideBanner
+;;MiddleContent-StoreFinderPage;Middle Slot for Store Finder Page;true;StoreFinderComponent
+
+INSERT_UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;urlLink
+;;StoreFinderSideBanner;Store Finder Side Banner;StoreFinderSideBanner;#
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;StoreFinderComponent;Store Finder Component;storeFinderContent.jsp;ViewStoreAction;StoreFinderComponent
+
+INSERT_UPDATE ViewStoreAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;ViewStoreAction;;View Store Action;ActionRestriction;ViewStoreAction
+###### Store Finder Page End ######
+
+
+###### FAQ Page Start ###### 
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='faq'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section2A-FAQ;Section2A;;Section2ASlot-FAQ;;;
+;;Section2B-FAQ;Section2B;;Section2BSlot-FAQ;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section2ASlot-FAQ;Section2A Slot for FAQ Page;true;FAQMenuParagraph;;;
+;;Section2BSlot-FAQ;Section2B Slot for FAQ Page;true;FAQTextParagraph;;;
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;
+;;faqMenuParagraph;FAQ Paragraph;FAQMenuParagraph;;;;
+;;faqTextParagraph;FAQ Paragraph;FAQTextParagraph;;;;
+###### FAQ Page End ###### 
+
+
+###### Order Expired Page Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='orderExpired'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section2A-OrderExpired;Section2A;;Section2ASlot-OrderExpired;;;
+;;Section2B-OrderExpired;Section2B;;Section2BSlot-OrderExpired;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section2ASlot-OrderExpired;Section2A Slot for Order Expired Page;true;OrderExpiredMenuParagraph;;;
+;;Section2BSlot-OrderExpired;Section2B Slot for Order Expired Page;true;OrderExpiredTextParagraph;;;
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;
+;;orderExpiredMenuParagraph;Order Expired Paragraph;OrderExpiredMenuParagraph;;;;
+;;orderExpiredTextParagraph;Order Expired Paragraph;OrderExpiredTextParagraph;;;;
+###### Order Expired Page End ######
+
+
+###### Terms and Conditions Page Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='termsAndConditions'];contentSlot(uid,$contentCV)[unique=true];;;
+;;Section2A-TermsAndConditions;Section2A;;Section2ASlot-TermsAndConditions;;;
+;;Section2B-TermsAndConditions;Section2B;;Section2BSlot-TermsAndConditions;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;Section2ASlot-TermsAndConditions;Section2A Slot for Terms and Conditions Page;true;TermsAndConditionsMenuParagraph;;;
+;;Section2BSlot-TermsAndConditions;Section2B Slot for Terms and Conditions Page;true;TermsAndConditionsTextParagraph;;;
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;;;;
+;;termsAndConditionsMenuParagraph;Terms and Conditions Paragraph;TermsAndConditionsMenuParagraph;;;;
+;;termsAndConditionsTextParagraph;Terms and Conditions Paragraph;TermsAndConditionsTextParagraph;;;;
+###### Terms and Conditions Page End ######
+
+
+###### Account Address Book Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='address-book'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-address-book;SideContent;;SideContent-address-book;;;
+;;BodyContent-address-book;BodyContent;;BodyContent-address-book;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-address-book;Side Content Slot for Account Address Book;true;;;;
+;;BodyContent-address-book;Body Content Slot for Account Address Book;true;AccountAddressBookComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;AccountAddressBookComponent;Account Address Book Component;accountAddressBookPage.jsp;;AccountAddressBookComponent
+###### Account Address Book End ######
+
+
+###### Account Add Edit Address Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='add-edit-address'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-add-edit-address;SideContent;;SideContent-add-edit-address;;;
+;;BodyContent-add-edit-address;BodyContent;;BodyContent-add-edit-address;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-add-edit-address;Side Content Slot for Add Edit Address;true;;;;
+;;BodyContent-add-edit-address;Body Content Slot for Add Edit Address;true;AccountAddEditAddressComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;AccountAddEditAddressComponent;Account Add Edit Address Component;accountEditAddressPage.jsp;;AccountAddEditAddressComponent
+###### Account Add Edit Address End ######
+
+
+###### Account payment detail page Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='payment-details'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-payment-details;SideContent;;SideContent-payment-details;;;
+;;BodyContent-payment-details;BodyContent;;BodyContent-payment-details;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-payment-details;Side Content Slot for My Account payment-details;true;;;;
+;;BodyContent-payment-details;Body Content Slot for My Account payment-details;true;AccountPaymentDetailsComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;AccountPaymentDetailsComponent;Account Payment Details Component;accountPaymentInfoPage.jsp;;AccountPaymentDetailsComponent
+###### Account payment detail page End ######
+
+
+###### Account My Quotes Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='my-quotes'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-my-quotes;SideContent;;SideContent-my-quotes;;;
+;;BodyContent-my-quotes;BodyContent;;BodyContent-my-quotes;;;
+
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-my-quotes;Side Content Slot for My Account My Quotes;true;;;;
+;;BodyContent-my-quotes;Body Content Slot for My Account My Quotes;true;AccountMyQuotesComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;AccountMyQuotesComponent;Account My Quotes Component;accountMyQuotesPage.jsp;;AccountMyQuotesComponent
+###### Account My Quotes End ######
+
+
+###### Account Order History Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='orders'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-orders;SideContent;;SideContent-orders;;;
+;;BodyContent-orders;BodyContent;;BodyContent-orders;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-orders;Side Content Slot for My Account Order History;true;;;;
+;;BodyContent-orders;Body Content Slot for My Account Order History;true;AccountOrderHistoryComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;AccountOrderHistoryComponent;Account History Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountOrderHistoryPage.jsp;ViewOrderAction;AccountOrderHistoryComponent
+
+INSERT_UPDATE ViewOrderAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;ViewOrderAction;/my-account/order/{orderCode};View Order Action;ActionRestriction;ViewOrderAction
+###### Account Order History End ######
+
+
+###### Account My Replenishment Orders Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='my-replenishment-orders'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-my-replenishment-orders;SideContent;;SideContent-my-replenishment-orders;;;
+;;BodyContent-my-replenishment-orders;BodyContent;;BodyContent-my-replenishment-orders;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+#;;SideContent-my-replenishment-orders;Side Content Slot for My Account Replenishment Orders;true;;;;
+#;;BodyContent-my-replenishment-orders;Body Content Slot for My Account Replenishment Orders;true;AccountMyReplenishmentOrdersComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+#;;AccountMyReplenishmentOrdersComponent;Account My Replenishment Orders Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountReplenishmentSchedule.jsp;;AccountMyReplenishmentOrdersComponent
+###### Account My Replenishment Orders End ######
+
+
+###### Account My Replenishment Order Details Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='my-replenishment-details'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-my-replenishment-details;SideContent;;SideContent-my-replenishment-details;;;
+;;BodyContent-my-replenishment-details;BodyContent;;BodyContent-my-replenishment-details;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-my-replenishment-details;Side Content Slot for My Replenishment Order Details;true;;;;
+;;BodyContent-my-replenishment-details;Body Content Slot for My Replenishment Order Details;true;AccountMyReplenishmentOrderDetailsHeadlineComponent,AccountMyReplenishmentOrderDetailsOverviewComponent,AccountMyReplenishmentOrderDetailsActionsComponent,AccountMyReplenishmentOrderDetailsItemsComponent,AccountOrderDetailsShippingComponent,AccountReplenishmentOrderDetailsTotalsComponent,AccountReplenishmentOrderHistoryComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;AccountMyReplenishmentOrderDetailsHeadlineComponent;Account My Replenishment Order Details Headline Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountReplenishmentOrderDetailHeadline.jsp;;AccountMyReplenishmentOrderDetailsHeadlineComponent
+;;AccountMyReplenishmentOrderDetailsOverviewComponent;Account My Replenishment Order Details Overview Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountReplenishmentOrderDetailOverview.jsp;;AccountMyReplenishmentOrderDetailsOverviewComponent
+;;AccountMyReplenishmentOrderDetailsActionsComponent;Account My Replenishment Order Details Actions Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountReplenishmentOrderDetailActions.jsp;;AccountMyReplenishmentOrderDetailsActionsComponent
+;;AccountMyReplenishmentOrderDetailsItemsComponent;Account Replenishment Order Details Items Info Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountReplenishmentOrderDetailItems.jsp;;AccountMyReplenishmentOrderDetailsItemsComponent
+;;AccountReplenishmentOrderHistoryComponent;Account History Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountReplenishmentOrderHistoryPage.jsp;;AccountReplenishmentOrderHistoryComponent
+;;AccountReplenishmentOrderDetailsTotalsComponent;Account Replenishment Order Details Totals Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountReplenishmentOrderDetailTotals.jsp;;AccountReplenishmentOrderDetailsTotalsComponent
+###### Account My Replenishment Order Details End ######
+
+
+###### Account Order Details Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='order'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-orderdetail;SideContent;;SideContent-orderdetail;;;
+;;BodyContent-orderdetail;BodyContent;;BodyContent-orderdetail;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-orderdetail;Side Content Slot for My Account Order Details;true;;;;
+;;BodyContent-orderdetail;Body Content Slot for My Account Order Details;true;AccountOrderDetailsHeadlineComponent,AccountOrderDetailsOverviewComponent,AccountOrderDetailsItemsComponent,AccountOrderDetailsShippingComponent,AccountOrderDetailsApprovalDetailsComponent,AccountOrderDetailsTotalsComponent,AccountOrderDetailsReorderComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;AccountOrderDetailsHeadlineComponent;Account Order Details Headline Component;accountOrderDetailHeadline.jsp;;AccountOrderDetailsHeadlineComponent
+;;AccountOrderDetailsTotalsComponent;Account Order Details Order Totals Component;accountOrderDetailOrderTotals.jsp;;AccountOrderDetailsTotalsComponent
+;;AccountOrderDetailsShippingComponent;Account Order Details Shipping Info Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountOrderDetailShippingInfo.jsp;;AccountOrderDetailsShippingComponent
+;;AccountOrderDetailsItemsComponent;Account Order Details Items Info Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountOrderDetailItems.jsp;;AccountOrderDetailsItemsComponent
+;;AccountOrderDetailsOverviewComponent;Account Order Details Overview Info Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountOrderDetailOverview.jsp;ReorderAction;AccountOrderDetailsOverviewComponent
+;;AccountOrderDetailsReorderComponent;Account Order Details Reorder Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountOrderDetailReorder.jsp;ReorderAction;AccountOrderDetailsReorderComponent
+;;AccountOrderDetailsApprovalDetailsComponent;Account Order Details Approval Details Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountOrderDetailApprovalDetails.jsp;;AccountOrderDetailsApprovalDetailsComponent
+
+INSERT_UPDATE ReorderAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;ReorderAction;/checkout/summary/reorder;Reorder Action;ActionRestriction;ReorderAction
+###### Account Order Details End ######
+
+
+###### Account Update Password Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='updatePassword'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-updatePassword;SideContent;;SideContent-updatePassword;;;
+;;BodyContent-updatePassword;BodyContent;;BodyContent-updatePassword;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-updatePassword;Side Content Slot for Update Password;true;;;;
+;;BodyContent-updatePassword;Body Content Slot for Update Password;true;UpdatePasswordComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;UpdatePasswordComponent;Update Password Component;accountChangePasswordPage.jsp;;UpdatePasswordComponent
+###### Account Update Password End ######
+
+
+###### Account Update Profile Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='update-profile'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-update-profile;SideContent;;SideContent-update-profile;;;
+;;BodyContent-update-profile;BodyContent;;BodyContent-update-profile;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-update-profile;Side Content Slot for Update Profile;true;;;;
+;;BodyContent-update-profile;Body Content Slot for Update Profile;true;UpdateProfileComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;UpdateProfileComponent;Update Profile Component;accountProfileEditPage.jsp;;UpdateProfileComponent
+###### Account Update Profile End ######
+
+
+###### Account Update Email Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='update-email'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-update-email;SideContent;;SideContent-update-email;;;
+;;BodyContent-update-email;BodyContent;;BodyContent-update-email;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-update-email;Side Content Slot for Update Email;true;;;;
+;;BodyContent-update-email;Body Content Slot for Update Email;true;UpdateEmailComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;UpdateEmailComponent;Update Email Component;accountProfileEmailEditPage.jsp;;UpdateEmailComponent
+###### Account Update Email End ######
+
+
+###### Account Quote Details Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='quote-detail'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-quote-detail;SideContent;;SideContent-quote-detail;;;
+;;BodyContent-quote-detail;BodyContent;;BodyContent-quote-detail;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-quote-detail;Side Content Slot for My Account Quote Details;true;;;;
+;;BodyContent-quote-detail;Body Content Slot for My Account Quote Details;true;AccountQuoteDetailsOverviewComponent,QuoteDetailsEntriesComponent,QuoteTotalsComponent
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;AccountQuoteDetailsOverviewComponent;Account Quote Details Overview Component;accountQuoteDetailOverview.jsp;;AccountQuoteDetailsOverviewComponent
+;;QuoteDetailsEntriesComponent;Quote Cart Entries Component;/WEB-INF/views/responsive/pages/quote/quoteDetailsEntries.jsp;;QuoteDetailsEntriesComponent
+;;QuoteTotalsComponent;Quote Totals Display Component;/WEB-INF/views/responsive/pages/quote/quoteTotalsDisplay.jsp;;QuoteTotalsComponent
+###### Account Quote Details End ######
+
+
+###### Account order approval dashboard Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='order-approval-dashboard'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-order-approval-dashboard;SideContent;;SideContent-order-approval-dashboard;;;
+;;BodyContent-order-approval-dashboard;BodyContent;;BodyContent-order-approval-dashboard;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-order-approval-dashboard;Side Content Slot for Account order approval dashbaord;true;;;;
+;;BodyContent-order-approval-dashboard;Body Content Slot for Account order approval dashbaord;true;AccountOrderApprovalDashboardComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;AccountOrderApprovalDashboardComponent;Account OrderApproval Dashboard Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountOrderApprovalDashboardPage.jsp;;AccountOrderApprovalDashboardComponent
+###### Account order approval dashboard End ######
+
+
+###### Account order approval details Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='order-approval-details'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-order-approval-details;SideContent;;SideContent-order-approval-details;;;
+;;BodyContent-order-approval-details;BodyContent;;BodyContent-order-approval-details;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-order-approval-details;Side Content Slot for Account order approval details;true;;;;
+;;BodyContent-order-approval-details;Body Content Slot for Account order approval details;true;AccountOrderApprovalDetailsHeadlineComponent,AccountOrderApprovalDetailsOverviewComponent,AccountOrderApprovalDetailsComponent,AccountOrderDetailsItemsComponent,AccountOrderDetailsTotalsComponent,AccountOrderApprovalDetailsBottomActionsComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;AccountOrderApprovalDetailsHeadlineComponent;Account OrderApproval Details Headline Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountOrderApprovalDetailHeadline.jsp;;AccountOrderApprovalDetailsHeadlineComponent
+;;AccountOrderApprovalDetailsOverviewComponent;Account OrderApproval Details Overview Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountOrderDetailOverview.jsp;ApproveOrderAction;AccountOrderApprovalDetailsOverviewComponent
+;;AccountOrderApprovalDetailsComponent;Account OrderApproval Details Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountOrderApprovalDetailsPage.jsp;;AccountOrderApprovalDetailsComponent
+;;AccountOrderApprovalDetailsBottomActionsComponent;Account OrderApproval Details Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountOrderApprovalDetailBottomActions.jsp;ApproveOrderAction;AccountOrderApprovalDetailsBottomActionsComponent
+
+INSERT_UPDATE ApproveOrderAction;$contentCV[unique=true];uid[unique=true];url;name;restrictions(uid,$contentCV);&actionRef
+;;ApproveOrderAction;/my-account/order/approvalDecision;Accept Order Action;ActionRestriction;ApproveOrderAction
+###### Account order approval details End ######
+
+
+###### Order Confirmation Page Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='orderConfirmationPage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-orderConfirmation;SideContent;;SideContent-orderConfirmation;;;
+;;BodyContent-orderConfirmation;BodyContent;;BodyContent-orderConfirmation;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-orderConfirmation;Side Content Slot for Order Confirmation;true;;;;
+;;BodyContent-orderConfirmation;Body Content Slot for Order Confirmation;true;OrderConfirmationThankMessageComponent,OrderConfirmationOverviewComponent,OrderConfirmationItemsComponent,OrderConfirmationShippingComponent,OrderConfirmationTotalsComponent,OrderConfirmationContinueButtonComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;OrderConfirmationThankMessageComponent;Order Confirmaiton Thank You Message Component;checkoutConfirmationThankMessage.jsp;;OrderConfirmationThankMessageComponent
+;;OrderConfirmationOverviewComponent;Order Confirmaiton Overview Info Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountOrderDetailOverview.jsp;;OrderConfirmationOverviewComponent
+;;OrderConfirmationTotalsComponent;Order Confirmation Totals Component;/WEB-INF/views/responsive/pages/account/accountOrderDetailOrderTotals.jsp;;OrderConfirmationTotalsComponent
+;;OrderConfirmationShippingComponent;Order Confirmation Shipping Info Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountOrderDetailShippingInfo.jsp;;OrderConfirmationShippingComponent
+;;OrderConfirmationItemsComponent;Order Confirmation Items Info Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/account/accountOrderDetailItems.jsp;;OrderConfirmationItemsComponent
+;;OrderConfirmationContinueButtonComponent;Order Confirmaiton Continue Button Component;checkoutConfirmationContinueButton.jsp;;OrderConfirmationContinueButtonComponent
+###### Order Confirmation Page End ######
+
+
+###### Replenishment Confirmation Page Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='replenishmentConfirmationPage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-replenishmentConfirmation;SideContent;;SideContent-replenishmentConfirmation;;;
+;;BodyContent-replenishmentConfirmation;BodyContent;;BodyContent-replenishmentConfirmation;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-replenishmentConfirmation;Side Content Slot for Replenishment Confirmation;true;;;;
+;;BodyContent-replenishmentConfirmation;Body Content Slot for Replenishment Confirmation;true;ReplenishmentConfirmationMessageComponent,AccountMyReplenishmentOrderDetailsOverviewComponent,AccountMyReplenishmentOrderDetailsItemsComponent,OrderConfirmationShippingComponent,OrderConfirmationTotalsComponent,OrderConfirmationContinueButtonComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;ReplenishmentConfirmationMessageComponent;Replenishment Confirmation Message Component;/WEB-INF/views/addons/b2bacceleratoraddon/responsive/pages/checkout/replenishmentCheckoutConfirmationMessage.jsp;;ReplenishmentConfirmationMessageComponent
+###### Replenishment Confirmation Page End ######
+
+
+###### Import CSV as Saved Cart Page Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='importCSVSavedCartPage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-importCSVSavedCartPage;SideContent;;SideContent-importCSVSavedCartPage;;;
+;;BodyContent-importCSVSavedCartPage;BodyContent;;BodyContent-importCSVSavedCartPage;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-importCSVSavedCartPage;Side Content Slot for Import CSV as Saved Cart Page;true;;;;
+;;BodyContent-importCSVSavedCartPage;Body Content Slot for Import CSV as Saved Cart Page;true;ImportCSVSavedCartComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;ImportCSVSavedCartComponent;Import CSV as Saved Cart Component;csv/importCSVSavedCartPage.jsp;;ImportCSVSavedCartComponent
+###### Import CSV as Saved Cart Page End ######
+
+
+###### Account Saved Cart Details Page Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='savedCartDetailsPage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-savedCartDetailsPage;SideContent;;SideContent-savedCartDetailsPage;;;
+;;BodyContent-savedCartDetailsPage;BodyContent;;BodyContent-savedCartDetailsPage;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-savedCartDetailsPage;Side Content Slot for Saved Cart Details Page;true;;;;
+;;BodyContent-savedCartDetailsPage;Body Content Slot for Saved Cart Details Page;true;AccountSavedCartDetailsHeadlineComponent,AccountSavedCartDetailsOverviewComponent,AccountSavedCartDetailsItemsComponent,AccountSavedCartDetailsActionComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;AccountSavedCartDetailsHeadlineComponent;Account Saved Cart Details Headline Component;accountSavedCartDetailsHeadline.jsp;;AccountSavedCartDetailsHeadlineComponent
+;;AccountSavedCartDetailsOverviewComponent;Account Saved Cart Details Overview Component;accountSavedCartDetailsOverview.jsp;;AccountSavedCartDetailsOverviewComponent
+;;AccountSavedCartDetailsItemsComponent;Account Saved Cart Details Items Component;accountSavedCartDetailsItems.jsp;;AccountSavedCartDetailsItemsComponent
+;;AccountSavedCartDetailsActionComponent;Account Order Details Action Component;accountSavedCartDetailsAction.jsp;;AccountSavedCartDetailsActionComponent
+###### Account Saved Cart Details Page End ######
+
+
+###### Account Saved Carts Page Start ######
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='saved-carts'];contentSlot(uid,$contentCV)[unique=true];;;
+;;SideContent-saved-carts;SideContent;;SideContent-saved-carts;;;
+;;BodyContent-saved-carts;BodyContent;;BodyContent-saved-carts;;;
+
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;SideContent-saved-carts;Side Content Slot for Saved Carts;true;;;;
+;;BodyContent-saved-carts;Body Content Slot for Saved Carts;true;SavedCartsComponent;;;
+
+INSERT_UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];name;page;actions(uid,$contentCV);&componentRef
+;;SavedCartsComponent;Saved Carts Component;accountSavedCartsPage.jsp;;SavedCartsComponent
+###### Account Saved Carts Page End ######
+
+###### Quick Order Page Start ######
+
+# ContentSlotForPage
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='quickOrderPage'];contentSlot(uid,$contentCV)[unique=true];;;
+;;TopContent-quickOrderPage;TopContent;;TopContent-quickOrderPage;;;
+
+# ContentSlot
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;TopContent-quickOrderPage;Top Content Slot for Quick Order Page;true;QuickOrderInfoParagraphComponent;;;
+
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef
+;;QuickOrderInfoParagraphComponent;Quick Order Info Paragraph Component;QuickOrderInfoParagraphComponent
+
+###### Quick Order Page End ######
+
+###### Restriction Start ######
+INSERT_UPDATE CMSActionRestriction;$contentCV[unique=true];uid[unique=true];name;
+;;ActionRestriction;A CMSAction restriction;
+
+INSERT_UPDATE CMSUserRestriction;$contentCV[unique=true];&userRestriction;name;uid[unique=true];users(uid)
+;;anonymousUserRestriction;Anonymous User Restriction;anonymousUserRestriction;anonymous
+INSERT_UPDATE CMSUserRestriction;$contentCV[unique=true];uid[unique=true];name;users(uid);components(&componentRef);&componentRef
+;;AnonymousUserRestriction;Anonymous User Restriction;anonymous;LoginLink;AnonymousUserRestriction
+
+INSERT_UPDATE CMSInverseRestriction;$contentCV[unique=true];name;originalRestriction(&userRestriction)[allownull=true];uid[unique=true];components(&componentRef)
+;;Logged in User;anonymousUserRestriction;loggedInUser;MyAccountComponent
+
+INSERT_UPDATE CMSUserGroupRestriction;$contentCV[unique=true];uid[unique=true];name;userGroups(uid);includeSubgroups;components(&linkRef)
+;;MyAccountLinkCustomerGroupRestriction;My Account Link Customer Group Restriction;b2bcustomergroup;true;AddressBookLink,PaymentDetailsLink,MyQuotesLink,OrderHistoryLink,MyReplenishmentOrdersLink
+;;MyAccountLinkApproverGroupRestriction;My Account Link Approver Group Restriction;b2bapprovergroup;true;ApprovalDashboardLink
+###### Restriction End ######
+
+
+###### Media Start ######
+## site logo ##
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/svg+xml'];altText;folder(qualifier)[default='images']
+#;;/images/theme/logo_hybris_b2b_responsive.svg;logo_hybris_b2b_responsive.svg;$siteResource/images/theme/logo_hybris_b2b_responsive.svg;image/svg+xml;hybris Accelerator;
+;;/images/theme/logo_sol.png;logo_sol.png;$siteResource/images/theme/logo_sol.png;image/png;Sol Group;
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];mime;realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];folder(qualifier)[default='images']
+;;addEditAddressPagePreview;text/png;AddEditAddressPage.png;$jarResourceCms/preview-images/$solPrefix/AddEditAddressPage.png
+;;addressBookPagePreview;text/png;AddressBook.png;$jarResourceCms/preview-images/$solPrefix/AddressBookPage.png
+;;cartPagePreview;text/png;CartPage.png;$jarResourceCms/preview-images/$solPrefix/CartPage.png
+;;checkoutLoginPagePreview;text/png;CheckoutLoginPage.png;$jarResourceCms/preview-images/$solPrefix/CheckoutLoginPage.png
+;;multiStepCheckoutSummaryPagePreview;text/png;MultiStepCheckoutSummaryPage.png;$jarResourceCms/preview-images/$solPrefix/MultiStepCheckoutSummaryPage.png
+;;termsAndConditionsPage;text/png;TermsAndConditionsPage.png;$jarResourceCms/preview-images/$solPrefix/TermsAndConditionsPage.png;;;
+;;homepagePreview;text/png;Homepage.png;$jarResourceCms/preview-images/$solPrefix/Homepage.png
+;;importCSVSavedCartPagePreview;text/png;OrderHistoryPage.png;$jarResourceCms/preview-images/$solPrefix/ImportCSVSavedCartPage.png
+;;loginPagePreview;text/png;LoginPage.png;$jarResourceCms/preview-images/$solPrefix/LoginPage.png
+;;notFoundPagePreview;text/png;NotFoundPage.png;$jarResourceCms/preview-images/$solPrefix/NotFoundPage.png
+;;orderConfirmationPagePreview;text/png;OrderConfirmationPage.png;$jarResourceCms/preview-images/$solPrefix/OrderConfirmationPage.png
+;;orderDetailsPagePreview;text/png;OrderDetailsPage.png;$jarResourceCms/preview-images/$solPrefix/OrderDetailsPage.png
+;;orderHistoryPagePreview;text/png;OrderHistoryPage.png;$jarResourceCms/preview-images/$solPrefix/OrderHistoryPage.png
+;;paymentDetailsPagePreview;text/png;PaymentDetailsPage.png;$jarResourceCms/preview-images/$solPrefix/PaymentDetailsPage.png
+;;myQuotesPagePreview;text/png;MyQuotesPage.png;$jarResourceCms/preview-images/$solPrefix/MyQuotesPage.png
+;;myReplenishmentOrdersPagePreview;text/png;MyReplenishmentOrdersPage.png;$jarResourceCms/preview-images/$solPrefix/MyReplenishmentOrdersPage.png
+;;productDetailsPagePreview;text/png;ProductDetailsPage.png;$jarResourceCms/preview-images/$solPrefix/ProductDetailsPage.png
+;;productListPagePreview;text/png;ProductListPage.png;$jarResourceCms/preview-images/$solPrefix/ProductListPage.png
+;;profilePagePreview;text/png;ProfilePage.png;$jarResourceCms/preview-images/$solPrefix/ProfilePage.png
+;;searchResultsEmptyPagePreview;text/png;SearchResultsEmptyPage.png;$jarResourceCms/preview-images/$solPrefix/SearchResultsEmptyPage.png
+;;searchResultsPagePreview;text/png;SearchResultsPage.png;$jarResourceCms/preview-images/$solPrefix/SearchResultsPage.png
+;;storefinderPagePreview;text/png;StoreFinderPage.png;$jarResourceCms/preview-images/$solPrefix/StoreFinderPage.png
+;;updateForgottenPasswordPagePreview;text/png;UpdateForgottenPasswordPage.png;$jarResourceCms/preview-images/$solPrefix/UpdateForgottenPasswordPage.png
+#;;productGridPagePreview;text/png;ProductGridPage.png;$jarResourceCms/preview-images/$solPrefix/ProductGridPage.png
+;;orderApprovalDashboardPagePreview;text/png;OrderApprovalDashboardPage.png;$jarResourceCms/preview-images/$solPrefix/OrderApprovalDashboardPage.png
+;;updatePasswordPagePreview;text/png;UpdatePasswordPage.png;$jarResourceCms/preview-images/$solPrefix/UpdatePasswordPage.png
+;;myReplenishmentDetailsPreview;text/png;UpdatePasswordPage.png;$jarResourceCms/preview-images/$solPrefix/MyReplenishmentDetailsPage.png
+;;quoteDetailPreview;text/png;UpdatePasswordPage.png;$jarResourceCms/preview-images/$solPrefix/QuoteDetailPage.png
+;;updateEmailPreview;text/png;UpdatePasswordPage.png;$jarResourceCms/preview-images/$solPrefix/UpdateEmailPage.png
+;;updateProfilePreview;text/png;UpdatePasswordPage.png;$jarResourceCms/preview-images/$solPrefix/UpdateProfilePage.png
+;;searchAdvancedEmptyPreview;text/png;UpdatePasswordPage.png;$jarResourceCms/preview-images/$solPrefix/SearchAdvancedEmptyPage.png
+;;savedCartsPagePreview;text/png;SavedCartsPage.png;$jarResourceCms/preview-images/$solPrefix/SavedCartsPage.png
+;;savedCartDetailsPagePreview;text/png;SavedCartDetailsPage.png;$jarResourceCms/preview-images/$solPrefix/SavedCartDetailsPage.png
+;;replenishmentConfirmationPagePreview;text/png;ReplenishmentConfirmationPage.png;$jarResourceCms/preview-images/$solPrefix/ReplenishmentConfirmationPage.png
+###### Media End ######
+
+
+###### update contentPage to set previewImage Start ######
+## set previewImage and linkComponent ##
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV);linkComponents(&linkRef)
+;;termsAndConditions;termsAndConditionsPage;TermsAndConditionsLink
+;;homepage;homepagePreview;HomepageNavLink
+
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;&linkRef;&componentRef;target(code)[default='sameWindow']
+;;TermsAndConditionsLink;Terms and Conditions Link;/termsAndConditions;TermsAndConditionsLink;TermsAndConditionsLink
+;;FAQLink;FAQ Link;/faq;FAQLink;FAQLink
+
+UPDATE ProductPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;productDetails;productDetailsPagePreview
+
+UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;productList;productListPagePreview
+
+UPDATE ContentPage;$contentCV[unique=true];uid[unique=true];previewImage(code, $contentCV)
+;;multiStepCheckoutSummaryPage;multiStepCheckoutSummaryPagePreview
+;;orderConfirmationPage;orderConfirmationPagePreview
+;;cartPage;cartPagePreview
+;;search;searchResultsPagePreview
+;;address-book;addressBookPagePreview
+;;add-edit-address;addEditAddressPagePreview
+;;payment-details;paymentDetailsPagePreview
+;;my-quotes;myQuotesPagePreview
+;;my-replenishment-orders;myReplenishmentOrdersPagePreview
+;;order;orderDetailsPagePreview
+;;orders;orderHistoryPagePreview
+;;storefinderPage;storefinderPagePreview
+;;checkout-login;checkoutLoginPagePreview
+;;importCSVSavedCartPage;importCSVSavedCartPagePreview
+;;login;loginPagePreview
+;;notFound;notFoundPagePreview
+;;searchEmpty;searchResultsEmptyPagePreview
+;;updatePassword;updateForgottenPasswordPagePreview
+;;order-approval-dashboard;orderApprovalDashboardPagePreview
+;;order-approval-details;orderApprovalDashboardPagePreview
+;;my-replenishment-details;myReplenishmentDetailsPreview
+;;quote-detail;quoteDetailPreview
+;;update-email;updateEmailPreview
+;;update-profile;updateProfilePreview
+;;searchAdvancedEmpty;searchAdvancedEmptyPreview
+;;saved-carts;savedCartsPagePreview
+;;savedCartDetailsPage;savedCartDetailsPagePreview
+;;replenishmentConfirmationPage;replenishmentConfirmationPagePreview
+###### update contentPage to set previewImage End ######
+
+
+########  Responsive Error Page (Eng) #######
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/svg+xml'];$contentCV[unique=true];folder(qualifier)[default=images]
+;mobile;$solPrefix_480x170_ErrorPage_480W.svg;$siteResource/images/banners/site/$solPrefix_1400x401_ErrorPage_EN_1400W.svg;$solPrefix_1400x401_ErrorPage_EN_1400W.svg;"Page not found";
+;tablet;$solPrefix_770x221_ErrorPage_770W.svg;$siteResource/images/banners/site/$solPrefix_1400x401_ErrorPage_EN_1400W.svg;$solPrefix_1400x401_ErrorPage_EN_1400W.svg;"Page not found";
+;desktop;$solPrefix_960x275_ErrorPage_960W.svg;$siteResource/images/banners/site/$solPrefix_1400x401_ErrorPage_EN_1400W.svg;$solPrefix_1400x401_ErrorPage_EN_1400W.svg;"Page not found";
+;widescreen;$solPrefix_1400x401_ErrorPage_1400W.svg;$siteResource/images/banners/site/$solPrefix_1400x401_ErrorPage_EN_1400W.svg;$solPrefix_1400x401_ErrorPage_EN_1400W.svg;"Page not found";
+
+INSERT_UPDATE MediaContainer;qualifier[unique=true];$medias;$contentCV[unique=true]
+;$solPrefix-errorpage-pagenotfound;$solPrefix_480x170_ErrorPage_480W.svg,$solPrefix_770x221_ErrorPage_770W.svg,$solPrefix_960x275_ErrorPage_960W.svg,$solPrefix_1400x401_ErrorPage_1400W.svg
+
+INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;$mediaContainer
+;;$solPrefixtronicsErrorpageBannerComponent;$solPrefixtronics Error Page Banner Component;$solPrefixtronicsErrorpageBannerComponent;$solPrefix-errorpage-pagenotfound
+
+# Create ContentSlots
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];name;active;cmsComponents(&componentRef);;;
+;;MiddleContent-Errorpage;Middle Content Slot for Error Page;true;$solPrefixtronicsErrorpageBannerComponent;;;
+
+# Create Content Slots for Page
+INSERT_UPDATE ContentSlotForPage;$contentCV[unique=true];uid[unique=true];position[unique=true];page(uid,$contentCV)[unique=true][default='notFound'];contentSlot(uid,$contentCV)[unique=true]
+;;MiddleContent-Errorpage;MiddleContent;;MiddleContent-Errorpage
+######## End of Responsive Error Page #######

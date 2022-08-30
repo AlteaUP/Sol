@@ -1,0 +1,5 @@
+$defaultPassword = 123456
+
+UPDATE B2BCustomer ; uid[unique=true] ; identityConfirmationSent[default=true] ; identityConfirmationCompleted[default=true] ; active[default=true] ; loginDisabled[default=false] ; password[default=$defaultPassword] ;  
+                   ; h725@sol.it      ;                                        ;                                             ;                      ;                              ;                                    ;  
+                   ; h724@sol.it      ;                                        ;                                             ;                      ;                              ;                                    ;  

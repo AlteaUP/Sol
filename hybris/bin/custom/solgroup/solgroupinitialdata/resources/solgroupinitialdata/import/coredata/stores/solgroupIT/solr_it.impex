@@ -1,0 +1,40 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# Import the Solr configuration for the solgroupIT store
+#
+# Localization en
+#
+$lang=it
+
+$solPrefix = solgroupIT
+
+$indexedType=$solPrefixProductType
+
+UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true,default=$indexedType];name[unique=true];displayName[lang=$lang]
+ ;;allPromotions;Promozione;
+ ;;category;Categoria;
+ ;;code;Codice;
+ ;;description;Descrizione;
+ ;;name;Nome;
+ ;;price;Prezzo;
+ ;;summary;Sommario;
+
+
+# Define the available sorts
+UPDATE SolrSort;indexedType(identifier)[unique=true,default=$indexedType];code[unique=true];name[lang=$lang]
+ ;;name-asc;Nome (crescente);
+ ;;name-desc;Nome (decrescente);
+ ;;price-asc;Prezzo ( crescente);
+ ;;price-desc;Prezzo (decrescente);
+ ;;relevance;Rilevanza;
+ ;;topRated;Recensione dei clienti;
+ 
+ 

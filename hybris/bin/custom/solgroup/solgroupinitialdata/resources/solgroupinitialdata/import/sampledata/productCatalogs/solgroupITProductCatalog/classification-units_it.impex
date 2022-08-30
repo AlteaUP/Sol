@@ -1,0 +1,186 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Units into SolGroup IT Store
+
+$solPrefix=solgroupIT
+
+# Macros / Replacement Parameter definitions
+$systemVersion=systemVersion(catalog(id[default='$solPrefixClassification']),version[default='1.0'])[unique=true]
+
+#
+# Localization it
+#
+$lang=it
+UPDATE ClassificationAttributeUnit;code[unique=true];name[lang$lang];$systemVersion[unique=true]
+;127;pounds;
+;32;degrees;
+;90;ANSI lumens;
+;118;degrees per second;
+;71;lux;
+;102;kiloWatthour per year;
+;18;megahertz;
+;125;levels of grey;
+;16;inch;
+;44;Watt;
+;55;pages;
+;84;lines per minute;
+;27;milliseconds;
+;190;Gigabyte per minute;
+;161;square foot per hour;
+;95;passes;
+;57;Gigabyte per hour;
+;20;gigabyte;
+;163;shots;
+;109;British thermal unit per hour;
+;151;thermal conductivity;
+;89;slides;
+;175;print speed in discs;
+;148;r second;
+;31;kilohertz;
+;35;dots per inch;
+;93;millimeter per minute;
+;106;bar;
+;65;degrees Celcium;
+;138;inch per minute;
+;114;coins per minute;
+;58;copies per minute;
+;153;square meter;
+;137;square meter per hour;
+;81;Joules;
+;60;seconds;
+;101;kiloWatthour per 24 hours;
+;73;milliAmpere;
+;86;user(s);
+;76;decibel;
+;62;sheets;
+;67;degrees Celcium per hour;
+;165;megapixel;
+;139;litre per minute;
+;129;cubic meter;
+;17;kilogram;
+;186;square centimeter;
+;110;Energy Efficiency Ratio;
+;82;characters per inch;
+;147;ounce;
+;168;pages per second;
+;184;cubic feet per minute;
+;135;milliwatt;
+;112;characters;
+;69;lines;
+;191;Megabyte per hour;
+;49;days;
+;178;kiloWatt;
+;24;millimeter;
+;187;pressure (mbar);
+;140;kilopascal;
+;124;cubic metre per hour;
+;104;kilogram per 24 hours;
+;131;liter per hour;
+;181;decibel-to-milliwatt;
+;121;inch per second;
+;79;lines per inch;
+;154;labels;
+;23;t per second;
+;126;million characters;
+;159;TeraByte;
+;160;gigabyte per second;
+;176;Gigatranfers per second;
+;47;kilobyte;
+;98;nanometers;
+;37;gigahertz;
+;117;kilogram per square metre;
+;43;candellas per square meter;
+;33;zoom factor;
+;21;CD-speed;
+;63;nanoseconds;
+;80;Voltampere;
+;119;billion texels/sec;
+;180;light intensity;
+;99;gain;
+;179;decibel per second;
+;162;minutes per page;
+;72;gravity;
+;74;cycles per logical sector;
+;182;degrees Kelvin;
+;61;copies;
+;108;British thermal unit;
+;115;banknotes per minute;
+;92;µ;
+;103;kiloWatthour;
+;113;coins;
+;152;milliliter/hour;
+;189;transactions per second;
+;142;milliliter;
+;91;Fahrenheit;
+;167;pulse/min;
+;48;kilobyte per second;
+;107;disks;
+;87;Ohm;
+;174;impact rate;
+;77;pages per month;
+;133;billion;
+;123;decibel-to-Volt;
+;50;bit;
+;39;pixels;
+;64;percent;
+;97;kiloAmper/metre;
+;41;Ampere;
+;52;NIT;
+;173;torque;
+;56;entries;
+;45;megabit;
+;66;minutes;
+;19;megabyte;
+;54;meter;
+;70;micron;
+;188;Megaohm;
+;68;gigabit per second;
+;166;Bel;
+;88;euro;
+;116;seconds per page;
+;136;eps;
+;30;million;
+;141;kilobit per inch;
+;144;pieces;
+;100;liter(s);
+;128;points per second;
+;28;revolutions per minute;
+;120;locations;
+;156;gram per square meter;
+;75;year(s);
+;40;megabyte per second;
+;83;characters per second;
+;134;meter per second;
+;192;Cards per hour;
+;59;pages per minute;
+;177;lumen;
+;130;gram per hour;
+;122;millimeter per second;
+;143;month(s);
+;158;gram/minute;
+;22;kilobit per second;
+;42;Volt;
+;46;hour;
+;105;Newton;
+;85;frames per second;
+;185;lines per second;
+;36;Hertz;
+;183;reads per second;
+;51;milliAmpere * hour;
+;111;movements per minute;
+;146;cubic centimeter;
+;38;gram;
+;34;centimeter;
+;169;kiloWatthour per week;
+;164;million cuts;
+;132;staples;
+;171;Buttons;
+

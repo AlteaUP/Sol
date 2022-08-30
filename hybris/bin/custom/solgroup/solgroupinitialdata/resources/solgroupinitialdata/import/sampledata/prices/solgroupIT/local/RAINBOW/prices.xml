@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:CustomerPriceListsImport_Hybris xmlns:ns2="urn:solgroup:com:CustomerPriceListsImport">
+  <header>
+    <sourceSystem>RAINBOW</sourceSystem>
+    <messageID>1234567890</messageID>
+    <timestamp />
+  </header>
+  <country>IT</country>
+  <customerPriceLists>
+
+    <customerPriceList>
+      <companyLegacyCode>1000</companyLegacyCode>
+      <legacyCode>0000443302</legacyCode>
+      <currency>EUR</currency>
+      <priceRowList>
+        <priceRow>
+          <productCode>00022</productCode>
+          <price>5.15235</price>
+          <scale>1</scale>
+          <um>mc</um>
+          <startDate>2017-09-13T12:12:12</startDate>
+          <endDate>2020-12-13T12:12:12</endDate>
+        </priceRow>
+        <priceRow>
+          <productCode>00042</productCode>
+          <price>1.20789</price>
+          <scale>1</scale>
+          <um>mc</um>
+        </priceRow>
+        <priceRow>
+          <productCode>00063</productCode>
+          <price>1.25</price>
+          <scale>1</scale>
+          <um>mc</um>
+        </priceRow>
+      </priceRowList>
+    </customerPriceList>
+
+    <customerPriceList>
+      <companyLegacyCode>1000</companyLegacyCode>
+      <legacyCode>0000119250</legacyCode>
+      <currency>EUR</currency>
+      <priceRowList>
+        <priceRow>
+          <productCode>00022</productCode>
+          <price>5.12</price>
+          <scale>1</scale>
+          <um>mc</um>
+          <startDate>2017-09-13T12:12:12</startDate>
+          <endDate>2020-12-13T12:12:12</endDate>
+        </priceRow>
+        <priceRow>
+          <productCode>00042</productCode>
+          <price>1.12</price>
+          <scale>1</scale>
+          <um>mc</um>
+        </priceRow>
+        <priceRow>
+          <productCode>00063</productCode>
+          <price>1.12</price>
+          <scale>1</scale>
+          <um>mc</um>
+        </priceRow>
+      </priceRowList>
+    </customerPriceList>
+
+    <customerPriceList>
+      <companyLegacyCode />
+      <legacyCode />
+      <currency>EUR</currency>
+      <priceRowList>
+        <priceRow>
+          <productCode>00022</productCode>
+          <price>7.15</price>
+          <scale>1</scale>
+          <um>mc</um>
+          <startDate>2017-09-13T12:12:12</startDate>
+          <endDate>2020-12-13T12:12:12</endDate>
+        </priceRow>
+        <priceRow>
+          <productCode>00042</productCode>
+          <price>3</price>
+          <scale>1</scale>
+          <um>mc</um>
+        </priceRow>
+        <priceRow>
+          <productCode>00063</productCode>
+          <price>2.25</price>
+          <scale>1</scale>
+          <um>mc</um>
+        </priceRow>
+      </priceRowList>
+    </customerPriceList>
+    
+  </customerPriceLists>
+</ns2:CustomerPriceListsImport_Hybris>

@@ -1,0 +1,159 @@
+## messageSource=classpath:/solgroupcore/messages/email-vendorAlert_$lang.properties
+#macro( genHtmlBoldFont $text )
+<font color="#414a4f" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif"><b>$text</b></font>
+#end
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#0468b3">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+#macro(displayNegationForDiscount $priceData)
+    #if (${priceData.value} > 0)
+    -
+    #end
+    ${priceData.formattedValue}
+#end
+
+<html>
+<head>
+    <style>
+        a
+        {
+            text-decoration: none;
+            color:#0468b3;
+        }
+    </style>
+</head>
+<body>
+    #set ($quoteDetailsUrl = "${ctx.secureBaseUrl}/my-account/my-quotes/${ctx.quote.code}")
+    <table width="660" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#fff">
+      <tr>
+	   	  <td align="center" valign="top" bgcolor="#FFFFFF">
+	   	  <table width="570" cellpadding="0" cellspacing="0" border="0" align="center">
+	      <tr>
+	   	  	  <td valign="middle">&nbsp;</td>
+	 	  </tr>
+	 	  <tr>
+	 	  	 <td valign="middle">
+	 	  	 		<!-- ${ctx.cmsSlotContents.SiteLogo}
+	 	  	 		<img src="cid:logo_sol.png" alt="" width="176" height="94" border="0" align="right" title=""/> 
+	 	  	 		-->
+	 	  	 		<img src='http://www.sol.it/logo.png' alt='Sol Group' width="176" height="94" border="0" align="right" title="" />
+	 	  	 </td>
+	 	  </tr>
+	 	  <tr>
+	 		<td>&nbsp;</td>
+	 	  </tr>
+      <tr>
+      <td align="center" valign="top" style="background-color: #ffffff;padding-top:20px;padding-bottom:20px;padding-left:20px;padding-right:20px;">
+         <table width="650" align="center" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+               <td align="center" valign="top" bgcolor="#FFFFFF">
+                  <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" style="boarder-collapse;">
+                     <tr>
+                        <td valign="middle"></td>
+                     </tr>
+                     <tr>
+                        <td></td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                            <p style="margin:2px 0"><font color="#000000" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif"><b>${ctx.messages.getMessage('salutation', ${ctx.vendorDisplayName})}</b>,</font></p>
+                            <p style="margin:2px 0"><font color="#000000" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">${ctx.messages.getMessage('quoteDetailsParagraph', ${ctx.quote.code}, ${ctx.displayName})}</font></p>
+                            <p style="margin:2px 0"><font color="#000000" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">${ctx.messages.getMessage('thankYouParagraph')}</font></p>
+                            <p>
+                            <font color="#000000" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">
+                               ${ctx.messages.complimentaryClosing}
+                               <br />
+                               ${ctx.messages.signature}
+                            </font>
+                            </p>
+                            <br />
+                        </td>
+                     </tr>
+                     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#51585c" class="products" style="border: 1px solid #51585c;">
+                         <tr>
+                            <td width="100%" style="background-color:#004B87;padding-top:10px;padding-right:15px;padding-bottom:10px;padding-left:15px;">
+                                 <table border="0" cellspacing="0" cellpadding="0" style="border-collapse:collapse">
+                                     <tr>
+                                        <td style="font-family:FS Albert Pro Regular,arial,helvetica,sans-serif;color:#FFFFFF;font-size:16px;font-size:13px;text-transform:uppercase;" align="left" valign="bottom">
+                                            ${ctx.messages.quoteSummary}  
+                                        </td>
+                                     </tr>
+                                 </table>
+                            </td>
+                         </tr>                              
+                         <tr>
+                           <td width="100%">
+                               <table style="color: #19212b; width: 100%; border-collapse: collapse;" cellpadding="0" cellspacing="0" border="0">
+                                  <tbody>
+                                       #foreach( $entry in ${ctx.quote.entries} )
+                                       <tr>
+                                          <td>&nbsp;</td>
+                                       </tr>
+                                          <tr style="border-bottom: 1px solid #ddd;">
+                                            <td width="120" align="center" valign="middle" style="padding-top:20px;padding-right:5px;padding-bottom:0px;padding-left:5px">
+                                                <a href="${ctx.secureBaseUrl}$entry.product.url" style="text-decoration:none">
+                                                   #foreach($image in $entry.product.images) #if($image.imageType == "PRIMARY" && $image.format == "thumbnail" )
+                                                   <img src="cid:$entry.product.code" alt="" title="${entry.product.name}"/>
+                                                   #end #end
+                                               </a>
+                                            </td>
+                                            <td width="150" align="left" valign="middle" style="padding-top:20px;padding-right:5px;padding-bottom:20px;padding-left:5px;font-family:FS Albert Pro Regular,arial,helvetica,sans-serif;">
+                                               <strong>$entry.product.name</strong><br /> $entry.product.ErpCode
+                                            </td>
+                                            <td>
+                                               <table style="color: #19212b; width: 100%; border-collapse: collapse;" cellpadding="0" cellspacing="0" border="0">
+                                                  <td >
+                                                     <tr> <td>${ctx.messages.PO}: #if($entry.purchaseOrderNumber && $entry.purchaseOrderNumber != '') $entry.purchaseOrderNumber #end 
+                                                          #if(!$entry.purchaseOrderNumber || ($entry.purchaseOrderNumber && $entry.purchaseOrderNumber == '')) $ctx.messages.notDefined #end
+                                                          </td> 
+                                                     </tr>
+                                                     <tr> <td> ${ctx.messages.DataOrdine}: #if($entry.dataOrdine  && $entry.dataOrdine  != '') $entry.dataOrdine #end 
+                                                          #if(!$entry.dataOrdine  || ($entry.dataOrdine && $entry.dataOrdine  == '')) $ctx.messages.notDefined #end
+                                                          </td>
+                                                     </tr>
+                                                     <tr> <td>${ctx.messages.quantity}: $entry.quantity </td></tr>
+                                                          </td>
+                                                     <tr>
+                                                       <td>&nbsp;</td>
+                                                     </tr>
+                                                     </table> 
+                                                  </td>
+                                                  <td> 
+                                                     <table style="color: #19212b; width: 100%; border-collapse: collapse;" cellpadding="0" cellspacing="0" border="0">       	
+                                                        <td>
+                                                           <tr> <td> ${ctx.messages.CIG}: #if(${entry.cgi}  && ${entry.cgi}  != '') ${entry.cgi} #end 
+                                                                 #if(!${entry.cgi}  || (${entry.cgi} && ${entry.cgi} == '')) $ctx.messages.notDefined #end
+                                                                </td>
+                                                           </tr>
+                                                           <tr> <td> ${ctx.messages.CUP}: #if($entry.cup  && $entry.cup  != '') $entry.cup #end 
+                                                                #if(!$entry.cup  || ($entry.cup && $entry.cup == '')) $ctx.messages.notDefined #end 
+                                                                </td> 
+                                                           </tr>
+                                                           <tr> <td> ${ctx.messages.itemPrice}: ${entry.totalPrice.formattedValue} </td></tr>
+                                                                </td>
+                                                           <tr>
+                                                              <td>&nbsp;</td>
+                                                           </tr>
+                                                     </table>
+                                                  </td>
+                                          </tr>
+                                       #end	
+                                  </tbody>
+                               </table>
+                           </td>
+                         </tr>
+                  </table>		     
+            </td>
+        </tr>
+    </table>
+      </td>
+      </tr>
+    </table>
+</body>
+</html>

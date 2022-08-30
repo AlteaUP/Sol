@@ -1,0 +1,20 @@
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="../config/ehcache.xsd" updateCheck="false" monitoring="autodetect"
+         dynamicConfig="true">
+
+	<!--
+	see ehcache-core-*.jar/ehcache-failsafe.xml for description of elements
+	 -->
+
+	<diskStore path="java.io.tmpdir/solGroup_cache"/>
+	
+	<cache name="solGroupCache"
+	       maxElementsInMemory="100000"
+	       eternal="false"
+	       overflowToDisk="true"
+	       timeToLiveSeconds="3600"
+	       diskPersistent="false"
+	       maxEntriesLocalDisk="2000"
+	       memoryStoreEvictionPolicy="LRU"/>
+	       
+</ehcache>

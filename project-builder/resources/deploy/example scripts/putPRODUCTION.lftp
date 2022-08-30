@@ -1,0 +1,13 @@
+#PROD01
+open fish://hybris:3ss3g13mm3!@mprapp01/opt/hybris/deploy
+mput *.zip
+mirror -R hybris/config
+#PROD02
+open fish://hybris:3ss3g13mm3!@mprapp02/opt/hybris/deploy
+mirror -R hybris/config
+#PROD03
+open fish://hybris:3ss3g13mm3!@mprapp03/opt/hybris/deploy
+mirror -R hybris/config
+#PROD04
+open fish://hybris:3ss3g13mm3!@mprapp04/opt/hybris/deploy
+mirror -R hybris/config

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Mapping>
+    <baseTypeCode>ClassificationAttribute</baseTypeCode>
+    <catalogVersionCode>solgroupITClassification:1.0</catalogVersionCode>
+    <catalogVersionOption>false</catalogVersionOption>
+    <entries>
+        <allowNull>false</allowNull>
+        <className>de.hybris.platform.importcockpit.model.mappingview.mappingline.impl.AtomicTypeMapping</className>
+        <multivalue>false</multivalue>
+        <propertyDescriptorQualifier>ClassificationAttribute.code</propertyDescriptorQualifier>
+        <selected>true</selected>
+        <sourceColumnP>
+            <id>0</id>
+            <label>IDENTIFIER</label>
+        </sourceColumnP>
+    </entries>
+    <entries>
+        <allowNull>false</allowNull>
+        <children>
+            <allowNull>false</allowNull>
+            <className>de.hybris.platform.importcockpit.model.mappingview.mappingline.impl.LocalizedAtomicTypeMapping</className>
+            <isocode>en</isocode>
+            <multivalue>false</multivalue>
+            <selected>false</selected>
+            <sourceColumnP>
+                <id>1</id>
+                <label>CLASS ATTRIBUTE NAME[EN]</label>
+            </sourceColumnP>
+            <typeCode>java.lang.String</typeCode>
+        </children>
+        <children>
+            <allowNull>false</allowNull>
+            <className>de.hybris.platform.importcockpit.model.mappingview.mappingline.impl.LocalizedAtomicTypeMapping</className>
+            <isocode>de</isocode>
+            <multivalue>false</multivalue>
+            <selected>false</selected>
+            <sourceColumnP>
+                <id>3</id>
+                <label>CLASS ATTRIBUTE NAME[DE]</label>
+            </sourceColumnP>
+            <typeCode>java.lang.String</typeCode>
+        </children>
+        <children>
+            <allowNull>false</allowNull>
+            <className>de.hybris.platform.importcockpit.model.mappingview.mappingline.impl.LocalizedAtomicTypeMapping</className>
+            <isocode>it</isocode>
+            <multivalue>false</multivalue>
+            <selected>false</selected>
+            <sourceColumnP>
+                <id>2</id>
+                <label>CLASS ATTRIBUTE NAME[IT]</label>
+            </sourceColumnP>
+            <typeCode>java.lang.String</typeCode>
+        </children>
+        <children>
+            <allowNull>false</allowNull>
+            <className>de.hybris.platform.importcockpit.model.mappingview.mappingline.impl.LocalizedAtomicTypeMapping</className>
+            <isocode>fr</isocode>
+            <multivalue>false</multivalue>
+            <selected>false</selected>
+            <sourceColumnP>
+                <id>4</id>
+                <label>CLASS ATTRIBUTE NAME[FR]</label>
+            </sourceColumnP>
+            <typeCode>java.lang.String</typeCode>
+        </children>
+        <className>de.hybris.platform.importcockpit.model.mappingview.mappingline.impl.LocalizedTypeMapping</className>
+        <multivalue>false</multivalue>
+        <propertyDescriptorQualifier>ClassificationAttribute.name</propertyDescriptorQualifier>
+        <selected>false</selected>
+        <sourceColumnP/>
+    </entries>
+    <manualUniqueOption>true</manualUniqueOption>
+    <mode>INSERT_UPDATE</mode>
+</Mapping>

@@ -1,0 +1,56 @@
+$solPrefix = solgroupIT
+
+#Identity confirmation cronJob	
+INSERT_UPDATE IdentityConfirmationCronJob ; code[unique=true]                  ; job(code)               ; singleExecutable ; site(uid)  ; sessionLanguage(isocode)
+                                          ; $solPrefix_identityConfirmationJob ; identityConfirmationJob ; false            ; $solPrefix ; it                      ;  
+
+#New products Notification cronJob
+INSERT_UPDATE NewProductsNotificationCronJob; code[unique=true]                              ; job(code)                      ; singleExecutable ; site(uid)        ; employeesToNotify(uid)     ; daysToCheck         ; sessionLanguage(isocode)
+                                            ; $solPrefix_newProductsNotificationJob     ; newProductsNotificationJob ; false            ; $solPrefix    ;                          ; 7                   ; it               ;
+
+INSERT_UPDATE Trigger ;  cronJob(code)[unique=true]               ; cronExpression[unique=true] ;
+                      ;  $solPrefix_newProductsNotificationJob  ; 0 0 7 * * ?                 ;
+
+#Product Catalog sync cronJob             
+INSERT_UPDATE CatalogVersionSyncJob ; code[unique=true,path-delimiter=!]           ; syncPrincipals(uid) ; removeOnExit ; sessionUser(uid) ; syncLanguages(isocode) ;  
+                                    ; sync $solPrefixProductCatalog:Staged->Online ; syncuser            ; true         ; syncuser         ; en,it                  ;  
+
+#Content catalog sync cronJob       
+INSERT_UPDATE CatalogVersionSyncJob ; code[unique=true,path-delimiter=!]           ; syncLanguages(isocode) ;  
+                                    ; sync $solPrefixContentCatalog:Staged->Online ; en,it                  ;  
+
+
+INSERT_UPDATE Trigger ; job(code)[unique=true,path-delimiter=!]      ; second ; minute ; hour ; day ; month ; year ; relative ; active ; maxAcceptableDelay
+                      ; sync $solPrefixProductCatalog:Staged->Online ; 0      ; 30     ; -1   ; -1  ; -1    ; -1   ; true     ; true   ; -1                
+
+
+INSERT_UPDATE SyncAttributeDescriptorConfig ; syncJob(code)[unique=true,path-delimiter=!]  ; attributeDescriptor(enclosingType(code),qualifier)[unique=true] ; includedInSync ; copyByValue
+                                            ; sync $solPrefixProductCatalog:Staged->Online ; Category:products                                               ; false          ; false      
+
+
+
+# Scheduler import cronJob                  
+INSERT_UPDATE SchedulerImportCronJob ; code[unique=true]                           ; job(code)          ; singleExecutable ; site(uid)  ; legacySystem(code) ; sessionLanguage(isocode) ;  
+                                     ; $solPrefix_RAMSES_IT_schedulerImportCronJob ; schedulerImportJob ; false            ; $solPrefix ; RAMSES_IT          ; it                       ;  
+                                     ; $solPrefix_RAINBOW_schedulerImportCronJob   ; schedulerImportJob ; false            ; $solPrefix ; RAINBOW            ; it                       ;  
+INSERT_UPDATE Trigger ; cronJob(code)[unique=true]                  ; second ; minute ; hour ; day ; month ; year ; relative ; active ; maxAcceptableDelay
+                      ; $solPrefix_RAMSES_IT_schedulerImportCronJob ; 0      ; 5      ; -1   ; -1  ; -1    ; -1   ; true     ; true   ; -1                
+                      ; $solPrefix_RAINBOW_schedulerImportCronJob   ; 0      ; 5      ; -1   ; -1  ; -1    ; -1   ; true     ; true   ; -1                
+                                     
+# Massive stock update cronJob
+INSERT_UPDATE MassiveStockCronJob ; code[unique=true]                        ; job(code)             ; singleExecutable ; site(uid)  ; legacySystem(code) ; sessionLanguage(isocode) ; country(isocode)
+                                  ; $solPrefix_RAMSES_IT_massiveStockCronJob ; massiveStockImportJob ; false            ; $solPrefix ; RAMSES_IT          ; it                       ; IT              
+#                                  ; $solPrefix_RAINBOW_massiveStockCronJob   ; massiveStockImportJob ; false            ; $solPrefix ; RAINBOW            ; it                       ; IT
+                                  
+INSERT_UPDATE Trigger ; cronJob(code)[unique=true]               ; cronExpression[unique=true] ;  
+                      ; $solPrefix_RAMSES_IT_massiveStockCronJob ; 0 0 0,12 ? * * *            ;  
+
+
+#INSERT_UPDATE Trigger ; cronJob(code)[unique=true]               ; second[unique=true] ; minute[unique=true] ; hour[unique=true] ; day[unique=true] ; month[unique=true] ; year[unique=true] ; relative ; active ; maxAcceptableDelay
+#                      ; $solPrefix_RAMSES_IT_massiveStockCronJob ; 0                   ; 0                   ; 12                ; -1               ; -1                 ; -1                ; false    ; true   ; -1                
+#                      ; $solPrefix_RAMSES_IT_massiveStockCronJob ; 0                   ; 0                   ; 0                 ; -1               ; -1                 ; -1                ; false    ; true   ; -1                
+                                     
+                                     
+                                     
+                                     
+                                     

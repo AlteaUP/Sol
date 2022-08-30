@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!-- [y] hybris Platform Copyright (c) 2017 SAP SE or an SAP affiliate company. 
+	All rights reserved. This software is the confidential and proprietary information 
+	of SAP ("Confidential Information"). You shall not disclose such Confidential 
+	Information and shall use it only in accordance with the terms of the license 
+	agreement you entered into with SAP. -->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<enum
+		class="de.hybris.platform.acceleratorservices.controllers.page.PageType">
+		<value>ProductSearch</value>
+		<value>Category</value>
+		<value>Product</value>
+		<value>Cart</value>
+		<value>OrderConfirmation</value>
+		<value>Quote</value>
+	</enum>
+
+	<enum class="de.hybris.platform.commercefacades.product.ProductOption">
+		<value>PRODUCT_EXTENDED</value>
+		<value>VARIANT_MATRIX_EXTENDED</value>
+	</enum>
+
+	<bean class="de.hybris.platform.commercefacades.product.data.ProductData">
+		<property name="genders"
+			type="java.util.List&lt;com.solgroup.facades.product.data.GenderData>" />
+		<property name="unit" type="String" />
+		<property name="stockable" type="boolean" />
+		<!-- <property name="showPrice" type="boolean"/> -->
+		<property name="erpCode" type="java.lang.String" />
+		<property name="refill" type="boolean" />
+		<property name="showQuantitySelector" type="boolean" />
+		<property name="techAttachments"
+			type="java.util.List&lt;com.solgroup.facades.product.data.TechAttachmentLinkData>" />
+		<property name="medicalAttachments"
+			type="java.util.List&lt;com.solgroup.facades.product.data.TechAttachmentLinkData>" />
+		<property name="baseProductName" type="java.lang.String" />
+	</bean>
+
+	<bean class="com.solgroup.facades.product.data.TechAttachmentLinkData">
+		<property name="title" type="java.lang.String" />
+		<property name="url" type="java.lang.String" />
+		<property name="external" type="java.lang.Boolean" />
+		<property name="linkName" type="java.lang.String" />
+		<property name="styleAttributes" type="java.lang.String" />
+		<property name="description" type="java.lang.String" />
+		<property name="target" type="java.lang.Boolean" />
+		<property name="protocol" type="java.lang.String" />
+	</bean>
+
+
+	<bean class="com.solgroup.facades.product.data.GenderData">
+		<property name="code" type="String" />
+		<property name="name" type="String" />
+	</bean>
+
+	<bean
+		class="de.hybris.platform.b2bcommercefacades.company.data.B2BUnitNodeData">
+		<property name="erpCode" type="java.lang.String" />
+	</bean>
+
+
+	<bean class="de.hybris.platform.b2bcommercefacades.company.data.B2BUnitData">
+		<property name="billingAddress"
+			type="de.hybris.platform.commercefacades.user.data.AddressData" />
+		<property name="shippingAddress"
+			type="de.hybris.platform.commercefacades.user.data.AddressData" />
+		<property name="taxPayerCode" type="java.lang.String" />
+		<property name="vatID" type="java.lang.String" />
+		<property name="erpCode" type="java.lang.String" />
+	</bean>
+
+
+	<bean class="de.hybris.platform.commercefacades.user.data.AddressData">
+		<property name="fax" type="String" />
+		<property name="inheritedFromParentUnit" type="java.lang.Boolean" />
+		<property name="streetName" type="String" />
+		<property name="streetNumber" type="String" />
+
+	</bean>
+
+
+	<bean class="de.hybris.platform.commercefacades.order.data.AbstractOrderData">
+		<property name="showTotal" type="boolean" />
+		<property name="note" type="String" />
+		<property name="cgi" type="String" />
+		<property name="cup" type="String" />
+		<property name="dataOrdine" type="java.util.Date" />
+		<property name="refill" type="java.lang.Boolean" />
+		<property name="invoicePaymentInfo"
+			type="com.solgroup.commercefacades.order.data.InvoicePaymentInfoData" />
+		<property name="b2bUnitName" type="java.lang.String" />
+		<property name="erpCode" type="java.lang.String" />
+		<property name="userEmail" type="java.lang.String" />
+		<property name="agentVoucher" type="String"/>
+		<property name="showAgentVoucher" type="java.lang.Boolean"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderEntryData">
+		<property name="purchaseOrderNumber" type="String" />
+		<property name="cgi" type="String" />
+		<property name="cup" type="String" />
+		<property name="dataOrdine" type="String" />
+		<property name="showPrice" type="boolean" />
+		<property name="unit" type="String" />
+	</bean>
+
+	<bean
+		class="de.hybris.platform.acceleratorfacades.product.data.LeafDimensionData">
+		<property name="unit" type="java.lang.String" />
+		<property name="purchaseOrderNumber" type="String" />
+		<property name="cgi" type="String" />
+		<property name="cup" type="String" />
+		<property name="dataOrdine" type="String" />
+		<property name="basePrice"
+			type="de.hybris.platform.commercefacades.product.data.PriceData" />
+	</bean>
+
+	<bean class="com.solgroup.cart.GlobalOrderEntryPropertiesUpdateResult">
+		<property name="purchaseOrderNumber" type="java.lang.String" />
+		<property name="cig" type="java.lang.String" />
+		<property name="cup" type="java.lang.String" />
+		<property name="dataOrdine" type="java.lang.String" />
+		<property name="error" type="java.lang.Boolean" />
+		<property name="errorDescriptions" type="java.util.List&lt;java.lang.String>" />
+		<property name="po_error" type="java.lang.Boolean" />
+		<property name="cig_error" type="java.lang.Boolean" />
+		<property name="cup_error" type="java.lang.Boolean" />
+		<property name="dataOrdine_error" type="java.lang.Boolean" />
+		<property name="successDescription" type="java.lang.String" />
+	</bean>
+	
+	<bean class="com.solgroup.cart.SingleOrderEntryPropertyUpdateResult">
+		<property name="propertyValue" type="java.lang.String" />
+		<property name="error" type="java.lang.Boolean" />
+		<property name="errorDescription" type="java.lang.String" />
+		<property name="successDescription" type="java.lang.String" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.product.data.PriceData">
+		<property name="customPrice" type="boolean" />
+		<property name="unitMeasure" type="String" />
+	</bean>
+
+	<bean
+		class="de.hybris.platform.commercefacades.product.data.VariantOptionData">
+		<property name="erpCode" type="java.lang.String" />
+		<property name="refill" type="boolean" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.product.data.ProductData">
+		<property name="customPrice" type="boolean" />
+		<property name="showSearchedBaseProduct" type="Boolean"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderHistoryData">
+		<property name="refill" type="boolean" />
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.order.data.ConsignmentData">
+		<property name="trackingLink" type="java.lang.String" />
+		<property name="documentNumber" type="java.lang.String" />
+		<property name="documentType" type="java.lang.String" />
+		<property name="carrierCode" type="java.lang.String" />
+	</bean>
+
+	<bean class="com.solgroup.commercefacades.order.data.InvoicePaymentInfoData">
+		<property name="id" type="java.lang.String" />
+		<property name="saved" type="boolean" />
+		<property name="billingAddress"
+			type="de.hybris.platform.commercefacades.user.data.AddressData" />
+		<property name="showDeliveryCost" type="java.lang.Boolean" />
+		<property name="showTax" type="java.lang.Boolean" />
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.order.data.CCPaymentInfoData">
+		<property name="showDeliveryCost" type="java.lang.Boolean" />
+		<property name="showTax" type="java.lang.Boolean" />
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.product.data.VariantMatrixElementData">
+		<property name="showSearchedVariant" type="Boolean"/>
+	</bean>
+
+	<bean class="de.hybris.platform.commercefacades.wamdocument.data.WamDocumentData">
+		<property name="id" type="java.lang.Integer" />
+		<property name="documentNumber" type="java.lang.String" />
+		<property name="date" type="java.util.Date" />
+		<property name="updatedDate" type="java.util.Date" />
+		<property name="document" type="java.lang.String" />
+	</bean>
+
+</beans>

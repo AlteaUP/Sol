@@ -1,0 +1,513 @@
+$solPrefix=solgroupIT
+$productCatalog=$solPrefixProductCatalog
+$productCatalogName=$solPrefixProduct Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$lang=en
+$categories=target(code, $catalogVersion)[unique=true]
+
+
+INSERT_UPDATE TopBarCategory;code[unique=true];name[lang=$lang];level;allowedPrincipals(uid)[default='customergroup'];$catalogVersion;masterOn(code)[default='LEGACY'];
+;$solPrefix_TBC_010000;Gas;0
+;$solPrefix_TBC_010100;Acetilene - C2H2;1
+;$solPrefix_TBC_010101;Industriale;2
+;$solPrefix_TBC_010200;Ammoniaca anidra -NH3;1
+;$solPrefix_TBC_010201;Industriale;2
+;$solPrefix_TBC_010202;Puro;2
+;$solPrefix_TBC_010203;Refrigerante;2
+;$solPrefix_TBC_010300;Anidride Carbonica - CO2;1
+;$solPrefix_TBC_010301;Alimentare;2
+;$solPrefix_TBC_010302;Industriale;2
+;$solPrefix_TBC_010303;Medicale;2
+;$solPrefix_TBC_010304;Puro;2
+;$solPrefix_TBC_010305;Ghiaccio Secco;2
+;$solPrefix_TBC_010306;Ghiaccio secco - Service Kit;2
+;$solPrefix_TBC_010307;Refrigerante;2
+;$solPrefix_TBC_010400;Anidride Solforosa - SO2;1
+;$solPrefix_TBC_010401;Alimentare;2
+;$solPrefix_TBC_010402;Industriale;2
+;$solPrefix_TBC_010500;Argon - Ar;1
+;$solPrefix_TBC_010501;Alimentare;2
+;$solPrefix_TBC_010502;Industriale;2
+;$solPrefix_TBC_010503;Puro;2
+;$solPrefix_TBC_010600;Azoto - N2;1
+;$solPrefix_TBC_010601;Alimentare;2
+;$solPrefix_TBC_010602;Industriale;2
+;$solPrefix_TBC_010603;Medicale;2
+;$solPrefix_TBC_010604;Puro;2
+;$solPrefix_TBC_010700;Elio - He;1
+;$solPrefix_TBC_010701;Industriale;2
+;$solPrefix_TBC_010702;Flygas;2
+;$solPrefix_TBC_010703;Medicale;2
+;$solPrefix_TBC_010704;Puro;2
+;$solPrefix_TBC_010800;Esafluoruro di Zolfo - SF6;1
+;$solPrefix_TBC_010801;Dielettrico;2
+;$solPrefix_TBC_010802;Industriale;2
+;$solPrefix_TBC_010803;Medicale;2
+;$solPrefix_TBC_010804;Puro;2
+;$solPrefix_TBC_010900;Idrogeno - H2;1
+;$solPrefix_TBC_010901;Industriale;2
+;$solPrefix_TBC_010902;Puro;2
+;$solPrefix_TBC_011000;Monossido d'Azoto - NO;1
+;$solPrefix_TBC_011001;Medicale;2
+;$solPrefix_TBC_011100;Propilene - C3H6;1
+;$solPrefix_TBC_011101;Industriale;2
+;$solPrefix_TBC_011102;Puro;2
+;$solPrefix_TBC_011200;Protossido d'Azoto - N2O;1
+;$solPrefix_TBC_011201;Alimentare;2
+;$solPrefix_TBC_011202;Medicale;2
+;$solPrefix_TBC_011203;Puro;2
+;$solPrefix_TBC_011300;Ossigeno - O;1
+;$solPrefix_TBC_011301;Alimentare;2
+;$solPrefix_TBC_011302;Industriale;2
+;$solPrefix_TBC_011303;Medicale;2
+;$solPrefix_TBC_011304;Puro;2
+;$solPrefix_TBC_011400;GPL - MAPP - Propano;1
+;$solPrefix_TBC_011500;Miscele Alimentari;1
+;$solPrefix_TBC_011501;AliSOL;2
+;$solPrefix_TBC_011502;FruttaSOL;2
+;$solPrefix_TBC_011600;Miscele Medicali;1
+;$solPrefix_TBC_011601;Aria;2
+;$solPrefix_TBC_011602;Donopa;2
+;$solPrefix_TBC_011603;Neophyr;2
+;$solPrefix_TBC_011604;Altre miscele;2
+;$solPrefix_TBC_011700;Miscele Industriali;1
+;$solPrefix_TBC_011701;Aria;2
+;$solPrefix_TBC_011702;Enermix Premium;2
+;$solPrefix_TBC_011703;Enermix Comfort;2
+;$solPrefix_TBC_011704;LaserSOL;2
+;$solPrefix_TBC_011705;Altre miscele;2
+;$solPrefix_TBC_011800;Miscele Specialty;1
+;$solPrefix_TBC_011801;Miscele standard e speciali;2
+;$solPrefix_TBC_011802;Miscele certificate;2
+;$solPrefix_TBC_011803;Miscele di alta precisione;2
+;$solPrefix_TBC_011900;Gas Refrigeranti;1
+;$solPrefix_TBC_011901;Refrigeranti HFC;2
+;$solPrefix_TBC_011902;Refrigeranti Naturali;2
+;$solPrefix_TBC_011903;Refrigeranti HFO;2
+;$solPrefix_TBC_011904;Refrigeranti HC - Idrocarburi;2
+;$solPrefix_TBC_012000;Altri gas;1
+;$solPrefix_TBC_012001;1,3 Butadiene C4H6;2
+;$solPrefix_TBC_012002;Acido Cloridrico - HCl;2
+;$solPrefix_TBC_012003;Esafluoroetano - C2F6;2
+;$solPrefix_TBC_012004;Etano - C2H6;2
+;$solPrefix_TBC_012005;Etilene - C2H4;2
+;$solPrefix_TBC_012006;Idrogeno Solforato - H2S;2
+;$solPrefix_TBC_012007;Iso-Butano - C4H10;2
+;$solPrefix_TBC_012008;Isobutilene o Isobutene;2
+;$solPrefix_TBC_012009;Krypton - Kr;2
+;$solPrefix_TBC_012010;Metano - CH4;2
+;$solPrefix_TBC_012011;Neon - Ne;2
+;$solPrefix_TBC_012012;Normal-Butano C4H10;2
+;$solPrefix_TBC_012013;Octafluoropropano C3F8;2
+;$solPrefix_TBC_012014;Ossido di Azoto - NO;2
+;$solPrefix_TBC_012015;Ossido di Carbonio - CO;2
+;$solPrefix_TBC_012016;Propadiene o Allene - C3H4;2
+;$solPrefix_TBC_012017;Propano - C3H8;2
+;$solPrefix_TBC_012018;Xenon - Xe;2
+;$solPrefix_TBC_020000;GAS Equipments;0
+;$solPrefix_TBC_020100;Riduttori di pressione;1
+;$solPrefix_TBC_020101;Alimentare;2
+;$solPrefix_TBC_020102;Industriale;2
+;$solPrefix_TBC_020103;Puro;2
+;$solPrefix_TBC_020200;Posti presa;1
+;$solPrefix_TBC_020201;Alimentare;2
+;$solPrefix_TBC_020202;Industriale;2
+;$solPrefix_TBC_020203;Puro;2
+;$solPrefix_TBC_020300;Centrali di decompressione;1
+;$solPrefix_TBC_020301;Alimentare;2
+;$solPrefix_TBC_020302;Industriale;2
+;$solPrefix_TBC_020303;Puro;2
+;$solPrefix_TBC_020400;Serpentine e fruste;1
+;$solPrefix_TBC_020401;Alimentare;2
+;$solPrefix_TBC_020402;Industriale;2
+;$solPrefix_TBC_020403;Puro;2
+;$solPrefix_TBC_020500;Valvole antiritorno di fiamma;1
+;$solPrefix_TBC_020501;Alimentare;2
+;$solPrefix_TBC_020502;Industriale;2
+;$solPrefix_TBC_020503;Puro;2
+;$solPrefix_TBC_020600;Valvole di linea;1
+;$solPrefix_TBC_020601;Alimentare;2
+;$solPrefix_TBC_020602;Industriale;2
+;$solPrefix_TBC_020603;Puro;2
+;$solPrefix_TBC_020700;Raccorderia;1
+;$solPrefix_TBC_020800;Rastrelliere e accessori gas compressi;1
+;$solPrefix_TBC_020900;Generatori da laboratorio;1
+;$solPrefix_TBC_020901;Azoto;2
+;$solPrefix_TBC_020902;Aria;2
+;$solPrefix_TBC_020903;Azoto - Aria;2
+;$solPrefix_TBC_020904;Idrogeno;2
+;$solPrefix_TBC_030000;Medical GAS Equipments;0
+;$solPrefix_TBC_030100;Accessori;1
+;$solPrefix_TBC_030101;Flussimetri;2
+;$solPrefix_TBC_030102;Regolatori del vuoto;2
+;$solPrefix_TBC_030103;Umidificatori;2
+;$solPrefix_TBC_030104;Carrelli portabombola;2
+;$solPrefix_TBC_030200;Servizio Ossido Nitrico;1
+;$solPrefix_TBC_030201;Dispositivi per sistema NoxBox;2
+;$solPrefix_TBC_030202;Dispositivi per taratura sistema somministrazione/monitoraggio;2
+;$solPrefix_TBC_030300;Servizio Analgesia;1
+;$solPrefix_TBC_030301;Dispositivo per evacuazione EMONO;2
+;$solPrefix_TBC_030302;Accessori Somministrazione /Evacuazione del farmaco;2
+;$solPrefix_TBC_030400;Riduttori di pressione;1
+;$solPrefix_TBC_030500;Posti presa;1
+;$solPrefix_TBC_030600;Centrali di decompressione;1
+;$solPrefix_TBC_030700;Serpentine e fruste;1
+;$solPrefix_TBC_030800;Valvole antiritorno di fiamma;1
+;$solPrefix_TBC_030900;Valvole di linea;1
+;$solPrefix_TBC_031000;Servizio Ossido Nitrico;1
+;$solPrefix_TBC_040000;Welding products;0
+;$solPrefix_TBC_040100;Saldatura MIG / MAG;1
+;$solPrefix_TBC_040101;Gas di protezione;2
+;$solPrefix_TBC_040102;Torce;2
+;$solPrefix_TBC_040103;Impianti di saldatura;2
+;$solPrefix_TBC_040104;Consumabili;2
+;$solPrefix_TBC_040200;Saldatura TIG;1
+;$solPrefix_TBC_040201;Gas di protezione;2
+;$solPrefix_TBC_040202;Torce;2
+;$solPrefix_TBC_040203;Impianti di saldatura;2
+;$solPrefix_TBC_040204;Accessori;2
+;$solPrefix_TBC_040205;Consumabili;2
+;$solPrefix_TBC_040300;Saldatura ad elettrodo;1
+;$solPrefix_TBC_040301;Impianti di saldatura;2
+;$solPrefix_TBC_040400;Processi Ossi-gas;1
+;$solPrefix_TBC_040401;Gas di processo;2
+;$solPrefix_TBC_040402;Riduttori di pressione;2
+;$solPrefix_TBC_040403;Cannelli;2
+;$solPrefix_TBC_040404;Valvole di sicurezza;2
+;$solPrefix_TBC_040405;Accessori;2
+;$solPrefix_TBC_040406;Consumabili;2
+;$solPrefix_TBC_040500;Processi Plasma;1
+;$solPrefix_TBC_040501;Gas plasma;2
+;$solPrefix_TBC_040502;Gas di protezione;2
+;$solPrefix_TBC_040503;Impianti di saldatura;2
+;$solPrefix_TBC_040504;Impianti di Taglio;2
+;$solPrefix_TBC_040600;Proccessi Laser;1
+;$solPrefix_TBC_040601;Miscele laseranti;2
+;$solPrefix_TBC_040602;Gas di processo;2
+;$solPrefix_TBC_040700;Finitura;1
+;$solPrefix_TBC_040701;Dischi abrasivi;2
+;$solPrefix_TBC_040702;Prodotti chimici;2
+;$solPrefix_TBC_040800;Aspirazione Fumi;1
+;$solPrefix_TBC_040801;Aspiratori portatili;2
+;$solPrefix_TBC_040900;Manutenzione Impianti;1
+;$solPrefix_TBC_040901;Cronos 183;2
+;$solPrefix_TBC_040902;Cronos 203;2
+;$solPrefix_TBC_040903;Cronos 400;2
+;$solPrefix_TBC_040904;Inoxa 203 HFP;2
+;$solPrefix_TBC_040905;Inoxa 405 HFP;2
+;$solPrefix_TBC_040906;Alux 202 AC/DC;2
+;$solPrefix_TBC_040907;Alux 301 AC/DC;2
+;$solPrefix_TBC_040908;Alux 501;2
+;$solPrefix_TBC_040909;Futura 2005;2
+;$solPrefix_TBC_040910;Futura 2505;2
+;$solPrefix_TBC_040911;Futura 3505;2
+;$solPrefix_TBC_040912;PLUS 355 CW;2
+;$solPrefix_TBC_040913;PLUS 355 SW Set;2
+;$solPrefix_TBC_040914;PLUS 505 SW;2
+;$solPrefix_TBC_040915;Plasma Weld 82 HFP;2
+;$solPrefix_TBC_040916;Plasma Weld 400 HFP;2
+;$solPrefix_TBC_040917;Plasma Cut 45 PFC;2
+;$solPrefix_TBC_040918;Plasma Cut 105;2
+;$solPrefix_TBC_040919;Plasma Cut 165;2
+;$solPrefix_TBC_050000;Cryo products;0
+;$solPrefix_TBC_050100;Cryoblasting;1
+;$solPrefix_TBC_050101;Microclean;2
+;$solPrefix_TBC_050102;Snow Cleaning;2
+;$solPrefix_TBC_050103;Blaster;2
+;$solPrefix_TBC_050104;Scatole poilistirolo;2
+;$solPrefix_TBC_050105;Pastigliatrice dryice;2
+;$solPrefix_TBC_050106;Gel refrigerante;2
+;$solPrefix_TBC_050200;Contenitori criobiologici e criogenici (dewar);1
+;$solPrefix_TBC_050201;Contenitori per stoccaggio di campioni biologici;2
+;$solPrefix_TBC_050202;Contenitori per trasporto di campioni biologici;2
+;$solPrefix_TBC_050203;Contenitori per stoccaggio e trasporto di azoto liquido;2
+;$solPrefix_TBC_050300;Congelatori a discesa programmata della temperatura;1
+;$solPrefix_TBC_050400;Sistemi hardware e software per Criobiologia;1
+;$solPrefix_TBC_050401;Centraline di controllo;2
+;$solPrefix_TBC_050402;Stampanti e lettori;2
+;$solPrefix_TBC_050403;Software di tracciabilità e archiviazione;2
+;$solPrefix_TBC_050500;Dispositivi per criochirurgia;1
+;$solPrefix_TBC_060000;Dispositivi medici;0
+;$solPrefix_TBC_070000;DPI;0
+;$solPrefix_TBC_070100;DPI;1
+;$solPrefix_TBC_070101;Protezione Viso;2
+;$solPrefix_TBC_070102;Protezione Arti;2
+;$solPrefix_TBC_070103;Protezione Corpo;2
+;$solPrefix_TBC_070104;Sistemi di aspirazione fumi;2
+;$solPrefix_TBC_070105;Impianti e quadri di controllo - SolMet;2
+;$solPrefix_TBC_070106;Autoproduzione di ossigeno - OxySOL;2
+;$solPrefix_TBC_070107;Autoproduzione di azoto - NitroSOL;2
+;$solPrefix_TBC_070108;Trattamento acque di processo e reflue;2
+;$solPrefix_TBC_070109;Controlli non distruttivi - SOLcontrol;2
+;$solPrefix_TBC_070110;Pulizia criogenica - DryBlast;2
+;$solPrefix_TBC_070200;DPI criogenici;1
+;$solPrefix_TBC_070201;Protezione Viso;2
+;$solPrefix_TBC_070202;Protezione Arti;2
+;$solPrefix_TBC_070203;Protezione Corpo;2
+;$solPrefix_TBC_070300;DPI sicurezza;1
+;$solPrefix_TBC_070301;Sensori;2
+;$solPrefix_TBC_070302;Autorespiratori;2
+;$solPrefix_TBC_080000;Prodotti Enologici;0
+;$solPrefix_TBC_080100;Lieviti;1
+;$solPrefix_TBC_080101;Lieviti AB Biotek;2
+;$solPrefix_TBC_080102;Lieviti Pinnacle;2
+;$solPrefix_TBC_080200;Nutrienti Pinnacle;1
+;$solPrefix_TBC_080300;Polisaccaridi Pinnacle;1
+;$solPrefix_TBC_080400;Tannini Pinnacle;1
+;$solPrefix_TBC_080500;Batteri Pinnacle;1
+;$solPrefix_TBC_080600;Enzimi Pinnacle;1
+
+
+
+
+INSERT_UPDATE CategoryCategoryRelation;$categories;$supercategories;
+;$solPrefix_TBC_010000;$solPrefix_1;
+;$solPrefix_TBC_010100;$solPrefix_TBC_010000;
+;$solPrefix_TBC_010101;$solPrefix_TBC_010100;
+;$solPrefix_TBC_010200;$solPrefix_TBC_010000;
+;$solPrefix_TBC_010201;$solPrefix_TBC_010200;
+;$solPrefix_TBC_010202;$solPrefix_TBC_010200;
+;$solPrefix_TBC_010203;$solPrefix_TBC_010200;
+;$solPrefix_TBC_010300;$solPrefix_TBC_010000;
+;$solPrefix_TBC_010301;$solPrefix_TBC_010300;
+;$solPrefix_TBC_010302;$solPrefix_TBC_010300;
+;$solPrefix_TBC_010303;$solPrefix_TBC_010300;
+;$solPrefix_TBC_010304;$solPrefix_TBC_010300;
+;$solPrefix_TBC_010305;$solPrefix_TBC_010300;
+;$solPrefix_TBC_010306;$solPrefix_TBC_010300;
+;$solPrefix_TBC_010307;$solPrefix_TBC_010300;
+;$solPrefix_TBC_010400;$solPrefix_TBC_010000;
+;$solPrefix_TBC_010401;$solPrefix_TBC_010400;
+;$solPrefix_TBC_010402;$solPrefix_TBC_010400;
+;$solPrefix_TBC_010500;$solPrefix_TBC_010000;
+;$solPrefix_TBC_010501;$solPrefix_TBC_010500;
+;$solPrefix_TBC_010502;$solPrefix_TBC_010500;
+;$solPrefix_TBC_010503;$solPrefix_TBC_010500;
+;$solPrefix_TBC_010600;$solPrefix_TBC_010000;
+;$solPrefix_TBC_010601;$solPrefix_TBC_010600;
+;$solPrefix_TBC_010602;$solPrefix_TBC_010600;
+;$solPrefix_TBC_010603;$solPrefix_TBC_010600;
+;$solPrefix_TBC_010604;$solPrefix_TBC_010600;
+;$solPrefix_TBC_010700;$solPrefix_TBC_010000;
+;$solPrefix_TBC_010701;$solPrefix_TBC_010700;
+;$solPrefix_TBC_010702;$solPrefix_TBC_010700;
+;$solPrefix_TBC_010703;$solPrefix_TBC_010700;
+;$solPrefix_TBC_010704;$solPrefix_TBC_010700;
+;$solPrefix_TBC_010800;$solPrefix_TBC_010000;
+;$solPrefix_TBC_010801;$solPrefix_TBC_010800;
+;$solPrefix_TBC_010802;$solPrefix_TBC_010800;
+;$solPrefix_TBC_010803;$solPrefix_TBC_010800;
+;$solPrefix_TBC_010804;$solPrefix_TBC_010800;
+;$solPrefix_TBC_010900;$solPrefix_TBC_010000;
+;$solPrefix_TBC_010901;$solPrefix_TBC_010900;
+;$solPrefix_TBC_010902;$solPrefix_TBC_010900;
+;$solPrefix_TBC_011000;$solPrefix_TBC_010000;
+;$solPrefix_TBC_011001;$solPrefix_TBC_011000;
+;$solPrefix_TBC_011100;$solPrefix_TBC_010000;
+;$solPrefix_TBC_011101;$solPrefix_TBC_011100;
+;$solPrefix_TBC_011102;$solPrefix_TBC_011100;
+;$solPrefix_TBC_011200;$solPrefix_TBC_010000;
+;$solPrefix_TBC_011201;$solPrefix_TBC_011200;
+;$solPrefix_TBC_011202;$solPrefix_TBC_011200;
+;$solPrefix_TBC_011203;$solPrefix_TBC_011200;
+;$solPrefix_TBC_011300;$solPrefix_TBC_010000;
+;$solPrefix_TBC_011301;$solPrefix_TBC_011300;
+;$solPrefix_TBC_011302;$solPrefix_TBC_011300;
+;$solPrefix_TBC_011303;$solPrefix_TBC_011300;
+;$solPrefix_TBC_011304;$solPrefix_TBC_011300;
+;$solPrefix_TBC_011400;$solPrefix_TBC_010000;
+;$solPrefix_TBC_011500;$solPrefix_TBC_010000;
+;$solPrefix_TBC_011501;$solPrefix_TBC_011500;
+;$solPrefix_TBC_011502;$solPrefix_TBC_011500;
+;$solPrefix_TBC_011600;$solPrefix_TBC_010000;
+;$solPrefix_TBC_011601;$solPrefix_TBC_011600;
+;$solPrefix_TBC_011602;$solPrefix_TBC_011600;
+;$solPrefix_TBC_011603;$solPrefix_TBC_011600;
+;$solPrefix_TBC_011604;$solPrefix_TBC_011600;
+;$solPrefix_TBC_011700;$solPrefix_TBC_010000;
+;$solPrefix_TBC_011701;$solPrefix_TBC_011700;
+;$solPrefix_TBC_011702;$solPrefix_TBC_011700;
+;$solPrefix_TBC_011703;$solPrefix_TBC_011700;
+;$solPrefix_TBC_011704;$solPrefix_TBC_011700;
+;$solPrefix_TBC_011705;$solPrefix_TBC_011700;
+;$solPrefix_TBC_011800;$solPrefix_TBC_010000;
+;$solPrefix_TBC_011801;$solPrefix_TBC_011800;
+;$solPrefix_TBC_011802;$solPrefix_TBC_011800;
+;$solPrefix_TBC_011803;$solPrefix_TBC_011800;
+;$solPrefix_TBC_011900;$solPrefix_TBC_010000;
+;$solPrefix_TBC_011901;$solPrefix_TBC_011900;
+;$solPrefix_TBC_011902;$solPrefix_TBC_011900;
+;$solPrefix_TBC_011903;$solPrefix_TBC_011900;
+;$solPrefix_TBC_011904;$solPrefix_TBC_011900;
+;$solPrefix_TBC_012000;$solPrefix_TBC_010000;
+;$solPrefix_TBC_012001;$solPrefix_TBC_012000;
+;$solPrefix_TBC_012002;$solPrefix_TBC_012000;
+;$solPrefix_TBC_012003;$solPrefix_TBC_012000;
+;$solPrefix_TBC_012004;$solPrefix_TBC_012000;
+;$solPrefix_TBC_012005;$solPrefix_TBC_012000;
+;$solPrefix_TBC_012006;$solPrefix_TBC_012000;
+;$solPrefix_TBC_012007;$solPrefix_TBC_012000;
+;$solPrefix_TBC_012008;$solPrefix_TBC_012000;
+;$solPrefix_TBC_012009;$solPrefix_TBC_012000;
+;$solPrefix_TBC_012010;$solPrefix_TBC_012000;
+;$solPrefix_TBC_012011;$solPrefix_TBC_012000;
+;$solPrefix_TBC_012012;$solPrefix_TBC_012000;
+;$solPrefix_TBC_012013;$solPrefix_TBC_012000;
+;$solPrefix_TBC_012014;$solPrefix_TBC_012000;
+;$solPrefix_TBC_012015;$solPrefix_TBC_012000;
+;$solPrefix_TBC_012016;$solPrefix_TBC_012000;
+;$solPrefix_TBC_012017;$solPrefix_TBC_012000;
+;$solPrefix_TBC_012018;$solPrefix_TBC_012000;
+;$solPrefix_TBC_020000;$solPrefix_1;
+;$solPrefix_TBC_020100;$solPrefix_TBC_020000;
+;$solPrefix_TBC_020101;$solPrefix_TBC_020100;
+;$solPrefix_TBC_020102;$solPrefix_TBC_020100;
+;$solPrefix_TBC_020103;$solPrefix_TBC_020100;
+;$solPrefix_TBC_020200;$solPrefix_TBC_020000;
+;$solPrefix_TBC_020201;$solPrefix_TBC_020200;
+;$solPrefix_TBC_020202;$solPrefix_TBC_020200;
+;$solPrefix_TBC_020203;$solPrefix_TBC_020200;
+;$solPrefix_TBC_020300;$solPrefix_TBC_020000;
+;$solPrefix_TBC_020301;$solPrefix_TBC_020300;
+;$solPrefix_TBC_020302;$solPrefix_TBC_020300;
+;$solPrefix_TBC_020303;$solPrefix_TBC_020300;
+;$solPrefix_TBC_020400;$solPrefix_TBC_020000;
+;$solPrefix_TBC_020401;$solPrefix_TBC_020400;
+;$solPrefix_TBC_020402;$solPrefix_TBC_020400;
+;$solPrefix_TBC_020403;$solPrefix_TBC_020400;
+;$solPrefix_TBC_020500;$solPrefix_TBC_020000;
+;$solPrefix_TBC_020501;$solPrefix_TBC_020500;
+;$solPrefix_TBC_020502;$solPrefix_TBC_020500;
+;$solPrefix_TBC_020503;$solPrefix_TBC_020500;
+;$solPrefix_TBC_020600;$solPrefix_TBC_020000;
+;$solPrefix_TBC_020601;$solPrefix_TBC_020600;
+;$solPrefix_TBC_020602;$solPrefix_TBC_020600;
+;$solPrefix_TBC_020603;$solPrefix_TBC_020600;
+;$solPrefix_TBC_020700;$solPrefix_TBC_020000;
+;$solPrefix_TBC_020800;$solPrefix_TBC_020000;
+;$solPrefix_TBC_020900;$solPrefix_TBC_020000;
+;$solPrefix_TBC_020901;$solPrefix_TBC_020900;
+;$solPrefix_TBC_020902;$solPrefix_TBC_020900;
+;$solPrefix_TBC_020903;$solPrefix_TBC_020900;
+;$solPrefix_TBC_020904;$solPrefix_TBC_020900;
+;$solPrefix_TBC_030000;$solPrefix_1;
+;$solPrefix_TBC_030100;$solPrefix_TBC_030000;
+;$solPrefix_TBC_030101;$solPrefix_TBC_030100;
+;$solPrefix_TBC_030102;$solPrefix_TBC_030100;
+;$solPrefix_TBC_030103;$solPrefix_TBC_030100;
+;$solPrefix_TBC_030104;$solPrefix_TBC_030100;
+;$solPrefix_TBC_030200;$solPrefix_TBC_030000;
+;$solPrefix_TBC_030201;$solPrefix_TBC_030200;
+;$solPrefix_TBC_030202;$solPrefix_TBC_030200;
+;$solPrefix_TBC_030300;$solPrefix_TBC_030000;
+;$solPrefix_TBC_030301;$solPrefix_TBC_030300;
+;$solPrefix_TBC_030302;$solPrefix_TBC_030300;
+;$solPrefix_TBC_030400;$solPrefix_TBC_030000;
+;$solPrefix_TBC_030500;$solPrefix_TBC_030000;
+;$solPrefix_TBC_030600;$solPrefix_TBC_030000;
+;$solPrefix_TBC_030700;$solPrefix_TBC_030000;
+;$solPrefix_TBC_030800;$solPrefix_TBC_030000;
+;$solPrefix_TBC_030900;$solPrefix_TBC_030000;
+;$solPrefix_TBC_031000;$solPrefix_TBC_030000;
+;$solPrefix_TBC_040000;$solPrefix_1;
+;$solPrefix_TBC_040100;$solPrefix_TBC_040000;
+;$solPrefix_TBC_040101;$solPrefix_TBC_040100;
+;$solPrefix_TBC_040102;$solPrefix_TBC_040100;
+;$solPrefix_TBC_040103;$solPrefix_TBC_040100;
+;$solPrefix_TBC_040104;$solPrefix_TBC_040100;
+;$solPrefix_TBC_040200;$solPrefix_TBC_040000;
+;$solPrefix_TBC_040201;$solPrefix_TBC_040200;
+;$solPrefix_TBC_040202;$solPrefix_TBC_040200;
+;$solPrefix_TBC_040203;$solPrefix_TBC_040200;
+;$solPrefix_TBC_040204;$solPrefix_TBC_040200;
+;$solPrefix_TBC_040205;$solPrefix_TBC_040200;
+;$solPrefix_TBC_040300;$solPrefix_TBC_040000;
+;$solPrefix_TBC_040301;$solPrefix_TBC_040300;
+;$solPrefix_TBC_040400;$solPrefix_TBC_040000;
+;$solPrefix_TBC_040401;$solPrefix_TBC_040400;
+;$solPrefix_TBC_040402;$solPrefix_TBC_040400;
+;$solPrefix_TBC_040403;$solPrefix_TBC_040400;
+;$solPrefix_TBC_040404;$solPrefix_TBC_040400;
+;$solPrefix_TBC_040405;$solPrefix_TBC_040400;
+;$solPrefix_TBC_040406;$solPrefix_TBC_040400;
+;$solPrefix_TBC_040500;$solPrefix_TBC_040000;
+;$solPrefix_TBC_040501;$solPrefix_TBC_040500;
+;$solPrefix_TBC_040502;$solPrefix_TBC_040500;
+;$solPrefix_TBC_040503;$solPrefix_TBC_040500;
+;$solPrefix_TBC_040504;$solPrefix_TBC_040500;
+;$solPrefix_TBC_040600;$solPrefix_TBC_040000;
+;$solPrefix_TBC_040601;$solPrefix_TBC_040600;
+;$solPrefix_TBC_040602;$solPrefix_TBC_040600;
+;$solPrefix_TBC_040700;$solPrefix_TBC_040000;
+;$solPrefix_TBC_040701;$solPrefix_TBC_040700;
+;$solPrefix_TBC_040702;$solPrefix_TBC_040700;
+;$solPrefix_TBC_040800;$solPrefix_TBC_040000;
+;$solPrefix_TBC_040801;$solPrefix_TBC_040800;
+;$solPrefix_TBC_040900;$solPrefix_TBC_040000;
+;$solPrefix_TBC_040901;$solPrefix_TBC_040900;
+;$solPrefix_TBC_040902;$solPrefix_TBC_040900;
+;$solPrefix_TBC_040903;$solPrefix_TBC_040900;
+;$solPrefix_TBC_040904;$solPrefix_TBC_040900;
+;$solPrefix_TBC_040905;$solPrefix_TBC_040900;
+;$solPrefix_TBC_040906;$solPrefix_TBC_040900;
+;$solPrefix_TBC_040907;$solPrefix_TBC_040900;
+;$solPrefix_TBC_040908;$solPrefix_TBC_040900;
+;$solPrefix_TBC_040909;$solPrefix_TBC_040900;
+;$solPrefix_TBC_040910;$solPrefix_TBC_040900;
+;$solPrefix_TBC_040911;$solPrefix_TBC_040900;
+;$solPrefix_TBC_040912;$solPrefix_TBC_040900;
+;$solPrefix_TBC_040913;$solPrefix_TBC_040900;
+;$solPrefix_TBC_040914;$solPrefix_TBC_040900;
+;$solPrefix_TBC_040915;$solPrefix_TBC_040900;
+;$solPrefix_TBC_040916;$solPrefix_TBC_040900;
+;$solPrefix_TBC_040917;$solPrefix_TBC_040900;
+;$solPrefix_TBC_040918;$solPrefix_TBC_040900;
+;$solPrefix_TBC_040919;$solPrefix_TBC_040900;
+;$solPrefix_TBC_050000;$solPrefix_1;
+;$solPrefix_TBC_050100;$solPrefix_TBC_050000;
+;$solPrefix_TBC_050101;$solPrefix_TBC_050100;
+;$solPrefix_TBC_050102;$solPrefix_TBC_050100;
+;$solPrefix_TBC_050103;$solPrefix_TBC_050100;
+;$solPrefix_TBC_050104;$solPrefix_TBC_050100;
+;$solPrefix_TBC_050105;$solPrefix_TBC_050100;
+;$solPrefix_TBC_050106;$solPrefix_TBC_050100;
+;$solPrefix_TBC_050200;$solPrefix_TBC_050000;
+;$solPrefix_TBC_050201;$solPrefix_TBC_050200;
+;$solPrefix_TBC_050202;$solPrefix_TBC_050200;
+;$solPrefix_TBC_050203;$solPrefix_TBC_050200;
+;$solPrefix_TBC_050300;$solPrefix_TBC_050000;
+;$solPrefix_TBC_050400;$solPrefix_TBC_050000;
+;$solPrefix_TBC_050401;$solPrefix_TBC_050400;
+;$solPrefix_TBC_050402;$solPrefix_TBC_050400;
+;$solPrefix_TBC_050403;$solPrefix_TBC_050400;
+;$solPrefix_TBC_050500;$solPrefix_TBC_050000;
+;$solPrefix_TBC_060000;$solPrefix_1;
+;$solPrefix_TBC_070000;$solPrefix_1;
+;$solPrefix_TBC_070100;$solPrefix_TBC_070000;
+;$solPrefix_TBC_070101;$solPrefix_TBC_070100;
+;$solPrefix_TBC_070102;$solPrefix_TBC_070100;
+;$solPrefix_TBC_070103;$solPrefix_TBC_070100;
+;$solPrefix_TBC_070104;$solPrefix_TBC_070100;
+;$solPrefix_TBC_070105;$solPrefix_TBC_070100;
+;$solPrefix_TBC_070106;$solPrefix_TBC_070100;
+;$solPrefix_TBC_070107;$solPrefix_TBC_070100;
+;$solPrefix_TBC_070108;$solPrefix_TBC_070100;
+;$solPrefix_TBC_070109;$solPrefix_TBC_070100;
+;$solPrefix_TBC_070110;$solPrefix_TBC_070100;
+;$solPrefix_TBC_070200;$solPrefix_TBC_070000;
+;$solPrefix_TBC_070201;$solPrefix_TBC_070200;
+;$solPrefix_TBC_070202;$solPrefix_TBC_070200;
+;$solPrefix_TBC_070203;$solPrefix_TBC_070200;
+;$solPrefix_TBC_070300;$solPrefix_TBC_070000;
+;$solPrefix_TBC_070301;$solPrefix_TBC_070300;
+;$solPrefix_TBC_070302;$solPrefix_TBC_070300;
+;$solPrefix_TBC_080000;$solPrefix_1;
+;$solPrefix_TBC_080100;$solPrefix_TBC_080000;
+;$solPrefix_TBC_080101;$solPrefix_TBC_080100;
+;$solPrefix_TBC_080102;$solPrefix_TBC_080100;
+;$solPrefix_TBC_080200;$solPrefix_TBC_080000;
+;$solPrefix_TBC_080300;$solPrefix_TBC_080000;
+;$solPrefix_TBC_080400;$solPrefix_TBC_080000;
+;$solPrefix_TBC_080500;$solPrefix_TBC_080000;
+;$solPrefix_TBC_080600;$solPrefix_TBC_080000;

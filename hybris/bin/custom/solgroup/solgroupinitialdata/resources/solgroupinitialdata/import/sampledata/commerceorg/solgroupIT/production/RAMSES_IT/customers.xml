@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:CustomerImport_Hybris xmlns:ns2="urn:solgroup:com:CustomerImport">
+  <header>
+    <sourceSystem>RAMSES_IT</sourceSystem>
+    <messageID>c66d72facaed11e7cb110000003c182e</messageID>
+    <timestamp>20171116 174704</timestamp>
+  </header>
+  <country>IT</country>
+  <companies>
+    <company>
+      <erpCode>1000</erpCode>
+      <name>SOL SPA</name>
+      <default>true</default>
+      <organizations1>
+        <organizationUnit1>
+          <erpCode>0000496002</erpCode>
+          <name>LA PIANURA SOC.COOP.SOC.ONLUS</name>
+          <activeState>1</activeState>
+          <currency />
+          <b2bUnits>
+            <b2bUnit>
+              <erpCode>0000496006</erpCode>
+              <name>LA PIANURA C/O RESID.HELIOPOLIS SRL</name>
+              <currency />
+              <vatID>06943320967</vatID>
+              <taxPayerCode>06943320967</taxPayerCode>
+              <clientType>C</clientType>
+              <creditState>1</creditState>
+              <vendorCode>V0000172</vendorCode>
+              <activeState>1</activeState>
+              <customers>
+                <customerId>h725@sol.it</customerId>
+              </customers>
+              <addresses>
+                <address>
+                  <erpCode>125599</erpCode>
+                  <street>VIA STRADA CERCA</street>
+                  <town>BINASCO</town>
+                  <postalCode>20082</postalCode>
+                  <country>IT</country>
+                  <shipping>true</shipping>
+                  <billing>false</billing>
+                </address>
+              </addresses>
+            </b2bUnit>
+          </b2bUnits>
+          <addresses>
+            <address>
+              <erpCode>125602</erpCode>
+              <street>VIA CAMPERIO, 14</street>
+              <town>MILANO</town>
+              <postalCode>20123</postalCode>
+              <country>IT</country>
+              <phone>02 900351</phone>
+              <fax>0290094243</fax>
+              <shipping>false</shipping>
+              <billing>true</billing>
+            </address>
+          </addresses>
+          <customers>
+            <customerId>h724@sol.it</customerId>
+          </customers>
+        </organizationUnit1>
+        <organizationUnit1>
+          <erpCode>0000495356</erpCode>
+          <name>TECNOFREDDO SRL</name>
+          <currency />
+          <b2bUnits>
+            <b2bUnit>
+              <erpCode>0000495359</erpCode>
+              <name>TECNOFREDDO SRL C/O CLARIANT PR</name>
+              <currency />
+              <vatID>02774201202</vatID>
+              <taxPayerCode>02774201202</taxPayerCode>
+              <clientType>C</clientType>
+              <creditState>0</creditState>
+              <activeState>0</activeState>
+              <vendorCode>V0000142</vendorCode>
+              <customers>
+                <customerId>0000495359@sol.it</customerId>
+              </customers>
+              <addresses>
+                <address>
+                  <erpCode>125600</erpCode>
+                  <street>VIA MANZONI, 37-PALAZZOLO MILANESE</street>
+                  <town>PADERNO DUGNANO</town>
+                  <postalCode>20037</postalCode>
+                  <country>IT</country>
+                  <phone>02 36316026</phone>
+                  <shipping>true</shipping>
+                  <billing>false</billing>
+                </address>
+              </addresses>
+            </b2bUnit>
+            <b2bUnit>
+              <erpCode>0000613720</erpCode>
+              <name>TECNOFREDDO SRL</name>
+              <currency />
+              <vatID>02774201202</vatID>
+              <taxPayerCode>02774201202</taxPayerCode>
+              <clientType>C</clientType>
+              <creditState>0</creditState>
+              <activeState>1</activeState>
+              <vendorCode>V0000686</vendorCode>
+              <customers>
+                <customerId>0000613720@sol.it</customerId>
+              </customers>
+              <addresses>
+                <address>
+                  <erpCode>154429</erpCode>
+                  <street>C.DA S.SILVESTRO 452/F</street>
+                  <town>MARSALA</town>
+                  <postalCode>91025</postalCode>
+                  <country>IT</country>
+                  <phone>0923/721741</phone>
+                  <shipping>true</shipping>
+                  <billing>false</billing>
+                </address>
+              </addresses>
+            </b2bUnit>
+          </b2bUnits>
+          <addresses>
+            <address>
+              <erpCode>125603</erpCode>
+              <street>VIA MOGLIO, 19/2</street>
+              <town>SASSO MARCONI</town>
+              <postalCode>40037</postalCode>
+              <country>IT</country>
+              <phone>051 6784961</phone>
+              <fax>051845346</fax>
+              <shipping>false</shipping>
+              <billing>true</billing>
+            </address>
+          </addresses>
+          <customers>
+            <customerId>0000495356@sol.it</customerId>
+          </customers>
+        </organizationUnit1>
+      </organizations1>
+      <b2bUnits>
+        <b2bUnit>
+          <erpCode>0000275010</erpCode>
+          <name>AIR LIQUIDE SANITA' SERVICE SPA</name>
+          <currency />
+          <vatID>12906300152</vatID>
+          <taxPayerCode>01738810975</taxPayerCode>
+          <clientType>C</clientType>
+          <creditState>0</creditState>
+          <activeState>1</activeState>
+          <vendorCode>V0000004</vendorCode>
+          <customers>
+            <customerId>0000275010@sol.it</customerId>
+          </customers>
+          <addresses>
+            <address>
+              <erpCode>125605</erpCode>
+              <street>VIA CAPECELATRO, 69</street>
+              <town>MILANO</town>
+              <postalCode>20148</postalCode>
+              <country>IT</country>
+              <shipping>true</shipping>
+              <billing>true</billing>
+            </address>
+          </addresses>
+        </b2bUnit>
+        <b2bUnit>
+          <erpCode>0000495650</erpCode>
+          <name>GRUPPO AGROALIMENTARE ITALIANO</name>
+          <currency />
+          <vatID>01096560865</vatID>
+          <taxPayerCode>01096560865</taxPayerCode>
+          <clientType>C</clientType>
+          <creditState>0</creditState>
+          <activeState>0</activeState>
+          <vendorCode>V0000683</vendorCode>
+          <customers>
+            <customerId>0000495650@sol.it</customerId>
+          </customers>
+          <addresses>
+            <address>
+              <erpCode>125707</erpCode>
+              <street>ZONA ARTIGIANALE LIBERO GRASSI</street>
+              <town>TROINA</town>
+              <postalCode>94018</postalCode>
+              <country>IT</country>
+              <phone>0935 657584</phone>
+              <shipping>true</shipping>
+              <billing>true</billing>
+            </address>
+          </addresses>
+        </b2bUnit>
+        <b2bUnit>
+          <erpCode>0000430835</erpCode>
+          <name>TRASMETAL SPA C/O CANTIERE TIBERINA ###</name>
+          <currency />
+          <vatID>11647800157</vatID>
+          <taxPayerCode>02019500962</taxPayerCode>
+          <clientType>C</clientType>
+          <creditState>0</creditState>
+          <activeState>0</activeState>
+          <vendorCode>V0000188</vendorCode>
+          <customers>
+            <customerId>0000430835@sol.it</customerId>
+          </customers>
+          <addresses>
+            <address>
+              <erpCode>125785</erpCode>
+              <street>STRADA BARZAGOLA</street>
+              <town>SUZZARA</town>
+              <postalCode>46029</postalCode>
+              <country>IT</country>
+              <phone>347 6549009</phone>
+              <shipping>true</shipping>
+              <billing>true</billing>
+            </address>
+          </addresses>
+        </b2bUnit>
+      </b2bUnits>
+    </company>
+  </companies>
+</ns2:CustomerImport_Hybris>

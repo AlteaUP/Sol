@@ -1,0 +1,105 @@
+## messageSource=classpath:/solgroupcore/messages/email-newProductsNotification_$lang.properties
+<html>
+	<head>
+		<style>
+			* {
+			  	box-sizing: border-box;
+			}
+
+			.row {
+				clear: both;
+			  	margin-left:-5px;
+			  	margin-right:-5px;
+			}
+
+			.imageRow {
+				clear: both;
+				margin-left: 10px;
+			}
+
+			.column {
+			  	float: left;
+			  	padding: 15px;
+			}
+
+			table {
+			  	border-collapse: collapse;
+			  	border-spacing: 0;
+			  	border: 1px solid #ddd;
+			}
+
+			th, td {
+			  	text-align: left;
+			  	padding: 16px;
+			}
+
+			tr:nth-child(even) {
+			  	background-color: #f2f2f2;
+			}
+
+		</style>
+	</head>
+	<body bgcolor="#ffffff">
+
+		<div class="row">
+			<p><font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif"><b>${ctx.messages.salutation}</b>,</font></p>
+			<p><font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">${ctx.messages.mainParagraph}</font></p>
+		</div>
+		<br>
+
+		<div class="row">
+			<div class="column">
+				#set ( $newProductsList = ${ctx.newProducts} )
+				#set ( $newProductsListSize = $newProductsList.size() )
+				#if( $newProductsListSize > 0 )
+					<table width="200">
+						<tr>
+							<th><font size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">${ctx.messages.baseProductHeader}</font></th>
+						</tr>
+						#foreach( $product in $newProductsList )
+						<tr>
+							<td>
+								<font size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">$product.code</font>
+							</td>
+						</tr>
+						#end
+					</table>
+				#end
+			</div>
+			<div class="column">
+				#set ( $newVariantsList = ${ctx.newVariants} )
+				#set ( $newVariantsListSize = $newVariantsList.size() )
+				#if( $newVariantsListSize > 0 )
+					<table width="400">
+						<tr>
+							<th><font size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">${ctx.messages.variantHeader}</font></th>
+							<th><font size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">${ctx.messages.relatedBaseProductHeader}</font></th>
+						</tr>
+						#foreach( $variant in $newVariantsList )
+						<tr>
+							<td>
+								<font size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">$variant.code</font>
+							</td>
+							<td>
+								<font size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">$variant.baseProduct.code</font>
+							</td>
+						</tr>
+						#end
+					</table>
+				#end
+			</div>
+		</div>
+		<br>
+		<br>
+
+		<div class="row">
+			<p><font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">${ctx.messages.complimentaryClosing}</font></p>
+			<p><font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif"><strong>${ctx.messages.signature}</strong></font></p>
+		</div>
+
+		<div class="imageRow">
+			<img src='http://www.sol.it/logo.png' alt='Sol Group' width="176" height="94" border="0" align="center" title="" />
+		</div>
+
+	</body>
+</html>

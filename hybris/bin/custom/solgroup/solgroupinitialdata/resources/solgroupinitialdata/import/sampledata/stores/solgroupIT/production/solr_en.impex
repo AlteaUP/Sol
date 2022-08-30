@@ -1,0 +1,163 @@
+$solPrefix=solgroupIT
+$classSystemVersion=systemVersion(catalog(id[default='$solPrefixClassification']),version[default='1.0'])
+$classCatalogVersion=catalogVersion(catalog(id[default='$solPrefixClassification']),version[default='1.0'])
+$classAttribute=classificationAttribute(code,$classSystemVersion)
+$classClass=classificationClass(code,$classCatalogVersion)
+$classAttributeAssignment=classAttributeAssignment($classClass,$classAttribute,$classSystemVersion)
+$productCatalog=$solPrefixProductCatalog
+$productCatalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$solrIndexedType=$solPrefixProductType
+$lang=en
+
+
+
+UPDATE SolrIndexedProperty;solrIndexedType(identifier)[unique=true];name[unique=true];displayName[lang=$lang]
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_1;Pressione d'ingresso
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_2;Pressione d'Uscita
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_3;Connessione di uscita
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_4;Pressione
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_5;Portata massima
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_6;Unità di misura
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_7;Configurazione
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_8;Numero di posti
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_9;Diametro
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_10;Altezza
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_11;Lunghezza
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_12;Profondità
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_13;Capacità
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_14;Peso [g]
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_15;Peso [kg]
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_16;Tensione di alimentazione
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_17;Frequenza di alimentazione
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_18;Potenza nominale max
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_19;Livello di Pressione sonora
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_22;Proprietà
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_23;Informazioni di sicurezza
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_24;Impatto ambientale
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_25;Normative di riferimento
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_39;Gas consigliato
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_61;Campi di impiego
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_62;Materiali saldabili
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_63;Concentrazione
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_68;Tasso permanenza statica
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_69;Garanzia
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_70;Peso a vuoto
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_71;Diametro interno
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_72;Diametro esterno
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_73;Diametro collo
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_74;Produttore
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_75;Tipo stoccaggio
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_76;Tipo stampante
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_77;Fase stoccaggio azoto
+;$solrIndexedType;$solPrefix___CSC_1___CSC_ATT_78;Liquido criogenico
+;$solrIndexedType;$solPrefix___CSC_2___CSC_ATT_7;Configurazione
+;$solrIndexedType;$solPrefix___CSC_2___CSC_ATT_25;Normative di riferimento
+;$solrIndexedType;$solPrefix___CSC_3___CSC_ATT_4;Pressione
+;$solrIndexedType;$solPrefix___CSC_3___CSC_ATT_9;Diametro
+;$solrIndexedType;$solPrefix___CSC_3___CSC_ATT_10;Altezza
+;$solrIndexedType;$solPrefix___CSC_3___CSC_ATT_11;Lunghezza
+;$solrIndexedType;$solPrefix___CSC_3___CSC_ATT_12;Profondità
+;$solrIndexedType;$solPrefix___CSC_3___CSC_ATT_13;Capacità
+;$solrIndexedType;$solPrefix___CSC_3___CSC_ATT_14;Peso [g]
+;$solrIndexedType;$solPrefix___CSC_3___CSC_ATT_15;Peso [kg]
+;$solrIndexedType;$solPrefix___CSC_3___CSC_ATT_16;Tensione di alimentazione
+;$solrIndexedType;$solPrefix___CSC_3___CSC_ATT_17;Frequenza di alimentazione
+;$solrIndexedType;$solPrefix___CSC_3___CSC_ATT_18;Potenza nominale max
+;$solrIndexedType;$solPrefix___CSC_3___CSC_ATT_19;Livello di Pressione sonora
+;$solrIndexedType;$solPrefix___CSC_3___CSC_ATT_21;Stato fisico
+;$solrIndexedType;$solPrefix___CSC_3___CSC_ATT_22;Proprietà
+;$solrIndexedType;$solPrefix___CSC_4___CSC_ATT_4;Pressione
+;$solrIndexedType;$solPrefix___CSC_4___CSC_ATT_20;PREMIUM / COMFORT
+;$solrIndexedType;$solPrefix___CSC_4___CSC_ATT_21;Stato fisico
+;$solrIndexedType;$solPrefix___CSC_4___CSC_ATT_22;Proprietà
+;$solrIndexedType;$solPrefix___CSC_4___CSC_ATT_23;Informazioni di sicurezza
+;$solrIndexedType;$solPrefix___CSC_4___CSC_ATT_24;Impatto ambientale
+;$solrIndexedType;$solPrefix___CSC_4___CSC_ATT_25;Normative di riferimento
+;$solrIndexedType;$solPrefix___CSC_4___CSC_ATT_26;Ogiva
+;$solrIndexedType;$solPrefix___CSC_4___CSC_ATT_27;Corpo
+;$solrIndexedType;$solPrefix___CSC_4___CSC_ATT_28;Valvola
+;$solrIndexedType;$solPrefix___CSC_4___CSC_ATT_29;Etichetta
+;$solrIndexedType;$solPrefix___CSC_4___CSC_ATT_30;Designazione trasporto
+;$solrIndexedType;$solPrefix___CSC_4___CSC_ATT_40;CO2
+;$solrIndexedType;$solPrefix___CSC_4___CSC_ATT_41;O2
+;$solrIndexedType;$solPrefix___CSC_4___CSC_ATT_42;N2
+;$solrIndexedType;$solPrefix___CSC_4___CSC_ATT_43;He
+;$solrIndexedType;$solPrefix___CSC_4___CSC_ATT_44;H2
+;$solrIndexedType;$solPrefix___CSC_4___CSC_ATT_45;Ar
+;$solrIndexedType;$solPrefix___CSC_4___CSC_ATT_46;Xe
+;$solrIndexedType;$solPrefix___CSC_4___CSC_ATT_47;CO
+;$solrIndexedType;$solPrefix___CSC_5___CSC_ATT_31;Ossicombustione
+;$solrIndexedType;$solPrefix___CSC_5___CSC_ATT_32;Saldatura MIG/MAG
+;$solrIndexedType;$solPrefix___CSC_5___CSC_ATT_33;Saldatura TIG
+;$solrIndexedType;$solPrefix___CSC_5___CSC_ATT_34;Saldatura Plasma
+;$solrIndexedType;$solPrefix___CSC_5___CSC_ATT_35;Taglio Plasma
+;$solrIndexedType;$solPrefix___CSC_5___CSC_ATT_36;Taglio Laser
+;$solrIndexedType;$solPrefix___CSC_5___CSC_ATT_37;Saldatura Laser
+;$solrIndexedType;$solPrefix___CSC_5___CSC_ATT_38;Leak Test
+;$solrIndexedType;$solPrefix___CSC_5___CSC_ATT_39;Gas consigliato
+;$solrIndexedType;$solPrefix___CSC_5___CSC_ATT_61;Campi di impiego
+;$solrIndexedType;$solPrefix___CSC_5___CSC_ATT_62;Materiali saldabili
+;$solrIndexedType;$solPrefix___CSC_5___CSC_ATT_63;Concentrazione
+;$solrIndexedType;$solPrefix___CSC_6___CSC_ATT_40;CO2
+;$solrIndexedType;$solPrefix___CSC_6___CSC_ATT_41;O2
+;$solrIndexedType;$solPrefix___CSC_6___CSC_ATT_42;N2
+;$solrIndexedType;$solPrefix___CSC_6___CSC_ATT_43;He
+;$solrIndexedType;$solPrefix___CSC_6___CSC_ATT_44;H2
+;$solrIndexedType;$solPrefix___CSC_6___CSC_ATT_45;Ar
+;$solrIndexedType;$solPrefix___CSC_6___CSC_ATT_46;Xe
+;$solrIndexedType;$solPrefix___CSC_6___CSC_ATT_47;CO
+;$solrIndexedType;$solPrefix___CSC_6___CSC_ATT_48;C
+;$solrIndexedType;$solPrefix___CSC_6___CSC_ATT_49;Cr
+;$solrIndexedType;$solPrefix___CSC_6___CSC_ATT_50;Cu
+;$solrIndexedType;$solPrefix___CSC_6___CSC_ATT_51;Mn
+;$solrIndexedType;$solPrefix___CSC_6___CSC_ATT_52;Mo
+;$solrIndexedType;$solPrefix___CSC_6___CSC_ATT_53;Ni
+;$solrIndexedType;$solPrefix___CSC_6___CSC_ATT_54;P
+;$solrIndexedType;$solPrefix___CSC_6___CSC_ATT_55;S
+;$solrIndexedType;$solPrefix___CSC_6___CSC_ATT_56;Si
+;$solrIndexedType;$solPrefix___CSC_7___CSC_ATT_21;Stato fisico
+;$solrIndexedType;$solPrefix___CSC_7___CSC_ATT_22;Proprietà
+;$solrIndexedType;$solPrefix___CSC_7___CSC_ATT_57;YS - Rp
+;$solrIndexedType;$solPrefix___CSC_7___CSC_ATT_58;TS - Rm
+;$solrIndexedType;$solPrefix___CSC_7___CSC_ATT_59;IS - KV
+;$solrIndexedType;$solPrefix___CSC_7___CSC_ATT_60;EI - A5
+;$solrIndexedType;$solPrefix___CSC_8___CSC_ATT_21;Stato fisico
+;$solrIndexedType;$solPrefix___CSC_8___CSC_ATT_22;Proprietà
+;$solrIndexedType;$solPrefix___CSC_8___CSC_ATT_48;C
+;$solrIndexedType;$solPrefix___CSC_8___CSC_ATT_49;Cr
+;$solrIndexedType;$solPrefix___CSC_8___CSC_ATT_50;Cu
+;$solrIndexedType;$solPrefix___CSC_8___CSC_ATT_51;Mn
+;$solrIndexedType;$solPrefix___CSC_8___CSC_ATT_52;Mo
+;$solrIndexedType;$solPrefix___CSC_8___CSC_ATT_53;Ni
+;$solrIndexedType;$solPrefix___CSC_8___CSC_ATT_54;P
+;$solrIndexedType;$solPrefix___CSC_8___CSC_ATT_55;S
+;$solrIndexedType;$solPrefix___CSC_8___CSC_ATT_56;Si
+;$solrIndexedType;$solPrefix___CSC_8___CSC_ATT_62;Materiali saldabili
+;$solrIndexedType;$solPrefix___CSC_8___CSC_ATT_63;Concentrazione
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_1;Pressione d'ingresso
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_2;Pressione d'Uscita
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_3;Connessione di uscita
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_4;Pressione
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_7;Configurazione
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_9;Diametro
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_10;Altezza
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_11;Lunghezza
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_12;Profondità
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_13;Capacità
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_14;Peso [g]
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_15;Peso [kg]
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_16;Tensione di alimentazione
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_17;Frequenza di alimentazione
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_18;Potenza nominale max
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_19;Livello di Pressione sonora
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_23;Informazioni di sicurezza
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_24;Impatto ambientale
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_25;Normative di riferimento
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_39;Gas consigliato
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_61;Campi di impiego
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_62;Materiali saldabili
+;$solrIndexedType;$solPrefix___CSC_9___CSC_ATT_63;Concentrazione
+;$solrIndexedType;$solPrefix___CSC_10___CSC_ATT_64;AIC
+;$solrIndexedType;$solPrefix___CSC_11___CSC_ATT_65;Capacità in fiale
+;$solrIndexedType;$solPrefix___CSC_11___CSC_ATT_66;Capacità in sacche
+;$solrIndexedType;$solPrefix___CSC_11___CSC_ATT_67;Capacità in paillettes

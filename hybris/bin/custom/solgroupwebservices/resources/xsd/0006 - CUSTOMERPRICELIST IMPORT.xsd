@@ -1,0 +1,53 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:solgroup:com:CustomerPriceListsImport" 
+targetNamespace="urn:solgroup:com:CustomerPriceListsImport">
+    <xsd:element name="CustomerPriceListsImport_Hybris">
+        <xsd:complexType>
+            <xsd:all>       
+                  
+                <xsd:element name="header">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="sourceSystem" type="xsd:string" nillable="false"/>
+                            <xsd:element name="messageID" type="xsd:string"/>
+                            <xsd:element name="timestamp" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="country" type="xsd:string" minOccurs="1" maxOccurs="1" nillable="false"/>              
+                <xsd:element name="customerPriceLists">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="customerPriceList" minOccurs="1" maxOccurs="unbounded">
+                                <xsd:complexType>
+                                    <xsd:sequence>
+                                    	<xsd:element name="companyLegacyCode" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+                                        <xsd:element name="legacyCode" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+                                        <xsd:element name="currency" type="xsd:string" minOccurs="0" maxOccurs="1" default="EUR"/>
+                                        <xsd:element name="priceRowList" minOccurs="0" maxOccurs="1">
+                                            <xsd:complexType>
+                                                <xsd:sequence>
+                                                    <xsd:element name="priceRow" minOccurs="1" maxOccurs="unbounded">
+                                                        <xsd:complexType>
+                                                            <xsd:sequence>
+                                                                <xsd:element name="productCode" type="xsd:string" minOccurs="1" maxOccurs="1" nillable="false"/>
+                                                                <xsd:element name="price" type="xsd:decimal" minOccurs="1" maxOccurs="1" nillable="false"/>
+                                                                <xsd:element name="scale" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+                                                                <xsd:element name="um" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+                                                                <xsd:element name="startDate" type="xsd:dateTime" minOccurs="0" maxOccurs="1"/>
+                                                                <xsd:element name="endDate" type="xsd:dateTime" minOccurs="0" maxOccurs="1"/>
+                                                            </xsd:sequence>
+                                                        </xsd:complexType>
+                                                    </xsd:element>
+                                                </xsd:sequence>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+                                </xsd:complexType>
+                            </xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </xsd:all>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>

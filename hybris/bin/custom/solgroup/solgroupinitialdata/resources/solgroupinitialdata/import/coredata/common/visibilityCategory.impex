@@ -1,0 +1,6 @@
+INSERT_UPDATE SearchRestriction;code[unique=true]   ;query;principal(UID);restrictedType(code)[unique=true] ;active;generate
+                               ;Frontend_Assignment ;EXISTS ({{SELECT {pk} FROM {VisibilityCategory AS cat JOIN CategoryProductRelation AS c2p ON {cat:pk}={c2p:source} } WHERE {c2p:target}={item:pk} AND {cat.catalogVersion} NOT IN ({{SELECT {pk} FROM {ClassificationSystemVersion} }})}});customergroup;Product;true;false
+
+INSERT_UPDATE SearchRestriction;code[unique=true]   ;restrictedType(code)[unique=true] ;active;
+;Frontend_Assignment ;VariantProduct;true;
+;Frontend_RestrictedCategory ;Category;true;

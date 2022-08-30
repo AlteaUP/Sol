@@ -1,0 +1,6 @@
+.*ReservedTypecodeTest
+.*LocalizationTest
+de.hybris.platform.test.LocalizationTest
+de.hybris.platform.test.ReservedTypecodeTest
+de.hybris.platform.test
+de.hybris.platform.test.*

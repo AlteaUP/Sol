@@ -1,0 +1,179 @@
+########################################
+######### SITE CONFIGURATIONS #########
+########################################
+$solPrefix=solgroupIT
+$lang=it
+$sessionCur=EUR
+########################################
+$sessionUser=importmanager
+$productCatalog=$solPrefixProductCatalog
+$productCatalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$classificationCatalog=$solPrefixClassification
+$classificationCatalogVersion=catalogversion(catalog(id[default=$classificationCatalog]),version[default='1.0'])[unique=true,default=$classificationCatalog:1.0]
+$resources=jar:com.solgroup.initialdata.constants.SolgroupInitialDataConstants&/solgroupinitialdata/import/importcockpit/$solPrefix
+                             
+REMOVE ImportCockpitJob ; code[unique=true]
+                        ; VariantCategoriesJob_1
+                        ; VariantCategoriesJob_2
+                        ; ClassificationSystemJob_1
+                        ; ClassificationSystemJob_2
+                        ; ClassificationSystemJob_3
+                        ; ClassificationSystemJob_4
+                        ; ClassificationSystemJob_5
+                        ; ProductJob               
+                        ; GenericVariantProductJob 
+                        ; MediaJob                 
+                        ; UpdateProductMediaJob    
+                        ; TopBarCategoryJob        
+                        ; ProductAttributesJob
+                        ; TechAttachmentsMedia
+                        ; TechAttachmentsToProductJob
+                        ; TechMedicalAttachmentsToProductJob
+
+
+INSERT_UPDATE ImportCockpitJob ; code[unique=true]              	; logtofile[default=1] ; logtodatabase[default=1]
+                               ; VariantCategoriesJob_1    			;                      ;                         ;
+                               ; VariantCategoriesJob_2    			;                      ;                         ;
+                               ; ClassificationSystemJob_1 			;                      ;                         ;
+                               ; ClassificationSystemJob_2 			;                      ;                         ;
+                               ; ClassificationSystemJob_3 			;                      ;                         ;
+                               ; ClassificationSystemJob_4 			;                      ;                         ;
+                               ; ClassificationSystemJob_5 			;                      ;                         ;
+                               ; ProductJob                			;                      ;                         ;
+                               ; GenericVariantProductJob  			;                      ;                         ;
+                               ; MediaJob                  			;                      ;                         ;
+                               ; UpdateProductMediaJob     			;                      ;                         ;
+                               ; TopBarCategoryJob         			;                      ;                         ;
+                               ; ProductAttributesJob      			;                      ;                         ;
+                               ; TechAttachmentsMediaJob   			;                      ;                         ;
+                               ; TechAttachmentsToProductJob        ;               	   ;                         ;
+                               ; TechMedicalAttachmentsToProductJob ;             		   ;                         ;
+
+REMOVE ImportCockpitMapping ; code[unique=true]                               ; $productCatalogVersion
+                            ; VariantCategoryModelMapping                ;
+                            ; VariantValueCategoryModelMapping           ;
+                            ; ProductModelMapping                        ;
+                            ; GenericVariantProductModelMapping          ;
+                            ; TopBarCategoryModelMapping                 ;
+                            ; MediaModelMapping                          ;
+                            ; UpdateProductMediaModelMapping             ;
+                            ; ProductAttributesModelMapping              ;
+                            ; ClassificationClassModelMapping            ;
+                            ; ClassificationAttributeModelMapping        ;
+                            ; ClassificationAttributeValueModelMapping   ;
+                            ; ClassAttributeAssignmentModelMapping       ;
+                            ; CategoryCategoryRelationModelMapping       ;
+                            ; TechAttachmentLinkToProductMapping         ;
+                            ; TechMedicalAttachmentsLinkToProductMapping ;
+
+REMOVE ImportCockpitMapping;code[unique=true];
+; TechAttachmentsMediaMapping;
+
+
+# Variant Categories, Product, GenericVariantProduct, TopBarCategory
+INSERT_UPDATE ImportCockpitMapping ; code[unique=true]                              ; $productCatalogVersion ; mime     ; realfilename                                        ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]
+                                   ; VariantCategoryModelMapping               ;                        ; text/xml ; VariantCategory-model-mapping.xml                   ; $resources/mappings/VariantCategory-model-mapping.xml
+                                   ; VariantValueCategoryModelMapping          ;                        ; text/xml ; VariantValueCategory-model-mapping.xml              ; $resources/mappings/VariantValueCategory-model-mapping.xml
+                                   ; ProductModelMapping                       ;                        ; text/xml ; Product-model-mapping.xml                           ; $resources/mappings/Product-model-mapping.xml
+                                   ; GenericVariantProductModelMapping         ;                        ; text/xml ; GenericVariantProduct-model-mapping.xml             ; $resources/mappings/GenericVariantProduct-model-mapping.xml
+                                   ; TopBarCategoryModelMapping                ;                        ; text/xml ; TopBarCategory-model-mapping.xml                    ; $resources/mappings/TopBarCategory-model-mapping.xml
+                                   ; MediaModelMapping                         ;                        ; text/xml ; Media-model-mapping.xml                             ; $resources/mappings/Media-model-mapping.xml
+                                   ; UpdateProductMediaModelMapping            ;                        ; text/xml ; UpdateProductMedia-model-mapping.xml                ; $resources/mappings/UpdateProductMedia-model-mapping.xml
+                                   ; ProductAttributesModelMapping             ;                        ; text/xml ; ProductAttributes-model-mapping.xml                 ; $resources/mappings/ProductAttributes-model-mapping.xml
+                                   ; TechAttachmentLinkToProductMapping        ;                        ; text/xml ; TechAttachmentLinkToProduct_mapping.xml             ; $resources/mappings/TechAttachmentLinkToProduct_mapping.xml
+                                   ; TechMedicalAttachmentsLinkToProductMapping;                        ; text/xml ; TechMedicalAttachmentsLinkToProduct_mapping.xml     ; $resources/mappings/TechMedicalAttachmentsLinkToProduct_mapping.xml
+
+INSERT_UPDATE ImportCockpitMapping ; code[unique=true]                       ; mime     ; realfilename                            ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]
+                                   ; TechAttachmentsMediaMapping        ; text/xml ; TechAttachmentsMedia_mapping.xml        ; $resources/mappings/TechAttachmentsMedia_mapping.xml
+
+REMOVE	ImportCockpitInputMedia; code[unique=true]                               ; $productCatalogVersion
+                               ; VariantCategoryDataSource                  ;
+                               ; VariantValueCategoryDataSource             ;
+                               ; ProductDataSource                          ;
+                               ; GenericVariantProductDataSource            ;
+                               ; TopBarCategoryDataSource                   ;
+                               ; MediaDataSource                            ;
+                               ; UpdateProductMediaDataSource               ;
+                               ; ProductAttributesDataSource                ;
+                               ; ClassificationClassDataSource              ;
+                               ; ClassificationAttributeDataSource          ;
+                               ; ClassificationAttributeValueDataSource     ;
+                               ; ClassAttributeAssignmentDataSource         ;
+                               ; CategoryCategoryRelationDataSource         ;
+                               ; TechAttachmentsMediaSource                 ;
+                               ; TechAttachmentLinksToProductSource         ;
+                               ; TechMedicalAttachmentsLinksToProductSource ;
+
+
+INSERT_UPDATE ImportCockpitInputMedia ; code[unique=true]                  		   ; $productCatalogVersion ; mime     ; realfilename                                         ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]
+                                      ; VariantCategoryDataSource          		   ;                        ; text/csv ; Import_variantCategories_2_1-data-source.csv         ; $resources/mappings/data-sources/Import_variantCategories_2_1-data-source.csv
+                                      ; VariantValueCategoryDataSource     		   ;                        ; text/csv ; Import_variantCategories_2_2-data-source.csv         ; $resources/mappings/data-sources/Import_variantCategories_2_2-data-source.csv
+                                      ; ProductDataSource                  		   ;                        ; text/csv ; Import_product_4-data-source.csv                     ; $resources/mappings/data-sources/Import_product_4-data-source.csv
+                                      ; GenericVariantProductDataSource    		   ;                        ; text/csv ; Import_genericVariantProduct_5-data-source.csv       ; $resources/mappings/data-sources/Import_genericVariantProduct_5-data-source.csv
+                                      ; TopBarCategoryDataSource           		   ;                        ; text/csv ; Import_topBarCategory_1-data-source.csv              ; $resources/mappings/data-sources/Import_topBarCategory_1-data-source.csv
+                                      ; MediaDataSource                    		   ;                        ; text/csv ; Import_media_6-data-source.csv                       ; $resources/mappings/data-sources/Import_media_6-data-source.csv
+                                      ; UpdateProductMediaDataSource       		   ;                        ; text/csv ; Import_updateProductMedia_7-data-source.csv          ; $resources/mappings/data-sources/Import_updateProductMedia_7-data-source.csv
+                                      ; ProductAttributesDataSource        		   ;                        ; text/csv ; Import-productAttributes_8-data-source.csv           ; $resources/mappings/data-sources/Import-productAttributes_8-data-source.csv
+                                      ; TechAttachmentsMediaSource         		   ;                        ; text/csv ; Import_techAttachmentsMedia_data-source.csv          ; $resources/mappings/data-sources/Import_techAttachmentsMedia_data-source.csv
+                                      ; TechAttachmentLinksToProductSource 		   ;                        ; text/csv ; Import_techAttachmentLinksToProduct_data-source.csv  ; $resources/mappings/data-sources/Import_techAttachmentLinksToProduct_data-source.csv
+                                      ; TechMedicalAttachmentsLinksToProductSource ;                        ; text/csv ; Import_techAttachmentLinksToProduct_data-source.csv  ; $resources/mappings/data-sources/Import_techAttachmentLinksToProduct_data-source.csv
+
+REMOVE ImportCockpitCronJob ; code[unique=true]              
+                            ; 1_import-topBarCategory        
+                            ; 2-1_import-variantCategories   
+                            ; 2-2_import-variantCategories   
+                            ; 3-1_import-classificationSystem
+                            ; 3-2_import-classificationSystem
+                            ; 3-3_import-classificationSystem
+                            ; 3-4_import-classificationSystem
+                            ; 3-5_import-classificationSystem
+                            ; 4_import-product               
+                            ; 5_import-genericVariantProduct 
+                            ; 6_import-media                 
+                            ; 7_import-updateProductMedia    
+                            ; 8_import-productAttributes
+                            ; import-techAttachmentsMedia
+                            ; import-techAttachmentsToProduct
+                            ; import-techMedicalAttachmentsToProduct
+
+INSERT_UPDATE ImportCockpitCronJob ; code[unique=true]                     ; inputMedia(code,$productCatalogVersion)    ; mapping(code,$productCatalogVersion) 		 ; job(code)                		  ; sessionUser(uid [default=$sessionUser]) ; sessionLanguage(isocode[default=$lang]) ; sessionCurrency(isocode[default=$sessionCur]) ; locale[default=$lang] ; logtofile[default=1] ; logtodatabase[default=1] ; active  [default=1] ; mappingValid [default=1]
+                                   ; 1_import-topBarCategory               ; TopBarCategoryDataSource                   ; TopBarCategoryModelMapping           		 ; TopBarCategoryJob        		  ;                                         ;                                         ;                                               ;                       ;                      ;                          ;                     ;
+                                   ; 2-1_import-variantCategories          ; VariantCategoryDataSource                  ; VariantCategoryModelMapping          		 ; VariantCategoriesJob_1   		  ;                                         ;                                         ;                                               ;                       ;                      ;                          ;                     ;
+                                   ; 2-2_import-variantCategories          ; VariantValueCategoryDataSource             ; VariantValueCategoryModelMapping     		 ; VariantCategoriesJob_2   		  ;                                         ;                                         ;                                               ;                       ;                      ;                          ;                     ;
+                                   ; 4_import-product                      ; ProductDataSource                          ; ProductModelMapping                  		 ; ProductJob               		  ;                                         ;                                         ;                                               ;                       ;                      ;                          ;                     ;
+                                   ; 5_import-genericVariantProduct        ; GenericVariantProductDataSource            ; GenericVariantProductModelMapping    		 ; GenericVariantProductJob 		  ;                                         ;                                         ;                                               ;                       ;                      ;                          ;                     ;
+                                   ; 6_import-media                        ; MediaDataSource                            ; MediaModelMapping                    		 ; MediaJob                 		  ;                                         ;                                         ;                                               ;                       ;                      ;                          ;                     ;
+                                   ; 7_import-updateProductMedia           ; UpdateProductMediaDataSource               ; UpdateProductMediaModelMapping       		 ; UpdateProductMediaJob    		  ;                                         ;                                         ;                                               ;                       ;                      ;                          ;                     ;
+                                   ; 8_import-productAttributes            ; ProductAttributesDataSource                ; ProductAttributesModelMapping        		 ; ProductAttributesJob     		  ;                                         ;                                         ;                                               ;                       ;                      ;                          ;                     ;
+                                   ; import-techAttachmentsToProduct       ; TechAttachmentLinksToProductSource         ; TechAttachmentLinkToProductMapping   		 ; TechAttachmentsToProductJob 		  ;                                      	;                                         ;                                               ;                       ;                      ;                          ;                     ;
+                                   ; import-techMedicalAttachmentsToProduct; TechMedicalAttachmentsLinksToProductSource ; TechMedicalAttachmentsLinkToProductMapping ; TechMedicalAttachmentsToProductJob ; 										; 										  ;												  ;						  ;						 ; 							;				      ;
+
+INSERT_UPDATE ImportCockpitCronJob; code[unique=true]              ; inputMedia(code,$productCatalogVersion) ; mapping(code)               ; job(code)                ; sessionUser(uid [default=$sessionUser]) ; sessionLanguage(isocode[default=$lang]) ; sessionCurrency(isocode[default=$sessionCur]) ; locale[default=$lang] ; logtofile[default=1] ; logtodatabase[default=1] ; active  [default=1] ; mappingValid [default=1]
+; import-techAttachmentsMedia     ; TechAttachmentsMediaSource      ; TechAttachmentsMediaMapping             ; TechAttachmentsMediaJob     ;                          ;
+
+# Classification System
+INSERT_UPDATE ImportCockpitMapping ; code[unique=true]                             ; $classificationCatalogVersion ; mime     ; realfilename                                   ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]
+                                   ; ClassificationClassModelMapping          ;                               ; text/xml ; ClassifiationClass-model-mapping.xml           ; $resources/mappings/ClassificationClass-model-mapping.xml                 
+                                   ; ClassificationAttributeModelMapping      ;                               ; text/xml ; ClassificcationAttribute-model-mapping.xml     ; $resources/mappings/ClassificationAttribute-model-mapping.xml             
+                                   ; ClassificationAttributeValueModelMapping ;                               ; text/xml ; ClassificationAttributeValue-model-mapping.xml ; $resources/mappings/ClassificationAttributeValue-model-mapping.xml        
+                                   ; ClassAttributeAssignmentModelMapping     ;                               ; text/xml ; ClassAttributeAssignment-model-mapping.xml     ; $resources/mappings/ClassAttributeAssignment-model-mapping.xml            
+
+INSERT_UPDATE ImportCockpitMapping ; code[unique=true]                         ; mime     ; realfilename                               ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]
+                                   ; CategoryCategoryRelationModelMapping ; text/xml ; CategoryCategoryRelation-model-mapping.xml ; $resources/mappings/CategoryCategoryRelation-model-mapping.xml            
+		                                 
+INSERT_UPDATE ImportCockpitInputMedia ; code[unique=true]                      ; $classificationCatalogVersion ; mime     ; realfilename                                    ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator]      
+                                      ; ClassificationClassDataSource          ;                               ; text/csv ; Import_classificationSystem_3_1-data-source.csv ; $resources/mappings/data-sources/Import_classificationSystem_3_1-data-source.csv
+                                      ; ClassificationAttributeDataSource      ;                               ; text/csv ; Import_classificationSystem_3_2-data-source.csv ; $resources/mappings/data-sources/Import_classificationSystem_3_2-data-source.csv
+                                      ; ClassificationAttributeValueDataSource ;                               ; text/csv ; Import_classificationSystem_3_3-data-source.csv ; $resources/mappings/data-sources/Import_classificationSystem_3_3-data-source.csv
+                                      ; ClassAttributeAssignmentDataSource     ;                               ; text/csv ; Import_classificationSystem_3_4-data-source.csv ; $resources/mappings/data-sources/Import_classificationSystem_3_4-data-source.csv
+                                      ; CategoryCategoryRelationDataSource     ;                               ; text/csv ; Import_classificationSystem_3_5-data-source.csv ; $resources/mappings/data-sources/Import_classificationSystem_3_5-data-source.csv
+																                      
+INSERT_UPDATE ImportCockpitCronJob ; code[unique=true]               ; inputMedia(code,$classificationCatalogVersion) ; mapping(code,$classificationCatalogVersion) ; job(code)                 ; sessionUser(uid [default=$sessionUser]) ; sessionLanguage(isocode[default=$lang]) ; sessionCurrency(isocode[default=$sessionCur]) ; locale[default=$lang] ; logtofile[default=1] ; logtodatabase[default=1] ; active  [default=1] ; mappingValid [default=1]
+                                   ; 3-1_import-classificationSystem ; ClassificationClassDataSource                  ; ClassificationClassModelMapping             ; ClassificationSystemJob_1 ;                                         ;                                         ;                                               ;                       ;                      ;                          ;                     ;                         
+                                   ; 3-2_import-classificationSystem ; ClassificationAttributeDataSource              ; ClassificationAttributeModelMapping         ; ClassificationSystemJob_3 ;                                         ;                                         ;                                               ;                       ;                      ;                          ;                     ;                         
+                                   ; 3-3_import-classificationSystem ; ClassificationAttributeValueDataSource         ; ClassificationAttributeValueModelMapping    ; ClassificationSystemJob_4 ;                                         ;                                         ;                                               ;                       ;                      ;                          ;                     ;                         
+                                   ; 3-4_import-classificationSystem ; ClassAttributeAssignmentDataSource             ; ClassAttributeAssignmentModelMapping        ; ClassificationSystemJob_5 ;                                         ;                                         ;                                               ;                       ;                      ;                          ;                     ;                         
+
+INSERT_UPDATE ImportCockpitCronJob ; code[unique=true]               ; inputMedia(code,$classificationCatalogVersion) ; mapping(code)                        ; job(code)                 ; sessionUser(uid[default=$sessionUser]) ; sessionLanguage(isocode[default=$lang]) ; sessionCurrency(isocode[default=$sessionCur]) ; locale[default=$lang] ; logtofile[default=1] ; logtodatabase[default=1] ; active  [default=1] ; mappingValid [default=1]
+                                   ; 3-5_import-classificationSystem ; CategoryCategoryRelationDataSource             ; CategoryCategoryRelationModelMapping ; ClassificationSystemJob_5 ;                                        ;                                         ;                                               ;                       ;                      ;                          ;                     ;                         
+						    						                   

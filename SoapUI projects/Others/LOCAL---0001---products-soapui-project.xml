@@ -1,0 +1,1734 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="09b18559-56bc-42b8-b798-66366232ad0d" activeEnvironment="Default" name="LOCAL - 0001 - products" resourceRoot="" soapui-version="5.3.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="c410adeb-4611-4bcd-8fd7-902fc4a3c38c" wsaVersion="NONE" name="DefaultProductImportWSServiceSoapBinding" type="wsdl" bindingName="{http://importws.ws.solgroup.com/}DefaultProductImportWSServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="https://solgroupit.local:9002/solgroupwebservices/services/productimportws?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="https://solgroupit.local:9002/solgroupwebservices/services/productimportws?wsdl"><con:part><con:url>https://solgroupit.local:9002/solgroupwebservices/services/productimportws?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="DefaultProductImportWSService" targetNamespace="http://importws.ws.solgroup.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://importws.ws.solgroup.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema targetNamespace="urn:solgroup:com:ProductsImport" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="ProductsImport_Hybris">
+        <xs:complexType>
+          <xs:all>
+            <xs:element name="header">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="sourceSystem" type="xs:string"/>
+                  <xs:element name="messageID" type="xs:string"/>
+                  <xs:element name="timestamp" type="xs:string"/>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="country" type="xs:string"/>
+            <xs:element name="baseProducts">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element maxOccurs="unbounded" name="baseProduct">
+                    <xs:complexType>
+                      <xs:sequence>
+                        <xs:element name="erpCode" type="xs:string"/>
+                        <xs:element name="names">
+                          <xs:complexType>
+                            <xs:sequence>
+                              <xs:element maxOccurs="unbounded" name="name">
+                                <xs:complexType>
+                                  <xs:simpleContent>
+                                    <xs:extension base="xs:string">
+                                      <xs:attribute name="lang" type="xs:string" use="required"/>
+                                    </xs:extension>
+                                  </xs:simpleContent>
+                                </xs:complexType>
+                              </xs:element>
+                            </xs:sequence>
+                          </xs:complexType>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="commercialCategories">
+                          <xs:complexType>
+                            <xs:sequence>
+                              <xs:element maxOccurs="unbounded" name="commercialCategory">
+                                <xs:complexType>
+                                  <xs:sequence>
+                                    <xs:element name="code" type="xs:string"/>
+                                  </xs:sequence>
+                                </xs:complexType>
+                              </xs:element>
+                            </xs:sequence>
+                          </xs:complexType>
+                        </xs:element>
+                        <xs:element name="material" type="xs:string"/>
+                        <xs:element minOccurs="0" name="stockable" type="xs:boolean"/>
+                        <xs:element minOccurs="0" name="weight" type="xs:decimal"/>
+                        <xs:element minOccurs="0" name="um" type="xs:string"/>
+                        <xs:element minOccurs="0" name="taxCode" type="xs:string"/>
+                        <xs:element minOccurs="0" name="genericAttributes">
+                          <xs:complexType>
+                            <xs:sequence>
+                              <xs:element maxOccurs="unbounded" name="genericAttribute">
+                                <xs:complexType>
+                                  <xs:sequence>
+                                    <xs:element name="key" type="xs:string"/>
+                                    <xs:element name="value" type="xs:string"/>
+                                  </xs:sequence>
+                                </xs:complexType>
+                              </xs:element>
+                            </xs:sequence>
+                          </xs:complexType>
+                        </xs:element>
+                        <xs:element name="status" type="xs:string"/>
+                        <xs:element minOccurs="0" name="variants">
+                          <xs:complexType>
+                            <xs:sequence>
+                              <xs:element maxOccurs="unbounded" name="variant">
+                                <xs:complexType>
+                                  <xs:sequence>
+                                    <xs:element name="erpCode" type="xs:string"/>
+                                    <xs:element name="names">
+                                      <xs:complexType>
+                                        <xs:sequence>
+                                          <xs:element maxOccurs="unbounded" name="name">
+                                            <xs:complexType>
+                                              <xs:simpleContent>
+                                                <xs:extension base="xs:string">
+                                                  <xs:attribute name="lang" type="xs:string" use="required"/>
+                                                </xs:extension>
+                                              </xs:simpleContent>
+                                            </xs:complexType>
+                                          </xs:element>
+                                        </xs:sequence>
+                                      </xs:complexType>
+                                    </xs:element>
+                                    <xs:element name="status" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="variantsCategories">
+                                      <xs:complexType>
+                                        <xs:sequence>
+                                          <xs:element maxOccurs="unbounded" name="variantCategory">
+                                            <xs:complexType>
+                                              <xs:sequence>
+                                                <xs:element name="variantCategory" type="xs:string"/>
+                                                <xs:element name="variantValueCategory" type="xs:string"/>
+                                              </xs:sequence>
+                                            </xs:complexType>
+                                          </xs:element>
+                                        </xs:sequence>
+                                      </xs:complexType>
+                                    </xs:element>
+                                    <xs:element minOccurs="0" name="weight" type="xs:decimal"/>
+                                    <xs:element minOccurs="0" name="um" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="taxCode" type="xs:string"/>
+                                    <xs:element minOccurs="0" name="genericAttributes">
+                                      <xs:complexType>
+                                        <xs:sequence>
+                                          <xs:element maxOccurs="unbounded" name="genericAttribute">
+                                            <xs:complexType>
+                                              <xs:sequence>
+                                                <xs:element name="key" type="xs:string"/>
+                                                <xs:element name="value" type="xs:string"/>
+                                              </xs:sequence>
+                                            </xs:complexType>
+                                          </xs:element>
+                                        </xs:sequence>
+                                      </xs:complexType>
+                                    </xs:element>
+                                  </xs:sequence>
+                                </xs:complexType>
+                              </xs:element>
+                            </xs:sequence>
+                          </xs:complexType>
+                        </xs:element>
+                      </xs:sequence>
+                    </xs:complexType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://importws.ws.solgroup.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="urn:solgroup:com:ProductsImport">
+      <xs:import namespace="urn:solgroup:com:ProductsImport"/>
+      <xs:element name="importData" type="tns:importData"/>
+      <xs:element name="importDataResponse" type="tns:importDataResponse"/>
+      <xs:complexType name="importData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Import_Hybris">
+            <xs:complexType>
+              <xs:all>
+                <xs:element name="header">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element name="sourceSystem" type="xs:string"/>
+                      <xs:element name="messageID" type="xs:string"/>
+                      <xs:element name="timestamp" type="xs:string"/>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+                <xs:element name="country" type="xs:string"/>
+                <xs:element name="baseProducts">
+                  <xs:complexType>
+                    <xs:sequence>
+                      <xs:element maxOccurs="unbounded" name="baseProduct">
+                        <xs:complexType>
+                          <xs:sequence>
+                            <xs:element name="erpCode" type="xs:string"/>
+                            <xs:element name="names">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element maxOccurs="unbounded" name="name">
+                                    <xs:complexType>
+                                      <xs:simpleContent>
+                                        <xs:extension base="xs:string">
+                                          <xs:attribute name="lang" type="xs:string" use="required"/>
+                                        </xs:extension>
+                                      </xs:simpleContent>
+                                    </xs:complexType>
+                                  </xs:element>
+                                </xs:sequence>
+                              </xs:complexType>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="commercialCategories">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element maxOccurs="unbounded" name="commercialCategory">
+                                    <xs:complexType>
+                                      <xs:sequence>
+                                        <xs:element name="code" type="xs:string"/>
+                                      </xs:sequence>
+                                    </xs:complexType>
+                                  </xs:element>
+                                </xs:sequence>
+                              </xs:complexType>
+                            </xs:element>
+                            <xs:element name="material" type="xs:string"/>
+                            <xs:element minOccurs="0" name="stockable" type="xs:boolean"/>
+                            <xs:element minOccurs="0" name="weight" type="xs:decimal"/>
+                            <xs:element minOccurs="0" name="um" type="xs:string"/>
+                            <xs:element minOccurs="0" name="taxCode" type="xs:string"/>
+                            <xs:element minOccurs="0" name="genericAttributes">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element maxOccurs="unbounded" name="genericAttribute">
+                                    <xs:complexType>
+                                      <xs:sequence>
+                                        <xs:element name="key" type="xs:string"/>
+                                        <xs:element name="value" type="xs:string"/>
+                                      </xs:sequence>
+                                    </xs:complexType>
+                                  </xs:element>
+                                </xs:sequence>
+                              </xs:complexType>
+                            </xs:element>
+                            <xs:element name="status" type="xs:string"/>
+                            <xs:element minOccurs="0" name="variants">
+                              <xs:complexType>
+                                <xs:sequence>
+                                  <xs:element maxOccurs="unbounded" name="variant">
+                                    <xs:complexType>
+                                      <xs:sequence>
+                                        <xs:element name="erpCode" type="xs:string"/>
+                                        <xs:element name="names">
+                                          <xs:complexType>
+                                            <xs:sequence>
+                                              <xs:element maxOccurs="unbounded" name="name">
+                                                <xs:complexType>
+                                                  <xs:simpleContent>
+                                                    <xs:extension base="xs:string">
+                                                      <xs:attribute name="lang" type="xs:string" use="required"/>
+                                                    </xs:extension>
+                                                  </xs:simpleContent>
+                                                </xs:complexType>
+                                              </xs:element>
+                                            </xs:sequence>
+                                          </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="status" type="xs:string"/>
+                                        <xs:element minOccurs="0" name="variantsCategories">
+                                          <xs:complexType>
+                                            <xs:sequence>
+                                              <xs:element maxOccurs="unbounded" name="variantCategory">
+                                                <xs:complexType>
+                                                  <xs:sequence>
+                                                    <xs:element name="variantCategory" type="xs:string"/>
+                                                    <xs:element name="variantValueCategory" type="xs:string"/>
+                                                  </xs:sequence>
+                                                </xs:complexType>
+                                              </xs:element>
+                                            </xs:sequence>
+                                          </xs:complexType>
+                                        </xs:element>
+                                        <xs:element minOccurs="0" name="weight" type="xs:decimal"/>
+                                        <xs:element minOccurs="0" name="um" type="xs:string"/>
+                                        <xs:element minOccurs="0" name="taxCode" type="xs:string"/>
+                                        <xs:element minOccurs="0" name="genericAttributes">
+                                          <xs:complexType>
+                                            <xs:sequence>
+                                              <xs:element maxOccurs="unbounded" name="genericAttribute">
+                                                <xs:complexType>
+                                                  <xs:sequence>
+                                                    <xs:element name="key" type="xs:string"/>
+                                                    <xs:element name="value" type="xs:string"/>
+                                                  </xs:sequence>
+                                                </xs:complexType>
+                                              </xs:element>
+                                            </xs:sequence>
+                                          </xs:complexType>
+                                        </xs:element>
+                                      </xs:sequence>
+                                    </xs:complexType>
+                                  </xs:element>
+                                </xs:sequence>
+                              </xs:complexType>
+                            </xs:element>
+                          </xs:sequence>
+                        </xs:complexType>
+                      </xs:element>
+                    </xs:sequence>
+                  </xs:complexType>
+                </xs:element>
+              </xs:all>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="importDataResponse">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:element name="Exception" type="tns:Exception"/>
+      <xs:complexType name="Exception">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="importData">
+    <wsdl:part element="tns:importData" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="importDataResponse">
+    <wsdl:part element="tns:importDataResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="tns:Exception" name="Exception"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ImportWS">
+    <wsdl:operation name="importData">
+      <wsdl:input message="tns:importData" name="importData"></wsdl:input>
+      <wsdl:output message="tns:importDataResponse" name="importDataResponse"></wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DefaultProductImportWSServiceSoapBinding" type="tns:ImportWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="importData">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="importData">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="importDataResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DefaultProductImportWSService">
+    <wsdl:port binding="tns:DefaultProductImportWSServiceSoapBinding" name="DefaultProductImportWSPort">
+      <soap:address location="https://solgroupit.local:9002/solgroupwebservices/services/productimportws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://solgroupit.local:9002/solgroupwebservices/services/productimportws</con:endpoint></con:endpoints><con:operation id="382a73d0-50e2-4204-83ac-bffe92cb0336" isOneWay="false" action="" name="importData" bindingOperationName="importData" type="Request-Response" outputName="importDataResponse" inputName="importData" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="71010163-5e44-494d-83fe-831f9ac0ed65" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://solgroupit.local:9002/solgroupwebservices/services/productimportws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <imp:importData>
+         <!--Optional:-->
+         <Import_Hybris>
+            <!--You may enter the following 3 items in any order-->
+            <header>
+               <sourceSystem>RAMSES_IT</sourceSystem>
+               <messageID>e070fd9c8e3911e78a300000003c182e</messageID>
+               <timestamp>?</timestamp>
+            </header>
+            <country>IT</country>
+
+        <baseProducts>
+          <baseProduct>
+            <erpCode>X00001</erpCode>
+            <names>
+              <name lang="de">Sauerstoff Ind.</name>
+              <name lang="en">OSSIGENO IND.</name>
+              <name lang="it">OSSIGENO IND.</name>
+            </names>
+            <commercialCategories>
+              <commercialCategory>
+                <code>CAT1</code>
+              </commercialCategory>
+              <commercialCategory>
+                <code>CAT2</code>
+              </commercialCategory>
+            </commercialCategories>
+            <material>gas</material>
+            <stockable>true</stockable>
+            <status>1</status>
+            <variants>
+              <variant>
+                <erpCode>04330</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IND. IN VS MINISOL/5</name>
+                  <name lang="it">OSSIGENO IND. IN VS MINISOL/5</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_15</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>01636</erpCode>
+                <names>
+                  <name lang="it">TGM OSSIGENO LASER IN PACCHI</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_11</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>00051</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IND. IN PACCHI</name>
+                  <name lang="it">OSSIGENO IND. IN PACCHI</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_11</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>01510</erpCode>
+                <names>
+                  <name lang="it">TGM OSSIGENO COMPRESSO IND BB</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>1</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>00330</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IN MINISOL/5</name>
+                  <name lang="it">OSSIGENO IN MINISOL/5</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_15</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>04356</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IND. PURO IN VS PACCHI</name>
+                  <name lang="it">OSSIGENO IND. PURO IN VS PACCHI</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_11</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>00052</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IND. IN CARRI</name>
+                  <name lang="it">OSSIGENO IND. IN CARRI</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_12</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>01630</erpCode>
+                <names>
+                  <name lang="it">TGM- OSSIGENO IND IN PACCHI</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_11</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>01815</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IN MINISOL/5 NU</name>
+                  <name lang="it">OSSIGENO IN MINISOL/5 NU</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_15</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>00332</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IN MINISOL/14</name>
+                  <name lang="it">OSSIGENO IN MINISOL/14</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_15</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>01816</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IN MINISOL/14 NU</name>
+                  <name lang="it">OSSIGENO IN MINISOL/14 NU</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_15</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>04350</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO LASER IN VS BOMBOLE</name>
+                  <name lang="it">OSSIGENO LASER IN VS BOMBOLE</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>1</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>04001</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IND. IN VS BOMBOLE</name>
+                  <name lang="it">OSSIGENO IND. IN VS BOMBOLE</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>1</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>05816</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IND. IN VS MINISOL/14 NU</name>
+                  <name lang="it">OSSIGENO IND. IN VS MINISOL/14 NU</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_15</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>04332</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IND. IN VS MINISOL/14</name>
+                  <name lang="it">OSSIGENO IND. IN VS MINISOL/14</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_15</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>00351</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO LASER IN PACCHI</name>
+                  <name lang="it">OSSIGENO LASER IN PACCHI</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_11</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>01817</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IN MINISOL/20 NU</name>
+                  <name lang="it">OSSIGENO IN MINISOL/20 NU</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_15</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>04351</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO LASER IN VS PACCHI</name>
+                  <name lang="it">OSSIGENO LASER IN VS PACCHI</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_11</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>05815</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IND. IN VS MINISOL/5 NU</name>
+                  <name lang="it">OSSIGENO IND. IN VS MINISOL/5 NU</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_15</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>04355</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IND. PURO IN VS BOMBOLE</name>
+                  <name lang="it">OSSIGENO IND. PURO IN VS BOMBOLE</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>1</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>00415</erpCode>
+                <names>
+                  <name lang="en">FASTWELD RICARICA O2 5LT</name>
+                  <name lang="it">FASTWELD RICARICA O2 5LT</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_18</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>04051</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IND. IN VS PACCHI</name>
+                  <name lang="it">OSSIGENO IND. IN VS PACCHI</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_11</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>00356</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IND. PURO IN PACHI</name>
+                  <name lang="it">OSSIGENO IND. PURO IN PACHI</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_11</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>05817</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IND. IN VS MINISOL/20 NU</name>
+                  <name lang="it">OSSIGENO IND. IN VS MINISOL/20 NU</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_15</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>01637</erpCode>
+                <names>
+                  <name lang="it">TGM OSSIGENO IND.IN BLE</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>1</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>00350</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO LASER IN BOMBOLE</name>
+                  <name lang="it">OSSIGENO LASER IN BOMBOLE</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>1</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>00001</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IND. IN BOMBOLE</name>
+                  <name lang="it">OSSIGENO IND. IN BOMBOLE</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>1</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>00355</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IND. PURO IN BOMBOLE</name>
+                  <name lang="it">OSSIGENO IND. PURO IN BOMBOLE</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>1</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>00002</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IND. IN BOMBOLE</name>
+                  <name lang="it">OSSIGENO IND. IN BOMBOLE</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>1</weight>
+                <um>pieces</um>
+              </variant>
+            </variants>
+          </baseProduct>
+          <baseProduct>
+            <erpCode>X00006</erpCode>
+            <names>
+              <name lang="de">Wasserstoff Ind.</name>
+              <name lang="en">IDROGENO IND.</name>
+              <name lang="it">IDROGENO IND.</name>
+            </names>
+            <commercialCategories>
+              <commercialCategory>
+                <code>CAT2</code>
+              </commercialCategory>
+            </commercialCategories>
+            <material>gas</material>
+            <stockable>true</stockable>
+            <status>1</status>
+            <variants>
+              <variant>
+                <erpCode>00006</erpCode>
+                <names>
+                  <name lang="en">IDROGENO IN BOMBOLE</name>
+                  <name lang="it">IDROGENO IN BOMBOLE</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+            </variants>
+          </baseProduct>
+          <baseProduct>
+            <erpCode>X00012</erpCode>
+            <names>
+              <name lang="en">PROTOSSIDO D'AZOTO FU</name>
+              <name lang="it">PROTOSSIDO D'AZOTO FU</name>
+            </names>
+            <commercialCategories>
+              <commercialCategory>
+                <code>CAT2</code>
+              </commercialCategory>
+            </commercialCategories>
+            <material>gas</material>
+            <stockable>true</stockable>
+            <status>1</status>
+            <variants>
+              <variant>
+                <erpCode>04282</erpCode>
+                <names>
+                  <name lang="en">PROTOSSIDO AZOTO FU VS BLE -NU</name>
+                  <name lang="it">PROTOSSIDO AZOTO FU VS BLE -NU</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>05858</erpCode>
+                <names>
+                  <name lang="it">AIC 039290085 AZOTO PROTOSSIDO SOL PCC</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_11</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>00014</erpCode>
+                <names>
+                  <name lang="it">PROTOSSIDO D'AZOTO FU BB >10KG</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>00012</erpCode>
+                <names>
+                  <name lang="en">PROTOSSIDO D'AZOTO FU BB 3KG</name>
+                  <name lang="it">PROTOSSIDO D'AZOTO FU BB</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>05854</erpCode>
+                <names>
+                  <name lang="it">AIC 039290046 AZOTO PROTOSSIDO SOL BB</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>01381</erpCode>
+                <names>
+                  <name lang="en">PROTOSSIDO D'AZOTO FU PCC</name>
+                  <name lang="it">PROTOSSIDO D'AZOTO FU PCC</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_11</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>01856</erpCode>
+                <names>
+                  <name lang="it">AIC 039290061 AZOTO PROTOSSIDO SOL BB</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>01852</erpCode>
+                <names>
+                  <name lang="it">AIC 039290022 AZOTO PROTOSSIDO SOL BB</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>01507</erpCode>
+                <names>
+                  <name lang="it">TGM PROTOSS AZOTO FU BB >10KG</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>01854</erpCode>
+                <names>
+                  <name lang="it">AIC 039290046 AZOTO PROTOSSIDO SOL BB</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>01855</erpCode>
+                <names>
+                  <name lang="it">AIC 039290059 AZOTO PROTOSSIDO SOL BB</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>05851</erpCode>
+                <names>
+                  <name lang="it">AIC 039290010 AZOTO PROTOSSIDO SOL BB</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>01853</erpCode>
+                <names>
+                  <name lang="it">AIC 039290034 AZOTO PROTOSSIDO SOL BB</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>05852</erpCode>
+                <names>
+                  <name lang="it">AIC 039290022 AZOTO PROTOSSIDO SOL BB</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>05856</erpCode>
+                <names>
+                  <name lang="it">AIC 039290061 AZOTO PROTOSSIDO SOL BB</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>04014</erpCode>
+                <names>
+                  <name lang="it">PROT.AZOTO TER.F.U.BLE VS >10K</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>05853</erpCode>
+                <names>
+                  <name lang="it">AIC 039290034 AZOTO PROTOSSIDO SOL BB</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>05857</erpCode>
+                <names>
+                  <name lang="it">AIC 039290073 AZOTO PROTOSSIDO SOL BB</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>00282</erpCode>
+                <names>
+                  <name lang="en">PROTOSSIDO AZOTO FU BLE -NU</name>
+                  <name lang="it">PROTOSSIDO AZOTO FU BLE -NU</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>04012</erpCode>
+                <names>
+                  <name lang="en">PROT.AZOTO TER.F.U.VS BLE 3KG</name>
+                  <name lang="it">PROT.AZOTO TER.F.U.VS BLE</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>01851</erpCode>
+                <names>
+                  <name lang="it">AIC 039290010 AZOTO PROTOSSIDO SOL BB</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>00117</erpCode>
+                <names>
+                  <name lang="it">PROT.AZOTO IPERS.USO MED.BL NU</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>04161</erpCode>
+                <names>
+                  <name lang="it">PROTOSSIDO D'AZOTO GRADO FARM IN VS BB</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>01857</erpCode>
+                <names>
+                  <name lang="it">AIC 039290073 AZOTO PROTOSSIDO SOL BB</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>04013</erpCode>
+                <names>
+                  <name lang="it">PROT.AZOTO TER.FU.BLE VS 3/10K</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>05855</erpCode>
+                <names>
+                  <name lang="it">AIC 039290059 AZOTO PROTOSSIDO SOL BB</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_1</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>00161</erpCode>
+                <names>
+                  <name lang="it">PROTOSSIDO D'AZOTO GRADO FARM IN BOMB</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>01858</erpCode>
+                <names>
+                  <name lang="it">AIC 039290085 AZOTO PROTOSSIDO SOL PCC</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_11</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>00013</erpCode>
+                <names>
+                  <name lang="it">PROTOSSIDO AZOTO FU BB 3-10KG</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>containerType</variantCategory>
+                    <variantValueCategory>containerType_01</variantValueCategory>
+                  </variantCategory>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+            </variants>
+          </baseProduct>
+          <baseProduct>
+            <erpCode>X02655</erpCode>
+            <names>
+              <name lang="it">039058033 Ossigeno Vivisol crio 28L</name>
+            </names>
+            <commercialCategories>
+              <commercialCategory>
+                <code>CAT2</code>
+              </commercialCategory>
+            </commercialCategories>
+            <material>srv</material>
+            <stockable>false</stockable>
+            <status>1</status>
+          </baseProduct>
+          <baseProduct>
+            <erpCode>X78510</erpCode>
+            <names>
+              <name lang="en">PRISMA -FITTING INOX CE3</name>
+              <name lang="it">PRISMA -RACCORDO INOX CE3</name>
+            </names>
+            <commercialCategories>
+              <commercialCategory>
+                <code>CAT3</code>
+              </commercialCategory>
+              <commercialCategory>
+                <code>CAT4</code>
+              </commercialCategory>
+            </commercialCategories>
+            <material>mat</material>
+            <stockable>true</stockable>
+            <status>1</status>
+            <variants>
+              <variant>
+                <erpCode>78511</erpCode>
+                <names>
+                  <name lang="en">PRISMA -FITTING INOX CE6</name>
+                  <name lang="it">PRISMA -RACCORDO INOX CE6</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>78512</erpCode>
+                <names>
+                  <name lang="en">PRISMA -FITTING INOX CE8</name>
+                  <name lang="it">PRISMA -RACCORDO INOX CE8</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>assetOwner</variantCategory>
+                    <variantValueCategory>assetOwner_0</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+            </variants>
+          </baseProduct>
+
+
+            </baseProducts>
+         </Import_Hybris>
+      </imp:importData>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>test</con:username><con:password>gjw~N!Z~3LLNcwfQ</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importData"/><con:wsrmConfig version="1.2"/></con:call><con:call id="2f0ad49c-2c68-48a5-bdbd-8428be8656b2" name="Request 1.1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://solgroupit.local:9002/solgroupwebservices/services/productimportws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <imp:importData>
+         <!--Optional:-->
+         <Import_Hybris>
+            <!--You may enter the following 3 items in any order-->
+            <header>
+               <sourceSystem>RAMSES_IT</sourceSystem>
+               <messageID>e070fd9c8e3911e78a300000003c182e</messageID>
+               <timestamp>?</timestamp>
+            </header>
+            <country>IT</country>
+        <baseProducts>
+          <baseProduct>
+            <erpCode>X00001</erpCode>
+            <names>
+              <name lang="de">Sauerstoff Ind.</name>
+              <name lang="en">OSSIGENO IND.</name>
+              <name lang="it">OSSIGENO IND.</name>
+            </names>
+            <commercialCategories>
+              <commercialCategory>
+                <code>CAT1</code>
+              </commercialCategory>
+              <commercialCategory>
+                <code>CAT2</code>
+              </commercialCategory>
+            </commercialCategories>
+            <material>gas</material>
+            <stockable>true</stockable>
+            <status>1</status>
+            <variants>
+              <variant>
+                <erpCode>04330</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IND. IN VS MINISOL/5</name>
+                  <name lang="it">OSSIGENO IND. IN VS MINISOL/5</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>VC_DEFAULT</variantCategory>
+                    <variantValueCategory>VVC_DEFAULT_DEFAULT</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>01636</erpCode>
+                <names>
+                  <name lang="it">TGM OSSIGENO LASER IN PACCHI</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>VC_DEFAULT</variantCategory>
+                    <variantValueCategory>VVC_DEFAULT_DEFAULT</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+            </variants>
+          </baseProduct>
+          
+        </baseProducts>
+         </Import_Hybris>
+      </imp:importData>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>test</con:username><con:password>gjw~N!Z~3LLNcwfQ</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importData"/><con:wsrmConfig version="1.2"/></con:call><con:call id="49b1e09c-9a8e-4936-91e0-1fde4a71f960" name="Request 2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://solgroupit.local:9002/solgroupwebservices/services/productimportws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <imp:importData>
+         <!--Optional:-->
+         <Import_Hybris>
+            <!--You may enter the following 3 items in any order-->
+            <header>
+    <sourceSystem>RAMSES_IT</sourceSystem>
+    <messageID>ef38c234708211e7add20000003c182e</messageID>
+    <timestamp>20170724 171532</timestamp>
+            </header>
+            <country>IT</country>
+  <baseProducts>
+    <baseProduct>
+      <erpCode>product001</erpCode>
+      <names>
+        <name lang='en'>Product 001</name>
+      </names>
+      <commercialCategories>
+        <commercialCategory>
+          <code>IT_APP_010000</code>
+        </commercialCategory>
+      </commercialCategories>
+      <material>gas</material>
+      <stockable>true</stockable>
+      <weight>3</weight>
+      <um>pieces</um>
+      <status>1</status>
+    </baseProduct>
+  </baseProducts>         </Import_Hybris>
+      </imp:importData>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>test</con:username><con:password>gjw~N!Z~3LLNcwfQ</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importData"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

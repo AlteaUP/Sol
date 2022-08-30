@@ -1,0 +1,303 @@
+## messageSource=classpath:/solgroupcore/messages/email-deliverySent_$lang.properties
+#macro( genHtmlBoldFont $text )
+<font color="#414a4f" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif"><b>$text</b></font>
+#end
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+#macro(displayNegationForDiscount $priceData)
+#if (${priceData.value} > 0)
+-
+#end
+${priceData.formattedValue}
+#end
+<html>
+   <head></head>
+   <body bgcolor="#ffffff"
+   <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#ffffff"
+   <tr>
+      <td>&nbsp;</td>
+   </tr>
+   <tr>
+      <td align="center" valign="top">
+         <table width="810" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#fff">
+            <tr>
+               <td align="center" valign="top" bgcolor="#FFFFFF">
+                  <table width="570" cellpadding="0" cellspacing="0" border="0" align="center">
+                     <tr>
+                        <td valign="middle">&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td valign="middle">
+                           <!-- 
+                              ${ctx.cmsSlotContents.SiteLogo}
+                              <img src="cid:logo_sol.png" alt="" width="176" height="94" border="0" align="right" title=""/> 
+                              -->
+                           <img src='http://www.sol.it/logo.png' alt='Sol Group' width="176" height="94" border="0" align="right" title="" />
+                        </td>
+                     </tr>
+                     <tr>
+                        <td>&nbsp;</td>
+                     </tr>
+                     <tr>
+                        <td align="left" valign="top">
+                           <p style="margin:2px 0"><font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif"><b>${ctx.messages.getMessage('salutation', ${ctx.title},${ctx.displayName})}</b>,</font></p>
+                           <br/>
+                           <p style="margin:2px 0"><font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">${ctx.messages.getMessage('thankYouForOrder',"#genHtmlBoldFont(${ctx.orderData.code})")}</font></p>
+                    	   <br/>
+                    	   <p style="margin:2px 0"><font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">${ctx.messages.getMessage('paragrap', "#genHtmlBoldFont(${ctx.consignmentData.code})")}</font></p>
+                    	   <br/>
+                    	   <!-- <tr>
+					           &nbsp;
+					       </tr>
+	                       <tr>
+	                          <td>&nbsp;</td>
+	                       </tr>
+							-->
+                     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#51585c" class="products" style="border: 1px solid #51585c;">
+							<tr>
+								<td>
+									<table>
+						                <tr>
+						                    <td>
+						                        <font color="#333" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif"><b>${ctx.messages.orderDate}</b></font>
+						                        <p style="margin:3px 0">
+						                            <font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">
+						                            #set ($formattedOrderDate = $ctx.dateTool.format('dd/MM/yy', $ctx.orderData.created))
+						                                ${formattedOrderDate}
+						                            </font>
+						                        </p>
+						                    </td>
+						                    <td>
+						                        <font color="#333" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif"><b>${ctx.messages.paymentDetails}</b></font>
+						                        #if(${ctx.orderData.invoicePaymentInfo} || !${ctx.orderData.paymentInfo})
+						                            <p style="margin:3px 0 5px 0;"><font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">${ctx.messages.getMessage('invoicePaymentType')}</font></p>
+						                        #elseif(${ctx.orderData.paymentInfo})
+						                            <p style="margin:3px 0 5px 0;"><font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">${ctx.messages.getMessage('paymentCardType', ${ctx.orderData.paymentInfo.cardType})}</font></p>
+						                            <p style="margin:3px 0 5px 0;"><font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">${ctx.messages.getMessage('cardPaymentType')}</font></p>
+						                        #end
+						                    </td>
+						                    <td>
+						                        #if(${ctx.orderData.placedBy})
+						                            <font color="#333" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif"><b>${ctx.messages.orderDataBehalf}</b></font>
+						                            <p style="margin:3px 0 5px 0;"><font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">${ctx.orderData.placedBy}</font></p>
+						                        #end
+						                    </td>
+						                </tr>
+						               
+										<tr>
+										    <td width="34%" valign="top">
+										        <font color="#333" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif"><b>${ctx.messages.getMessage('b2bUnit')}</b></font>
+										        <p style="margin:3px 0">
+						                            <font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">
+						                                ${ctx.orderData.b2bUnitName}
+						                            </font>
+						                        </p>
+						                	</td>
+											<td width="33%" valign="top" >
+												<font color="#333" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif"><b>${ctx.messages.deliveryAddress}</b></font>
+												#if(${ctx.orderData.deliveryItemsQuantity} > 0)
+													<p style="margin:3px 0">
+														<font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">
+						    								#if($ctx.orderData.deliveryAddress.title && $ctx.orderData.billingAddress.title != '') ${ctx.orderData.deliveryAddress.title} #end
+						                     				#if($ctx.orderData.deliveryAddress.firstName && $ctx.orderData.deliveryAddress.firstName != '') ${ctx.orderData.deliveryAddress.firstName} #end
+						                                	#if($ctx.orderData.deliveryAddress.lastName && $ctx.orderData.deliveryAddress.lastName != '') ${ctx.orderData.deliveryAddress.lastName} <br/>#end
+															${ctx.orderData.deliveryAddress.line1}<br/>
+															#if($ctx.orderData.deliveryAddress.line2.line2 && $ctx.orderData.deliveryAddress.line2 != '')${ctx.orderData.deliveryAddress.line2}<br/>#end
+															${ctx.orderData.deliveryAddress.town}<br/>
+															${ctx.orderData.deliveryAddress.postalCode}<br/>
+															${ctx.orderData.deliveryAddress.country.name}
+														</font>
+													</p>
+												#else
+													<p style="margin:3px 0"><font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">${ctx.messages.noDelivery}</font></p>
+												#end
+											</td>
+											<td width="33%" valign="top">
+						                        <font color="#333" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif"><b>${ctx.messages.billingAddress}</b></font>
+												#if(${ctx.orderData.invoicePaymentInfo})
+						                            <p style="margin:3px 0">
+						                                <font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">
+						                                    #if($ctx.orderData.invoicePaymentInfo.billingAddress.title && $ctx.orderData.invoicePaymentInfo.billingAddress.title != '') ${ctx.orderData.invoicePaymentInfo.billingAddress.title} #end
+						                                    #if($ctx.orderData.invoicePaymentInfo.billingAddress.firstName && $ctx.orderData.invoicePaymentInfo.billingAddress.firstName != '') ${ctx.orderData.invoicePaymentInfo.billingAddress.firstName} #end
+						                                    #if($ctx.orderData.invoicePaymentInfo.billingAddress.lastName && $ctx.orderData.invoicePaymentInfo.billingAddress.lastName != '') ${ctx.orderData.invoicePaymentInfo.billingAddress.lastName} <br/>#end
+						                                    ${ctx.orderData.invoicePaymentInfo.billingAddress.line1}<br/>
+						                                    #if($ctx.orderData.invoicePaymentInfo.billingAddress.line2 && $ctx.orderData.invoicePaymentInfo.billingAddress.line2 != '')${ctx.orderData.invoicePaymentInfo.billingAddress.line2}<br/>#end
+						                                    ${ctx.orderData.invoicePaymentInfo.billingAddress.town}<br/>
+						                                    ${ctx.orderData.invoicePaymentInfo.billingAddress.postalCode}<br/>
+						                                    ${ctx.orderData.invoicePaymentInfo.billingAddress.country.name}
+						                                </font>
+						                            </p>
+						                        #end
+												#if(${ctx.orderData.paymentInfo})
+													<p style="margin:3px 0">
+						                                <font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">
+						                                    #if($ctx.orderData.paymentInfo.billingAddress.title && $ctx.orderData.paymentInfo.billingAddress.title != '') ${$ctx.orderData.paymentInfo.billingAddress.title} #end
+						                                    #if($ctx.orderData.paymentInfo.billingAddress.firstName && $ctx.orderData.paymentInfo.billingAddress.firstName != '') ${$ctx.orderData.paymentInfo.billingAddress.firstName} #end
+						                                    #if($ctx.orderData.paymentInfo.billingAddress.lastName && $ctx.orderData.paymentInfo.billingAddress.lastName != '') ${$ctx.orderData.paymentInfo.billingAddress.lastName} <br/>#end
+						                                    ${$ctx.orderData.paymentInfo.billingAddress.line1}<br/>
+						                                    #if($ctx.orderData.paymentInfo.billingAddress.line2 && $ctx.orderData.paymentInfo.billingAddress.line2 != '')${$ctx.orderData.paymentInfo.billingAddress.line2}<br/>#end
+						                                    ${$ctx.orderData.paymentInfo.billingAddress.town}<br/>
+						                                    ${$ctx.orderData.paymentInfo.billingAddress.postalCode}<br/>
+						                                    ${$ctx.orderData.paymentInfo.billingAddress.country.name}
+						                                </font>
+						                            </p>
+												#end
+											</td>
+										</tr>
+										
+									</table>
+								</td>
+							</tr>
+						</table>
+					  <tr>
+                        <td>&nbsp;</td>
+                     </tr>
+				     
+				     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#51585c" class="products" style="border: 1px solid #51585c;">
+				        <tr>
+				            <td>
+				                <table width="100%" cellpadding="0" cellspacing="0">
+				                    <tr>
+				                        <td width="100%" colspan="4" height="30" align="left" bgcolor="#004B87"><font color="#FFFFFF" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif" style="padding-left:5px"><b style="text-transform:uppercase;">${ctx.messages.consignment}</b></font></td>
+				                    </tr>				
+				                    #foreach( $entry in ${ctx.consignmentData.entries} )
+				                       #if($entry.product.refill)
+				                         #set ($containsRefill = true)
+				                       #end
+				                       <tr valign="top" style="border: 1px solid #51585c;">
+				                          <td valign="top" width="20%">
+				                            <table width="100%" border="0">
+				                              <tr>
+				                                 <td valign="top" width="90px" style="width:90px;padding-left:5px;padding-right:5px">
+				                                    <a href="${ctx.secureBaseUrl}${entry.orderEntry.product.url}" style="text-decoration:none">
+				                                      #foreach($image in ${entry.orderEntry.product.images} ) #if($image.imageType == "PRIMARY" && $image.format == "thumbnail" )
+				                                       <img src="cid:$entry.orderEntry.product.code" alt="" title="$entry.orderEntry.product.name"/>
+				                                    #end #end
+				                                    </a>
+				                                    &nbsp;
+				                                 </td>
+				                              </tr>
+				                            </table>
+				                          </td>
+				                           <td valign="top" width="80%">
+                                             <table width="100%" align="top" border="0" cellpadding="0" cellspacing="0" style="padding-left:10px; padding-bottom:10px">
+                                                <tr>
+                                                   <td colspan="2" valign="top" style="padding-top:10px;">
+                                                      <a href="${ctx.secureBaseUrl}$entry.orderEntry.product.url">
+                                                      <font size="2" color="#666666">
+                                                      #set ($index = $entry.orderEntry.product.name.indexOf('_'))
+                                                      #if($index != -1)
+                                                      #set ($productName= $entry.orderEntry.product.name.substring(0, $index))
+                                                      <b>$productName</b>
+                                                      #end
+                                                      #if($index == -1)
+                                                      <b>$entry.orderEntry.product.name</b>
+                                                      #end
+                                                      </font>
+                                                      </a>
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td colspan="2" valign="top" style="padding-bottom:10px">
+                                                      <font color="#666666" size="1" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">
+                                                      <b>$entry.orderEntry.product.erpCode</b>
+                                                      </font>
+                                                   </td>
+                                                </tr>
+                                                #foreach( $category in ${entry.orderEntry.product.categories} )
+                                                #if($category.parentCategoryName && $category.parentCategoryName != '')
+                                                <tr>
+                                                   <td colspan="2" valign="top">
+                                                      <font color="#666666" size="1" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">
+                                                      <b>$category.parentCategoryName - $category.name</b>
+                                                      </font>
+                                                   </td>
+                                                </tr>
+                                                #end
+                                                #end
+                                                <tr>
+                                                   <td colspan="2" valign="top" height="5">
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                 
+                                                   <td width="50%" height="15px" padding="2">
+                                                      <font color="#333" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">
+                                                      <b>${ctx.messages.purchaseOrderNumber}: </b>#if($entry.orderEntry.purchaseOrderNumber && $entry.orderEntry.purchaseOrderNumber != '') $entry.orderEntry.purchaseOrderNumber #end
+                                                      #if(!$entry.orderEntry.purchaseOrderNumber || ($entry.orderEntry.purchaseOrderNumber && $entry.orderEntry.purchaseOrderNumber == '')) $ctx.messages.notDefined #end
+                                                      </font>
+                                                   </td>
+                                                   <td width="50%" height="15px" padding="2">
+                                                      <font color="#333" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">
+                                                      <b>${ctx.messages.cig}: </b> #if($entry.orderEntry.cgi && $entry.orderEntry.cgi != '') $entry.orderEntry.cgi #end
+                                                      #if(!$entry.orderEntry.cgi || ($entry.orderEntry.cgi && $entry.orderEntry.cgi == '')) $ctx.messages.notDefined #end
+                                                      </font>
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td width="50%" height="15px" padding="2">
+                                                      <font color="#333" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">
+                                                      <b>${ctx.messages.dataOrdine}: </b> #if($entry.orderEntry.dataOrdine && $entry.orderEntry.dataOrdine != '') $entry.orderEntry.dataOrdine #end
+                                                      #if(!$entry.orderEntry.dataOrdine || ($entry.orderEntry.dataOrdine && $entry.orderEntry.dataOrdine == '')) $ctx.messages.notDefined #end
+                                                      </font>
+                                                   </td>
+                                                   <td width="50%" height="15px" padding="2">
+                                                      <font color="#333" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">
+                                                      <b>${ctx.messages.cup}: </b> #if($entry.orderEntry.cup && $entry.orderEntry.cup != '') $entry.orderEntry.cup #end
+                                                      #if(!$entry.orderEntry.cup || ($entry.orderEntry.cup && $entry.orderEntry.cup == '')) $ctx.messages.notDefined #end
+                                                      </font>
+                                                   </td>
+                                                </tr>
+                                                <tr>
+                                                   <td width="50%" height="15px" padding="2">
+                                                      <font color="#333" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">
+                                                      <b>${ctx.messages.quantity}: </b>$entry.orderEntry.quantity
+                                                      </font>
+                                                   </td>
+                                                   <td width="50%" height="15px" padding="2">
+                                                      <font color="#333" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">
+                                                      <b>${ctx.messages.itemPrice}: </b> $entry.orderEntry.basePrice.formattedValue
+                                                      </font>
+                                                   </td>
+                                                </tr>
+                                                
+                                             </table>
+                                          </td>
+				                       </tr>
+				                    #end
+				                </table>
+				            </td>	
+				        </tr>		
+				     </table>
+                    
+		             <tr>
+			            <td>&nbsp;</td>
+			         </tr>                     
+                     <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#51585c" class="products" style="border: 0px solid #51585c;">
+	                  <tr>
+			              <p><font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">${ctx.messages.complimentaryClosing}</font></p>
+			              <p><font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">${ctx.messages.signature}</font></p>
+			          </tr>
+		             </table>
+                  </table>
+               </td>
+            </tr>     
+         </table>			
+         <tr>
+            <td>&nbsp;</td>
+         </tr>
+         <tr>
+            <td>&nbsp;</td>
+         </tr>
+      </td>
+   <tr>
+   </table>
+   </body>
+</html>

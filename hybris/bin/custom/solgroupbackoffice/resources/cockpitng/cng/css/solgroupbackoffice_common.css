@@ -1,0 +1,53 @@
+.yw-explorerTree .y-tree-icon-customersupport_backoffice_explorerTree_orders .y-tree-icon {
+  background-image: url("images/allorders.png"); 
+}
+
+
+.yw-com_solgroup_cockpitng_widgets_customersupport_sessionContext {
+  padding: 0 0 15px;
+  background: #1e2830; }
+  .yw-com_solgroup_cockpitng_widgets_customersupport_sessionContext .header-container .z-label {
+    color: #ffffff;
+    font-size: 14px;
+    padding: 0 0 0 20px;
+    text-transform: uppercase;
+    font-weight: 500;
+    line-height: 45px; }
+  .yw-com_solgroup_cockpitng_widgets_customersupport_sessionContext .z-vlayout-inner {
+    padding-bottom: 0 !important; }
+  .yw-com_solgroup_cockpitng_widgets_customersupport_sessionContext .y-session-context-label-container {
+    padding: 0 5px 10px; }
+  .yw-com_solgroup_cockpitng_widgets_customersupport_sessionContext .y-session-context-label-key {
+    color: #6f7d90;
+    font-size: 12px;
+    display: block; }
+  .yw-com_solgroup_cockpitng_widgets_customersupport_sessionContext .y-session-context-label-value {
+    font-size: 14px;
+    display: block;
+    text-decoration: none;
+    color: #085abc; }
+    .yw-com_solgroup_cockpitng_widgets_customersupport_sessionContext .y-session-context-label-value.z-label {
+      color: #ffffff; }
+  .yw-com_solgroup_cockpitng_widgets_customersupport_sessionContext .y-start-call-btn,
+  .yw-com_solgroup_cockpitng_widgets_customersupport_sessionContext .y-end-call-btn {
+    position: relative;
+    color: #a1eeae;
+    font-weight: normal;
+    height: 40px; }
+    .yw-com_solgroup_cockpitng_widgets_customersupport_sessionContext .y-start-call-btn:before,
+    .yw-com_solgroup_cockpitng_widgets_customersupport_sessionContext .y-end-call-btn:before {
+      content: "";
+      width: 16px;
+      height: 15px;
+      display: inline-block;
+      vertical-align: baseline;
+      margin-right: 14px;
+      margin-left: -30px; }
+  .yw-com_solgroup_cockpitng_widgets_customersupport_sessionContext .z-button.y-end-call-btn {
+    color: #ff5447; }
+  .yw-com_solgroup_cockpitng_widgets_customersupport_sessionContext .z-button.y-start-call-btn:before {
+    color: #a1eeae;
+    background: url("imgs/icon_start_call.png"); }
+  .yw-com_solgroup_cockpitng_widgets_customersupport_sessionContext .z-button.y-end-call-btn:before {
+    background: url("imgs/icon_end_call.png"); }
+

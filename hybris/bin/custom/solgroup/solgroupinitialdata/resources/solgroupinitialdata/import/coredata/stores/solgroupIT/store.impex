@@ -1,0 +1,84 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# 
+# Create the SOL IT BaseStore (based on Powertools BaseStore)
+#
+
+$solPrefix = solgroupIT
+
+$productCatalog=$solPrefixProductCatalog
+$classificationCatalog=$solPrefixClassification
+$currencies=EUR
+$net=true
+$storeUid=$solPrefix
+$defaultCurrency=EUR
+$languages=en,it
+#$languages=en,de,it
+$defaultLanguage=en
+$unitedKingdom=GB,GG,IM,JE
+$europeNotUK=AD,AL,AT,BA,BE,BG,BY,CH,CY,CZ,DE,DK,EE,ES,FI,FO,FR,GI,GL,GR,HR,HU,IE,IS,IT,LI,LT,LU,LV,MC,MD,ME,MK,MT,NL,NO,PL,PT,RO,RS,RU,SE,SI,SK,SM,TR,UA,VA
+$asianCountries=CN,JP,VN,HK,KP,KR
+$deliveryCountries=$unitedKingdom,$europeNotUK,$asianCountries,US,CA
+$orderProcessCode=order-export-process
+$pickupInStoreMode=DISABLED
+$customerAllowedToIgnoreSuggestions=true
+$paymentProvider=Mockup
+$expressCheckoutEnabled=false
+$checkoutGroup=b2bCheckoutGroup
+$returnProcessCode=return-process
+
+INSERT_UPDATE PromotionGroup;Identifier[unique=true];
+;$solPrefixPromoGrp;
+
+# Base Store
+INSERT_UPDATE BaseStore; uid[unique=true];	catalogs(id);								currencies(isocode);		net;		storelocatorDistanceUnit(code);		defaultCurrency(isocode);	languages(isocode);		defaultLanguage(isocode);		deliveryCountries(isocode);		submitOrderProcessCode;		paymentProvider;		pickupInStoreMode(code);	customerAllowedToIgnoreSuggestions;			expressCheckoutEnabled;		maxRadiusForPoSSearch;	checkoutFlowGroup;		createReturnProcessCode;	
+					   ; $storeUid;			$productCatalog,$classificationCatalog;		$currencies;				$net;		miles;								$defaultCurrency;			$languages;				$defaultLanguage;				$deliveryCountries;				$orderProcessCode;			$paymentProvider;		$pickupInStoreMode;			$customerAllowedToIgnoreSuggestions;		$expressCheckoutEnabled;	300;					$checkoutGroup;			$returnProcessCode;			
+
+INSERT_UPDATE BaseStore2DeliveryModeRel;source(uid)[unique=true];target(code)[unique=true]
+;$solPrefix;premium-net
+;$solPrefix;standard-net
+;$solPrefix;premium-gross
+;$solPrefix;standard-gross
+;$solPrefix;free-standard-shipping
+
+###########################################################################################################
+
+# sol warehouse stock customization
+
+# TODO: please, remove the impex below after development
+
+########################################################################################################### 
+
+$storeUid=$solPrefix
+
+$warehouseUid=$storeUid_wh
+
+# Warehouse
+INSERT_UPDATE Warehouse;code[unique=true];name;name[lang=en];vendor(code)[default=default];default[default=true]
+;$warehouseUid;$solPrefix Warehouse;$solPrefix Warehouse
+
+
+INSERT_UPDATE BaseStore2WarehouseRel;source(uid)[unique=true];target(code)[unique=true]
+;$storeUid;$warehouseUid
+
+
+#INSERT_UPDATE PointOfService;name[unique=true];displayName;warehouses(code);address(&addrID);latitude;longitude;geocodeTimestamp[dateformat=dd.MM.yyyy];type(code)[default=WAREHOUSE]
+#;$warehouseUid;Solgroup Italia Warehouse;$warehouseUid;$warehouseUid;0;0;01.01.2017
+
+
+#INSERT_UPDATE Address;&addrID;streetnumber[unique=true];streetname;town;country(isocode);postalcode[unique=true];phone1;owner(PointOfService.name)[unique=true]
+#;$warehouseUid;1 Via Roma;;Monza;IT;20900;;$warehouseUid
+
+#INSERT_UPDATE BaseStore;uid[unique=true];defaultDeliveryOrigin(name)
+#;$storeUid;$warehouseUid
+
+
+

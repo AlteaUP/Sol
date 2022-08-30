@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="6ce3bba5-3a09-491f-b0fc-8b267bcf08ab" activeEnvironment="Default" name="Consignment" resourceRoot="${projectDir}" soapui-version="5.3.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="3bc9191a-524c-42db-b08f-8a4ca84a1415" wsaVersion="NONE" name="DefaultOrderConsignmentResponseWSServiceSoapBinding" type="wsdl" bindingName="{http://importws.ws.solgroup.com/}DefaultOrderConsignmentResponseWSServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="https://solgroupit.local:9002/solgroupwebservices/services/orderConsignment?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="https://solgroupit.local:9002/solgroupwebservices/services/orderConsignment?wsdl"><con:part><con:url>https://solgroupit.local:9002/solgroupwebservices/services/orderConsignment?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="DefaultOrderConsignmentResponseWSService" targetNamespace="http://importws.ws.solgroup.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://importws.ws.solgroup.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema targetNamespace="urn:solgroup:com:OrderConsignment" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:solgroup:com:OrderConsignment">
+      <xs:element name="OrderConsignment_Hybris">
+        <xs:complexType>
+          <xs:all>
+            <xs:element name="header" type="tns:header"/>
+            <xs:element name="order" type="tns:order"/>
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="header">
+        <xs:sequence>
+          <xs:element name="sourceSystem" type="xs:string"/>
+          <xs:element name="timestamp" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="order">
+        <xs:sequence>
+          <xs:element name="orderCode" type="xs:string"/>
+          <xs:element name="consignments">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element maxOccurs="unbounded" name="consignment" type="tns:consignment"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="consignment">
+        <xs:sequence>
+          <xs:element name="consignmentCode" type="xs:string"/>
+          <xs:element name="documentType" type="xs:string"/>
+          <xs:element name="documentNumber" type="xs:string"/>
+          <xs:element name="productCode" type="xs:string"/>
+          <xs:element name="orderEntryNumber" type="xs:int"/>
+          <xs:element name="quantity" type="xs:int"/>
+          <xs:element name="status" type="xs:string"/>
+          <xs:element minOccurs="0" name="trackingLink" type="xs:string"/>
+          <xs:element minOccurs="0" name="trackingNumber" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://importws.ws.solgroup.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="urn:solgroup:com:OrderConsignment">
+      <xs:import namespace="urn:solgroup:com:OrderConsignment"/>
+      <xs:element name="importData" type="tns:importData"/>
+      <xs:element name="importDataResponse" type="tns:importDataResponse"/>
+      <xs:complexType name="importData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Import_Hybris">
+            <xs:complexType>
+              <xs:all>
+                <xs:element name="header" type="ns1:header"/>
+                <xs:element name="order" type="ns1:order"/>
+              </xs:all>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="importDataResponse">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:element name="Exception" type="tns:Exception"/>
+      <xs:complexType name="Exception">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="importData">
+    <wsdl:part element="tns:importData" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="importDataResponse">
+    <wsdl:part element="tns:importDataResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="tns:Exception" name="Exception"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ImportWS">
+    <wsdl:operation name="importData">
+      <wsdl:input message="tns:importData" name="importData"></wsdl:input>
+      <wsdl:output message="tns:importDataResponse" name="importDataResponse"></wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DefaultOrderConsignmentResponseWSServiceSoapBinding" type="tns:ImportWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="importData">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="importData">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="importDataResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DefaultOrderConsignmentResponseWSService">
+    <wsdl:port binding="tns:DefaultOrderConsignmentResponseWSServiceSoapBinding" name="DefaultOrderConsignmentResponseWSPort">
+      <soap:address location="https://solgroupit.local:9002/solgroupwebservices/services/orderConsignment"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://solgroupit.local:9002/solgroupwebservices/services/orderConsignment</con:endpoint></con:endpoints><con:operation id="4209e22e-c5d3-4995-a22d-217a9b885f12" isOneWay="false" action="" name="importData" bindingOperationName="importData" type="Request-Response" outputName="importDataResponse" inputName="importData" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="bfc08e21-ba4b-4ecc-9e22-771d1a9a1fc1" name="Aggiungo primo consignment"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://solgroupit.local:9002/solgroupwebservices/services/orderConsignment</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <imp:importData>
+         <!--Optional:-->
+         <Import_Hybris>
+            <!--You may enter the following 2 items in any order-->
+            <header>
+               <sourceSystem>RAMSES_IT</sourceSystem>
+               <messageID>messageID_001</messageID>
+               <timestamp>2018-02-09T15:50:56.5662719+01:00</timestamp>
+            </header>
+            <order>
+               <orderCode>00007000</orderCode>
+               <consignments>
+                  <!--1 or more repetitions:-->
+                  <consignment>
+                     <consignmentCode>cons_a</consignmentCode>
+                     <documentType>BOLLA</documentType>
+                     <documentNumber>1111111</documentNumber>
+                     <productCode>00622</productCode>
+                     <orderEntryNumber>0</orderEntryNumber>
+                     <quantity>1</quantity>
+                     <status>DELIVERED</status>
+                     <!--Optional:-->
+                     <trackingLink></trackingLink>
+                     <!--Optional:-->
+                     <trackingNumber>0</trackingNumber>
+                  </consignment>
+                  <consignment>
+                     <consignmentCode>cons_b</consignmentCode>
+                     <documentType>BOLLA</documentType>
+                     <documentNumber>1111111</documentNumber>
+                     <productCode>00622</productCode>
+                     <orderEntryNumber>0</orderEntryNumber>
+                     <quantity>2</quantity>
+                     <status>DELIVERED</status>
+                     <!--Optional:-->
+                     <trackingLink></trackingLink>
+                     <!--Optional:-->
+                     <trackingNumber>0</trackingNumber>
+                  </consignment>
+                  <consignment>
+                     <consignmentCode>cons_a</consignmentCode>
+                     <documentType>BOLLA</documentType>
+                     <documentNumber>1111111</documentNumber>
+                     <productCode>00623</productCode>
+                     <orderEntryNumber>0</orderEntryNumber>
+                     <quantity>3</quantity>
+                     <status>CANCELLED</status>
+                     <!--Optional:-->
+                     <trackingLink></trackingLink>
+                     <!--Optional:-->
+                     <trackingNumber>0</trackingNumber>
+                  </consignment>
+
+               </consignments>
+            </order>
+         </Import_Hybris>
+      </imp:importData>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>sap_po</con:username><con:password>CtzT~gV2b-GeZaSx</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importData"/><con:wsrmConfig version="1.2"/></con:call><con:call id="f992643f-6396-4279-bcb0-90e9099c5e97" name="Cambio stato al consignment"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://solgroupit.local:9002/solgroupwebservices/services/orderConsignment</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <imp:importData>
+         <!--Optional:-->
+         <Import_Hybris>
+            <!--You may enter the following 2 items in any order-->
+            <header>
+               <sourceSystem>RAMSES_IT</sourceSystem>
+               <timestamp>2018-02-09T15:50:56.5662719+01:00</timestamp>
+            </header>
+            <order>
+               <orderCode>00011000</orderCode>
+               <consignments>
+                  <!--1 or more repetitions:-->
+                  <consignment>
+                     <consignmentCode>123456</consignmentCode>
+                     <documentType>BOLLA</documentType>
+                     <documentNumber>1111111</documentNumber>
+                     <productCode>solgroupIT_294</productCode>
+                     <orderEntryNumber>0</orderEntryNumber>
+                     <quantity>1</quantity>
+                     <status>SHIPPED</status>
+                     <!--Optional:-->
+                     <trackingLink></trackingLink>
+                     <!--Optional:-->
+                     <trackingNumber>0</trackingNumber>
+                  </consignment>
+               </consignments>
+            </order>
+         </Import_Hybris>
+      </imp:importData>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>sap_po</con:username><con:password>CtzT~gV2b-GeZaSx</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importData"/><con:wsrmConfig version="1.2"/></con:call><con:call id="1bd1996d-9a7a-4409-988d-3842665bac55" name="Mando stato Finale al consignment"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://solgroupit.local:9002/solgroupwebservices/services/orderConsignment</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <imp:importData>
+         <!--Optional:-->
+         <Import_Hybris>
+            <!--You may enter the following 2 items in any order-->
+            <header>
+               <sourceSystem>RAMSES_IT</sourceSystem>
+               <timestamp>2018-02-09T15:50:56.5662719+01:00</timestamp>
+            </header>
+            <order>
+               <orderCode>00011000</orderCode>
+               <consignments>
+                  <!--1 or more repetitions:-->
+                  <consignment>
+                     <consignmentCode>123456</consignmentCode>
+                     <documentType>BOLLA</documentType>
+                     <documentNumber>1111111</documentNumber>
+                     <productCode>294</productCode>
+                     <orderEntryNumber>0</orderEntryNumber>
+                     <quantity>1</quantity>
+                     <status>DELIVERED</status>
+                     <!--Optional:-->
+                     <trackingLink></trackingLink>
+                     <!--Optional:-->
+                     <trackingNumber>0</trackingNumber>
+                  </consignment>
+               </consignments>
+            </order>
+         </Import_Hybris>
+      </imp:importData>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>sap_po</con:username><con:password>CtzT~gV2b-GeZaSx</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importData"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

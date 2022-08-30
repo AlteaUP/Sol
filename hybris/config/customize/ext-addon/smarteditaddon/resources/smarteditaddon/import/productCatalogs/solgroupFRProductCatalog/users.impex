@@ -1,0 +1,16 @@
+$solPrefix = solgroupFR
+
+
+INSERT_UPDATE Principal2ReadableCatalogVersionRelation;source(uid)[unique=true];target(catalog(id),version)[unique=true]
+;cmsmanagergroup;$solPrefixProductCatalog:Online;
+;cmsmanagergroup;$solPrefixProductCatalog:Staged;
+
+INSERT_UPDATE Principal2WriteableCatalogVersionRelation;source(uid)[unique=true];target(catalog(id),version)[unique=true];language(isocode)[unique=true];
+;cmsmanagergroup;$solPrefixProductCatalog:Online;ja;
+;cmsmanagergroup;$solPrefixProductCatalog:Online;en;
+;cmsmanagergroup;$solPrefixProductCatalog:Online;de;
+;cmsmanagergroup;$solPrefixProductCatalog:Online;zh;
+;cmsmanagergroup;$solPrefixProductCatalog:Staged;ja;
+;cmsmanagergroup;$solPrefixProductCatalog:Staged;en;
+;cmsmanagergroup;$solPrefixProductCatalog:Staged;de;
+;cmsmanagergroup;$solPrefixProductCatalog:Staged;zh;

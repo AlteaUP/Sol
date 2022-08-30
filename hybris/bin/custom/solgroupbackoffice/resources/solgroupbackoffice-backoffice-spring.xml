@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="solgroupbackofficeService" class="com.solgroup.services.SolgroupbackofficeService" />
+
+	<bean id="solgroupbackofficeLabelLocator" class="com.hybris.cockpitng.util.labels.ResourcesLabelLocator" scope="singleton" init-method="init" lazy-init="false">
+  		<property name="location" value="/solgroupbackoffice-backoffice-labels/"/>
+  		<property name="name" value="labels"/>
+  	</bean>
+  	
+  	 <alias name="defaultCsFormInitialsFactory" alias="csFormInitialsFactory" />
+    <bean id="defaultCsFormInitialsFactory" class="de.hybris.platform.customersupportbackoffice.widgets.DefaultCsFormInitialsFactory" >
+        <property name="ticketService" ref="ticketService"/>
+        <property name="userService" ref="userService"/>
+        <property name="enumerationService" ref="enumerationService"/>
+        <property name="cockpitSessionService" ref="cockpitSessionService"/>
+        <property name="defaultPriority" value="Low"/>
+        <property name="defaultCategory" value="Quote"/>
+        <property name="defaultIntervention" value="Call"/>
+        <property name="defaultReason" value="FirstContact"/>
+        <property name="defaultAgentGroup" value="customersupportagentgroup"/>
+        <property name="defaultRootGroup" value="csagentgroup"/>
+    </bean>
+
+</beans>

@@ -1,0 +1,186 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Units into SolGroup FR Store
+
+$solPrefix=solgroupFR
+
+# Macros / Replacement Parameter definitions
+$systemVersion=systemVersion(catalog(id[default='$solPrefixClassification']),version[default='1.0'])[unique=true]
+
+#
+# Localization fr
+#
+$lang=fr
+UPDATE ClassificationAttributeUnit;code[unique=true];name[lang=$lang];$systemVersion[unique=true]
+;127;livres;
+;32;degrés;
+;90;lumens ANSI;
+;118;degrés par seconde;
+;71;lux;
+;102;kilowatt-heure par an;
+;18;mégahertz;
+;125;niveaux de gris;
+;16;pouce;
+;44;Watt;
+;55;pages;
+;84;lignes par minute;
+;27;millisecondes;
+;190;Gigabyte par minute;
+;161;pied carré par heure;
+;95;passages;
+;57;gigabyte/h;
+;20;gigabyte;
+;163;clichés;
+;109;Unité thermique Britannique par heure;
+;151;conductibilité thermique;
+;89;diapositives;
+;175;vitesse d'impression de disque;
+;148;litre par seconde;
+;31;Kilohertz;
+;35;points par pouces;
+;93;millimètres par minute;
+;106;bar;
+;65;degrés celcius;
+;138;pouce par minute;
+;114;pièces de monnaie par minute;
+;58;copies par minute;
+;153;mètre carré;
+;137;mètre carré par heure;
+;81;Joules;
+;60;secondes;
+;101;kilowatt-heure par 24 heures;
+;73;milliAmpère;
+;86;utilisateur(s);
+;76;décibel;
+;62;feuilles;
+;67;degrés celcius par heure;
+;165;mégapixel;
+;139;litre par minute;
+;129;mètre cube;
+;17;kilogramme;
+;186;Centimètre carré;
+;110;Coefficient de l'efficacité énergétique;
+;82;caractères par pouce;
+;147;once;
+;168;pages par seconde;
+;184;Pied cube par minute;
+;135;milliwatt;
+;112;caractères;
+;69;lignes;
+;191;Megabyte par minute;
+;49;jours;
+;178;kilowatt;
+;24;millimetres;
+;187;Pression (mbar);
+;140;kilopascal;
+;124;mètre cube par heure;
+;104;Kilogramme par 24 heures;
+;131;Litre par heure;
+;181;Décibel par rapport au milliwatt;
+;121;pouce par seconde;
+;79;lignes par pouce;
+;154;étiquettes;
+;23;mégabit par seconde;
+;126;Million de caractères;
+;159;Térabyte;
+;160;gigabyte par seconde;
+;176;taux de transfert par seconde;
+;47;kilobyte;
+;98;nanomètres;
+;37;gigahertz;
+;117;kilogramme par mètre carré;
+;43;Intensité lumineuse par mètre carré;
+;33;facteur de zoom;
+;21;Vitesse CD;
+;63;nanosecondes;
+;80;Voltampère;
+;119;milliard de texels/sec;
+;180;Luminosité;
+;99;gain;
+;179;Décibel par second;
+;162;minutes par page;
+;72;gravité;
+;74;cycles par secteur logique;
+;182;Degrés Kelvin;
+;61;copies;
+;108;ique;
+;115;billets de banque par minute;
+;92;µ;
+;103;kilowatt-heure;
+;113;pièces de monnaie;
+;152;Millilitre/heure;
+;189;transactions par seconde;
+;142;mililitre;
+;91;Fahrenheit;
+;167;pulsations/min;
+;48;kilobyte par seconde;
+;107;disques;
+;87;Ohm;
+;174;taux d'impact;
+;77;pages par mois;
+;133;milliard;
+;123;décibel-volt;
+;50;bit;
+;39;pixels;
+;64;pour cent;
+;97;kiloampère/mètre;
+;41;Ampère;
+;52;NIT;
+;173;couple;
+;56;entrées;
+;45;mégabit;
+;66;minutes;
+;19;mégabyte;
+;54;mètre;
+;70;micron;
+;188;Megaohm;
+;68;gigabit par seconde;
+;166;Bel;
+;88;euro;
+;116;secondes par page;
+;136;eps;
+;30;million;
+;141;kilobit par pouce;
+;144;pièces;
+;100;litre(s);
+;128;points par seconde;
+;28;tours par minute;
+;120;localisations;
+;156;gramme par mètre carré;
+;75;année(s);
+;40;mégabyte par seconde;
+;83;caractères par seconde;
+;134;mètres par seconde;
+;192;Cards per hour;
+;59;Pages per minute;
+;177;lumen;
+;130;gramme par heure;
+;122;millimètre par seconde;
+;143;mois;
+;158;gramme/minute;
+;22;kilobit par seconde;
+;42;Volt;
+;46;heure;
+;105;Newton;
+;85;cadres par seconde;
+;185;Lignes par seconde;
+;36;Hertz;
+;183;Lectures par seconde;
+;51;milliAmpere * heure;
+;111;mouvements par minute;
+;146;centimètre cube;
+;38;gramme;
+;34;centimètre;
+;169;kilowatt-heure par semaine;
+;164;million de parts;
+;132;agrafes;
+;171;Boutons;
+

@@ -1,0 +1,4 @@
+IDENTIFIER;NAME[EN];NAME[IT];NAME[DE];NAME[FR];LEVEL;VISIBLE TO[REPLACE];SUPERCATEGORIES[REPLACE]
+solgroupIT_TBC_080000;NNA en;NNA it;NNA de;NNA fr;0;customergroup;solgroupIT_1
+solgroupIT_TBC_080100;MTR en;MTR it;MTR de;MTR fr;1;customergroup;solgroupIT_TBC_080000
+solgroupIT_TBC_080101;Accessorio en;Accessorio it;Accessorio de;Accessorio fr;2;customergroup;solgroupIT_TBC_080100

@@ -1,0 +1,186 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Units into SolGroup FR Store
+
+$solPrefix=solgroupFR
+
+# Macros / Replacement Parameter definitions
+$systemVersion=systemVersion(catalog(id[default='$solPrefixClassification']),version[default='1.0'])[unique=true]
+
+#
+# Localization de
+#
+$lang=de
+UPDATE ClassificationAttributeUnit;code[unique=true];name[lang=$lang];$systemVersion[unique=true]
+;127;lbs;
+;32;Grad;
+;90;ANSI Lumen;
+;118;Grad pro Sekunde;
+;71;Lux;
+;102;Kilowattstunden pro Jahr;
+;18;Megahertz;
+;125;Graustufen;
+;16;Zoll (inch);
+;44;Watt;
+;55;Seiten;
+;84;Zeilen pro Minute;
+;27;Millisekunden;
+;190;Gigabyte pro Minute;
+;161;Quadratfuss pro Stunde;
+;95;Durchgänge;
+;57;GB/h;
+;20;GB;
+;163;Aufnahmen;
+;109;Britische thermische Maßeinheit pro Stunde;
+;151;Waermeleitfahigkeit;
+;89;Dias;
+;175;Druckgeschwindigket in Discs;
+;148;Liter pro Sekunde;
+;31;Kilohertz;
+;35;Punkte pro Zoll (dpi);
+;93;Millimeter pro Minute;
+;106;Bar;
+;65;Grad Celsius;
+;138;Inch per minute;
+;114;Münzen pro Minute;
+;58;Kopien pro Minute;
+;153;Quadratmeter;
+;137;m²/h;
+;81;Joule;
+;60;Sekunden;
+;101;Kilowattstunden pro 24 Stunden;
+;73;Milli-Ampere;
+;86;Benutzer;
+;76;Dezibel;
+;62;Blätter;
+;67;Grad Celsius pro Stunde;
+;165;Megapixel;
+;139;litre per minute;
+;129;cubic meter;
+;17;Kilogramm;
+;186;;
+;110;Energieeffizienz-Verhältnis;
+;82;Buchstaben pro Zoll;
+;147;Unze;
+;168;Seiten pro Sekunde;
+;184;Kubikfüsse pro Minute;
+;135;milliwatt;
+;112;Buchstaben;
+;69;Zeilen;
+;191;Megabyte pro minute;
+;49;Tage;
+;178;Kilowatt;
+;24;Millimeter;
+;187;pressure (mbar);
+;140;kilopascal;
+;124;cubic metre per hour;
+;104;Kilogramm pro 24 Stunden;
+;131;Liter pro Stunde;
+;181;Dezibel zum Milliwatt;
+;121;ll pro Sekunde;
+;79;Zeilen pro Zoll;
+;154;Etiketten;
+;23;Megabit pro Sekunde;
+;126;Million characters;
+;159;TeraByte;
+;160;Gigabyte pro Sekunde;
+;176;Gigatransfer pro Sekunde;
+;47;KB;
+;98;Nanometer;
+;37;Gigahertz;
+;117;Kilogramm pro Quadratmeter;
+;43;Candellas pro Quadratmeter;
+;33;Zoomfaktor;
+;21;CD-Geschwindigkeit;
+;63;Nanosekunden;
+;80;Voltampere;
+;119;Milliarde texels/sek;
+;180;Lichtstaerke;
+;99;Gewinn;
+;179;Dezibel pro Sekunde;
+;162;Minuten pro Seite;
+;72;Schwerkraft;
+;74;Zyklen pro logischen Sektor;
+;182;Kelvingrad;
+;61;Kopien;
+;108;Britische thermische Maßeinheit;
+;115;Banknoten pro Minute;
+;92;µ;
+;103;Kilowattstunden;
+;113;Münzen;
+;152;Milliliter/Stunde;
+;189;transactions pro sekunde;
+;142;Milliliter;
+;91;Fahrenheit;
+;167;Puls/Min;
+;48;Kilobyte pro Sekunde;
+;107;Disks;
+;87;Ohm;
+;174;Schlagfrequenz;
+;77;Seiten pro Monat;
+;133;milliarde;
+;123;Decibel-to-Volt;
+;50;Bit;
+;39;Pixel;
+;64;Prozent;
+;97;kiloAmper/Meter;
+;41;Ampere;
+;52;NIT;
+;173;Drehmoment;
+;56;Eintragungen;
+;45;Megabit;
+;66;Minuten;
+;19;MB;
+;54;Meter;
+;70;Mikron;
+;188;Megaohm;
+;68;Gigabit pro Sekunde;
+;166;Bel;
+;88;Euro;
+;116;Sekunden pro Seite;
+;136;eps;
+;30;Million;
+;141;kilobit per inch;
+;144;Anzahlen;
+;100;Liter;
+;128;points per second;
+;28;Umdrehungen Pro Minute;
+;120;Positionen;
+;156;Gramm pro Quadratmeter;
+;75;Jahr(e);
+;40;MB pro Sekunde;
+;83;Buchstaben pro Sekunde;
+;134;meter per second;
+;192;;
+;59;Seiten pro Minute;
+;177;lumen;
+;130;Gram pro Stunde;
+;122;millimeter per second;
+;143;Monat€;
+;158;Gramm/Minute;
+;22;Kilobit pro Sekunde;
+;42;Volt;
+;46;Stunden;
+;105;Newton;
+;85;Bilder pro Sekunde;
+;185;Zeilen pro Sekunde;
+;36;Hertz;
+;183;Lese pro Sekunde;
+;51;Milli-Ampere pro Stunde;
+;111;Bewegungen pro Minute;
+;146;Kubikzentimeter;
+;38;Gramm;
+;34;Zentimeter;
+;169;Kilowattstunde pro Woche;
+;164;Millionenscnitte;
+;132;Heftklammern;
+;171;Tasten;
+

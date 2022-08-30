@@ -1,0 +1,6 @@
+open fish://hybris:3ss3g13mm3!@mpsapp01/opt/hybris/deploy
+mput *.zip
+mirror -R hybris/config
+open fish://hybris:3ss3g13mm3!@mpsapp02/opt/hybris/deploy
+#mput *.zip
+mirror -R hybris/config

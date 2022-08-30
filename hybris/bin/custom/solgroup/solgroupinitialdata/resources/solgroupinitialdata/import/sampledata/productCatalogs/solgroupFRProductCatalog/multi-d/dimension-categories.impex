@@ -1,0 +1,248 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#CATEGORIES
+
+$solPrefix=solgroupFR
+
+# Macros / Replacement Parameter definitions
+$productCatalog=$solPrefixProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$categories=target(code, $catalogVersion)[unique=true]
+
+$lang=it
+
+#########################
+### SolGroup ###
+#########################
+
+# Define variant catergories;;;;;;
+INSERT_UPDATE VariantCategory;code[unique=true];name[lang=$lang];$supercategories;hasImage;$catalogVersion;allowedPrincipals(uid)[default='customergroup']
+;$solPrefix_VC_1;Alimentazione;;FALSE;;
+;$solPrefix_VC_2;Attacco;;TRUE;;
+;$solPrefix_VC_3;campo magnetico;;TRUE;;
+;$solPrefix_VC_4;Capacità;;FALSE;;
+;$solPrefix_VC_5;Categoria alimenti;;TRUE;;
+;$solPrefix_VC_6;CND;;FALSE;;
+;$solPrefix_VC_7;composizione;;FALSE;;
+;$solPrefix_VC_8;diametro filo;;TRUE;;
+;$solPrefix_VC_9;Dimensioni cassa;;TRUE;;
+;$solPrefix_VC_10;fissaggio;;FALSE;;
+;$solPrefix_VC_11;flussimetro;;TRUE;;
+;$solPrefix_VC_12;gas;;FALSE;;
+;$solPrefix_VC_13;materiale;;FALSE;;
+;$solPrefix_VC_14;numero di manometri;;FALSE;;
+;$solPrefix_VC_15;Numero di posti;;FALSE;;
+;$solPrefix_VC_16;Numero gas di alimentazione;;FALSE;;
+;$solPrefix_VC_17;oggetto del trasporto;;FALSE;;
+;$solPrefix_VC_18;Omologazione;;FALSE;;
+;$solPrefix_VC_19;Preriscaldo;;FALSE;;
+;$solPrefix_VC_20;presenza lattice;;FALSE;;
+;$solPrefix_VC_21;pressione di riempimento;;FALSE;;
+;$solPrefix_VC_22;Pressione di uscita;;FALSE;;
+;$solPrefix_VC_23;RDM;;FALSE;;
+;$solPrefix_VC_24;Recipiente;;TRUE;;
+;$solPrefix_VC_25;Scala;;FALSE;;
+;$solPrefix_VC_26;standard presa;;FALSE;;
+;$solPrefix_VC_27;taglia;;FALSE;;
+;$solPrefix_VC_28;Capacità;;FALSE;;
+;$solPrefix_VC_29;Tipo di funzionamento;;FALSE;;
+;$solPrefix_VC_30;Configurazione;;FALSE;;
+;$solPrefix_VC_31;Posizione;;FALSE;;
+;$solPrefix_VC_32;Lunghezza;;FALSE;;
+;$solPrefix_VC_33;Portata;;FALSE;;
+;$solPrefix_VC_34;Packaging;;FALSE;;
+;$solPrefix_VC_35;selettore;;FALSE;;
+;$solPrefix_VC_36;valvola;;FALSE;;
+;$solPrefix_VC_37;confezione;;FALSE;;
+#Ramses_IT variant categories
+;$solPrefix_containerType;Container type;;FALSE;;
+;$solPrefix_assetOwner;Asset owner;;FALSE;;
+#Default variant category
+;$solPrefix_Vc_Default;Default variant category;;FALSE;;admin
+
+
+
+#Define variant value categories;;;;;;
+INSERT_UPDATE VariantValueCategory;code[unique=true];name;$supercategories;sequence;$catalogVersion;allowedPrincipals(uid)[default='customergroup']
+;$solPrefix_VC_1_1;5 segnali 220 V;$solPrefix_VC_1;1;;
+;$solPrefix_VC_2_1;1/8” GAS M DX;$solPrefix_VC_2;1;;
+;$solPrefix_VC_3_1;non amagnetico;$solPrefix_VC_3;1;;
+;$solPrefix_VC_4_1;20 litri;$solPrefix_VC_4;1;;
+;$solPrefix_VC_5_1;Per carni;$solPrefix_VC_5;1;;
+;$solPrefix_VC_6_1;Z1203019099;$solPrefix_VC_6;1;;
+;$solPrefix_VC_7_1;mono;$solPrefix_VC_7;1;;
+;$solPrefix_VC_8_1;0,8;$solPrefix_VC_8;1;;
+;$solPrefix_VC_9_1;Ø 52 mm;$solPrefix_VC_9;1;;
+;$solPrefix_VC_10_1;assente ghiera di fissaggio;$solPrefix_VC_10;1;;
+;$solPrefix_VC_11_1;con flussimetro;$solPrefix_VC_11;1;;
+;$solPrefix_VC_12_1;O2;$solPrefix_VC_12;1;;
+;$solPrefix_VC_13_1;alluminio;$solPrefix_VC_13;1;;
+;$solPrefix_VC_14_1;1 manometro;$solPrefix_VC_14;1;;
+;$solPrefix_VC_15_1;1 POSTO;$solPrefix_VC_15;1;;
+;$solPrefix_VC_16_1;2 GAS;$solPrefix_VC_16;1;;
+;$solPrefix_VC_17_1;Emono;$solPrefix_VC_17;1;;
+;$solPrefix_VC_18_1;ISO 9001-4001;$solPrefix_VC_18;1;;
+;$solPrefix_VC_19_1;Senza preriscaldatore;$solPrefix_VC_19;1;;
+;$solPrefix_VC_20_1;privo di lattice;$solPrefix_VC_20;1;;
+;$solPrefix_VC_21_1;135 bar;$solPrefix_VC_21;1;;
+;$solPrefix_VC_22_1;0 – 2 bar;$solPrefix_VC_22;1;;
+;$solPrefix_VC_23_1;1286390;$solPrefix_VC_23;1;;
+;$solPrefix_VC_24_1;Bombola;$solPrefix_VC_24;1;;
+;$solPrefix_VC_25_1;0 – 160 bar;$solPrefix_VC_25;1;;
+;$solPrefix_VC_26_1;AFNOR;$solPrefix_VC_26;1;;
+;$solPrefix_VC_27_1;Infant (1);$solPrefix_VC_27;1;;
+;$solPrefix_VC_28_1;0,35 LT;$solPrefix_VC_28;1;;
+;$solPrefix_VC_29_1;Flow;$solPrefix_VC_29;1;;
+;$solPrefix_VC_30_1;Da bombola;$solPrefix_VC_30;1;;
+;$solPrefix_VC_31_1;Posizione Radiale;$solPrefix_VC_31;1;;
+;$solPrefix_VC_32_1;1 mt;$solPrefix_VC_32;1;;
+;$solPrefix_VC_33_1;200 lit/min;$solPrefix_VC_33;1;;
+;$solPrefix_VC_34_1;D200 random;$solPrefix_VC_34;1;;
+;$solPrefix_VC_35_1;a scatti;$solPrefix_VC_35;1;;
+;$solPrefix_VC_36_1;integrata;$solPrefix_VC_36;1;;
+;$solPrefix_VC_37_1;bombola;$solPrefix_VC_37;1;;
+;$solPrefix_VC_1_2;5 segnali 24 V;$solPrefix_VC_1;2;;
+;$solPrefix_VC_2_2;1/4” GAS M DX;$solPrefix_VC_2;2;;
+;$solPrefix_VC_3_2;amagnetico;$solPrefix_VC_3;2;;
+;$solPrefix_VC_4_2;100 litri;$solPrefix_VC_4;2;;
+;$solPrefix_VC_5_2;Per prodotti da forno;$solPrefix_VC_5;2;;
+;$solPrefix_VC_6_2;R060202;$solPrefix_VC_6;2;;
+;$solPrefix_VC_7_2;doppio;$solPrefix_VC_7;2;;
+;$solPrefix_VC_8_2;1,0;$solPrefix_VC_8;2;;
+;$solPrefix_VC_9_2;Ø 63 mm;$solPrefix_VC_9;2;;
+;$solPrefix_VC_10_2;ghiera di fissaggio;$solPrefix_VC_10;2;;
+;$solPrefix_VC_11_2;senza flussimetro;$solPrefix_VC_11;2;;
+;$solPrefix_VC_12_2;Aria;$solPrefix_VC_12;2;;
+;$solPrefix_VC_13_2;monouso;$solPrefix_VC_13;2;;
+;$solPrefix_VC_14_2;2 manometri;$solPrefix_VC_14;2;;
+;$solPrefix_VC_15_2;2 POSTI;$solPrefix_VC_15;2;;
+;$solPrefix_VC_16_2;3 GAS;$solPrefix_VC_16;2;;
+;$solPrefix_VC_17_2;bombola 5/7 LT;$solPrefix_VC_17;2;;
+;$solPrefix_VC_18_2;ABS;$solPrefix_VC_18;2;;
+;$solPrefix_VC_19_2;Con preriscaldatore;$solPrefix_VC_19;2;;
+;$solPrefix_VC_21_2;185 bar;$solPrefix_VC_21;2;;
+;$solPrefix_VC_22_2;0 – 5 bar;$solPrefix_VC_22;2;;
+;$solPrefix_VC_23_2;119493;$solPrefix_VC_23;2;;
+;$solPrefix_VC_24_2;Pacco bombole;$solPrefix_VC_24;2;;
+;$solPrefix_VC_25_2;0 – 315 bar;$solPrefix_VC_25;2;;
+;$solPrefix_VC_26_2;DIN;$solPrefix_VC_26;2;;
+;$solPrefix_VC_27_2;Small (2);$solPrefix_VC_27;2;;
+;$solPrefix_VC_28_2;0,5 LT;$solPrefix_VC_28;2;;
+;$solPrefix_VC_29_2;Vacuum;$solPrefix_VC_29;2;;
+;$solPrefix_VC_30_2;Da rampa;$solPrefix_VC_30;2;;
+;$solPrefix_VC_31_2;Posizione Posteriore;$solPrefix_VC_31;2;;
+;$solPrefix_VC_32_2;2 mt;$solPrefix_VC_32;2;;
+;$solPrefix_VC_33_2;250 lit/min;$solPrefix_VC_33;2;;
+;$solPrefix_VC_34_2;S300 random;$solPrefix_VC_34;2;;
+;$solPrefix_VC_35_2;manuale;$solPrefix_VC_35;2;;
+;$solPrefix_VC_36_2;non integrata;$solPrefix_VC_36;2;;
+;$solPrefix_VC_37_2;pacco da 9 bombole;$solPrefix_VC_37;2;;
+;$solPrefix_VC_6_3;Q030103;$solPrefix_VC_6;3;;
+;$solPrefix_VC_8_3;1,2;$solPrefix_VC_8;3;;
+;$solPrefix_VC_12_3;O2 CO2;$solPrefix_VC_12;3;;
+;$solPrefix_VC_13_3;acciaio;$solPrefix_VC_13;3;;
+;$solPrefix_VC_15_3;3 POSTI;$solPrefix_VC_15;3;;
+;$solPrefix_VC_17_3;bombola 5/7/10/14 LT;$solPrefix_VC_17;3;;
+;$solPrefix_VC_18_3;CWB;$solPrefix_VC_18;3;;
+;$solPrefix_VC_22_3;0 -12 bar;$solPrefix_VC_22;3;;
+;$solPrefix_VC_23_3;623027;$solPrefix_VC_23;3;;
+;$solPrefix_VC_24_3;Carro bombolaio;$solPrefix_VC_24;3;;
+;$solPrefix_VC_26_3;UNI;$solPrefix_VC_26;3;;
+;$solPrefix_VC_27_3;Large (3);$solPrefix_VC_27;3;;
+;$solPrefix_VC_28_3;2 LT;$solPrefix_VC_28;3;;
+;$solPrefix_VC_30_3;Con Docking;$solPrefix_VC_30;3;;
+;$solPrefix_VC_33_3;400 Lit/min;$solPrefix_VC_33;3;;
+;$solPrefix_VC_34_3;S300 spira/spira;$solPrefix_VC_34;3;;
+;$solPrefix_VC_37_3;pacco da 12 bombole;$solPrefix_VC_37;3;;
+;$solPrefix_VC_8_4;0,6;$solPrefix_VC_8;4;;
+;$solPrefix_VC_12_4;N2;$solPrefix_VC_12;4;;
+;$solPrefix_VC_15_4;5 POSTI;$solPrefix_VC_15;4;;
+;$solPrefix_VC_18_4;DB;$solPrefix_VC_18;4;;
+;$solPrefix_VC_23_4;640909;$solPrefix_VC_23;4;;
+;$solPrefix_VC_24_4;Bidone;$solPrefix_VC_24;4;;
+;$solPrefix_VC_27_4;Medium (4);$solPrefix_VC_27;4;;
+;$solPrefix_VC_28_4;3 LT;$solPrefix_VC_28;4;;
+;$solPrefix_VC_30_4;Con Docking e lettore di codici a barre;$solPrefix_VC_30;4;;
+;$solPrefix_VC_33_4;600 lit/min;$solPrefix_VC_33;4;;
+;$solPrefix_VC_34_4;K300 spira/spira;$solPrefix_VC_34;4;;
+;$solPrefix_VC_8_5;1,6;$solPrefix_VC_8;5;;
+;$solPrefix_VC_12_5;He Ar;$solPrefix_VC_12;5;;
+;$solPrefix_VC_18_5;GL;$solPrefix_VC_18;5;;
+;$solPrefix_VC_28_5;5 LT;$solPrefix_VC_28;5;;
+;$solPrefix_VC_33_5;1000 lit/min;$solPrefix_VC_33;5;;
+;$solPrefix_VC_34_5;Standard pack;$solPrefix_VC_34;5;;
+;$solPrefix_VC_12_6;O2 N2 He Ar CO2;$solPrefix_VC_12;6;;
+;$solPrefix_VC_28_6;7 LT;$solPrefix_VC_28;6;;
+;$solPrefix_VC_12_7;O2 CO2;$solPrefix_VC_12;7;;
+;$solPrefix_VC_28_7;10 LT;$solPrefix_VC_28;7;;
+;$solPrefix_VC_12_8;N2 CO2;$solPrefix_VC_12;8;;
+;$solPrefix_VC_28_8;50 LT;$solPrefix_VC_28;8;;
+;$solPrefix_VC_12_9;N2 O2 CO2;$solPrefix_VC_12;9;;
+;$solPrefix_VC_12_10;CO2;$solPrefix_VC_12;10;;
+;$solPrefix_VC_12_11;N2O;$solPrefix_VC_12;11;;
+#Ramses IT variant value categories
+;$solPrefix_assetOwner_0;Asset owner 0;$solPrefix_assetOwner;1;;
+;$solPrefix_assetOwner_1;Asset owner 1;$solPrefix_assetOwner;2;;
+;$solPrefix_containerType_01;Container type 01;$solPrefix_containerType;1;;
+;$solPrefix_containerType_02;Container type 02;$solPrefix_containerType;2;;
+;$solPrefix_containerType_03;Container type 03;$solPrefix_containerType;3;;
+;$solPrefix_containerType_04;Container type 04;$solPrefix_containerType;4;;
+;$solPrefix_containerType_05;Container type 05;$solPrefix_containerType;5;;
+;$solPrefix_containerType_06;Container type 06;$solPrefix_containerType;6;;
+;$solPrefix_containerType_07;Container type 07;$solPrefix_containerType;7;;
+;$solPrefix_containerType_08;Container type 08;$solPrefix_containerType;8;;
+;$solPrefix_containerType_09;Container type 00;$solPrefix_containerType;9;;
+;$solPrefix_containerType_10;Container type 10;$solPrefix_containerType;10;;
+;$solPrefix_containerType_11;Container type 11;$solPrefix_containerType;11;;
+;$solPrefix_containerType_12;Container type 12;$solPrefix_containerType;12;;
+;$solPrefix_containerType_13;Container type 13;$solPrefix_containerType;13;;
+;$solPrefix_containerType_14;Container type 14;$solPrefix_containerType;14;;
+;$solPrefix_containerType_15;Container type 15;$solPrefix_containerType;15;;
+;$solPrefix_containerType_16;Container type 16;$solPrefix_containerType;16;;
+;$solPrefix_containerType_18;Container type 18;$solPrefix_containerType;17;;
+;$solPrefix_containerType_19;Container type 19;$solPrefix_containerType;18;;
+;$solPrefix_containerType_20;Container type 01;$solPrefix_containerType;19;;
+;$solPrefix_containerType_21;Container type 21;$solPrefix_containerType;20;;
+;$solPrefix_containerType_23;Container type 22;$solPrefix_containerType;21;;
+;$solPrefix_containerType_30;Container type 30;$solPrefix_containerType;22;;
+;$solPrefix_containerType_51;Container type 51;$solPrefix_containerType;23;;
+;$solPrefix_containerType_52;Container type 52;$solPrefix_containerType;24;;
+;$solPrefix_containerType_53;Container type 53;$solPrefix_containerType;25;;
+;$solPrefix_containerType_54;Container type 54;$solPrefix_containerType;26;;
+#Default variant value categories
+;$solPrefix_Vc_Default_Default;Default variant value category;$solPrefix_Vc_Default;999;;admin
+
+
+#########################
+### PowerTools ###
+#########################
+
+
+
+# Insert Categories
+INSERT_UPDATE Category                 ; code[unique=true] ; allowedPrincipals(uid)[default='customergroup'] ; $catalogVersion
+                                       ; 1800
+                                       ; 1801
+                                       ; 1802
+                                       ; 1803
+                                       ; 1804
+                                       ; 1805
+                                       ; 1806
+
+INSERT_UPDATE CategoryCategoryRelation ; $categories       ; source(code, $catalogVersion)[unique=true]
+									   ; 1800	 		   ; 1	
+                                       ; 1801              ; 1800
+                                       ; 1802              ; 1800
+                                       ; 1803              ; 1801
+                                       ; 1804              ; 1801
+                                       ; 1805              ; 1802
+                                       ; 1806              ; 1802

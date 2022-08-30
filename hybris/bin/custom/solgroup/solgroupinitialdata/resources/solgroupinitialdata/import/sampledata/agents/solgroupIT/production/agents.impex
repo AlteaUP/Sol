@@ -1,0 +1,350 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.
+# All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+
+$defaultPassword=Hybris.2018
+#$agentGroups=customermanagergroup,asagentsalesmanagergroup,customersupportagentgroup
+$agentGroups=solAgentsGroup
+
+#INSERT_UPDATE UserGroup ; uid[unique=true]   ; locname[lang=en] ;  
+#                        ; salesemployeegroup ; Sales Employee   ;  
+#                        ; salesadmingroup    ; Sales Admin      ;  
+#                        ; salesmanagergroup  ; Sales Manager    ;  
+#                        ; salesapprovergroup ; Sales Approver   ;  
+
+#INSERT_UPDATE PrincipalGroupRelation ; source(uid)[unique=true] ; target(uid)[unique=true]
+#                                     ; salesemployeegroup       ; orgemployeegroup        ;  
+#                                     ; salesadmingroup          ; salesemployeegroup      ;  
+#                                     ; salesmanagergroup        ; salesemployeegroup      ;  
+#                                     ; salesapprovergroup       ; salesemployeegroup      ;  
+
+#$START_USERRIGHTS                    ;                          ;                         ;  ;                    ;   ;   ;   ;   ;   
+#Type                                 ; UID                      ; MemberOfGroups          ; Password; Target             ; read; change; create; remove; change_perm
+#UserGroup                            ; salesadmingroup          ;                         ;  ;                    ;   ;   ;   ;   ;   
+#                                     ;                          ;                         ;  ; OrgUnit            ; + ; + ; + ; + ; - 
+#                                     ;                          ;                         ;  ; Address            ; + ; + ; + ; - ; - 
+#                                     ;                          ;                         ;  ; Employee           ; + ; + ; + ; - ; - 
+#                                     ;                          ;                         ;  ; StoreEmployeeGroup ; + ; + ; + ; - ; - 
+#
+#UserGroup                            ; salesmanagergroup        ;                         ;  ;                    ;   ;   ;   ;   ;   
+#                                     ;                          ;                         ;  ; OrgUnit            ; + ; + ; - ; - ; - 
+#                                     ;                          ;                         ;  ; Address            ; + ; + ; - ; - ; - 
+#                                     ;                          ;                         ;  ; Employee           ; + ; + ; - ; - ; - 
+#                                     ;                          ;                         ;  ; OrgUnit.groups     ; + ; - ; - ; - ; - ;  
+#                                     ;                          ;                         ;  ; StoreEmployeeGroup ; + ; + ; - ; - ; - ;  
+#
+#UserGroup                            ; salesemployeegroup       ;                         ;  ;                    ;   ;   ;   ;   ;   
+#                                     ;                          ;                         ;  ; OrgUnit            ; + ; - ; - ; - ; - 
+#                                     ;                          ;                         ;  ; Address            ; + ; - ; - ; - ; - 
+#                                     ;                          ;                         ;  ; Employee           ; + ; - ; - ; - ; - 
+#                                     ;                          ;                         ;  ; StoreEmployeeGroup ; + ; - ; - ; - ; - ;  
+#                                     ;                          ;                         ;  ; UserGroup          ; + ; - ; - ; - ; - 
+#                                     ;                          ;                         ;  ; Quote              ; + ; - ; - ; - ; - 
+#$END_USERRIGHTS                      ;                          ;                         ;  ;                    ;   ;   ;   ;   ;   
+
+
+INSERT_UPDATE Employee ; uid[unique=true]         ; name                            ; vendorCode ; groups(uid)[default=$agentGroups] ; password[default=$defaultPassword] ;  
+                       ; l.geromin@sol.it         ; Luca Geromin                    ; V0000001   ;                                   ;                                    ;  
+                       ; a.facchini@sol.it        ; Alberto Facchini                ; V0000002   ;                                   ;                                    ;  
+                       ; a.orsi@sol.it            ; Alessandro Orsi                 ; V0000003   ;                                   ;                                    ;  
+                       ; dico.customer@sol.it     ; Customer Dico                   ; V0000004   ;                                   ;                                    ;  
+                       ; dico.intercompany@sol.it ; Intercomp.               . Dico ; V0000005   ;                                   ;                                    ;  
+                       ; m.pucciani@sol.it        ; Matteo Pucciani                 ; V0000006   ;                                   ;                                    ;  
+                       ; e.pandolfi@sol.it        ; Eraldo Pandolfi                 ; V0000009   ;                                   ;                                    ;  
+                       ; m.barbieri@sol.it        ; Massimiliano Barbieri           ; V0000010   ;                                   ;                                    ;  
+                       ; s.coppa@sol.it           ; Simone Coppa                    ; V0000011   ;                                   ;                                    ;  
+                       ; e.bella@sol.it           ; Emanuele Bella                  ; V0000012   ;                                   ;                                    ;  
+                       ; f.rampini@sol.it         ; Federico Rampini                ; V0000013   ;                                   ;                                    ;  
+                       ; s.gallo@sol.it           ; Simona Gallo                    ; V0000014   ;                                   ;                                    ;  
+                       ; a.tognoni@sol.it         ; Alberto Tognoni                 ; V0000016   ;                                   ;                                    ;  
+                       ; p.toscano@sol.it         ; Paolo Toscano                   ; V0000017   ;                                   ;                                    ;  
+                       ; a.girau@sol.it           ; Antonello Girau                 ; V0000018   ;                                   ;                                    ;  
+                       ; a.vay@sol.it             ; Alberto Vay                     ; V0000019   ;                                   ;                                    ;  
+                       ; s.quarato@sol.it         ; Salvatore Quarato               ; V0000021   ;                                   ;                                    ;  
+                       ; a.demaria@sol.it         ; Andrea De Maria                 ; V0000022   ;                                   ;                                    ;  
+                       ; g.spaliviero@sol.it      ; Giuseppe Spaliviero             ; V0000023   ;                                   ;                                    ;  
+                       ; e.spiaggi@sol.it         ; Enrico Spiaggi                  ; V0000024   ;                                   ;                                    ;  
+                       ; d.scolari@sol.it         ; Domenico Scolari                ; V0000025   ;                                   ;                                    ;  
+                       ; v.scarinci@sol.it        ; Vittorio Scarinci               ; V0000026   ;                                   ;                                    ;  
+                       ; a.lamandini@sol.it       ; Andrea Lamandini                ; V0000027   ;                                   ;                                    ;  
+                       ; f.caporali@sol.it        ; Flavio Caporali                 ; V0000028   ;                                   ;                                    ;  
+                       ; a.donati@sol.it          ; Aroldo Donati                   ; V0000029   ;                                   ;                                    ;  
+                       ; s.manzini@sol.it         ; Stefano Manzini                 ; V0000030   ;                                   ;                                    ;  
+                       ; p.stabile@sol.it         ; Pietro Stabile                  ; V0000031   ;                                   ;                                    ;  
+                       ; f.denino@sol.it          ; Francesco De Nino               ; V0000032   ;                                   ;                                    ;  
+                       ; a.esposito@sol.it        ; Annarita Esposito               ; V0000033   ;                                   ;                                    ;  
+                       ; f.barbato@sol.it         ; Fabrizio Barbato                ; V0000034   ;                                   ;                                    ;  
+                       ; f.valerio@sol.it         ; Fabio Valerio                   ; V0000036   ;                                   ;                                    ;  
+                       ; a.marchini@sol.it        ; Alessandra Marchini             ; V0000037   ;                                   ;                                    ;  
+                       ; d.serino@sol.it          ; Diego Serino                    ; V0000038   ;                                   ;                                    ;  
+                       ; p.quattri@sol.it         ; Pietro Quattri                  ; V0000039   ;                                   ;                                    ;  
+                       ; a.termine@sol.it         ; Armando Termine                 ; V0000040   ;                                   ;                                    ;  
+                       ; s.minghelli@sol.it       ; Stefano Minghelli               ; V0000042   ;                                   ;                                    ;  
+                       ; e.iadanza@sol.it         ; Elena Iadanza                   ; V0000043   ;                                   ;                                    ;  
+                       ; s.scalzullo@sol.it       ; Sara Scalzullo                  ; V0000044   ;                                   ;                                    ;  
+                       ; gasdotti@sol.it          ; Gasdotti Gasdotti               ; V0000046   ;                                   ;                                    ;  
+                       ; v.icoa@sol.it            ; Venditore Icoa                  ; V0000047   ;                                   ;                                    ;  
+                       ; c.marchetti@sol.it       ; Chiara Marchetti                ; V0000051   ;                                   ;                                    ;  
+                       ; g.villa@sol.it           ; Giuseppina Villa                ; V0000055   ;                                   ;                                    ;  
+                       ; l.zara@sol.it            ; Lucia Zara                      ; V0000056   ;                                   ;                                    ;  
+                       ; r.giannone@sol.it        ; Raffaella Giannone              ; V0000057   ;                                   ;                                    ;  
+                       ; e.ferrari@sol.it         ; Eleonora Ferrari                ; V0000058   ;                                   ;                                    ;  
+                       ; l.parisio@sol.it         ; Luca Parisio                    ; V0000059   ;                                   ;                                    ;  
+                       ; r.stefano@sol.it         ; Romagnoli Stefano               ; V0000061   ;                                   ;                                    ;  
+                       ; gasdotti.sgp@sol.it      ; Gasdotti Sgp                    ; V0000063   ;                                   ;                                    ;  
+                       ; ditp.sgp@sol.it          ; Ditp Sgp                        ; V0000064   ;                                   ;                                    ;  
+                       ; s.intercompany@sol.it    ; Sgp Intercompany                ; V0000065   ;                                   ;                                    ;  
+                       ; l.lucania@sol.it         ; Lucania Lucania                 ; V0000100   ;                                   ;                                    ;  
+                       ; l.bertolini@sol.it       ; Luigi Bertolini                 ; V0000103   ;                                   ;                                    ;  
+                       ; k.bonicolini@sol.it      ; Katia Bonicolini                ; V0000104   ;                                   ;                                    ;  
+                       ; e.fischetti@sol.it       ; Ernesto Fischetti               ; V0000105   ;                                   ;                                    ;  
+                       ; s.dabbene@sol.it         ; Stefano Dabbene                 ; V0000120   ;                                   ;                                    ;  
+                       ; r.ragazzoni@sol.it       ; Ragazzoni Ragazzoni             ; V0000122   ;                                   ;                                    ;  
+                       ; p.ricco@sol.it           ; Paolo Ricco                     ; V0000123   ;                                   ;                                    ;  
+                       ; g.valenti@sol.it         ; Giampiero Valenti               ; V0000125   ;                                   ;                                    ;  
+                       ; c.pettigiani@sol.it      ; Claudio Pettigiani              ; V0000128   ;                                   ;                                    ;  
+                       ; m.barolo@sol.it          ; Marco Barolo                    ; V0000130   ;                                   ;                                    ;  
+                       ; m.galli@sol.it           ; Massimo Galli                   ; V0000131   ;                                   ;                                    ;  
+                       ; m.fumagalli@sol.it       ; Marco Fumagalli                 ; V0000132   ;                                   ;                                    ;  
+                       ; r.boggiani@sol.it        ; Roberto Boggiani                ; V0000139   ;                                   ;                                    ;  
+                       ; a.masi@sol.it            ; Andrea Masi                     ; V0000140   ;                                   ;                                    ;  
+                       ; c.cantoni@sol.it         ; Cantoni Cantoni                 ; V0000141   ;                                   ;                                    ;  
+                       ; d.pelacchi@sol.it        ; Danilo Pelacchi                 ; V0000142   ;                                   ;                                    ;  
+                       ; e.ardizzi@sol.it         ; Emilio Ardizzi                  ; V0000144   ;                                   ;                                    ;  
+                       ; p.granata@sol.it         ; Paolo Granata                   ; V0000145   ;                                   ;                                    ;  
+                       ; g.squillace@sol.it       ; Giuseppe Squillace              ; V0000147   ;                                   ;                                    ;  
+                       ; z.zangari@sol.it         ; Zangari Zangari                 ; V0000148   ;                                   ;                                    ;  
+                       ; f.taurino@sol.it         ; Fabrizio Taurino                ; V0000149   ;                                   ;                                    ;  
+                       ; g.barbieri@sol.it        ; Giorgio Barbieri                ; V0000159   ;                                   ;                                    ;  
+                       ; c.venditore@sol.it       ; Cts Venditore                   ; V0000160   ;                                   ;                                    ;  
+                       ; s.venditore@sol.it       ; Sol Venditore                   ; V0000161   ;                                   ;                                    ;  
+                       ; s.pecchi@sol.it          ; Stefano Pecchi                  ; V0000162   ;                                   ;                                    ;  
+                       ; g.lollo@sol.it           ; Giovanni Lollo                  ; V0000163   ;                                   ;                                    ;  
+                       ; a.giuliato@sol.it        ; Alessandro Giuliato             ; V0000164   ;                                   ;                                    ;  
+                       ; s.lamanuzzi@sol.it       ; Stefano Lamanuzzi               ; V0000165   ;                                   ;                                    ;  
+                       ; m.zanatta@sol.it         ; Michele Zanatta                 ; V0000166   ;                                   ;                                    ;  
+                       ; l.maniero@sol.it         ; Luigi Maniero                   ; V0000167   ;                                   ;                                    ;  
+                       ; l.dellaflora@sol.it      ; Lucio Della Flora               ; V0000168   ;                                   ;                                    ;  
+                       ; m.mainardi@sol.it        ; Marta Mainardi                  ; V0000169   ;                                   ;                                    ;  
+                       ; a.termine@sol.it         ; Armando Termine                 ; V0000171   ;                                   ;                                    ;  
+                       ; m.torregiani@sol.it      ; Maurizio Torregiani             ; V0000172   ;                                   ;                                    ;  
+                       ; s.turetta@sol.it         ; Simone Turetta                  ; V0000179   ;                                   ;                                    ;  
+                       ; g.rubbo@sol.it           ; Gianfranco Rubbo                ; V0000180   ;                                   ;                                    ;  
+                       ; s.quiriconi@sol.it       ; Simone Quiriconi                ; V0000183   ;                                   ;                                    ;  
+                       ; m.cavatton@sol.it        ; Mirco Cavatton                  ; V0000184   ;                                   ;                                    ;  
+                       ; c.andrea@sol.it          ; Castelli Andrea                 ; V0000187   ;                                   ;                                    ;  
+                       ; a.voltan@sol.it          ; Alberto Voltan                  ; V0000188   ;                                   ;                                    ;  
+                       ; p.peruch@sol.it          ; Paolo Peruch                    ; V0000189   ;                                   ;                                    ;  
+                       ; v.volpati@sol.it         ; Volpati Volpati                 ; V0000191   ;                                   ;                                    ;  
+                       ; p.diodoardo@sol.it       ; Paolo Di Odoardo                ; V0000192   ;                                   ;                                    ;  
+                       ; c.malazzi@sol.it         ; Christian Malazzi               ; V0000193   ;                                   ;                                    ;  
+                       ; s.giorgi@sol.it          ; Stefano Giorgi                  ; V0000194   ;                                   ;                                    ;  
+                       ; d.ghelfi@sol.it          ; Daniele Ghelfi                  ; V0000195   ;                                   ;                                    ;  
+                       ; r.zampini@sol.it         ; Roberto Zampini                 ; V0000197   ;                                   ;                                    ;  
+                       ; r.zampini@sol.it         ; Roberto Zampini                 ; V0000198   ;                                   ;                                    ;  
+                       ; m.frachetti@sol.it       ; Marco Frachetti                 ; V0000199   ;                                   ;                                    ;  
+                       ; m.rodaro@sol.it          ; Marco Rodaro                    ; V0000200   ;                                   ;                                    ;  
+                       ; f.leoni@sol.it           ; Franco Leoni                    ; V0000201   ;                                   ;                                    ;  
+                       ; m.visentin@sol.it        ; Michele Visentin                ; V0000207   ;                                   ;                                    ;  
+                       ; l.purello@sol.it         ; Luca Purello                    ; V0000208   ;                                   ;                                    ;  
+                       ; g.piccinini@sol.it       ; Gianluca Piccinini              ; V0000209   ;                                   ;                                    ;  
+                       ; i.chiriatti@sol.it       ; Ivan Chiriatti                  ; V0000210   ;                                   ;                                    ;  
+                       ; s.desirello@sol.it       ; Stefano Desirello               ; V0000220   ;                                   ;                                    ;  
+                       ; l.tesoro@sol.it          ; Luigi Tesoro                    ; V0000221   ;                                   ;                                    ;  
+                       ; a.gallo@sol.it           ; Andrea Gallo                    ; V0000222   ;                                   ;                                    ;  
+                       ; s.lepori@sol.it          ; Stefano Lepori                  ; V0000223   ;                                   ;                                    ;  
+                       ; a.giribaldi@sol.it       ; Andrea Giribaldi                ; V0000225   ;                                   ;                                    ;  
+                       ; n.ponticello@sol.it      ; Natale Ponticello               ; V0000228   ;                                   ;                                    ;  
+                       ; p.ligas@sol.it           ; Pierluigi Ligas                 ; V0000231   ;                                   ;                                    ;  
+                       ; p.volturno@sol.it        ; Pietro Volturno                 ; V0000232   ;                                   ;                                    ;  
+                       ; g.uccheddu@sol.it        ; Gianluca Uccheddu               ; V0000234   ;                                   ;                                    ;  
+                       ; m.santini@sol.it         ; Mauro Santini                   ; V0000302   ;                                   ;                                    ;  
+                       ; c.valente@sol.it         ; Cosimo Valente                  ; V0000303   ;                                   ;                                    ;  
+                       ; m.casciotti@sol.it       ; Micaela Casciotti               ; V0000318   ;                                   ;                                    ;  
+                       ; s.tomassini@sol.it       ; Stefania Tomassini              ; V0000319   ;                                   ;                                    ;  
+                       ; r.caprari@sol.it         ; Raffaele Caprari                ; V0000322   ;                                   ;                                    ;  
+                       ; n.scarpone@sol.it        ; Nicola Scarpone                 ; V0000323   ;                                   ;                                    ;  
+                       ; f.pigini@sol.it          ; Francesco Pigini                ; V0000324   ;                                   ;                                    ;  
+                       ; f.tonti@sol.it           ; Francesco Tonti                 ; V0000325   ;                                   ;                                    ;  
+                       ; l.mazzanti@sol.it        ; Leolo Mazzanti                  ; V0000327   ;                                   ;                                    ;  
+                       ; m.mengarelli@sol.it      ; Massimiliano Mengarelli         ; V0000328   ;                                   ;                                    ;  
+                       ; s.parlangeli@sol.it      ; Sergio Parlangeli               ; V0000331   ;                                   ;                                    ;  
+                       ; e.silvetti@sol.it        ; Enrico Silvetti                 ; V0000332   ;                                   ;                                    ;  
+                       ; a.lupo@sol.it            ; Andrea Lupo                     ; V0000334   ;                                   ;                                    ;  
+                       ; g.madiai@sol.it          ; Gianfranco Madiai               ; V0000342   ;                                   ;                                    ;  
+                       ; m.latini@sol.it          ; Mario Latini                    ; V0000361   ;                                   ;                                    ;  
+                       ; r.segnan@sol.it          ; Ruggero Segnan                  ; V0000362   ;                                   ;                                    ;  
+                       ; g.tebaldi@sol.it         ; Gabriele Tebaldi                ; V0000363   ;                                   ;                                    ;  
+                       ; m.lavoratornovo@sol.it   ; Mario Lavoratornovo             ; V0000364   ;                                   ;                                    ;  
+                       ; a.starnari@sol.it        ; Andrea Starnari                 ; V0000365   ;                                   ;                                    ;  
+                       ; r.bartoli@sol.it         ; Riccardo Bartoli                ; V0000380   ;                                   ;                                    ;  
+                       ; m.betti@sol.it           ; Mirko Betti                     ; V0000381   ;                                   ;                                    ;  
+                       ; l.logistica@sol.it       ; Liquidi Logistica               ; V0000382   ;                                   ;                                    ;  
+                       ; c.petronio@sol.it        ; Claudio Petronio                ; V0000385   ;                                   ;                                    ;  
+                       ; a.pareschi@sol.it        ; Antonio Pareschi                ; V0000386   ;                                   ;                                    ;  
+                       ; a.forle@sol.it           ; Alessandro Forle'               ; V0000387   ;                                   ;                                    ;  
+                       ; g.espa@sol.it            ; Gianluca Espa                   ; V0000389   ;                                   ;                                    ;  
+                       ; l.scalise@sol.it         ; Luca Scalise                    ; V0000401   ;                                   ;                                    ;  
+                       ; p.pistolesi@sol.it       ; Paolo Pistolesi                 ; V0000402   ;                                   ;                                    ;  
+                       ; a.aldovrandi@sol.it      ; Alessandro Aldovrandi           ; V0000405   ;                                   ;                                    ;  
+                       ; a.zaru@sol.it            ; Alessandro Zaru                 ; V0000406   ;                                   ;                                    ;  
+                       ; z.zaccagnini@sol.it      ; Zaccagnini Zaccagnini           ; V0000421   ;                                   ;                                    ;  
+                       ; m.fuschetto@sol.it       ; Mario Fuschetto                 ; V0000422   ;                                   ;                                    ;  
+                       ; g.lippi@sol.it           ; Giuseppe Lippi                  ; V0000424   ;                                   ;                                    ;  
+                       ; n.pavoletti@sol.it       ; Nico Pavoletti                  ; V0000425   ;                                   ;                                    ;  
+                       ; v.virgili@sol.it         ; Valerio Virgili                 ; V0000427   ;                                   ;                                    ;  
+                       ; l.filippini@sol.it       ; Luca Filippini                  ; V0000428   ;                                   ;                                    ;  
+                       ; s.vassallo@sol.it        ; Sara Vassallo                   ; V0000429   ;                                   ;                                    ;  
+                       ; n.padovano@sol.it        ; Nicola Padovano                 ; V0000440   ;                                   ;                                    ;  
+                       ; g.barbetta@sol.it        ; Gianni Barbetta                 ; V0000441   ;                                   ;                                    ;  
+                       ; u.nativio@sol.it         ; Umberto Nativio                 ; V0000442   ;                                   ;                                    ;  
+                       ; p.luca@sol.it            ; Purrello Luca                   ; V0000443   ;                                   ;                                    ;  
+                       ; m.ferri@sol.it           ; Michele Ferri                   ; V0000444   ;                                   ;                                    ;  
+                       ; e.silvetti@sol.it        ; Enrico Silvetti                 ; V0000446   ;                                   ;                                    ;  
+                       ; m.coppari@sol.it         ; Massimo Coppari                 ; V0000447   ;                                   ;                                    ;  
+                       ; m.buccelli@sol.it        ; Marzio Buccelli                 ; V0000460   ;                                   ;                                    ;  
+                       ; e.palagi@sol.it          ; Enzo Palagi                     ; V0000461   ;                                   ;                                    ;  
+                       ; m.cavazza@sol.it         ; Marco Cavazza                   ; V0000480   ;                                   ;                                    ;  
+                       ; g.crispino@sol.it        ; Giuseppe Crispino               ; V0000481   ;                                   ;                                    ;  
+                       ; n.gargano@sol.it         ; Nicolangelo Gargano             ; V0000482   ;                                   ;                                    ;  
+                       ; f.palmieri@sol.it        ; Filippo Palmieri                ; V0000501   ;                                   ;                                    ;  
+                       ; g.frijia@sol.it          ; Giuseppe Frijia                 ; V0000502   ;                                   ;                                    ;  
+                       ; g.iorgi@sol.it           ; Giuseppe Iorgi                  ; V0000503   ;                                   ;                                    ;  
+                       ; r.russo@sol.it           ; Rita. Russo                     ; V0000504   ;                                   ;                                    ;  
+                       ; s.riga@sol.it            ; Sabatino Riga                   ; V0000505   ;                                   ;                                    ;  
+                       ; p.ospedale@sol.it        ; Pellegrino Ospedale             ; V0000578   ;                                   ;                                    ;  
+                       ; c.decclesiis@sol.it      ; Cesare D'ecclesiis              ; V0000589   ;                                   ;                                    ;  
+                       ; f.farm@sol.it            ; Francesca Farm                  ; V0000596   ;                                   ;                                    ;  
+                       ; c.carbonaro@sol.it       ; Carbonaro Carbonaro             ; V0000600   ;                                   ;                                    ;  
+                       ; l.bencivenni@sol.it      ; Leonardo Bencivenni             ; V0000603   ;                                   ;                                    ;  
+                       ; v.sorrentino@sol.it      ; Vincenzo Sorrentino             ; V0000605   ;                                   ;                                    ;  
+                       ; l.zapponi@sol.it         ; Lorenzo Zapponi                 ; V0000606   ;                                   ;                                    ;  
+                       ; f.pittella@sol.it        ; Francesca Pittella              ; V0000608   ;                                   ;                                    ;  
+                       ; m.natalini@sol.it        ; Marco Natalini                  ; V0000625   ;                                   ;                                    ;  
+                       ; s.orlandini@sol.it       ; Simone Orlandini                ; V0000626   ;                                   ;                                    ;  
+                       ; s.kiselev@sol.it         ; Sergio Kiselev                  ; V0000628   ;                                   ;                                    ;  
+                       ; t.rezzuto@sol.it         ; Tullio Rezzuto                  ; V0000629   ;                                   ;                                    ;  
+                       ; d.milani@sol.it          ; Diego Milani                    ; V0000630   ;                                   ;                                    ;  
+                       ; m.cacciatore@sol.it      ; Michele Cacciatore              ; V0000632   ;                                   ;                                    ;  
+                       ; f.ciardiello@sol.it      ; Felice Ciardiello               ; V0000641   ;                                   ;                                    ;  
+                       ; c.pascale@sol.it         ; Cs5 Pascale                     ; V0000642   ;                                   ;                                    ;  
+                       ; a.pascale@sol.it         ; Antonio Pascale                 ; V0000643   ;                                   ;                                    ;  
+                       ; d.miranda@sol.it         ; Daniel Miranda                  ; V0000644   ;                                   ;                                    ;  
+                       ; g.angelo@sol.it          ; Giuliano Angelo                 ; V0000645   ;                                   ;                                    ;  
+                       ; m.andrea@sol.it          ; Merola Andrea                   ; V0000646   ;                                   ;                                    ;  
+                       ; a.ladisa@sol.it          ; Agostino Ladisa                 ; V0000660   ;                                   ;                                    ;  
+                       ; l.lopez@sol.it           ; Luca Lopez                      ; V0000661   ;                                   ;                                    ;  
+                       ; g.albino@sol.it          ; Giuseppe Albino                 ; V0000666   ;                                   ;                                    ;  
+                       ; v.greco@sol.it           ; Vito Greco                      ; V0000667   ;                                   ;                                    ;  
+                       ; c.castiglione@sol.it     ; Castiglione Castiglione         ; V0000680   ;                                   ;                                    ;  
+                       ; f.meli@sol.it            ; Francesco Meli                  ; V0000681   ;                                   ;                                    ;  
+                       ; l.dimauro@sol.it         ; Luigi Di Mauro                  ; V0000682   ;                                   ;                                    ;  
+                       ; m.neri@sol.it            ; Marco Neri                      ; V0000683   ;                                   ;                                    ;  
+                       ; a.cinquemani@sol.it      ; Alfredo Cinquemani              ; V0000685   ;                                   ;                                    ;  
+                       ; m.catania@sol.it         ; Massimiliano Catania            ; V0000686   ;                                   ;                                    ;  
+                       ; d.polizzi@sol.it         ; Domenica Polizzi                ; V0000687   ;                                   ;                                    ;  
+                       ; g.bertolino@sol.it       ; Giacomo Bertolino               ; V0000700   ;                                   ;                                    ;  
+                       ; p.bellinzani@sol.it      ; Paolo Bellinzani                ; V0000801   ;                                   ;                                    ;  
+                       ; m.piacenti@sol.it        ; Marco Piacenti                  ; V0000810   ;                                   ;                                    ;  
+                       ; a.bortolami@sol.it       ; Andrea Bortolami                ; V0000850   ;                                   ;                                    ;  
+                       ; m.perissinotto@sol.it    ; Mauro Perissinotto              ; V0000853   ;                                   ;                                    ;  
+                       ; d.mancini@sol.it         ; Dino Mancini                    ; V0000854   ;                                   ;                                    ;  
+                       ; m.bugli@sol.it           ; Marco Bugli                     ; V0000855   ;                                   ;                                    ;  
+                       ; g.belvedere@sol.it       ; Giovanni Belvedere              ; V0000860   ;                                   ;                                    ;  
+                       ; p.labate@sol.it          ; Pietro Labate                   ; V0000861   ;                                   ;                                    ;  
+                       ; a.novelli@sol.it         ; Alessandro Novelli              ; V0000862   ;                                   ;                                    ;  
+                       ; m.indelicato@sol.it      ; Massimiliano Indelicato         ; V0000899   ;                                   ;                                    ;  
+                       ; t.farmacia@sol.it        ; Tilatti Farmacia                ; V0000960   ;                                   ;                                    ;  
+                       ; d.danilo@sol.it          ; Dondero Danilo                  ; V0001015   ;                                   ;                                    ;  
+                       ; u.rizzato@sol.it         ; Umberto Rizzato                 ; V0001726   ;                                   ;                                    ;  
+                       ; m.andrea@sol.it          ; Maria Andrea                    ; V0001912   ;                                   ;                                    ;  
+                       ; a.carella@sol.it         ; Alberto Carella                 ; V0001913   ;                                   ;                                    ;  
+                       ; f.daniele@sol.it         ; Fontana Daniele                 ; V0001914   ;                                   ;                                    ;  
+                       ; r.curtetti@sol.it        ; Roberta Curtetti                ; V0001915   ;                                   ;                                    ;  
+                       ; s.fabio@sol.it           ; Santambrogio Fabio              ; V0001916   ;                                   ;                                    ;  
+                       ; r.stefania@sol.it        ; Repetto Stefania                ; V0001917   ;                                   ;                                    ;  
+                       ; l.simona@sol.it          ; Licini Simona                   ; V0001918   ;                                   ;                                    ;  
+                       ; t.quintino@sol.it        ; Toma Quintino                   ; V0001919   ;                                   ;                                    ;  
+                       ; d.galletto@sol.it        ; Davide Galletto                 ; V0001920   ;                                   ;                                    ;  
+                       ; p.bellinzani@sol.it      ; Paolo Bellinzani                ; V0001921   ;                                   ;                                    ;  
+                       ; g.solomos@sol.it         ; Georgios Solomos                ; V0001922   ;                                   ;                                    ;  
+                       ; n.amadori@sol.it         ; Nicola Amadori                  ; V0001923   ;                                   ;                                    ;  
+                       ; f.farisano@sol.it        ; Francesco Farisano              ; V0001924   ;                                   ;                                    ;  
+                       ; s.golfarini@sol.it       ; Simone Golfarini                ; V0001925   ;                                   ;                                    ;  
+                       ; s.romagnoli@sol.it       ; Stefano Romagnoli               ; V0001926   ;                                   ;                                    ;  
+                       ; r.zonzi@sol.it           ; Roberto Zonzi                   ; V0001927   ;                                   ;                                    ;  
+                       ; a.palossi@sol.it         ; Adriano Palossi                 ; V0001928   ;                                   ;                                    ;  
+                       ; f.gallo@sol.it           ; Fabio Gallo                     ; V0001929   ;                                   ;                                    ;  
+                       ; s.nastasi@sol.it         ; Salvatore Nastasi               ; V0001930   ;                                   ;                                    ;  
+                       ; f.borzi@sol.it           ; Francesco Borzi'                ; V0001931   ;                                   ;                                    ;  
+                       ; t.zora@sol.it            ; Tommaso Zora                    ; V0001932   ;                                   ;                                    ;  
+                       ; c.licata@sol.it          ; Corrado Licata                  ; V0001933   ;                                   ;                                    ;  
+                       ; g.ranucci@sol.it         ; Giosue Ranucci                  ; V0001934   ;                                   ;                                    ;  
+                       ; s.vignola@sol.it         ; Salvatore Vignola               ; V0001935   ;                                   ;                                    ;  
+                       ; c.finchi@sol.it          ; Cosimo Finchi                   ; V0001936   ;                                   ;                                    ;  
+                       ; l.aulito@sol.it          ; Luigi Aulito                    ; V0001937   ;                                   ;                                    ;  
+                       ; p.labate@sol.it          ; Pietro Labate                   ; V0001938   ;                                   ;                                    ;  
+                       ; e.paiano@sol.it          ; Emanuele Paiano                 ; V0001939   ;                                   ;                                    ;  
+                       ; b.luca@sol.it            ; Bobbini Luca                    ; V0001944   ;                                   ;                                    ;  
+                       ; b.roberta@sol.it         ; Baroni Roberta                  ; V0001946   ;                                   ;                                    ;  
+                       ; m.sebastian@sol.it       ; Motta Sebastian                 ; V0001947   ;                                   ;                                    ;  
+                       ; m.usuelli@sol.it         ; Maurizio Usuelli                ; V0001948   ;                                   ;                                    ;  
+                       ; m.corsale@sol.it         ; Marco Corsale                   ; V0001949   ;                                   ;                                    ;  
+                       ; t.maurizio@sol.it        ; Trentini Maurizio               ; V0001950   ;                                   ;                                    ;  
+                       ; m.anna@sol.it            ; Morelli Anna                    ; V0001951   ;                                   ;                                    ;  
+                       ; a.morelli@sol.it         ; Anna Morelli                    ; V0001952   ;                                   ;                                    ;  
+                       ; f.boscolo@sol.it         ; Francesco Boscolo               ; V0001953   ;                                   ;                                    ;  
+                       ; s.rct@sol.it             ; Slovenia Rct                    ; V0001954   ;                                   ;                                    ;  
+                       ; m.rct@sol.it             ; Martino Rct                     ; V0001955   ;                                   ;                                    ;  
+                       ; f.rct@sol.it             ; Fronzuti Rct                    ; V0001956   ;                                   ;                                    ;  
+                       ; c.sergio@sol.it          ; Cialdella Sergio                ; V0001965   ;                                   ;                                    ;  
+                       ; s.paolo@sol.it           ; Sede Paolo                      ; V0001967   ;                                   ;                                    ;  
+                       ; m.molinari@sol.it        ; Marco Molinari                  ; V0001968   ;                                   ;                                    ;  
+                       ; g.alessia@sol.it         ; Giosa Alessia                   ; V0001969   ;                                   ;                                    ;  
+                       ; d.tiziana@sol.it         ; Drago Tiziana                   ; V0001970   ;                                   ;                                    ;  
+                       ; v.ferriello@sol.it       ; Vincenzo Ferriello              ; V0001971   ;                                   ;                                    ;  
+                       ; b.fausto@sol.it          ; Bernardini Fausto               ; V0001972   ;                                   ;                                    ;  
+                       ; g.alessio@sol.it         ; Guidone Alessio                 ; V0001973   ;                                   ;                                    ;  
+                       ; m.pantaleo@sol.it        ; Marianna Pantaleo               ; V0001974   ;                                   ;                                    ;  
+                       ; m.lamonaca@sol.it        ; Marco Lamonaca                  ; V0001975   ;                                   ;                                    ;  
+                       ; p.silvia@sol.it          ; Planamente Silvia               ; V0001976   ;                                   ;                                    ;  
+                       ; g.nadia@sol.it           ; Griffini Nadia                  ; V0001977   ;                                   ;                                    ;  
+                       ; s.gianmarco@sol.it       ; Site Gianmarco                  ; V0001978   ;                                   ;                                    ;  
+                       ; a.cassrino@sol.it        ; Alberto Cassrino                ; V0001979   ;                                   ;                                    ;  
+                       ; c.sascha@sol.it          ; Celedin Sascha                  ; V2400001   ;                                   ;                                    ;  
+                       ; h.johannes@sol.it        ; Hassler Johannes                ; V2400002   ;                                   ;                                    ;  
+                       ; k.igor@sol.it            ; Kopal Igor                      ; V2400004   ;                                   ;                                    ;  
+                       ; m.josef@sol.it           ; Malzacher Josef                 ; V2400005   ;                                   ;                                    ;  
+                       ; r.paul@sol.it            ; Rathfuss Paul                   ; V2400006   ;                                   ;                                    ;  
+                       ; s.wilfried@sol.it        ; Spitaler Wilfried               ; V2400009   ;                                   ;                                    ;  
+                       ; g.georg@sol.it           ; Gruber Georg                    ; V2400010   ;                                   ;                                    ;  
+                       ; r.marc@sol.it            ; Rossi Marc                      ; V2400011   ;                                   ;                                    ;  
+                       ; m.stefan@sol.it          ; Mader Stefan                    ; V2400012   ;                                   ;                                    ;  
+                       ; d.philipp@sol.it         ; Daublebsky Philipp              ; V2400013   ;                                   ;                                    ;  
+                       ; c.dagostino@sol.it       ; Chiara D'agostino               ; V90100017  ;                                   ;                                    ;  
+                       ; c.laura@sol.it           ; Cozzani Laura                   ; V90100019  ;                                   ;                                    ;  
+                       ; s.ferrari@sol.it         ; Sede Ferrari                    ; V9600001   ;                                   ;                                    ;  
+                       ; a.bedini@sol.it          ; Anna Bedini                     ; V9600002   ;                                   ;                                    ;  
+                       ; m.massellis@sol.it       ; Michele Massellis               ; V9600003   ;                                   ;                                    ;  
+                       ; n.paradiso@sol.it        ; Nicola Paradiso                 ; V9600006   ;                                   ;                                    ;  
+                       ; n.salomone@sol.it        ; Nicola Salomone                 ; V9600008   ;                                   ;                                    ;  
+
+
+
+# Search restricions for CS Module (each agent is enabled to see only tickets, customers, and orders related wiht its vendor code)													          
+INSERT_UPDATE SearchRestriction ; code[unique=true]                                ; principal(uid)            ; query                                                                                                                                                                      ; restrictedType(code) ; active ; generate
+                                ; csticket_customersupportagentgroup_restriction   ; customersupportagentgroup ; {item:assignedAgent}=?session.user                                                                                                                                         ; CsTicket             ; true   ; true    
+                                ; cscustomer_customersupportagentgroup_restriction ; customersupportagentgroup ; {item.defaultB2BUnit} IN ({{ select {b.pk} from {B2BUnit as b} where {b.vendorCode} IN ( {{ select {e.vendorCode} from {Employee as e} where {e.pk}=?session.user }} ) }}) ; B2BCustomer          ; true   ; true    
+                                ; csorder_customersupportagentgroup_restriction    ; customersupportagentgroup ; {item.unit} IN ({{ select {b.pk} from {B2BUnit as b} where {b.vendorCode} IN ( {{ select {e.vendorCode} from {Employee as e} where {e.pk}=?session.user }} ) }})           ; AbstractOrder        ; true   ; true    
+                                
+
+                                
+                                

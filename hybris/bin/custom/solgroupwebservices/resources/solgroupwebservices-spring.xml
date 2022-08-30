@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- [y] hybris Platform Copyright (c) 2017 SAP SE or an SAP affiliate company. 
+	All rights reserved. This software is the confidential and proprietary information 
+	of SAP ("Confidential Information"). You shall not disclose such Confidential 
+	Information and shall use it only in accordance with the terms of the license 
+	agreement you entered into with SAP. -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/aop
+           http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<!-- The hybris platform provides one single Spring application context 
+		for beans located at the jalo layer. Each extension can add beans to this 
+		context by specifying them at this configuration file. You can use and/or 
+		redefine beans defined at configuration files of other extensions as well 
+		as adding new one. If you want to locate this file at a different location 
+		or want to use several files for better, structuring, please use the '<yourextension>.application-context' 
+		property at your project.properties file. There you can specify a comma separated 
+		list of files where first is tried to find a file per classpath and then 
+		per file system. If you want to configure beans for your web module please 
+		have a look at your web/webroot/WEB-INF/<extname>-web-spring.xml. -->
+
+	<!-- Example how to override a manager -->
+	<!-- <bean id="core.productManager" class="com.solgroup.jalo.SolgroupwebservicesProductManager" 
+		init-method="init" destroy-method="destroy" /> -->
+
+
+	<!-- Example how to configure the class to use for jalo session creation -->
+	<!-- <bean id="jalosession" class="de.hybris.platform.jalo.JaloSessionFactory"> 
+		<property name="targetClassName" value="com.solgroup.jalo.SolgroupwebservicesJaloSession"/> 
+		</bean> -->
+
+
+	<!-- Example how to override an item -->
+	<!-- <bean id="de.hybris.platform.jalo.product.Product" class="com.solgroup.jalo.SolgroupwebservicesProduct" 
+		scope="prototype" /> -->
+
+	<!-- Example how to register and use an AOP aspect Also see http://static.springframework.org/spring/docs/2.5.x/reference/aop.html -->
+
+	<!-- <bean id="solgroupwebservicesProfBean" class="com.solgroup.aop.SolgroupwebservicesProfilingAspect"/> 
+		<aop:config proxy-target-class="true"> <aop:aspect id="solgroupwebservicesProfAspect" 
+		ref="solgroupwebservicesProfBean" > <aop:pointcut id="profiledMethods" expression="execution(* 
+		getModificationTime(..))" /> <aop:around pointcut-ref="profiledMethods" method="profile" 
+		/> </aop:aspect> </aop:config> -->
+
+
+	<!-- some other examples of a pointcut that matches everything: <aop:pointcut 
+		id="profiledMethods" expression="bean(de.hybris.platform.jalo.user.Customer) 
+		&amp;&amp; !execution(* getPK(..))" /> <aop:pointcut id="profiledMethods" 
+		expression="execution(* *(..))" /> -->
+
+	<!-- Import cron job -->
+	<import resource="classpath:solgroupwebservices-importJob-spring.xml" />
+
+
+	<bean id="solgroupwebservicesSystemSetup" class="com.solgroup.setup.SolgroupwebservicesSystemSetup">
+		<!-- constructor arg injection example -->
+		<constructor-arg ref="solgroupwebservicesService" />
+	</bean>
+
+	<bean id="solgroupwebservicesService"
+		class="com.solgroup.service.impl.DefaultSolgroupwebservicesService">
+		<!-- setter injection example -->
+		<property name="modelService" ref="modelService" />
+		<property name="mediaService" ref="mediaService" />
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+	<alias name="defaultSolGroupWSOrderService" alias="solGroupWSOrderService" />
+	<bean id="defaultSolGroupWSOrderService" class="com.solgroup.service.impl.DefaultSolGroupWSOrderService">
+		<property name="configurationService" ref="configurationService" />
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+		<property name="solGroupAddressService" ref="solGroupAddressService" />
+	</bean>
+	
+
+	<alias name="defaultSolGroupSchedulerDao" alias="solGroupSchedulerDao" />
+	<bean id="defaultSolGroupSchedulerDao" class="com.solgroup.daos.impl.DefaultSolGroupSchedulerDao"
+		parent="abstractItemDao" />
+
+	<bean id="schedulerImportJob"
+		class="com.solgroup.job.importData.scheduler.SchedulerImportJob"
+		parent="abstractImportJob" autowire="byName">
+		<property name="solGroupSchedulerDao" ref="solGroupSchedulerDao" />
+		<property name="cronJobService" ref="cronJobService" />
+	</bean>
+
+
+	<alias name="defaultSolGroupWSStockService" alias="solGroupWSStockService" />
+	<bean id="defaultSolGroupWSStockService"
+		class="com.solgroup.service.impl.DefaultSolGroupWSStockService">
+		<property name="commonWsService" ref="commonWsService" />
+		<property name="configurationService" ref="defaultConfigurationService" />
+		<property name="solGroupUtilities" ref="solGroupUtilities" />
+		<property name="solGroupBaseCommerceService" ref="solGroupBaseCommerceService" />
+	</bean>
+
+
+	<bean id="solgroupMassiveStockJob" class="com.solgroup.job.importData.jobs.MassiveStockJob"
+		autowire="byName">
+		<property name="solGroupWSStockService" ref="solGroupWSStockService" />
+	</bean>
+
+
+
+</beans>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ Order Export Process
+-->
+<process xmlns="http://www.hybris.de/xsd/processdefinition" start="firstCheckOrder" name="order-export-process"
+         processClass="de.hybris.platform.orderprocessing.model.OrderProcessModel">
+
+    <action id="firstCheckOrder" bean="firstCheckOrderAction">
+        <transition name="OK" to="sendOrderPlacedNotification"/>
+        <transition name="NOK" to="error"/>
+    </action>
+
+    <action id="sendOrderPlacedNotification" bean="sendOrderPlacedNotificationAction">
+        <transition name="OK" to="checkSelfRegistration"/>
+        <transition name="NOK" to="error"/>
+    </action>
+
+    <action id="checkSelfRegistration" bean="checkSelfRegistrationAction">
+        <transition name="OK" to="exportClientToLegacy"/>
+        <transition name="NOK" to="checkPaymentMode"/><!-- eventually add a new enumeration type instead NOK -->
+    </action>
+    <action id="exportClientToLegacy" bean="exportClientToLegacyAction">
+        <transition name="OK" to="checkPaymentMode"/>
+        <transition name="NOK" to="error"/>
+    </action>
+    <action id="checkPaymentMode" bean="checkPaymentModeAction">
+        <transition name="OK" to="capture"/>
+        <transition name="NOK" to="subOrdersCreation"/>
+    </action>
+    <action id="capture" bean="captureAction">
+        <transition name="OK" to="subOrdersCreation"/>
+        <transition name="NOK" to="error"/>
+    </action>
+    <action id="subOrdersCreation" bean="subOrdersCreationAction">
+        <transition name="OK" to="waitForConsignmentFinal"/>
+        <transition name="NOK" to="error"/>
+    </action>
+    <!--
+    <action id="startSubOrderProcesses" bean="startSubOrderProcesses">
+        <transition name="OK" to="waitForConsignmentFinal"/>
+        <transition name="NOK" to="error"/>
+    </action>-->
+    <wait id="waitForConsignmentFinal" then="updateOrderStatus" prependProcessCode="false">
+		<event>${process.code}_waitForConsignmentFinal</event>
+	</wait>
+	<action id="updateOrderStatus" bean="updateOrderStatusAction">
+        <transition name="OK" to="success"/>
+        <transition name="NOTFINAL" to ="waitForConsignmentFinal"/> 
+        <transition name="NOK" to="error"/>
+    </action>
+    <end id="error" state="ERROR">All went wrong.</end>
+    <end id="failed" state="FAILED">Order not placed.</end>
+    <end id="success" state="SUCCEEDED">Order placed.</end>
+  
+</process>

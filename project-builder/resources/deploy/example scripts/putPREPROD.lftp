@@ -1,0 +1,4 @@
+open fish://hybris:3ss3g13mm3!@mppapp01/opt/hybris/deploy
+mput *.zip
+put hybris/config/localPREPROD01.properties
+mirror -R hybris/config

@@ -1,0 +1,14 @@
+########################################
+######### SITE CONFIGURATIONS #########
+########################################
+$solPrefix=solgroupFR
+$lang=fr
+$sessionCur=EUR
+########################################
+#$productCatalog=$solPrefixProductCatalog
+#$productCatalogName=$solPrefixProduct Catalog
+#$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$sessionUser=importmanager
+$catalogVersion=catalogversion(catalog(id[default=$solPrefix_importcockpit]),version[default='default'])[unique=true,default=$solPrefix_importcockpit:default]
+$resources=jar:com.solgroup.initialdata.constants.SolgroupInitialDataConstants&/solgroupinitialdata/import/importcockpit/$solPrefix
+				   

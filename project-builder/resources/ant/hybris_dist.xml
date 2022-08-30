@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Ant build for hybris DISTRIBUTION -->
+<project name="techedge-hybris-dist" basedir="./../../../">
+
+	<!-- IMPORT -->
+	<!-- All workspace paths needed -->
+	<import file="./paths.xml" />
+
+	<!-- ANT-CONTRIB library -->
+	<taskdef classpath="${build.lib.dir}/ant-contrib-1.0b3/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml" />
+
+	<!-- All build xml needed -->
+	<import file="./hybris_env.xml" />
+	
+
+	<!-- PROPERTies -->
+	
+
+	<!-- SCRIPTs -->
+	
+
+	<!-- MACROs -->
+
+
+	<!-- TASKs -->
+
+
+	<!-- EXTENSION POINTs -->
+	
+	<!-- special targets to allow execute actions before and after a specific target -->
+	<extension-point name="before-dist" depends="init-env" />
+		<!-- DEPENDING TARGETS: do-dist -->
+
+	<extension-point name="after-dist" depends="do-dist" />
+		<!-- DEPENDING TARGETS: dist -->
+	
+	<!-- TARGETs -->
+	<target name="do-dist" depends="before-dist" description="Build distribution package.">
+
+		<check-if-dir-is-full directory="${dist.dir}" includes="dist*.tar" propertyToCheck="dist.dir.full" />
+		
+		<if>
+			<equals arg1="${dist.dir.full}" arg2="false" />
+			<then>
+				<if>
+					<equals arg1="${splash.enabled}" arg2="true" />
+					<then>
+						<splash imageurl="file:${build.img.dir}/dist_splash.png" progressRegExp="Progress: (.*)%" 
+							showduration="0" displayText="Making dist..." />
+					</then>
+				</if>
+				
+				<echo message="Building distribution package..." />
+				
+				<!-- Preparing environment -->
+				<ant dir="${hybris.platform.dir}" inheritall="false">
+					<!-- cleaning -->
+					<target name="clean" />
+					
+					<!-- customizing -->
+					<target name="customize" />
+					
+					<!-- building -->
+					<target name="all" />
+					
+					<!-- making dist ?? -->
+					<target name="production" />
+				</ant>
+
+				<!-- Create workspace directories -->
+				<if>
+					<available file="${dist.dir}" />
+					<else>
+						<delete dir="${dist.dir}" includeemptydirs="true" quiet="true" failonerror="false" />
+						<mkdir dir="${dist.dir}" />
+					</else>
+				</if>
+				
+				<!-- copy hybrisServer files -->
+				<copy todir="${dist.dir}">
+					<fileset dir="${hybris.dist.dir}">
+						<include name="hybrisServer-*.zip" />
+						<exclude name="*Config*.zip" />
+					</fileset>
+				</copy>
+
+				<!-- compress all hybris-* directories -->
+				<zip destfile="${dist.dir}/hybrisServer-ExternalExtensions.zip">
+					<fileset dir="${basedir}">
+						<include name="hybris-*/" />
+					</fileset>
+				</zip>
+
+				<!-- compress config directory -->
+				<zip basedir="${basedir}" destfile="${dist.dir}/hybrisServer-Config.zip" update="true">
+					<include name="hybris/config/**" />
+					<exclude name="hybris/config/*.default*" />
+					<exclude name="hybris/config/*.sample*" />
+				</zip>
+
+				<!-- compress dist file for easy distribution -->
+				<tstamp>
+					<format property="datetime.now" pattern="dd-MM-yyyy_HH-mm-ss" />
+				</tstamp>
+				<!-- <zip basedir="${dist.dir}" destfile="${dist.dir}/dist_${datetime.now}.zip" /> -->
+				<tar basedir="${dist.dir}" destfile="${dist.dir}/dist_${datetime.now}.tar" />
+				
+				<!-- clean dist.dir -->
+				<delete dir="${dist.dir}" includeemptydirs="true" quiet="true" failonerror="false">
+					<exclude name="dist*" />
+				</delete>
+				<!-- clean hybris.dist.dir -->
+				<delete dir="${hybris.dist.dir}" includeemptydirs="true" quiet="true" failonerror="false" />
+			</then>
+		</if>
+	</target>
+
+	<target name="dist" depends="after-dist" description="Build distribution package.">
+
+		<echo message="Distribution package ready." />
+	</target>
+
+	<target name="test-dist" depends="dist" description="Tests the distribution package.">
+
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/unpack_splash.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Unpacking dist..." />
+			</then>
+		</if>
+		
+		<delete dir="${dist.test.dir}" />
+		<mkdir dir="${dist.test.dir}" />
+		
+		<untar dest="${dist.test.dir}">
+			<fileset dir="${dist.dir}">
+				<include name="dist*.tar" />
+			</fileset>
+		</untar>
+
+		<unzip dest="${dist.test.dir}">
+			<fileset dir="${dist.test.dir}">
+				<include name="hybrisServer*.zip" />
+			</fileset>
+		</unzip>
+		
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/compile_splash.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Compiling dist..." />
+			</then>
+		</if>
+		
+		<ant dir="${dist.test.dir}/hybris/bin/platform" target="all" inheritall="false" inheritrefs="false" />
+		
+		<!-- Commented due to problems on Windows file control release -->
+		<!-- Sleep to wait os releasing of ${hybris.platform.dir}/lib/ant-contrib-1.0b3.jar -->
+		<!-- <sleep seconds="3"/> -->
+		
+		<!-- <delete dir="${dist.test.dir}" /> -->
+		
+		<echo>Testing DIST successful</echo>
+	</target>
+
+	<target name="clean-dist" description="Cleans distribution folder">
+
+		<delete dir="${dist.dir}" />
+	</target>
+
+	
+</project>

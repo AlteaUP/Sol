@@ -1,0 +1,84 @@
+## messageSource=classpath:/solgroupcore/messages/email-identityConfirmation_$lang.properties
+#macro(genHtmlLinkStartTag $url)
+<a href="$url"><font color="#666666">
+#end
+#macro(genHtmlLinkEndTag)
+</font></a>
+#end
+#macro(genHtmlLink $url $textColor $bodyContent)
+<a href="$url"><font color="$textColor">$bodyContent</font></a>
+#end
+
+<html>
+	<head>
+	</head>
+	<body bgcolor="#ffffff"
+	<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#ffffff">
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+		<tr>
+			<td align="center" valign="top">
+				<table width="610" border="0" align="center" cellpadding="0" cellspacing="0" bordercolor="#fff">
+					<tr>
+						<td align="center" valign="top" bgcolor="#FFFFFF">
+							<table width="570" cellpadding="0" cellspacing="0" border="0" align="center">
+								<tr>
+									<td valign="middle">&nbsp;</td>
+								</tr>
+								<tr>
+									<td valign="middle">
+										<!-- 
+										${ctx.cmsSlotContents.SiteLogo}
+										<img src="cid:logo_sol.png" alt="" width="176" height="94" border="0" align="right" title=""/> 
+										-->
+										<img src='http://www.sol.it/logo.png' alt='Sol Group' width="176" height="94" border="0" align="right" title="" />
+										
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+                                    <td align="left" valign="top">                 	
+										#set ($mailToUrl = "mailto:${ctx.messages.customerCareEmailAddress}")
+										#set ($identityConfirmationPage = "${ctx.secureIdentityConfirmationUrl}")
+										#set ($homePage = "${ctx.secureBaseUrl}")
+										#set ($privacyPolicyPage = "${ctx.secureBaseUrl}/privacyPolicy")
+										#set ($salutation = "${ctx.messages.getMessage('salutation', ${ctx.title}, ${ctx.displayName})}")
+										#set ($mainParagraph = ${ctx.messages.getMessage('mainParagraph', "#genHtmlLinkStartTag($identityConfirmationPage)", "#genHtmlLinkEndTag()")})
+										#set ($identityConfirmationcontactUS = ${ctx.messages.getMessage('identityConfirmationcontactUS', "#genHtmlLinkStartTag($privacyPolicyPage)", "#genHtmlLinkEndTag()", "#genHtmlLinkStartTag($homePage)", "#genHtmlLinkEndTag()", "#genHtmlLink($mailToUrl '#666666' ${ctx.messages.customerCareEmailAddress})")})
+                                        <p><font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif"><b>$salutation</b>,</font></p>
+                                        <p><font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">$mainParagraph</font></p>                                       
+                                        <p><font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">$identityConfirmationcontactUS</font></p>
+                                        <p><font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">${ctx.messages.complimentaryClosing}</font></p>
+                                        <p><font color="#666666" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif">${ctx.messages.signature}</font></p>
+                                    </td>
+                                </tr>
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+								
+								<!--
+								<tr>
+									<td height="30" align="right" valign="middle" bgcolor="#1B2B3D">
+										<font color="#FFFFFF" size="2" face="FS Albert Pro Regular, Arial, Helvetica, sans-serif"><a href="${ctx.secureBaseUrl}"><font color="#FFFFFF">${ctx.messages.help}</font></a> | <a href="${ctx.messages.contactUsPage}"><font color="#FFFFFF">${ctx.messages.contactUs}</font></a> | <a href="${ctx.secureBaseUrl}"><font color="#FFFFFF">${ctx.messages.termsAndCondition}</font></a> &nbsp;&nbsp;</font>
+									</td>
+								</tr>
+								-->
+								
+								<tr>
+									<td>&nbsp;</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+	</table>
+</body>
+</html>

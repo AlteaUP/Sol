@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="StocksImport_OB" targetNamespace="urn:solgroup:com:StocksImport" xmlns:p1="urn:solgroup:com:StocksImport" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation />
+  <wsp:UsingPolicy wsdl:required="true" />
+  <wsp:Policy wsu:Id="OP_StocksImport_OB" />
+  <wsdl:types>
+    <xsd:schema targetNamespace="urn:solgroup:com:StocksImport" xmlns="urn:solgroup:com:StocksImport" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:element name="StocksRequest" type="StocksRequest" />
+      <xsd:element name="StocksResponse" type="StocksResponse" />
+      <xsd:complexType name="StocksRequest">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">43786c652eb011e8800d0000003c182e</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="header">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">9847b6162ea011e8c04a00059a3c7800</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="targetSystem" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">9847b6152ea011e8c25800059a3c7800</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="country" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">430c0b4c2eb011e8aaee00059a3c7800</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="productCodeList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">9847b6182ea011e8a7d900059a3c7800</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="productCode" type="xsd:string" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">9847b6172ea011e88abe00059a3c7800</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="StocksResponse">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">fb80df72331c11e88a110000003c182e</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="header" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">225cf0451bba11e8bc7700059a3c7800</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="sourceSystem" type="xsd:string" minOccurs="0">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">225cf0431bba11e8a3e200059a3c7800</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="messageID" type="xsd:string" minOccurs="0" />
+                <xsd:element name="timestamp" type="xsd:dateTime" minOccurs="0">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">225cf0441bba11e8beb100059a3c7800</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="stockProductList" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">225cf0471bba11e8a65300059a3c7800</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="stockProduct" minOccurs="0" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">225cf0461bba11e8898800059a3c7800</xsd:appinfo>
+                  </xsd:annotation>
+                  <xsd:complexType>
+                    <xsd:sequence>
+                      <xsd:element name="productCode" type="xsd:string" minOccurs="0">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">b901ce462ea011e8c9c200059a3c7800</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="AvailableQty" type="xsd:integer">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">b901ce472ea011e8b93500059a3c7800</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                    </xsd:sequence>
+                  </xsd:complexType>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="country" type="xsd:string">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">4c3cf52c2eb011e8afa200059a3c7800</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="status" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">225cf0481bba11e89e0200059a3c7800</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+          <xsd:element name="errorDescription" type="xsd:string" minOccurs="0">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">225cf0491bba11e8a90c00059a3c7800</xsd:appinfo>
+            </xsd:annotation>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="StocksRequest">
+    <wsdl:documentation />
+    <wsdl:part name="StocksRequest" element="p1:StocksRequest" />
+  </wsdl:message>
+  <wsdl:message name="StocksResponse">
+    <wsdl:documentation />
+    <wsdl:part name="StocksResponse" element="p1:StocksResponse" />
+  </wsdl:message>
+  <wsdl:portType name="StocksImport_OB">
+    <wsdl:documentation />
+    <wsdl:operation name="StocksImport_OB">
+      <wsdl:documentation />
+      <wsp:Policy>
+        <wsp:PolicyReference URI="#OP_StocksImport_OB" />
+      </wsp:Policy>
+      <wsdl:input message="p1:StocksRequest" />
+      <wsdl:output message="p1:StocksResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="StocksImport_OBBinding" type="p1:StocksImport_OB">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    <wsdl:operation name="StocksImport_OB">
+      <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      <wsdl:input>
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="StocksImport_OBService">
+    <wsdl:port name="HTTP_Port" binding="p1:StocksImport_OBBinding">
+      <soap:address location="http://vitapppodev1.solgroup-it.solworld.com:50000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=HYBRIS&amp;receiverParty=&amp;receiverService=&amp;interface=StocksImport_OB&amp;interfaceNamespace=urn%3Asolgroup%3Acom%3AStocksImport" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+    <wsdl:port name="HTTPS_Port" binding="p1:StocksImport_OBBinding">
+      <soap:address location="https://vitapppodev1.solgroup-it.solworld.com:50001/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=HYBRIS&amp;receiverParty=&amp;receiverService=&amp;interface=StocksImport_OB&amp;interfaceNamespace=urn%3Asolgroup%3Acom%3AStocksImport" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

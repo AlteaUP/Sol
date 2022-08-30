@@ -1,0 +1,48 @@
+INSERT_UPDATE UserGroup;UID[unique=true];groups[ignorenull=false,default= ];locname[lang=en];description
+;asagentgroup;;"Common Assisted Service Agent Group";
+;asagentsalesgroup;;"Assited Service Customer Support Agent Group";"The ASM CS Support Agent can provide sales and service support to a customer, but may be restricted, so that they cannot checkout a customer's cart, or authorise a customer's quote request for example."
+;asagentsalesmanagergroup;;"Assited Service Customer Support Manager Group";"The ASM CS Support Manager can do everything an 'ASM CS Support Agent' can do, and more, such as authorising a customer's quote request for example."
+
+
+INSERT_UPDATE UserGroup ; uid[unique=true]   ; locname[lang=en] ;  
+                        ; salesemployeegroup ; Sales Employee   ;  
+                        ; salesadmingroup    ; Sales Admin      ;  
+                        ; salesmanagergroup  ; Sales Manager    ;  
+                        ; salesapprovergroup ; Sales Approver   ;  
+
+INSERT_UPDATE PrincipalGroupRelation ; source(uid)[unique=true] ; target(uid)[unique=true]
+#                                     ; salesemployeegroup       ; orgemployeegroup        ;  
+                                     ; salesadmingroup          ; salesemployeegroup      ;  
+                                     ; salesmanagergroup        ; salesemployeegroup      ;  
+                                     ; salesapprovergroup       ; salesemployeegroup      ;  
+
+
+
+INSERT_UPDATE UserGroup ; uid[unique=true]          ; groups[ignorenull=false,default=] ; locname[lang=en]                         ; description
+#                        ; ascustomergroup           ;                                   ; "Common Assisted Service Customer Group" ;            
+# Group for pharma users
+                        ; solPharmaGroup               ;                                   ; "Pharma user group"                      ;            
+# Group for users associated wiht organization (1st and 2nd level)
+                        ; solOrganizationGroup ;                                   ; "Organization customers user group"      ;            
+# Group for agents
+                        ; solAgentsGroup            ;                                   ; "SOL agent group"                        ;            
+
+
+INSERT_UPDATE PrincipalGroupRelation ; source(uid)[unique=true] ; target(uid)[unique=true]  
+# Groups from asagent (for ASM module) : customermanagergroup,asagentsalesmanagergroup
+                                     ; solAgentsGroup           ; customermanagergroup      ;  
+                                     ; solAgentsGroup           ; asagentsalesmanagergroup  ;  
+# Groups from CustomerSupportAgent (for CS Module): CustomerSupportAgent
+                                     ; solAgentsGroup           ; customersupportagentgroup ;  
+# Group for cart quotation management
+                                     ; solAgentsGroup           ; salesadmingroup ;  
+
+
+
+# Search restriction for b2bCustomer (used by organization user)
+INSERT_UPDATE SearchRestriction ; code[unique=true]               ; query                                                                                                                                                                                                                                                                                 ; principal(UID)            ; restrictedType(code)[unique=true] ; active ; generate
+                                ; b2bCustomerRestriction4OrgUsers ; EXISTS ({{ SELECT {pk} FROM {PrincipalGroupRelation} WHERE {source}={item:pk} AND {target} IN ( ?session.branch ) }} ) AND (  {item:active} IN(1,0) OR EXISTS ( {{ select {ug:PK} from {UserGroup as ug} where {ug:PK} IN (?session.user.groups) and {ug:uid} = 'b2badmingroup' }} )) ; solOrganizationGroup ; B2BCustomer                       ; true   ; false   
+                                            
+# Search restriction for b2bCustomer (used by b2bUnit user)
+UPDATE SearchRestriction ; code[unique=true]    ; query                                                                                                                                                                                                                                                                                
+                         ; employee_restriction ; EXISTS ({{ SELECT {pk} FROM {PrincipalGroupRelation} WHERE {source}={item:pk} AND {target} IN ( ?session.branch ) }} ) AND (  {item:active} IN(1,0) OR EXISTS ( {{ select {ug:PK} from {UserGroup as ug} where {ug:PK} IN (?session.user.groups) and {ug:uid} = 'b2badmingroup' }} ))

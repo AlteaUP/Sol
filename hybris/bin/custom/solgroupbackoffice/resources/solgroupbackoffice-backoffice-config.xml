@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- [y] hybris Platform Copyright (c) 2017 SAP SE or an SAP affiliate company. 
+	All rights reserved. This software is the confidential and proprietary information 
+	of SAP ("Confidential Information"). You shall not disclose such Confidential 
+	Information and shall use it only in accordance with the terms of the license 
+	agreement you entered into with SAP. -->
+<config xmlns="http://www.hybris.com/cockpit/config" xmlns:na="http://www.hybris.com/cockpitng/config/notifications"
+        xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea"
+        xmlns:y="http://www.hybris.com/cockpit/config/hybris"
+        xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree">
+
+
+	<!-- solgroupbackoffice UI configuration should be provided here -->
+
+	<!--<context component="component-code" module="solgroupbackoffice"> -->
+	<!--Please check documentation for code snippets for specific components -->
+	<!--</context> -->
+
+
+	<context merge-by="type" merge-mode="replace" type="B2BUnit"
+		component="editorareaactions">
+		<y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:group qualifier="common">
+				<y:label>actiongroup.common</y:label>
+				<y:action action-id="com.solgroup.backoffice.actions.disableb2bunitaction"
+					property="currentObject" />
+				<y:action action-id="com.solgroup.backoffice.actions.enableb2bunitaction"
+					property="currentObject" />
+				<!-- <y:action action-id="de.hybris.platform.b2bcommerce.backoffice.actions.generatereportingsetaction" 
+					property="currentObject"/> -->
+			</y:group>
+		</y:actions>
+	</context>
+	
+		<context merge-by="type" parent="UserGroup" type="Company" component="editor-area">
+		<editorArea:editorArea name="">
+			<editorArea:essentials>
+				<editorArea:essentialSection name="hmc.essential">
+					<editorArea:attribute qualifier="uid"/>
+					<editorArea:attribute qualifier="locName"/>
+				</editorArea:essentialSection>
+			</editorArea:essentials>
+			<editorArea:tab name="hmc.tab.common" position="1" merge-mode="REPLACE">
+				<editorArea:section name="hmc.properties" position="1">
+					<editorArea:attribute qualifier="description">
+						<editorArea:editor-parameter>
+							<editorArea:name>rows</editorArea:name>
+							<editorArea:value>4</editorArea:value>
+						</editorArea:editor-parameter>
+					</editorArea:attribute>
+					<editorArea:attribute qualifier="contact"/>
+					<editorArea:attribute qualifier="responsibleCompany"/>
+					<editorArea:attribute qualifier="country"/>
+					<editorArea:attribute qualifier="lineOfBuisness"/>
+					<editorArea:attribute qualifier="buyer"/>
+					<editorArea:attribute qualifier="supplier"/>
+					<editorArea:attribute qualifier="manufacturer"/>
+					<editorArea:attribute qualifier="carrier"/>
+				</editorArea:section>
+				<editorArea:section name="hmc.section.company.ids" position="2">
+					<editorArea:attribute qualifier="Id"/>
+					<editorArea:attribute qualifier="vatID"/>
+					<editorArea:attribute qualifier="dunsID"/>
+					<editorArea:attribute qualifier="ilnID"/>
+					<editorArea:attribute qualifier="buyerSpecificID"/>
+					<editorArea:attribute qualifier="supplierSpecificID"/>
+				</editorArea:section>
+			</editorArea:tab>
+			<editorArea:tab name="hmc.addresses" position="2">
+				<editorArea:section name="hmc.addresses">
+					<editorArea:attribute qualifier="addresses"/>
+					<editorArea:attribute qualifier="shippingAddress" readonly="true"/>
+					<editorArea:attribute qualifier="unloadingAddress"/>
+					<editorArea:attribute qualifier="billingAddress"  readonly="true"/>
+					<editorArea:attribute qualifier="contactAddress"/>
+				</editorArea:section>
+			</editorArea:tab>
+			<editorArea:tab name="hmc.tab.groups" position="3">
+				<editorArea:section name="hmc.section.groups">
+					<editorArea:attribute qualifier="groups"/>
+					<editorArea:attribute
+							editor="de.hybris.platform.platformbackoffice.editors.membersfindereditor.MembersFinderEditor"
+							qualifier="members" label="hmc.text.usergroup.usesearchtogetmembers"/>
+				</editorArea:section>
+			</editorArea:tab>
+			<editorArea:tab name="hmc.tab.languages" position="4"/>
+			<editorArea:tab name="hmc.customerprices" position="5"/>
+			<editorArea:tab name="hmc.tab.personalization"
+							position="6"/>
+			<editorArea:tab name="hmc.tab.catalogs" position="9">
+				<editorArea:section name="hmc.tab.catalogs">
+					<editorArea:attribute qualifier="providedCatalogs"/>
+					<editorArea:attribute qualifier="purchasedCatalogs"/>
+				</editorArea:section>
+			</editorArea:tab>
+			<editorArea:tab name="hmc.administration" position="10">
+				<editorArea:section name="hmc.section.medias">
+					<editorArea:attribute qualifier="medias"/>
+				</editorArea:section>
+			</editorArea:tab>
+		</editorArea:editorArea>
+	</context>
+	
+	<context merge-by="type" merge-mode="replace" type="B2BCustomer" component="editorareaactions">
+		<y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+			<y:group qualifier="common">
+				<y:label>actiongroup.common</y:label>				
+				<y:action action-id="com.solgroup.backoffice.actions.disableb2bcustomeraction" property="currentObject"/>
+				<y:action action-id="com.solgroup.backoffice.actions.enableb2bcustomeraction" property="currentObject"/>
+			</y:group>
+		</y:actions>
+	</context>
+
+    <context component="explorer-tree" merge-by="principal" principal="solBackofficeEmployeeUser">
+        <explorer-tree:explorer-tree>
+            <explorer-tree:navigation-node id="hmc_backoffice-workflow-inbox" merge-mode="remove"/>
+            <explorer-tree:navigation-node id="hmc_treenode_system">
+                <explorer-tree:navigation-node id="hmc_type_tree_oauthserver" merge-mode="remove"/>
+
+                <explorer-tree:navigation-node id="hmc_treenode_systemconfig" merge-mode="remove"/>
+
+                <explorer-tree:navigation-node id="hmc_treenode_systemtools">
+                    <explorer-tree:navigation-node id="hmc_treenode_impex_import_wizard" merge-mode="remove"/>
+                    <explorer-tree:navigation-node id="hmc_treenode_impex_export_wizard" merge-mode="remove"/>
+                    <explorer-tree:navigation-node id="hmc_treenode_script_generator_wizard" merge-mode="remove"/>
+                </explorer-tree:navigation-node>
+
+                <explorer-tree:navigation-node id="hmc_treenode_group.commons" merge-mode="remove"/>
+
+                <explorer-tree:navigation-node id="hmc_treenode_workflowgroup" merge-mode="remove"/>
+
+                <explorer-tree:navigation-node id="hmc_treenode_validationgroup" merge-mode="remove">
+                    <explorer-tree:type-node code="ConstraintGroup" id="hmc_typenode_constraintgroup" merge-mode="remove"/>
+                    <explorer-tree:type-node code="AbstractConstraint" id="hmc_typenode_abstractconstraint" merge-mode="remove">
+                        <explorer-tree:navigation-node id="hmc_backoffice-validationPojoOnly" merge-mode="remove"/>
+                    </explorer-tree:type-node>
+                </explorer-tree:navigation-node>
+
+                <explorer-tree:navigation-node id="hmc_navigationnode_scripting" merge-mode="remove"/>
+
+                <explorer-tree:navigation-node id="hmc_navigationnode_businessprocess">
+                    <explorer-tree:type-node id="hmc_typenode_dynamic_process_definition" code="DynamicProcessDefinition" merge-mode="remove"/>
+                </explorer-tree:navigation-node>
+
+                <explorer-tree:navigation-node id="hmc_treenode_background_processes">
+                    <explorer-tree:type-node code="JobLog" id="hmc_typenode_joblog" merge-mode="remove"/>
+                    <explorer-tree:type-node code="Task" id="hmc_typenode_task" merge-mode="remove"/>
+                    <explorer-tree:type-node code="TaskCondition" id="hmc_typenode_taskcondition" merge-mode="remove"/>
+                </explorer-tree:navigation-node>
+
+                <explorer-tree:type-node code="Type" id="hmc_typenode_type" merge-mode="remove"/>
+
+                <explorer-tree:type-node code="SavedQuery" id="hmc_typenode_savedquery" merge-mode="remove"/>
+
+                <explorer-tree:type-node code="BackofficeSavedQuery" id="hmc_typenode_backofficesavedquery" merge-mode="remove"/>
+
+                <explorer-tree:type-node code="ViewType" id="hmc_typenode_viewtype" merge-mode="remove"/>
+
+                <explorer-tree:type-node code="SearchRestriction" id="hmc_typenode_searchrestriction" merge-mode="remove"/>
+
+                <explorer-tree:type-node code="SystemSetupAudit" id="hmc_typenode_systemsetupaudit" merge-mode="remove"/>
+
+                <explorer-tree:navigation-node id="hmc.solrfacetsearch" merge-mode="remove" />
+
+            </explorer-tree:navigation-node>
+
+            <explorer-tree:navigation-node id="hmc_treenode_medias">
+                <explorer-tree:type-node code="Media" id="hmc_typenode_media" merge-mode="remove"/>
+                <explorer-tree:type-node code="MediaFolder" id="hmc_typenode_mediafolder" merge-mode="remove"/>
+                <!--explorer-tree:type-node code="MediaContainer" id="hmc_typenode_mediacontainer"/>
+                <explorer-tree:type-node code="MediaFormat" id="hmc_typenode_mediaformat"/-->
+                <explorer-tree:type-node code="MediaContext" id="hmc_typenode_mediacontext" merge-mode="remove"/>
+            </explorer-tree:navigation-node>
+
+            <explorer-tree:navigation-node id="hmc_treenode_user">
+                <explorer-tree:type-node code="agreement" id="hmc_typenode_agreement" merge-mode="remove"/>
+            </explorer-tree:navigation-node>
+
+            <explorer-tree:navigation-node id="hmc_treenode_order">
+                <!--explorer-tree:type-node code="Order" id="hmc_typenode_order"/>
+                <explorer-tree:type-node code="OrderEntry" id="hmc_typenode_orderentry"/>
+                <explorer-tree:type-node code="Quote" id="hmc_typenode_quote"/>
+                <explorer-tree:type-node code="QuoteEntry" id="hmc_typenode_quoteentry"/>
+                <explorer-tree:type-node code="OrderHistoryEntry" id="hmc_type_tree_orderhistoryentry"/>
+                <explorer-tree:type-node code="Consignment" id="Consignment"/>
+                <explorer-tree:type-node code="ConsignmentEntry" id="ConsignmentEntry"/>
+                <explorer-tree:type-node code="FraudReport" id="FraudReport"/-->
+                <explorer-tree:type-node code="B2BBookingLineEntry" id="B2BBookingLineEntry" merge-mode="remove"/>
+            </explorer-tree:navigation-node>
+
+            <explorer-tree:navigation-node id="hmc_treenode_pricesettings" merge-mode="remove"/>
+                <!--explorer-tree:navigation-node id="hmc_treenode_prices"/>
+                    <explorer-tree:type-node code="ProductPriceGroup" id="hmc_typenode_productpricegroup"/>
+                    <explorer-tree:type-node code="UserPriceGroup" id="hmc_typenode_userpricegroup"/>
+                    <explorer-tree:type-node code="PriceRow" id="hmc_typenode_pricerow"/>
+                </explorer-tree:navigation-node>
+                <explorer-tree:navigation-node id="hmc_treenode_taxes">
+                    <explorer-tree:type-node code="Tax" id="hmc_typenode_tax"/>
+                    <explorer-tree:type-node code="ProductTaxGroup" id="hmc_typenode_producttaxgroup"/>
+                    <explorer-tree:type-node code="UserTaxGroup" id="hmc_typenode_usertaxgroup"/>
+                    <explorer-tree:type-node code="TaxRow" id="hmc_typenode_taxrow"/>
+                </explorer-tree:navigation-node>
+                <explorer-tree:navigation-node id="hmc_treenode_discounts"/>
+                    <explorer-tree:type-node code="Discount" id="hmc_typenode_discount"/>
+                    <explorer-tree:type-node code="ProductDiscountGroup" id="hmc_typenode_productdiscountgroup"/>
+                    <explorer-tree:type-node code="UserDiscountGroup" id="hmc_typenode_userdiscountgroup"/>
+                    <explorer-tree:type-node code="AbstractDiscountRow" id="hmc_typenode_abstractdiscountrow"/>
+                </explorer-tree:navigation-node>
+                <explorer-tree:type-node code="ZoneDeliveryMode" id="hmc_typenode_zonedeliverymode"/>
+                <explorer-tree:type-node code="StandardPaymentMode" id="hmc_typenode_standardpaymentmode"/>
+
+            </explorer-tree:navigation-node-->
+
+            <explorer-tree:navigation-node id="hmc_treenode_c2l" merge-mode="remove"/>
+                <!--explorer-tree:type-node code="Language" id="hmc_typenode_language"/>
+                <explorer-tree:type-node code="Currency" id="hmc_typenode_currency"/>
+                <explorer-tree:type-node code="Country" id="hmc_typenode_country"/>
+                <explorer-tree:type-node code="Region" id="hmc_typenode_region"/>
+            </explorer-tree:navigation-node-->
+
+            <!--explorer-tree:navigation-node id="hmc_treenode_marketing"-->
+
+            <explorer-tree:navigation-node id="hmc.cockpit" merge-mode="remove"/>
+
+            <!--explorer-tree:navigation-node id="hmc_ticketsystemgroup" merge-mode="remove"/>
+                <explorer-tree:type-node code="CsTicket" id="hmc_type_tree_csticket"/>
+                <explorer-tree:type-node code="CsTicketEventEmailConfiguration" id="CsTicketEventEmailConfiguration"/>
+            </explorer-tree:navigation-node-->
+
+            <explorer-tree:navigation-node id="hmc.cms2">
+                <explorer-tree:type-node code="CMSSite" id="CMSSite" merge-mode="remove"/>
+                <explorer-tree:type-node code="CMSPageType" id="CMSPageType" merge-mode="remove"/>
+                <explorer-tree:type-node code="PageTemplate" id="PageTemplate" merge-mode="remove"/>
+                <explorer-tree:type-node code="ContentSlotForTemplate" id="ContentSlotForTemplate" merge-mode="remove"/>
+                <explorer-tree:type-node code="AbstractPage" id="AbstractPage" merge-mode="remove"/>
+                <explorer-tree:type-node code="ContentSlot" id="ContentSlot" merge-mode="remove"/>
+                <explorer-tree:type-node code="ContentSlotForPage" id="ContentSlotForPage" merge-mode="remove"/>
+                <!--explorer-tree:type-node code="SimpleCMSComponent" id="SimpleCMSComponent"/-->
+                <explorer-tree:type-node code="ComponentTypeGroup" id="ComponentTypeGroup" merge-mode="remove"/>
+                <explorer-tree:type-node code="SimpleCMSAction" id="SimpleCMSAction" position="9" merge-mode="remove"/>
+                <explorer-tree:type-node code="AbstractCMSComponentContainer" id="AbstractCMSComponentContainer" merge-mode="remove"/>
+                <explorer-tree:type-node code="RestrictionType" id="RestrictionType" merge-mode="remove"/>
+                <explorer-tree:type-node code="AbstractRestriction" id="AbstractRestriction" merge-mode="remove"/>
+                <explorer-tree:type-node code="CMSNavigationNode" id="CMSNavigationNode" merge-mode="remove"/>
+            </explorer-tree:navigation-node>
+
+
+            <explorer-tree:navigation-node id="ruleengine" merge-mode="remove"/>
+                <!--explorer-tree:navigation-node id="hmc_sourcerules" merge-mode="append">
+                    <explorer-tree:type-node id="hmc_published_and_unpublished_source_rules_only" code="SourceRule" />
+                    <explorer-tree:type-node id="hmc_all_source_rules" code="SourceRule" />
+                </explorer-tree:navigation-node>
+                <explorer-tree:type-node id="SourceRuleTemplate" code="SourceRuleTemplate" />
+                <explorer-tree:type-node id="hmc_typenode_drools_rules" code="DroolsRule"/>
+                <explorer-tree:type-node id="hmc_typenode_drools_kie_module" code="DroolsKIEModule"/>
+            </explorer-tree:navigation-node-->
+
+
+            <explorer-tree:navigation-node id="hmc.group.basecommerce">
+                <explorer-tree:type-node code="BaseStore" id="BaseStore" merge-mode="remove"/>
+                <explorer-tree:type-node code="OrderCancelConfig" id="OrderCancelConfig" merge-mode="remove"/>
+                <explorer-tree:type-node code="PointOfService" id="PointOfService" merge-mode="remove"/>
+                <!--explorer-tree:type-node code="Warehouse" id="Warehouse"/>
+                <explorer-tree:type-node code="StockLevel" id="StockLevel"/-->
+            </explorer-tree:navigation-node>
+
+            <explorer-tree:navigation-node id="hmc.group.basecommerce.deeplink" merge-mode="remove"/>
+                <!--explorer-tree:type-node code="DeeplinkUrl" id="DeeplinkUrl"/>
+                <explorer-tree:type-node code="DeeplinkUrlRule" id="DeeplinkUrlRule"/>
+            </explorer-tree:navigation-node-->
+
+            <explorer-tree:navigation-node id="hmc.b2bapprovalprocessgroup" merge-mode="remove"/>
+                <!--explorer-tree:type-node code="B2BPermission" id="B2BPermission"/>
+            </explorer-tree:navigation-node-->
+
+            <explorer-tree:navigation-node id="cxnode" merge-mode="remove"/>
+                <!--explorer-tree:navigation-node id="cxconfignode" merge-mode="remove"/>
+                    <explorer-tree:type-node code="CxConfig" id="cxconfig" />
+                    <explorer-tree:type-node code="CxUrlVoterConfig" id="cxurlvoterconfig" />
+                </explorer-tree:navigation-node>
+                <explorer-tree:type-node code="CxSegment" id="cxsegment" merge-mode="remove"/>
+                <explorer-tree:type-node code="CxUserToSegment" id="cxusertosegment" merge-mode="remove"/>
+                <explorer-tree:navigation-node id="cxtriggers" merge-mode="remove"/>
+                    <explorer-tree:type-node code="CxAbstractTrigger" id="cxabstracttrigger" />
+                    <explorer-tree:type-node code="CxExpressionTrigger" id="cxexpressiontrigger" />
+                    <explorer-tree:type-node code="CxSegmentTrigger" id="cxsegmenttrigger" />
+                    <explorer-tree:type-node code="CxDefaultTrigger" id="cxdefaulttrigger" />
+                </explorer-tree:navigation-node>
+                <explorer-tree:type-node code="CxVariation" id="cxvariation" />
+                <explorer-tree:type-node code="CxCustomization" id="cxcustomization" />
+                <explorer-tree:type-node code="CxCustomizationsGroup" id="cxcustomizationsgroup" />
+                <explorer-tree:navigation-node id="cxactions">
+                    <explorer-tree:type-node code="CxAbstractAction" id="cxabstractaction" />
+                </explorer-tree:navigation-node>
+            </explorer-tree:navigation-node-->
+
+            <explorer-tree:navigation-node id="hmc.b2bcommercegroup">
+                <explorer-tree:type-node code="B2BCostCenter" id="B2BCostCenter" merge-mode="remove"/>
+                <explorer-tree:type-node code="B2BBudget" id="B2BBudget" merge-mode="remove"/>
+                <explorer-tree:type-node code="B2BUserGroup" id="B2BUserGroup" merge-mode="remove"/>
+                <explorer-tree:type-node code="B2BReportingSet" id="B2BReportingSet" merge-mode="remove"/>
+                <explorer-tree:type-node code="B2BMerchantCheck" id="B2BMerchantCheck" merge-mode="remove"/>
+                <explorer-tree:type-node code="FutureStock" id="FutureStock" merge-mode="remove"/>
+            </explorer-tree:navigation-node>
+        </explorer-tree:explorer-tree>
+    </context>
+	
+	<!--  
+    <context merge-by="type" parent="PriceRow" type="java.util.Date" component="base">
+        <y:base>
+             <y:labels beanId="defaultSolGroupDateLabelProvider" />
+        </y:base>
+    </context>
+	-->
+
+	<context component="perspective-chooser" principal="backofficeadmin">
+		<y:perspective-chooser
+			xmlns:y="http://www.hybris.com/cockpitng/config/perspectiveChooser">
+			<y:authority name="backofficeadmin">
+				<y:perspective id="CustomerSupport-Perspective" />
+				<y:perspective id="hmc2" />
+			</y:authority>
+		</y:perspective-chooser>
+	</context>
+	
+	
+ 	<context merge-by="type" parent="PDTRow" type="PriceRow" component="editor-area" module="platformbackoffice">
+        <editorArea:editorArea xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns:df="http://www.hybris.com/cockpitng/component/dynamicForms" xmlns:dsb="http://www.hybris.com/cockpitng/config/dashboard" xmlns:explorer-tree="http://www.hybris.com/cockpitng/config/explorertree" xmlns:grid-view="http://www.hybris.com/cockpitng/component/gridView" xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns:na="http://www.hybris.com/cockpitng/config/notifications" xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch" xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config" xmlns:y="http://www.hybris.com/cockpit/config/hybris" name="">
+            <editorArea:tab name="hmc.properties">
+                <editorArea:section name="hmc.properties">
+
+                    <editorArea:attribute qualifier="dateRange">
+							<editorArea:editor-parameter>
+                                <editorArea:name>dateFormat</editorArea:name>
+                                <editorArea:value>full</editorArea:value>
+                            </editorArea:editor-parameter>
+                            <editorArea:editor-parameter>
+                                <editorArea:name>timeZoneReadOnly</editorArea:name>
+                                <editorArea:value>false</editorArea:value>
+                            </editorArea:editor-parameter>
+                            <editorArea:editor-parameter>
+                                <editorArea:name>displayedTimeZones</editorArea:name>
+                                <editorArea:value>GMT-12:00,GMT-11:00,GMT-10:00,GMT-09:30,GMT-09:00,GMT-08:00,GMT-07:00,GMT-06:00,GMT-05:00,GMT-04:30,GMT-04:00,GMT-03:30,GMT-03:00,GMT-02:00,GMT-01:00,GMT+00:00,GMT+01:00,GMT+02:00,GMT+03:00,GMT+03:30,GMT+04:00,GMT+04:30,GMT+05:00,GMT+05:30,GMT+05:45,GMT+06:00,GMT+06:30,GMT+07:00,GMT+08:00,GMT+08:30,GMT+08:45,GMT+09:00,GMT+09:30,GMT+10:00,GMT+10:30,GMT+11:00,GMT+12:00,GMT+12:45,GMT+13:00,GMT+14:00</editorArea:value>
+                            </editorArea:editor-parameter>
+                            <editorArea:editor-parameter>
+                                <editorArea:name>selectedTimeZone</editorArea:name>
+                                <editorArea:value>GMT+00:00</editorArea:value>
+                            </editorArea:editor-parameter>
+                    </editorArea:attribute>
+
+				</editorArea:section>
+				
+			</editorArea:tab>
+		</editorArea:editorArea>
+    </context>	
+    
+    
+    <!-- Explorer Tree for customer support backoffice -->
+	<context principal="customersupportadministratorrole,customersupportmanagerrole,customersupportagentrole" component="cs-explorer-tree" module="solgroupbackoffice">
+        <n:explorer-tree xmlns:n="http://www.hybris.com/cockpitng/config/explorertree" xmlns:advanced-search="http://www.hybris.com/cockpitng/config/advancedsearch" xmlns:df="http://www.hybris.com/cockpitng/component/dynamicForms" xmlns:editorArea="http://www.hybris.com/cockpitng/component/editorArea" xmlns:list-view="http://www.hybris.com/cockpitng/component/listView" xmlns:na="http://www.hybris.com/cockpitng/config/notifications" xmlns:simple-search="http://www.hybris.com/cockpitng/config/simplesearch" xmlns:wz="http://www.hybris.com/cockpitng/config/wizard-config" xmlns:y="http://www.hybris.com/cockpit/config/hybris" title="customer_support">
+            <n:type-node code="CsTicket" id="customersupport_backoffice_explorerTree_tickets"/>
+            <n:type-node code="CustomerReview" id="customersupport_backoffice_explorerTree_reviews" merge-mode="remove"/>
+            <n:type-node code="Customer" id="customersupport_backoffice_explorerTree_customers" merge-mode="remove"/>
+            <n:type-node code="B2BCustomer" id="customersupport_backoffice_explorerTree_customers"/>
+            <n:navigation-node id="customersupportbackoffice.treenode.orders" merge-mode="remove">
+                <n:type-node id="customersupportbackoffice.typenode.order.open"/>
+                <n:type-node id="customersupportbackoffice.typenode.order.completed"/>
+                <n:type-node code="Order" id="customersupportbackoffice.typenode.order.all"/>
+            </n:navigation-node>
+            <n:navigation-node id="customersupportbackoffice.treenode.returns" merge-mode="remove">
+                <n:type-node id="customersupportbackoffice.typenode.return.approval.pending"/>
+                <n:type-node code="ReturnRequest" id="customersupportbackoffice.typenode.all.returns"/>
+            </n:navigation-node>
+            <n:type-node code="Order" id="customersupport_backoffice_explorerTree_orders"/>
+        </n:explorer-tree>
+    </context>
+    
+    <context component="cseditorareaactions" type="Order" merge-by="type">
+        <y:actions xmlns:y="http://www.hybris.com/cockpit/config/hybris">
+            <y:group qualifier="common">
+                <y:label>actiongroup.common</y:label>
+                <y:action action-id="de.hybris.ordermanagementbackoffice.actions.order.cancelorderaction" property="currentObject" merge-mode="remove"/>
+                <y:action action-id="de.hybris.ordermanagementbackoffice.actions.returns.createreturnrequestaction" property="currentObject" merge-mode="remove"/>
+            </y:group>
+        </y:actions>
+    </context>
+    
+	<context merge-mode="replace" merge-by="type" parent="GenericItem" type="CsTicket" component="cs-editor-area" principal="customersupportadministratorrole" module="customersupportbackoffice" >
+        <editorArea:editorArea name="csTicket">
+            <editorArea:tab name="customersupport_backoffice_ticket_tab_details" tooltipText="customersupport_backoffice_ticket_tab_details_desc">
+               <editorArea:section name="hmc.tab.section.ticket.details" position="1">
+					<editorArea:attribute readonly="true" qualifier="category" editor="com.hybris.cockpitng.editor.ticket.category" label="customersupport_backoffice_tickets_category"/>
+					<editorArea:attribute readonly="true" qualifier="assignedAgent" editor="com.hybris.cockpitng.editor.decoratededitor(com.hybris.cockpitng.editor.defaultreferenceeditor, {updateAgentEditorDecorator})" label="customersupport_backoffice_ticketForm.assignedAgent">
+                        <editorArea:editor-parameter>
+                            <editorArea:name>isNestedObjectCreationDisabled</editorArea:name>
+                            <editorArea:value>true</editorArea:value>
+                        </editorArea:editor-parameter>
+                        <editorArea:editor-parameter>
+                            <editorArea:name>disableDisplayingDetails</editorArea:name>
+                            <editorArea:value>true</editorArea:value>
+                        </editorArea:editor-parameter>
+                    </editorArea:attribute>
+                    <editorArea:attribute readonly="true" qualifier="assignedGroup" editor="com.hybris.cockpitng.editor.decoratededitor(com.hybris.cockpitng.editor.defaultreferenceeditor, {updateAgentGroupEditorDecorator})" label="customersupport_backoffice_ticketForm.assignedGroup">
+                        <editorArea:editor-parameter>
+                            <editorArea:name>isNestedObjectCreationDisabled</editorArea:name>
+                            <editorArea:value>true</editorArea:value>
+                        </editorArea:editor-parameter>
+                        <editorArea:editor-parameter>
+                            <editorArea:name>disableDisplayingDetails</editorArea:name>
+                            <editorArea:value>true</editorArea:value>
+                        </editorArea:editor-parameter>
+                    </editorArea:attribute>
+                </editorArea:section>
+            </editorArea:tab>
+        </editorArea:editorArea>
+	</context>
+	
+	<context merge-mode="replace" merge-by="type" parent="User" type="Customer" component="cs-editor-area" principal="customersupportmanagerrole,customersupportagentrole,solAgentsGroup">
+		<editorArea:editorArea name="Customer Details Payments Tab">
+			<editorArea:tab name="hmc.customerpayments" position="3" tooltipText="customersupport_backoffice_customer_tab_customerpayment_desc">
+				<editorArea:section name="hmc.customerpayments.method.section">
+					<editorArea:panel name="customersupport_backoffice_customerPayments_panel" colspan="2" rowspan="2">
+	                	<editorArea:attribute qualifier="defaultPaymentInfo" label="customersupport_backoffice_tab_customer_associations_defaultPaymentMethod" readonly="true">
+							<editorArea:editor-parameter>
+	                			<editorArea:name>isNestedObjectCreationDisabled</editorArea:name>
+	                			<editorArea:value>true</editorArea:value>
+							 </editorArea:editor-parameter>
+							 <editorArea:editor-parameter>
+                                <editorArea:name>referenceSelected/editorArea/editorAreaConfigCtx</editorArea:name>
+                                <editorArea:value>cs-editor-area</editorArea:value>
+                            </editorArea:editor-parameter>
+						</editorArea:attribute>
+	                	<editorArea:attribute qualifier="paymentInfos" label="customersupport_backoffice_tab_customer_associations_paymentMethods" readonly="true">
+	                		<editorArea:editor-parameter>
+	                			<editorArea:name>isNestedObjectCreationDisabled</editorArea:name>
+	                			<editorArea:value>true</editorArea:value>
+							</editorArea:editor-parameter>
+							<editorArea:editor-parameter>
+                                <editorArea:name>referenceSelected/editorArea/editorAreaConfigCtx</editorArea:name>
+                                <editorArea:value>cs-editor-area</editorArea:value>
+                            </editorArea:editor-parameter>
+							<editorArea:editor-parameter>
+								<editorArea:name>selectedItemsMaxSize</editorArea:name>
+								<editorArea:value>15</editorArea:value>
+							</editorArea:editor-parameter>
+							<editorArea:editor-parameter>
+								<editorArea:name>disableRemoveReference</editorArea:name>
+								<editorArea:value>true</editorArea:value>
+							</editorArea:editor-parameter>
+	                	</editorArea:attribute>
+	                </editorArea:panel>
+				</editorArea:section>
+			</editorArea:tab>
+		</editorArea:editorArea>
+	</context>
+	
+</config>

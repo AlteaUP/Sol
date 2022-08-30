@@ -1,0 +1,83 @@
+$solPrefix = solgroupIT
+
+$contentCatalog=$solPrefixContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$wideContent=CMSImageComponent,BannerComponent
+$jarEmailResource=jar:com.solgroup.core.constants.SolgroupCoreConstants&/solgroupinitialdata/import/coredata/contentCatalogs/$solPrefixContentCatalog/emails
+
+# CS Cockpit email
+REMOVE RendererTemplate ; code[unique=true]                           
+                        ; TickSystem_Customer_TicketCreated_Text      
+                        ; TickSystem_Customer_TicketCreated_HTML      
+                        ; TickSystem_CSAgentmanager_TicketCreated_Text
+                        ; TickSystem_CSAgentmanager_TicketCreated_HTML
+                        ; TickSystem_AssignedAgent_Assigned_Text      
+                        ; TickSystem_AssignedAgent_Assigned_HTML      
+                        ; TickSystem_csAgent_CustomerEmail_Text       
+                        ; TickSystem_csAgent_CustomerEmail_HTML       
+                        ; TickSystem_Customer_CustomerEmail_Text      
+                        ; TickSystem_Customer_CustomerEmail_HTML      
+                        ; TickSystem_Customer_TicketStateChanged_Text 
+                        ; TickSystem_Customer_TicketStateChanged_HTML 
+                        ; TickSystem_csAgent_TicketStateChanged_Text  
+                        ; TickSystem_csAgent_TicketStateChanged_HTML  
+                        ; TickSystem_csAgent_Assigned_Text            
+                        ; TickSystem_csAgent_Assigned_HTML            
+                        ; TickSystem_CSAgentmanager_Assigned_Text     
+                        ; TickSystem_CSAgentmanager_Assigned_HTML     
+                        ; TickSystem_csAgent_TicketCreated_Text       
+                        ; TickSystem_csAgent_TicketCreated_HTML       
+
+REMOVE CsTicketEventEmailConfiguration ; code[unique=true]
+                                       ; 1                
+                                       ; 2                
+                                       ; 3                
+                                       ; 4                
+                                       ; 5                
+                                       ; 6                
+                                       ; 7                
+                                       ; 8                
+                                       ; 9                
+                                       ; 10               
+                                       ; 11               
+                                       ; 12               
+                                       ; 13               
+                                       ; 14               
+                                       ; 15               
+                                       ; 16               
+                                       ; 17               
+                                       ; 18               
+                                       ; 19               
+                                       
+INSERT_UPDATE RendererTemplate ; code[unique=true]                           ; contextClass[default=de.hybris.platform.ticket.email.context.AbstractTicketContext] ; rendererType(code)[default='velocity']
+                               ; TickSystem_Customer_TicketCreated_Text      ;                                                                                     ;                                       
+                               ; TickSystem_Customer_TicketCreated_HTML      ;                                                                                     ;                                       
+                               ; TickSystem_csAgent_TicketCreated_Text       ;                                                                                     ;                                       
+                               ; TickSystem_csAgent_TicketCreated_HTML       ;                                                                                     ;                                       
+                               ; TickSystem_Customer_CustomerEmail_Text      ;                                                                                     ;                                       
+                               ; TickSystem_Customer_CustomerEmail_HTML      ;                                                                                     ;                                       
+                               ; TickSystem_csAgent_CustomerEmail_Text       ;                                                                                     ;                                       
+                               ; TickSystem_csAgent_CustomerEmail_HTML       ;                                                                                     ;                                       
+                               ; TickSystem_Customer_TicketStateChanged_Text ;                                                                                     
+                               ; TickSystem_Customer_TicketStateChanged_HTML ;                                                                                     
+                               ; TickSystem_csAgent_TicketStateChanged_Text  ;                                                                                     ;                                       
+                               ; TickSystem_csAgent_TicketStateChanged_HTML  ;                                                                                     ;                                       
+								                       
+INSERT_UPDATE CsTicketEventEmailConfiguration ; code[unique=true] ; recipientType(code) ; alteredAttributes(qualifier,enclosingType(ComposedType.code)) ; eventType(code)         ; subject                                         ; plainTextTemplate(code)                     ; htmlTemplate(code)                          ;  
+#Ticket Creation                              
+                                              ; 1                 ; Customer            ;                                                               ; ticketCreationEvent     ; ${ctx.ticket.ticketID} - ${ctx.ticket.headline} ; TickSystem_Customer_TicketCreated_Text      ; TickSystem_Customer_TicketCreated_HTML      ;  
+                                              ; 2                 ; AssignedAgent       ;                                                               ; ticketCreationEvent     ; ${ctx.ticket.ticketID} - ${ctx.ticket.headline} ; TickSystem_csAgent_TicketCreated_Text       ; TickSystem_csAgent_TicketCreated_HTML       ;  
+
+#Ticket Message Updates                       
+                                              ; 3                 ; Customer            ;                                                               ; customerNote            ; ${ctx.ticket.ticketID} - ${ctx.ticket.headline} ; TickSystem_Customer_CustomerEmail_Text      ; TickSystem_Customer_CustomerEmail_HTML      ;  
+                                              ; 4                 ; AssignedAgent       ;                                                               ; customerNote            ; ${ctx.ticket.ticketID} - ${ctx.ticket.headline} ; TickSystem_csAgent_CustomerEmail_Text       ; TickSystem_csAgent_CustomerEmail_HTML       ;  
+                                              ; 5                 ; AssignedAgent       ;                                                               ; agentNote               ; ${ctx.ticket.ticketID} - ${ctx.ticket.headline} ; TickSystem_csAgent_CustomerEmail_Text       ; TickSystem_csAgent_CustomerEmail_HTML       ;  
+
+#Ticket State Change                          
+                                              ; 6                 ; Customer            ;                                                               ; ticketChangeEvent       ; ${ctx.ticket.ticketID} - ${ctx.ticket.headline} ; TickSystem_Customer_TicketStateChanged_Text ; TickSystem_Customer_TicketStateChanged_HTML ;  
+                                              ; 7                 ; AssignedAgent       ;                                                               ; ticketChangeEvent       ; ${ctx.ticket.ticketID} - ${ctx.ticket.headline} ; TickSystem_csAgent_TicketStateChanged_Text  ; TickSystem_csAgent_TicketStateChanged_HTML  ;  
+                                              ; 8                 ; Customer            ;                                                               ; ticketResolutionEvent   ; ${ctx.ticket.ticketID} - ${ctx.ticket.headline} ; TickSystem_Customer_TicketStateChanged_Text ; TickSystem_Customer_TicketStateChanged_HTML ;  
+                                              ; 9                 ; AssignedAgent       ;                                                               ; ticketResolutionEvent   ; ${ctx.ticket.ticketID} - ${ctx.ticket.headline} ; TickSystem_csAgent_TicketStateChanged_Text  ; TickSystem_csAgent_TicketStateChanged_HTML  ;  
+                                              ; 10                ; Customer            ;                                                               ; ticketUnResolutionEvent ; ${ctx.ticket.ticketID} - ${ctx.ticket.headline} ; TickSystem_Customer_TicketStateChanged_Text ; TickSystem_Customer_TicketStateChanged_HTML ;  
+                                              ; 11                ; AssignedAgent       ;                                                               ; ticketUnResolutionEvent ; ${ctx.ticket.ticketID} - ${ctx.ticket.headline} ; TickSystem_csAgent_TicketStateChanged_Text  ; TickSystem_csAgent_TicketStateChanged_HTML  ;  
+                                              

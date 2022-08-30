@@ -1,0 +1,137 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="urn:solgroup:com:CustomerImport" xmlns:solns="urn:solgroup:com:CustomerImport">
+
+	<xsd:element name="CustomerImport_Hybris">
+		<xsd:complexType>
+			<xsd:all>
+				<xsd:element name="header" maxOccurs="1" minOccurs="1" type="solns:header"/>
+				<xsd:element name="country" maxOccurs="1" minOccurs="1" type="xsd:string"/>
+				<xsd:element name="companies" maxOccurs="1" minOccurs="1" type="solns:companies"/>
+			</xsd:all>
+		</xsd:complexType>
+	</xsd:element>
+
+
+	<xsd:complexType name="header">
+		<xsd:sequence>
+			<xsd:element name="sourceSystem" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+			<xsd:element name="messageID" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+			<xsd:element name="timestamp" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="companies">
+		<xsd:sequence>
+			<xsd:element name="company" maxOccurs="unbounded" minOccurs="1">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="erpCode" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+						<xsd:element name="name" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+						<xsd:element name="default" type="xsd:boolean" maxOccurs="1" minOccurs="1"/>
+						<xsd:element name="organizations1" maxOccurs="1" minOccurs="0"
+							type="solns:organizations1"/>
+						<xsd:element name="b2bUnits" maxOccurs="1" minOccurs="0"
+							type="solns:b2bUnits"> </xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="organizations1">
+		<xsd:sequence>
+			<xsd:element name="organizationUnit1" maxOccurs="unbounded" minOccurs="1">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="erpCode" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+						<xsd:element name="name" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+						<xsd:element name="currency" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+						<xsd:element name="b2bUnits" maxOccurs="1" minOccurs="1"
+							type="solns:b2bUnits"> </xsd:element>
+						<xsd:element name="organizations2" maxOccurs="1" minOccurs="0"
+							type="solns:organizations2"/>
+						<xsd:element name="addresses" maxOccurs="1" minOccurs="0"
+							type="solns:addresses"> </xsd:element>
+						<xsd:element name="customers" maxOccurs="1" minOccurs="0"
+							type="solns:customers"> </xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="organizations2">
+		<xsd:sequence>
+			<xsd:element name="organizationUnit2" maxOccurs="unbounded" minOccurs="1">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="erpCode" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+						<xsd:element name="name" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+						<xsd:element name="currency" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+						<xsd:element name="b2bUnits" maxOccurs="1" minOccurs="1"
+							type="solns:b2bUnits"> </xsd:element>
+						<xsd:element name="addresses" maxOccurs="1" minOccurs="0"
+							type="solns:addresses"> </xsd:element>
+						<xsd:element name="customers" maxOccurs="1" minOccurs="0"
+							type="solns:customers"> </xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="b2bUnits">
+		<xsd:sequence>
+			<xsd:element name="b2bUnit" maxOccurs="unbounded" minOccurs="1">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="erpCode" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+						<xsd:element name="name" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+						<xsd:element name="currency" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+						<xsd:element name="vatID" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+						<xsd:element name="taxPayerCode" type="xsd:string" maxOccurs="1"
+							minOccurs="0"/>
+						<xsd:element name="publicClient" type="xsd:boolean" maxOccurs="1"
+							minOccurs="0"/>
+						<xsd:element name="clientType" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+						<xsd:element name="creditState" type="xsd:string" maxOccurs="1"
+							minOccurs="0"/>
+						<xsd:element name="activeState" type="xsd:string" maxOccurs="1"
+							minOccurs="0"/>
+						<xsd:element name="vendorCode" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+						<xsd:element name="customers" maxOccurs="1" minOccurs="1"
+							type="solns:customers"> </xsd:element>
+						<xsd:element name="addresses" maxOccurs="1" minOccurs="0"
+							type="solns:addresses"> </xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="customers">
+		<xsd:sequence>
+			<xsd:element name="customerId" type="xsd:string" maxOccurs="unbounded" minOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="addresses">
+		<xsd:sequence>
+			<xsd:element name="address" maxOccurs="unbounded" minOccurs="1" type="solns:address"/>
+		</xsd:sequence>
+	</xsd:complexType>
+
+
+	<xsd:complexType name="address">
+		<xsd:sequence>
+			<xsd:element name="erpCode" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+			<xsd:element name="hybrisCode" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+			<xsd:element name="street" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+			<xsd:element name="streetNumber" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+			<xsd:element name="town" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+			<xsd:element name="postalCode" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+			<xsd:element name="country" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+			<xsd:element name="email" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+			<xsd:element name="phone" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+			<xsd:element name="fax" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+			<xsd:element name="shipping" type="xsd:boolean" maxOccurs="1" minOccurs="1"/>
+			<xsd:element name="billing" type="xsd:boolean" maxOccurs="1" minOccurs="1"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

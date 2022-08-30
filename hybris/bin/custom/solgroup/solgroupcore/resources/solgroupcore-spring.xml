@@ -1,0 +1,1250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- [y] hybris Platform Copyright (c) 2017 SAP SE or an SAP affiliate company. 
+	All rights reserved. This software is the confidential and proprietary information 
+	of SAP ("Confidential Information"). You shall not disclose such Confidential 
+	Information and shall use it only in accordance with the terms of the license 
+	agreement you entered into with SAP. -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	       http://www.springframework.org/schema/beans/spring-beans.xsd
+	       http://www.springframework.org/schema/util
+		   http://www.springframework.org/schema/util/spring-util.xsd
+	       http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config />
+
+	<!-- Spring Integration -->
+	<import resource="classpath:/solgroupcore/integration/hot-folder-common-spring.xml" />
+	
+	<import resource="cms-config/cmsfacades-structuretypes-generic-blacklist-spring.xml" />
+
+
+	<!-- SystemSetup for the SolgroupCore -->
+	<bean id="acceleratorCoreSystemSetup" class="com.solgroup.core.setup.CoreSystemSetup"
+		parent="abstractCoreSystemSetup" />
+
+	<!-- Solr field value providers -->
+
+	<bean id="volumeAwareProductPriceValueProvider"
+		class="com.solgroup.core.search.solrfacetsearch.provider.impl.VolumeAwareProductPriceValueProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="priceService" ref="priceService" />
+		<property name="commonI18NService" ref="commonI18NService" />
+		<property name="sessionService" ref="sessionService" />
+		<property name="userService" ref="userService" />
+		<property name="priceComparator" ref="volumePriceComparator" />
+		<property name="catalogVersionService" ref="catalogVersionService" />
+	</bean>
+
+	<bean id="volumePriceComparator"
+		class="com.solgroup.core.comparators.VolumeAwarePriceInformationComparator"
+		scope="singleton" />
+
+	<bean id="productVolumePricesProvider"
+		class="com.solgroup.core.search.solrfacetsearch.provider.impl.ProductVolumePricesProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="priceService" ref="priceService" />
+	</bean>
+
+	<bean id="solgroupCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="solgroupCategorySource" />
+	</bean>
+	<bean id="solgroupBrandCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="solgroupBrandCategorySource" />
+	</bean>
+	<bean id="solgroupVariantCategoryCodeValueProvider" parent="abstractCategoryCodeValueProvider">
+		<property name="categorySource" ref="solgroupVariantCategorySource" />
+	</bean>
+
+
+	<bean id="solgroupCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="solgroupCategorySource" />
+	</bean>
+
+	<bean id="solgroupBrandCategoryNameValueProvider" parent="abstractCategoryNameValueProvider">
+		<property name="categorySource" ref="solgroupBrandCategorySource" />
+	</bean>
+
+	<bean id="solgroupCategorySource" parent="variantCategorySource">
+		<property name="rootCategory" value="1" /> <!-- '1' is the root icecat category -->
+	</bean>
+	<bean id="solgroupVariantCategorySource" parent="variantCategorySource" />
+
+	<bean id="solgroupBrandCategorySource" parent="defaultCategorySource">
+		<property name="rootCategory" value="brands" /> <!-- 'brands' is the root of the brands hierarchy -->
+	</bean>
+
+
+	<bean id="abstractCategoryCodeValueProvider" abstract="true"
+		class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.CategoryCodeValueProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="commonI18NService" ref="commonI18NService" />
+	</bean>
+	<bean id="abstractCategoryNameValueProvider" abstract="true"
+		class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.CategoryNameValueProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="commonI18NService" ref="commonI18NService" />
+	</bean>
+
+
+
+	<bean id="image515ValueProvider" parent="abstractImageValueProvider">
+		<property name="mediaFormat" value="515Wx515H" />
+	</bean>
+	<bean id="image300ValueProvider" parent="abstractImageValueProvider">
+		<property name="mediaFormat" value="300Wx300H" />
+	</bean>
+	<bean id="image96ValueProvider" parent="abstractImageValueProvider">
+		<property name="mediaFormat" value="96Wx96H" />
+	</bean>
+	<bean id="image65ValueProvider" parent="abstractImageValueProvider">
+		<property name="mediaFormat" value="65Wx65H" />
+	</bean>
+	<bean id="image30ValueProvider" parent="abstractImageValueProvider">
+		<property name="mediaFormat" value="30Wx30H" />
+	</bean>
+
+	<bean id="productUrlValueProvider"
+		class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.ProductUrlValueProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="urlResolver" ref="productModelUrlResolver" />
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="i18nService" ref="i18nService" />
+		<property name="commonI18NService" ref="commonI18NService" />
+	</bean>
+
+	<bean id="promotionCodeValueProvider"
+		class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.PromotionCodeValueProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="promotionsService" ref="promotionsService" />
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+	</bean>
+
+	<bean id="promotionImageValueProvider"
+		class="de.hybris.platform.commerceservices.search.solrfacetsearch.provider.impl.PrimaryPromotionImageValueProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="promotionsService" ref="promotionsService" />
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+	</bean>
+
+	<bean id="colorFacetValueProvider"
+		class="com.solgroup.core.search.solrfacetsearch.provider.impl.ColorFacetValueProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+	</bean>
+
+	<bean id="colorFacetDisplayNameProvider"
+		class="com.solgroup.core.search.solrfacetsearch.provider.impl.ColorFacetDisplayNameProvider">
+		<property name="enumerationService" ref="enumerationService" />
+		<property name="i18nService" ref="i18nService" />
+		<property name="commonI18NService" ref="commonI18NService" />
+	</bean>
+
+
+
+	<bean id="genderValueProvider"
+		class="com.solgroup.core.search.solrfacetsearch.provider.impl.GenderValueProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+	</bean>
+
+	<bean id="genderFacetDisplayNameProvider"
+		class="com.solgroup.core.search.solrfacetsearch.provider.impl.GenderFacetDisplayNameProvider">
+		<property name="enumerationService" ref="enumerationService" />
+		<property name="i18nService" ref="i18nService" />
+		<property name="commonI18NService" ref="commonI18NService" />
+	</bean>
+
+
+
+
+	<!-- Event listeners are singletons, therefore the dependency for a bean 
+		in tenant-scope must be configured with a lookup method. -->
+	<bean id="orderCancelledEventListener" class="com.solgroup.core.event.OrderCancelledEventListener"
+		parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+	</bean>
+	<bean id="orderRefundEventListener" class="com.solgroup.core.event.OrderRefundEventListener"
+		parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+	</bean>
+	<bean id="customerRegistrationEventListener" class="com.solgroup.core.event.RegistrationEventListener"
+		parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+	</bean>
+	<bean id="forgottenPasswordEventListener" class="com.solgroup.core.event.ForgottenPasswordEventListener"
+		parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+	</bean>
+	<bean id="submitOrderEventListener" class="com.solgroup.core.event.SubmitOrderEventListener"
+		parent="abstractAcceleratorSiteEventListener">
+		<property name="businessProcessService" ref="businessProcessService" />
+		<property name="modelService" ref="modelService" />
+		<property name="baseStoreService" ref="baseStoreService" />
+	</bean>
+	<bean id="orderConfirmationEventListener" class="com.solgroup.core.event.OrderConfirmationEventListener"
+		parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+		<property name="solgroupCompanyService" ref="solgroupCompanyService"/>
+	</bean>
+	<bean id="sendDeliveryMessageEventListener"
+		class="com.solgroup.core.event.SendDeliveryMessageEventListener"
+		parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+	</bean>
+	<bean id="sendReadyForPickupMessageEventListener"
+		class="com.solgroup.core.event.SendReadyForPickupMessageEventListener"
+		parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+	</bean>
+	<bean id="sendOrderPartiallyCanceledMessageEventListener"
+		class="com.solgroup.core.event.SendOrderPartiallyCanceledMessageEventListener"
+		parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+	</bean>
+	<bean id="sendOrderPartiallyRefundedMessageEventListener"
+		class="com.solgroup.core.event.SendOrderPartiallyRefundedMessageEventListener"
+		parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+	</bean>
+	<bean id="sendNotPickedUpConsignmentCanceledMessageEventListener"
+		class="com.solgroup.core.event.SendNotPickedUpConsignmentCanceledMessageEventListener"
+		parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+	</bean>
+	<bean id="orderCompletedEventListener" class="com.solgroup.core.event.OrderCompletedEventListener"
+		parent="abstractAcceleratorSiteEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+	</bean>
+
+	<!-- Process resources definition -->
+
+	<bean id="customerRegistrationEmailProcessDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource"
+			value="classpath:/solgroupcore/processes/customerRegistrationEmailProcess.xml" />
+	</bean>
+	<bean id="forgottenPasswordEmailProcessDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource"
+			value="classpath:/solgroupcore/processes/forgottenPasswordEmailProcess.xml" />
+	</bean>
+	<bean id="orderConfirmationEmailProcessDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource"
+			value="classpath:/solgroupcore/processes/orderConfirmationEmailProcess.xml" />
+	</bean>
+	<bean id="agentAssociationRequestEmailProcessDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource"
+	value="classpath:/solgroupcore/processes/agentAssociationRequestEmailProcess.xml" />
+	</bean>
+	<bean id="sendDeliveryEmailProcessDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource"
+			value="classpath:/solgroupcore/processes/sendDeliveryEmailProcess.xml" />
+	</bean>
+	<bean id="sendReadyForPickupEmailProcessDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource"
+			value="classpath:/solgroupcore/processes/sendReadyForPickupEmailProcess.xml" />
+	</bean>
+	<bean id="sendOrderCancelledEmailProcessDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource"
+			value="classpath:/solgroupcore/processes/sendOrderCancelledEmailProcess.xml" />
+	</bean>
+	<bean id="sendOrderRefundEmailProcessDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource"
+			value="classpath:/solgroupcore/processes/sendOrderRefundEmailProcess.xml" />
+	</bean>
+	<bean id="sendOrderPartiallyCanceledEmailProcessDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource"
+			value="classpath:/solgroupcore/processes/sendOrderPartiallyCanceledEmailProcess.xml" />
+	</bean>
+	<bean id="sendOrderPartiallyRefundedEmailProcessDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource"
+			value="classpath:/solgroupcore/processes/sendOrderPartiallyRefundedEmailProcess.xml" />
+	</bean>
+	<bean
+		id="sendNotPickedUpConsignmentCanceledEmailProcessDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource"
+			value="classpath:/solgroupcore/processes/sendNotPickedUpConsignmentCanceledEmailProcess.xml" />
+	</bean>
+
+	<!-- Actions -->
+	<bean id="abstractAction" class="de.hybris.platform.processengine.action.AbstractAction"
+		abstract="true">
+		<property name="modelService" ref="modelService" />
+		<property name="processParameterHelper" ref="processParameterHelper" />
+	</bean>
+
+	<bean id="sendEmail"
+		class="de.hybris.platform.acceleratorservices.process.email.actions.SendEmailAction"
+		parent="abstractAction">
+		<property name="emailService" ref="emailService" />
+	</bean>
+
+	<bean id="abstractGenerateEmailAction"
+		class="de.hybris.platform.acceleratorservices.process.email.actions.GenerateEmailAction"
+		parent="abstractAction" abstract="true">
+		<property name="modelService" ref="modelService" />
+		<property name="cmsEmailPageService" ref="cmsEmailPageService" />
+		<property name="contextResolutionStrategy" ref="processContextResolutionStrategy" />
+		<property name="emailGenerationService" ref="emailGenerationService" />
+	</bean>
+
+	<bean id="solGroupGenerateEmailAction" class="com.solgroup.core.actions.emails.SolGroupGenerateEmailAction" parent="abstractGenerateEmailAction" abstract="true">
+		<property name="mediaService" ref="mediaService" />
+		<property name="catalogVersionService" ref="catalogVersionService" />
+	</bean>
+	
+	<bean id="solGroupGenerateOrderEmailAction" class="com.solgroup.core.actions.emails.SolGroupGenerateOrderEmailAction" parent="solGroupGenerateEmailAction" abstract="true">
+		<property name="imageFormatMapping" ref="imageFormatMapping" />
+		<property name="mediaContainerService" ref="mediaContainerService" />
+	</bean>
+
+	<bean id="solGroupGenerateVendorAlertEmailAction" class="com.solgroup.core.actions.emails.SolGroupGenerateVendorAlertEmailAction" parent="abstractGenerateEmailAction" abstract="true">
+		<property name="defaultSolGroupEmailGenerationService" ref="defaultSolGroupEmailGenerationService" />
+	</bean>
+	
+	<bean id="solGroupGenerateAgentAssociationRequestEmailAction" class="com.solgroup.core.actions.emails.SolGroupAgentAssociationRequestEmailAction" parent="abstractGenerateEmailAction" abstract="true">
+		<property name="defaultSolGroupAgentAssociationRequestEmailGenerationService" ref="defaultSolGroupAgentAssociationRequestEmailGenerationService" />
+	</bean>
+	
+	<!--  
+	<bean id="generateCustomerRegistrationEmail" parent="abstractGenerateEmailAction">
+	-->
+	<bean id="generateCustomerRegistrationEmail" parent="solGroupGenerateEmailAction">
+		<property name="frontendTemplateName" value="CustomerRegistrationEmailTemplate" />
+	</bean>
+	
+	<!--  
+	<bean id="generateForgottenPasswordEmail" parent="abstractGenerateEmailAction">
+	-->
+	<bean id="generateForgottenPasswordEmail" parent="solGroupGenerateEmailAction">
+		<property name="frontendTemplateName" value="ForgottenPasswordEmailTemplate" />
+	</bean>
+
+	<!--  
+	<bean id="generateOrderConfirmationEmail" parent="abstractGenerateEmailAction">
+	-->
+	<bean id="generateOrderConfirmationEmail" parent="solGroupGenerateOrderEmailAction">
+		<property name="frontendTemplateName" value="OrderConfirmationEmailTemplate" />
+	</bean>
+	
+	<bean id="generateAgentAssociationRequestEmail" parent="solGroupGenerateAgentAssociationRequestEmailAction">
+		<property name="frontendTemplateName" value="AgentAssociationRequestEmailTemplate" />
+	</bean>
+
+	<bean id="generateDeliverySentEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="DeliverySentEmailTemplate" />
+	</bean>
+
+	<bean id="generateReadyForPickupEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="ReadyForPickupEmailTemplate" />
+	</bean>
+
+	<bean id="generateOrderCancelledEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderCancelledEmailTemplate" />
+	</bean>
+
+	<bean id="generateOrderRefundEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderRefundEmailTemplate" />
+	</bean>
+
+	<bean id="generateOrderPartiallyCanceledEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderPartiallyCanceledEmailTemplate" />
+	</bean>
+	<bean id="generateOrderPartiallyRefundedEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="OrderPartiallyRefundedEmailTemplate" />
+	</bean>
+	<bean id="generateNotPickedUpConsignmentCanceledEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="NotPickedUpConsignmentCanceledEmailTemplate" />
+	</bean>
+
+	<bean id="removeSentEmail"
+		class="de.hybris.platform.acceleratorservices.process.email.actions.RemoveSentEmailAction"
+		parent="abstractAction">
+		<property name="modelService" ref="modelService" />
+	</bean>
+
+	<!-- Simple Suggestion Service -->
+	<alias alias="simpleSuggestionService" name="defaultSimpleSuggestionService" />
+	<bean id="defaultSimpleSuggestionService"
+		class="com.solgroup.core.suggestion.impl.DefaultSimpleSuggestionService">
+		<property name="simpleSuggestionDao" ref="simpleSuggestionDao" />
+	</bean>
+	<alias alias="simpleSuggestionDao" name="defaultSimpleSuggestionDao" />
+	<bean id="defaultSimpleSuggestionDao"
+		class="com.solgroup.core.suggestion.dao.impl.DefaultSimpleSuggestionDao"
+		parent="abstractItemDao">
+		<property name="flexibleSearchService" ref="flexibleSearchService" />
+	</bean>
+
+	<bean id="mccSiteUrlHelper" class="com.solgroup.core.util.MccSiteUrlHelper">
+		<property name="siteChannelValidationStrategy" ref="siteChannelValidationStrategy" />
+		<property name="siteBaseUrlResolutionService" ref="siteBaseUrlResolutionService" />
+		<property name="cmsSiteService" ref="cmsSiteService" />
+	</bean>
+
+
+	<!-- checkout flow configuration -->
+
+	<bean id="pickUpInStoreCheckoutFlowStrategy"
+		class="com.solgroup.core.checkout.flow.impl.PickUpInStoreCheckoutFlowStrategy">
+		<property name="pickupStrategy" ref="pickupStrategy" />
+		<property name="defaultStrategy" ref="siteCheckoutFlowStrategy" />
+		<property name="multiStepCheckoutFlowStrategy" ref="multiStepCheckoutFlowStrategy" />
+	</bean>
+
+	<bean id="siteCheckoutFlowStrategy"
+		class="com.solgroup.core.checkout.flow.impl.SiteCheckoutFlowStrategy">
+		<!-- This strategy looks up a strategy based on the current site UID -->
+		<property name="cmsSiteService" ref="cmsSiteService" />
+		<property name="siteMappings">
+			<map>
+				<entry key="solgroupstore" value-ref="multiStepCheckoutFlowStrategy" />
+			</map>
+		</property>
+		<!-- Default to SINGLE step checkout -->
+		<property name="defaultStrategy" ref="multiStepCheckoutFlowStrategy" />
+	</bean>
+
+	<bean id="newCustomerCheckoutFlowStrategy"
+		class="com.solgroup.core.checkout.flow.impl.NewCustomerCheckoutFlowStrategy">
+		<!-- This strategy works out if the user has created any data -->
+		<property name="userService" ref="userService" />
+		<property name="customerAccountService" ref="customerAccountService" />
+		<property name="defaultStrategy" ref="multiStepCheckoutFlowStrategy" />
+		<property name="newCustomerStrategy" ref="multiStepCheckoutFlowStrategy" />
+	</bean>
+
+
+	<!-- Sales quote process actions -->
+
+	<!-- quote -->
+	<bean id="quoteBuyerSubmitEventListener" class="com.solgroup.core.event.QuoteBuyerSubmitEventListener"
+		parent="abstractEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+	</bean>
+
+	<bean id="quoteSalesRepSubmitEventListener"
+		class="com.solgroup.core.event.QuoteSalesRepSubmitEventListener"
+		parent="abstractEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+	</bean>
+
+	<bean id="quoteSellerApprovalSubmitEventListener"
+		class="com.solgroup.core.event.QuoteSellerApprovalSubmitEventListener"
+		parent="abstractEventListener">
+		<property name="modelService" ref="modelService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+	</bean>
+
+	<bean id="quoteBuyerOrderPlacedEventListener"
+		class="com.solgroup.core.event.QuoteBuyerOrderPlacedEventListener"
+		parent="abstractEventListener">
+		<property name="commerceQuoteService" ref="commerceQuoteService" />
+		<property name="modelService" ref="modelService" />
+	</bean>
+
+
+	<bean id="quoteBuyerProcessDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource"
+			value="classpath:/solgroupcore/processes/quote/quote-buyer-process.xml" />
+	</bean>
+
+	<bean id="quoteSalesRepProcessDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource"
+			value="classpath:/solgroupcore/processes/quote/quote-salesrep-process.xml" />
+	</bean>
+
+
+	<bean id="quoteSellerApprovalProcessDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource"
+			value="classpath:/solgroupcore/processes/quote/quote-seller-approval-process.xml" />
+	</bean>
+
+	<import resource="/solgroupcore/processes/quote/quote-buyer-process-spring.xml" />
+	<import
+		resource="/solgroupcore/processes/quote/quote-salesrep-process-spring.xml" />
+	<import
+		resource="/solgroupcore/processes/quote/quote-seller-approval-process-spring.xml" />
+
+	<!-- ****************** -->
+
+	<alias name="defaultCommonDao" alias="commonDao" />
+	<bean id="defaultCommonDao" class="com.solgroup.core.common.daos.impl.DefaultCommonDao"
+		parent="abstractItemDao" />
+
+	<alias name="defaultSolGroupCategoryService" alias="solGroupCategoryService" />
+	<bean id="defaultSolGroupCategoryService"
+		class="com.solgroup.core.service.categories.impl.DefaultSolGroupCategoryService"
+		parent="defaultCategoryService" />
+
+
+	<bean id="solGroupUtilities" class="com.solgroup.core.util.SolGroupUtilities">
+		<property name="categoryService" ref="categoryService" />
+	</bean>
+
+	<alias name="defaultCommonWsService" alias="commonWsService" />
+	<bean id="defaultCommonWsService"
+		class="com.solgroup.core.ws.service.impl.DefaultCommonWsService">
+		<property name="modelService" ref="modelService" />
+		<property name="mediaService" ref="mediaService" />
+		<property name="catalogVersionService" ref="catalogVersionService" />
+		<property name="cronJobService" ref="cronJobService" />
+		<property name="userService" ref="userService" />
+		<property name="commonDao" ref="commonDao" />
+		<property name="configurationService" ref="configurationService" />
+		<property name="countryDao" ref="countryDao" />
+	</bean>
+
+	<alias name="defaultSolGroupBaseCommerceService" alias="solGroupBaseCommerceService" />
+	<bean id="defaultSolGroupBaseCommerceService"
+		class="com.solgroup.core.service.basecommerce.impl.DefaultSolGroupBaseCommerceService">
+		<property name="baseCommerceSelectionProductStrategy" ref="solgroupBaseCommerceSelectionProductStrategy" />
+	</bean>
+
+	<alias name="defaultSolGroupB2BCustomerDao" alias="solGroupB2BCustomerDao" />
+	<bean id="defaultSolGroupB2BCustomerDao"
+		class="com.solgroup.core.dao.b2bcustomer.impl.DefaultSolGroupB2BCustomerDao"
+		parent="abstractItemDao" />
+
+	<alias name="defaultSolGroupB2BUnitDao" alias="solGroupB2BUnitDao" />
+	<bean id="defaultSolGroupB2BUnitDao"
+		class="com.solgroup.core.dao.b2bunit.impl.DefaultSolGroupB2BUnitDao"
+		parent="abstractItemDao" />
+
+	<alias name="defaultSolGroupB2BCustomerService" alias="solGroupB2BCustomerService" />
+	<bean id="defaultSolGroupB2BCustomerService"
+		class="com.solgroup.core.service.b2bcustomer.impl.DefaultSolGroupB2BCustomerService"
+		parent="b2bCustomerService">
+		<property name="modelService" ref="modelService" />
+		<property name="commonDao" ref="commonDao" />
+	</bean>
+
+	<alias name="defaultSolGroupB2BUnitService" alias="solGroupB2BUnitService" />
+	<bean id="defaultSolGroupB2BUnitService"
+		class="com.solgroup.core.service.b2bunit.impl.DefaultSolGroupB2BUnitService"
+		parent="b2bUnitService">
+		<property name="solGroupB2BCustomerService" ref="solGroupB2BCustomerService" />
+		<property name="solGroupB2BUnitDao" ref="solGroupB2BUnitDao" />
+	</bean>
+
+	<alias name="defaultSolGroupTicketDao" alias="solGroupTicketDao" />
+	<bean id="defaultSolGroupTicketDao"
+		class="com.solgroup.core.dao.customerticketing.impl.DefaultSolGroupTicketDao"
+		parent="ticketDao">
+	</bean>
+
+	<alias name="defaultSolGroupTicketService" alias="solGroupTicketService" />
+	<bean id="defaultSolGroupTicketService"
+		class="com.solgroup.core.service.customerticketing.impl.DefaultSolGroupTicketService"
+		parent="ticketService">
+		<property name="solGroupTicketDao" ref="solGroupTicketDao" />
+		<property name="solGroupB2BUnitService" ref="solGroupB2BUnitService" />
+	</bean>
+
+
+	<!-- SolGroup facet search configuration -->
+
+	<bean id="solGroupNavCategoryValueProvider" parent="abstractPropertyFieldValueProvider"
+		abstract="true"
+		class="com.solgroup.core.search.solrfacetsearch.provider.impl.SolGroupNavCategoryValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+		<property name="commonI18NService" ref="commonI18NService" />
+	</bean>
+
+	<!-- Application cateogry level 1 (code) -->
+	<bean id="solGroupApplicationCategoryLvl1CodeValueProvider"
+		parent="solGroupNavCategoryValueProvider">
+		<property name="propertyName" value="code" />
+		<property name="navigationCategoryLevel" value="1" />
+		<property name="navigationCategoryTypeCode" value="ApplicationCategory" />
+	</bean>
+
+	<!-- Application cateogry level 2 (code) -->
+	<bean id="solGroupApplicationCategoryLvl2CodeValueProvider"
+		parent="solGroupNavCategoryValueProvider">
+		<property name="propertyName" value="code" />
+		<property name="navigationCategoryLevel" value="2" />
+		<property name="navigationCategoryTypeCode" value="ApplicationCategory" />
+	</bean>
+
+	<bean id="solgroupProductPriceListValueProvider"
+		class="com.solgroup.core.solrfacetsearch.provider.impl.SolGroupProductPriceListValueProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+	</bean>
+
+	<alias name="solGroupProductPriceRangeValueProvider" alias="productPriceRangeValueProvider" />
+	<bean id="solGroupProductPriceRangeValueProvider" class="com.solgroup.core.solrfacetsearch.provider.impl.SolGroupProductPriceRangeValueProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider"/>	
+	</bean>
+	
+	<bean id="solgroupUnitValueProvider"
+		class="com.solgroup.core.solrfacetsearch.provider.impl.SolGroupUnitValueProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+	</bean>
+
+	<bean id="simpleSolrQueryPostProcessor" class="com.solgroup.core.processors.QueryPostProcessor" />
+
+	<alias name="solGroupDefaultSolrQueryPostProcessors" alias="solrQueryPostProcessors" />
+	<util:list id="solGroupDefaultSolrQueryPostProcessors">
+		<ref bean="simpleSolrQueryPostProcessor" />
+	</util:list>
+	
+	<alias name="solGroupCommerceAddToCartStrategy" alias="commerceAddToCartStrategy" />
+	<bean id="solGroupCommerceAddToCartStrategy" class="com.solgroup.core.strategies.impl.SolGroupCommerceAddToCartStrategy" parent="defaultCommerceAddToCartStrategy" >
+		<property name="calculationService" ref="calculationService" />
+	</bean>
+
+	<alias name="defaultSolGroupFindDeliveryCostStrategy" alias="findDeliveryCostStrategy" />
+	<bean id="defaultSolGroupFindDeliveryCostStrategy"
+		class="com.solgroup.core.strategies.impl.DefaultSolGroupFindDeliveryCostStrategy"
+		parent="abstractBusinessService" />
+
+	<alias alias="cartValidationStrategy" name="defaultSolGroupCartValidationStrategy" />
+	<bean id="defaultSolGroupCartValidationStrategy"
+		class="com.solgroup.core.strategies.impl.DefaultSolGroupCartValidationStrategy"
+		parent="defaultCartValidationStrategy" />
+
+
+
+
+	<!-- Variant erpCodes provider -->
+	<bean id="solGroupVariantCodesValueProvider"
+		class="com.solgroup.core.search.solrfacetsearch.provider.impl.SolGroupVariantCodesValueProvider"
+		parent="abstractPropertyFieldValueProvider">
+		<property name="fieldNameProvider" ref="solrFieldNameProvider" />
+	</bean>
+
+	<alias name="solGroupFacetSearchResultFacetsPopulator" alias="facetSearchResultFacetsPopulator" />
+	<bean id="solGroupFacetSearchResultFacetsPopulator"
+		class="com.solgroup.core.search.solrfacetsearch.search.impl.populators.SolGroupFacetSearchResultFacetsPopulator">
+		<property name="fieldNameTranslator" ref="fieldNameTranslator" />
+	</bean>
+
+	<!-- Listeners -->
+	<bean id="solrQueryFacetRemoveListener"
+		class="com.solgroup.core.search.solrfacetsearch.search.context.listeners.SolrQueryFacetRemoveListener" />
+	<bean id="solrQueryFacetRemoveAllListener"
+		class="com.solgroup.core.search.solrfacetsearch.search.context.listeners.SolrQueryFacetRemoveAllListener">
+		<property name="cmsSiteService" ref="cmsSiteService" />
+	</bean>
+	<bean id="solrQueryPriceRangeListener" class="com.solgroup.core.search.solrfacetsearch.search.context.listeners.SolrQueryPriceRangeListener">
+		<property name="sessionService" ref="sessionService" />
+	</bean>
+	<bean id="solrQueryVisibilityCategoryListener" class="com.solgroup.core.search.solrfacetsearch.search.context.listeners.SolrQueryVisibilityCategoryListener">
+		<property name="sessionService" ref="sessionService" />
+		<property name="cmsSiteService" ref="cmsSiteService" />
+		<property name="solGroupCategoryService" ref="solGroupCategoryService" />
+		<property name="configurationService" ref="configurationService" />
+	</bean>
+
+
+	<!-- END SolGroup facet search configuration -->
+
+
+
+	<!-- B2BCustomer interceptor -->
+	<bean id="solGroupB2BCustomerPrepareInterceptor"
+		class="com.solgroup.core.interceptors.b2bcustomer.SolGroupB2BCustomerPrepareInterceptor"
+		autowire="byName">
+		<property name="modelService" ref="modelService" />
+		<property name="userService" ref="userService" />
+	</bean>
+	<bean id="solGroupB2BCustomerPrepareInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="solGroupB2BCustomerPrepareInterceptor" />
+		<property name="typeCode" value="B2BCustomer" />
+		<property name="order" value="9000" />
+	</bean>
+
+	
+	
+	<!-- B2BUnit interceptor -->
+	<bean id="solGroupB2BUnitSessionCurrencyPrepareInterceptor"
+		class="com.solgroup.core.interceptors.b2bunit.SolGroupB2BUnitSessionCurrencyPrepareInterceptor"
+		autowire="byName">
+		<property name="modelService" ref="modelService" />
+	</bean>
+	<bean id="solGroupB2BUnitSessionCurrencyPrepareInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="solGroupB2BUnitSessionCurrencyPrepareInterceptor" />
+		<property name="typeCode" value="B2BUnit" />
+		<property name="order" value="9000" />
+	</bean>
+	
+	<bean id="solGroupB2BUnitGroupsInterceptor" class="com.solgroup.core.interceptors.b2bunit.SolGroupB2BUnitGroupsInterceptor" autowire="byName">
+		<property name="userService" ref="userService" />
+	</bean>
+	<bean id="solGroupB2BUnitGroupsInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="solGroupB2BUnitGroupsInterceptor" />
+		<property name="typeCode" value="B2BUnit" />
+		<property name="order" value="9001" />
+	</bean>
+	
+	<bean id="solGroupB2BUnitAddressesInterceptor" class="com.solgroup.core.interceptors.b2bunit.SolGroupB2BUnitAddressesInterceptor" autowire="byName"/>
+	<bean id="solGroupB2BUnitAddressesInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="solGroupB2BUnitAddressesInterceptor" />
+		<property name="typeCode" value="B2BUnit" />
+		<property name="order" value="9002" />
+	</bean>
+	
+	
+	<!-- New for identity confirmation email  -->
+	
+	<bean id="solGroupGenerateIdentityConfirmationEmailAction" class="com.solgroup.core.actions.emails.SolGroupGenerateIdentityConfirmationEmailAction" parent="abstractGenerateEmailAction" abstract="true">
+		<property name="mediaService" ref="mediaService" />
+		<property name="catalogVersionService" ref="catalogVersionService" />
+	</bean>
+
+	<!-- BEGIN New Product Notification flow -->
+	<bean id="generateNewProductsNotificationEmailAction" parent="abstractAction"
+		class="de.hybris.platform.acceleratorservices.process.email.actions.GenerateEmailAction">
+		<property name="modelService" ref="modelService"/>
+		<property name="cmsEmailPageService" ref="cmsEmailPageService"/>
+		<property name="contextResolutionStrategy" ref="processContextResolutionStrategy"/>
+		<property name="emailGenerationService" ref="emailGenerationService"/>
+		<property name="frontendTemplateName" value="NewProductsNotificationEmailTemplate"/>
+	</bean>
+
+	<bean id="newProductsNotificationEmailProcessDefinitionResource"
+		  class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/solgroupcore/processes/newProductsNotificationEmailProcess.xml"/>
+	</bean>
+
+	<bean id="newProductsNotificationJob" class="com.solgroup.core.job.NewProductsNotificationJobPerformable"
+		  parent="abstractJobPerformable" autowire="byName">
+		<property name="businessProcessService" ref="businessProcessService" />
+		<property name="catalogVersionService" ref="catalogVersionService" />
+		<property name="cmsSiteService" ref="cmsSiteService" />
+		<property name="productService" ref="solGroupProductService" />
+	</bean>
+	<!-- END New Product Notification flow -->
+
+	<!-- Identity confirmation -->
+	<bean id="generateIdentityConfirmationEmailAction" parent="solGroupGenerateIdentityConfirmationEmailAction">
+		<property name="frontendTemplateName" value="IdentityConfirmationEmailTemplate" />
+	</bean>
+
+	<bean id="identityConfirmationJob" class="com.solgroup.core.job.IdentityConfirmationJob"
+		parent="abstractJobPerformable" autowire="byName">
+		<property name="businessProcessService" ref="businessProcessService" />
+		<property name="solGroupB2BCustomerDao" ref="solGroupB2BCustomerDao" />
+		<property name="catalogVersionService" ref="catalogVersionService" />
+		<property name="cmsSiteService" ref="cmsSiteService" />
+		<property name="solGroupCustomerAccountService" ref="solGroupCustomerAccountService" />
+	</bean>
+
+	<bean id="identityConfirmationDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource"
+			value="classpath:/solgroupcore/processes/identityConfirmationEmailProcess.xml" />
+	</bean>
+
+	<bean id="changeIdentityConfirmationSentOnB2BCustomerAction"
+		class="com.solgroup.core.actions.identityConfirmation.IdentityConfirmationChangeAction"
+		parent="abstractAction" />
+
+	<alias name="defaultSolGroupCustomerAccountService" alias="solGroupCustomerAccountService" />
+	<bean id="defaultSolGroupCustomerAccountService"
+		class="com.solgroup.core.service.b2bcustomer.impl.DefaultSolGroupCustomerAccountService"
+		parent="b2bCustomerAccountService">
+		<property name="solGroupB2BCustomerService" ref="solGroupB2BCustomerService" />
+		<property name="solGroupB2BCustomerAccountDao" ref="solGroupB2BCustomerAccountDao" />
+	</bean>
+	
+	<!-- Tracking ID email -->
+	<bean id="generateTrackingIdEmailAction" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="TrackingIdEmailTemplate" />
+	</bean>
+
+	<bean id="trackingIdEmailDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource"
+			value="classpath:/solgroupcore/processes/sendTrackingIdEmailProcess.xml" />
+	</bean>
+	
+	<!-- Delivery Confirmation email -->
+	<bean id="generateDeliveryConfirmationEmailAction" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="DeliveryConfirmationEmailTemplate" />
+	</bean>
+
+	<bean id="deliveryConfirmarionEmailDefinitionResource"
+		class="de.hybris.platform.processengine.definition.ProcessDefinitionResource">
+		<property name="resource"
+			value="classpath:/solgroupcore/processes/sendDeliveryConfirmationEmailProcess.xml" />
+	</bean>
+
+	<!-- Classification value provider -->
+	<alias name="solGroupCommerceClassificationPropertyValueProvider"
+		alias="commerceClassificationPropertyValueProvider" />
+	<bean id="solGroupCommerceClassificationPropertyValueProvider"
+		class="com.solgroup.core.search.solrfacetsearch.provider.classification.impl.SolGroupCommerceClassificationPropertyValueProvider"
+		parent="classificationPropertyValueProvider">
+	</bean>
+
+	<!-- Quotation Service -->
+	<alias name="defaultSolGroupTicketBusinessService" alias="ticketBusinessService" />
+	<bean id="defaultSolGroupTicketBusinessService"
+		class="com.solgroup.core.service.customerticketing.impl.DefaultSolGroupTicketBusinessService"
+		parent="defaultTicketBusinessService">
+		<!--  
+		<property name="ticketEventStrategy" ref="ticketEventStrategy" />
+		-->
+		<property name="solGroupB2BUnitService" ref="solGroupB2BUnitService" />
+	</bean>
+
+	<!-- ASM Services -->
+	<alias name="solGroupCustomerSupportEventService" alias="customerSupportEventService" />
+	<bean id="solGroupCustomerSupportEventService"
+		class="com.solgroup.core.asm.events.SolGroupCustomerSupportEventService"
+		parent="defaultCustomerSupportEventService">
+	</bean>
+
+	<bean id="solGroupB2BCustomerListSearchStrategy"
+		class="com.solgroup.core.asm.strategies.SolGroupB2BCustomerListSearchStrategy">
+		<property name="pagedFlexibleSearchService" ref="pagedFlexibleSearchService" />
+        <property name="sessionService" ref="sessionService"/>
+        <property name="userService" ref="userService" />
+        <property name="solGroupB2BUnitService" ref="solGroupB2BUnitService" />
+	</bean>
+
+	<bean id="solGroupB2BCustomerListMergeDirective" depends-on="customerListSearchStrategyMap"
+		parent="mapMergeDirective">
+		<property name="key" value="B2B_CUSTOMER" />
+		<property name="value" ref="solGroupB2BCustomerListSearchStrategy" />
+	</bean>
+
+	<!-- Quotes -->
+	<alias name="defaultSolGroupQuoteDao" alias="commerceQuoteDao" />
+	<bean id="defaultSolGroupQuoteDao"
+		class="com.solgroup.core.dao.quotes.impl.DefaultSolGroupQuoteDao"
+		parent="defaultCommerceQuoteDao">
+		<property name="sessionService" ref="sessionService" />
+	</bean>
+
+	<alias name="defaultSolGroupQuoteService" alias="commerceQuoteService" />
+	<bean id="defaultSolGroupQuoteService"
+		class="com.solgroup.core.service.quotes.impl.DefaultSolGroupQuoteService"
+		parent="defaultCommerceQuoteService" />
+
+	<alias name="defaultSellerQuoteActionStateTransitionMap" alias="sellerQuoteActionStateTransitionMap" />
+	<util:map id="defaultSellerQuoteActionStateTransitionMap"
+		key-type="de.hybris.platform.commerceservices.enums.QuoteAction"
+		value-type="de.hybris.platform.core.enums.QuoteState">
+		<entry key="CREATE" value="SELLER_DRAFT" />
+		<entry key="EDIT" value="SELLER_DRAFT" />
+		<entry key="SUBMIT" value="SELLERAPPROVER_APPROVED" />
+	</util:map>
+
+
+
+	<bean id="solGroupAbstractOrderPrepareInterceptor"
+		class="com.solgroup.core.interceptors.abstractOrder.SolGroupAbstractOrderPrepareInterceptor"
+		autowire="byName">
+		<property name="modelService" ref="modelService" />
+	</bean>
+	<bean id="solGroupAbstractOrderPrepareInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="solGroupAbstractOrderPrepareInterceptor" />
+		<property name="typeCode" value="AbstractOrder" />
+		<property name="order" value="9000" />
+	</bean>
+	
+	<alias name="defaultSolGroupAbstractOrderService" alias="solGroupAbstractOrderService" />
+	<bean id="defaultSolGroupAbstractOrderService"
+		class="com.solgroup.core.service.abstractOrder.impl.DefaultSolGroupAbstractOrderService">
+		<property name="modelService" ref="modelService" />
+	</bean>
+
+	<alias name="defaultSolgroupCompanyService" alias="solgroupCompanyService" />
+	<bean id="defaultSolgroupCompanyService"
+		class="com.solgroup.core.service.company.impl.DefaultSolgroupCompanyService">
+		<property name="employeeGenericDao" ref="employeeGenericDao" />
+	</bean>
+	
+	<!--  
+	<bean id="solGroupCsTicketPrepareInterceptor"
+		class="com.solgroup.core.ticket.interceptors.SolGroupCsTicketPrepareInterceptor"
+		autowire="byName">
+		<property name="userService" ref="userService" />
+		<property name="solgroupCompanyService" ref="solgroupCompanyService" />
+		<property name="modelService" ref="modelService" />
+	</bean>
+	-->
+
+	<bean id="solGroupAbstractOrderEntryAddRefillInterceptor"
+		class="com.solgroup.core.interceptors.abstractOrderEntry.SolGroupAbstractOrderEntryAddRefillInterceptor"
+		autowire="byName"> 
+		<property name="modelService" ref="modelService" />
+		<property name="configurationService" ref="configurationService" />
+	</bean>
+	<bean id="solGroupAbstractOrderEntryAddRefillInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="solGroupAbstractOrderEntryAddRefillInterceptor" />
+		<property name="typeCode" value="AbstractOrderEntry" />
+		<property name="order" value="9002" />
+	</bean>
+
+	<bean id="solGroupAbstractOrderEntryRemoveRefillInterceptor"
+		class="com.solgroup.core.interceptors.abstractOrderEntry.SolGroupAbstractOrderEntryRemoveRefillInterceptor"
+		autowire="byName">
+		<property name="modelService" ref="modelService" />
+	</bean>
+	<bean id="solGroupAbstractOrderEntryRemoveRefillInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="solGroupAbstractOrderEntryRemoveRefillInterceptor" />
+		<property name="typeCode" value="AbstractOrderEntry" />
+		<property name="order" value="9001" />
+	</bean>
+
+	<bean id="solGroupAbstractOrderEntryUnitMeasurePrepareInterceptor" class="com.solgroup.core.interceptors.abstractOrderEntry.SolGroupAbstractOrderEntryUnitMeasurePrepareInterceptor" autowire="byName">
+		<property name="modelService" ref="modelService" />
+		<property name="commercePriceService" ref="commercePriceService" />
+	</bean>
+	<bean id="solGroupAbstractOrderEntryUnitMeasurePrepareInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="solGroupAbstractOrderEntryUnitMeasurePrepareInterceptor" />
+		<property name="typeCode" value="AbstractOrderEntry" />
+		<property name="order" value="9002" />
+	</bean>
+
+	<!-- Product interceptor -->
+
+	<bean id="solgroupProductPrepareInterceptor"
+		class="com.solgroup.core.interceptors.product.SolgroupProductPrepareInterceptor"
+		autowire="byName">
+		<property name="unitDao" ref="unitDao" />
+		<property name="configurationService" ref="configurationService" />
+		<property name="stockService" ref="commerceStockService" />
+		<property name="baseCommerceSelectionProductStrategy" ref="solgroupBaseCommerceSelectionProductStrategy" />
+		<property name="solGroupUtilities" ref="solGroupUtilities" />
+	</bean>
+	<bean id="solgroupProductPrepareInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="solgroupProductPrepareInterceptor" />
+		<property name="typeCode" value="Product" />
+		<property name="order" value="9000" />
+	</bean>
+	
+	<bean id="solgroupProductFeaturePrepareInterceptor"
+		class="com.solgroup.core.interceptors.product.SolgroupProductFeaturePrepareInterceptor"
+		autowire="byName">
+		<property name="modelService" ref="modelService" />
+	</bean>
+	<bean id="solgroupProductFeaturePrepareInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="solgroupProductFeaturePrepareInterceptor" />
+		<property name="typeCode" value="ProductFeature" />
+		<property name="order" value="9000" />
+	</bean>
+	
+	<bean id="solgroupProductFeatureRemoveInterceptor"
+		class="com.solgroup.core.interceptors.product.SolgroupProductFeatureRemoveInterceptor"
+		autowire="byName">
+		<property name="modelService" ref="modelService" />
+	</bean>
+	<bean id="solgroupProductFeatureRemoveInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="solgroupProductFeatureRemoveInterceptor" />
+		<property name="typeCode" value="ProductFeature" />
+		<property name="order" value="9001" />
+	</bean>
+	
+	<!-- Consignment interceptor -->
+	<bean id="solGroupConsignmentPrepareInterceptor"
+		class="com.solgroup.core.interceptors.consignment.SolGroupConsignmentPrepareInterceptor"
+		autowire="byName">
+		<property name="modelService" ref="modelService" />
+		<property name="solGroupConsignmentService" ref="solGroupConsignmentService" />
+		<property name="businessProcessService" ref="businessProcessService" />
+	</bean>
+	<bean id="solGroupConsignmentPrepareInterceptorMapping"
+		class="de.hybris.platform.servicelayer.interceptor.impl.InterceptorMapping">
+		<property name="interceptor" ref="solGroupConsignmentPrepareInterceptor" />
+		<property name="typeCode" value="Consignment" />
+		<property name="order" value="9004" />
+	</bean>
+
+	
+	<alias name="defaultSolGroupProductDao" alias="solGroupProductDao" />
+	<bean id="defaultSolGroupProductDao" class="com.solgroup.core.product.dao.impl.DefaultSolGroupProductDao">
+		<constructor-arg value="Product"/>
+	</bean>
+
+
+	<alias name="defaultSolGroupPagedB2BProductDao" alias="pagedB2BProductDao" />
+	<bean name="defaultSolGroupPagedB2BProductDao"
+		class="com.solgroup.core.product.dao.impl.DefaultSolGroupPagedB2BProductDao">
+		<constructor-arg value="Product" />
+		<property name="pagedFlexibleSearchService" ref="pagedFlexibleSearchService" />
+	</bean>
+
+
+	<alias name="defaultSolGroupB2BProductService" alias="b2bProductService" />
+	<bean name="defaultSolGroupB2BProductService"
+		class="com.solgroup.core.service.product.impl.DefaultSolGroupB2BProductService">
+		<property name="pagedB2BProductDao" ref="pagedB2BProductDao" />
+	</bean>
+
+	<alias name="defaultSolGroupProductService" alias="solGroupProductService" />
+	<bean id="defaultSolGroupProductService"
+		class="com.solgroup.core.service.product.impl.DefaultSolGroupProductService"
+		parent="productService">
+		<property name="solGroupProductDao" ref="solGroupProductDao" />
+		<property name="unitDao" ref="unitDao" />
+		<property name="priceService" ref="priceService" />
+		<property name="cmsSiteService" ref="cmsSiteService" />
+	</bean>
+	
+	<alias name="defaultEmployeeGenericDao" alias="employeeGenericDao"/>
+	<bean name="defaultEmployeeGenericDao"
+		  class="de.hybris.platform.servicelayer.internal.dao.DefaultGenericDao">
+		<constructor-arg value="Employee"/>
+	</bean>
+	
+	<alias alias="solGroupTaxRowDao" name="defaultSolGroupTaxRowDao"/>
+	<bean id="defaultSolGroupTaxRowDao" class="com.solgroup.core.dao.tax.impl.DefaultSolGroupTaxRowDao" parent="abstractItemDao"/>
+	
+	<alias name="defaultSolGroupB2BCommerceCartService" alias="b2bCommerceCartService" />
+		<bean name="defaultSolGroupB2BCommerceCartService" class="com.solgroup.core.service.cart.impl.DefaultSolGroupB2BCommerceCartService" parent="defaultB2BCommerceCartService">
+		<property name="solGroupB2BUnitService" ref="solGroupB2BUnitService" />
+		<property name="cartFactory" ref="commerceCartFactory" />
+	</bean>
+	
+	<alias name="defaultSolGroupCalculationService" alias="calculationService" />
+	<bean id="defaultSolGroupCalculationService"
+		  class="com.solgroup.core.service.order.impl.DefaultSolGroupCalculationService"
+		  parent="defaultCalculationService" />
+
+	 <alias name="defaultSolGroupB2BCommerceCheckoutService" alias="b2bCommerceCheckoutService" />
+		<bean id="defaultSolGroupB2BCommerceCheckoutService" class="com.solgroup.core.service.checkout.impl.DefaultSolGroupB2BCommerceCheckoutService" parent="defaultB2BCommerceCheckoutService">
+		<property name="cartService" ref="cartService" />
+	</bean>
+	
+		
+	<alias name="defaultSolgroupStockService" alias="commerceStockService" />
+	<bean name="defaultSolgroupStockService"
+		class="com.solgroup.core.service.stock.impl.DefaultSolgroupStockService"
+		parent="defaultCommerceStockService">
+		<property name="baseStoreService" ref="baseStoreService" />
+		<property name="modelService" ref="modelService" />
+		<property name="stockStrategy" ref="stockStrategy" />
+	</bean>
+
+	<alias name="defaultSolgroupStockStrategy" alias="stockStrategy" />
+	<bean name="defaultSolgroupStockStrategy"
+		class="com.solgroup.core.strategies.impl.DefaultSolgroupStockStrategy">
+		<property name="threshold" value="1" />
+	</bean>
+
+	<alias name="defaultSolgroupBaseCommerceSelectionProductStrategy"
+		alias="solgroupBaseCommerceSelectionProductStrategy" />
+	<bean id="defaultSolgroupBaseCommerceSelectionProductStrategy"
+		class="com.solgroup.core.strategies.impl.DefaultSolgroupBaseCommerceSelectionProductStrategy" >
+		<property name="commonWsService" ref="commonWsService"></property>
+		</bean>
+
+	<alias name="solgroupCommerceStockLevelStatusStrategy" alias="stockLevelStatusStrategy" />
+	<bean id="solgroupCommerceStockLevelStatusStrategy"
+		class="com.solgroup.commerceservices.stock.strategies.impl.SolgroupCommerceStockLevelStatusStrategy"
+		parent="commerceStockLevelStatusStrategy">
+		<property name="defaultLowStockThreshold" value="5" />
+	</bean>
+
+	<alias alias="commerceStockLevelCalculationStrategy"
+		name="defaultSolgroupCommerceAvailabilityCalculationStrategy" />
+	<bean id="defaultSolgroupCommerceAvailabilityCalculationStrategy"
+		class="com.solgroup.commerceservices.stock.strategies.impl.DefaultSolgroupCommerceAvailabilityCalculationStrategy"
+		parent="defaultCommerceStockLevelCalculationStrategy" />
+
+	<alias name="defaultSolGroupB2BCustomerAccountDao" alias="solGroupB2BCustomerAccountDao" />
+	<bean id="defaultSolGroupB2BCustomerAccountDao"
+		class="com.solgroup.core.dao.b2bcustomer.impl.DefaultSolGroupB2BCustomerAccountDao" 
+		parent="abstractItemDao">
+		<property name="pagedFlexibleSearchService" ref="pagedFlexibleSearchService" />
+	</bean>
+	
+	<alias name="defaultSolGroupConsignmentService" alias="solGroupConsignmentService" />
+	<bean name="defaultSolGroupConsignmentService"
+		class="com.solgroup.core.service.consignment.impl.DefaultSolGroupConsignmentService">
+		<property name="solGroupConsignmentDao" ref="solGroupConsignmentDao" />
+		<property name="baseSiteService" ref="baseSiteService" />
+	</bean>
+	
+	<alias name="defaultSolGroupConsignmentDao" alias="solGroupConsignmentDao" />
+	<bean id="defaultSolGroupConsignmentDao"
+		class="com.solgroup.core.dao.consignment.impl.DefaultSolGroupConsignmentDao" parent="abstractItemDao">
+	</bean>
+
+
+	<alias name="solgroup.europe1.manager" alias="europe1.manager" />
+    <bean id="solgroup.europe1.manager" class="com.solgroup.core.jalo.SolGroupEurope1PriceFactory"
+          init-method="init" destroy-method="destroy">
+        <property name="retrieveChannelStrategy" ref="retrieveChannelStrategy"/>
+        <property name="sessionService" ref="sessionService" />
+    </bean>
+    
+    <alias name="solGroupFacetSearchQueryFacetPopulator" alias="facetSearchQueryFacetsPopulator" />
+	<bean id="solGroupFacetSearchQueryFacetPopulator" class="com.solgroup.core.search.solrfacetsearch.search.impl.populators.SolGroupFacetSearchQueryFacetPopulator" parent="abstractFacetSearchQueryPopulator">
+		<property name="defaultFacetSort" value="count" />
+	</bean>
+	
+	
+	<alias name="defaultSolGroupOrgUnitHierarchyService" alias="orgUnitHierarchyService"/>
+	<bean id="defaultSolGroupOrgUnitHierarchyService" class="com.solgroup.core.organization.services.impl.DefaultSolGroupOrgUnitHierarchyService">
+		<property name="orgUnitDao" ref ="orgUnitDao"/>
+		<property name="sessionService" ref ="sessionService"/>
+		<property name="modelService" ref ="modelService"/>
+	</bean>
+	
+	<alias name="defaultSolGroupLoginService" alias="solGroupLoginService" />
+	<bean id="defaultSolGroupLoginService" class="com.solgroup.core.login.impl.DefaultSolGroupLoginService">
+		<property name="solGroupB2BUnitService" ref="solGroupB2BUnitService" />
+		<property name="sessionService" ref="sessionService" />	
+		<property name="commonI18NService" ref="commonI18NService" />
+	</bean>
+	
+	<alias name="defaultSolgroupSavedCartFileUploadStrategy" alias="savedCartFileUploadStrategy"/>
+	<bean id="defaultSolgroupSavedCartFileUploadStrategy" class="com.solgroup.core.strategies.impl.DefaultSolGroupSavedCartFileUploadStrategy" parent="defaultSavedCartFileUploadStrategy">
+		<property name="solGroupProductService" ref="solGroupProductService"/>
+		<property name="cmsSiteService" ref="cmsSiteService" />
+		<property name="commercePriceService" ref="commercePriceService" />
+	</bean>
+	 
+	<alias name="defaultSolGroupOrderService" alias="solGroupOrderService" />
+	<bean id="defaultSolGroupOrderService" class="com.solgroup.core.service.order.impl.DefaultSolGroupOrderService" />
+	
+	<alias name="defaultSolGroupAddressService" alias="solGroupAddressService" />
+	<bean id="defaultSolGroupAddressService" class="com.solgroup.core.service.address.impl.DefaultSolGroupAddressService" parent="addressService" />	
+	
+	<bean id="solGroupCommerceCloneSavedCartMethodHook" class="com.solgroup.core.commerceservices.order.hook.SolGroupCommerceCloneSavedCartMethodHook">
+		<property name="modelService" ref="modelService" />
+	</bean>
+	
+	<util:list id="commerceCloneSavedCartMethodHooks" value-type="de.hybris.platform.commerceservices.order.hook.CommerceCloneSavedCartMethodHook">
+		<ref bean="solGroupCommerceCloneSavedCartMethodHook"/>
+	</util:list>
+	
+	<alias alias="addressVerificationService" name="defaultAddressVerificationService"/>
+	
+	<alias name="defaultSolGroupSavedCartFileUploadEventListener" alias="savedCartFileUploadEventListener" />
+	<bean id="defaultSolGroupSavedCartFileUploadEventListener" class="com.solgroup.core.cartfileupload.events.DefaultSolGroupSavedCartFileUploadEventListener" parent="abstractEventListener">
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="mediaService" ref="mediaService"/>
+		<property name="timeService" ref="timeService" />
+		<property name="guidKeyGenerator" ref="guidKeyGenerator"/>
+		<property name="netGrossStrategy" ref="netGrossStrategy"/>
+	</bean>
+	
+	<alias name="defaultSolGroupRecipientTypeToContextClassMap" alias="recipientTypeToContextClassMap"/>
+	<util:map id="defaultSolGroupRecipientTypeToContextClassMap">
+		<entry>
+			<key><util:constant static-field="de.hybris.platform.ticket.enums.CsEmailRecipients.CUSTOMER"/></key>
+			<value>com.solgroup.core.ticket.email.context.DefaultSolGroupCustomerTicketContext</value>
+		</entry>
+		<entry>
+			<key><util:constant static-field="de.hybris.platform.ticket.enums.CsEmailRecipients.ASSIGNEDAGENT"/></key>
+			<value>com.solgroup.core.ticket.email.context.DefaultSolGroupAgentTicketContext</value>
+		</entry>
+		<entry>
+			<key><util:constant static-field="de.hybris.platform.ticket.enums.CsEmailRecipients.ASSIGNEDGROUP"/></key>
+			<value>de.hybris.platform.ticket.email.context.AgentGroupTicketContext</value>
+		</entry>
+    </util:map>
+    
+    <alias name="defaultSolGroupTicketParameterPopulator" alias="ticketParameterPopulator"/>
+    <bean id="defaultSolGroupTicketParameterPopulator"
+          class="com.solgroup.core.ticket.converter.populator.DefaultSolGroupCsTicketPopulator">
+    </bean>
+    
+    <alias name="defaultSolGroupEmailService" alias="emailService" />
+    <bean id="defaultSolGroupEmailService" class="com.solgroup.core.service.email.impl.DefaultSolGroupEmailService" parent="defaultEmailService" />
+    
+    <alias name="defaultSolGroupB2BCustomerEmailResolutionService" alias="customerEmailResolutionService" />
+    <bean id="defaultSolGroupB2BCustomerEmailResolutionService" class="com.solgroup.core.service.b2bcustomer.impl.DefaultSolGroupB2BCustomerEmailResolutionService" parent="defaultCustomerEmailResolutionService" />
+	
+	<alias name="defaultSolGroupRangeNameProvider" alias="rangeNameProvider" />
+	<bean id="defaultSolGroupRangeNameProvider" class="com.solgroup.core.search.solrfacetsearch.provider.impl.DefaultSolGroupRangeNameProvider" parent="defaultRangeNameProvider"/>
+	
+	<!-- Cache Services -->
+	<import resource="cache-config/cache-config-spring.xml"/>	
+	<bean id="solGroupCacheKeyGenerator" class="com.solgroup.core.cache.SolGroupCacheKeyGenerator" />
+
+    <alias alias="solGroupEmailGenerationService" name="defaultSolGroupEmailGenerationService"/>
+	<bean id="defaultSolGroupEmailGenerationService"
+	      class="com.solgroup.core.service.email.impl.DefaultSolGroupEmailGenerationService" parent="emailGenerationService">
+	      <property name="solgroupCompanyService" ref="solgroupCompanyService" />
+	</bean>
+	
+	<alias alias="solGroupAgentAssociationRequestEmailGenerationService" name="defaultSolGroupAgentAssociationRequestEmailGenerationService"/>
+	<bean id="defaultSolGroupAgentAssociationRequestEmailGenerationService"
+	      class="com.solgroup.core.service.email.impl.DefaultSolGroupAgentAssociationRequestEmailGenerationService" parent="emailGenerationService">
+	      <property name="configurationService" ref="configurationService" />
+	</bean>
+
+	<!-- Solr search -->
+	<alias alias="defaultFacetSearchStrategy" name="solGroupFacetSearchStrategy" />
+	<bean id="solGroupFacetSearchStrategy"
+		  class="com.solgroup.core.search.solrfacetsearch.SolGroupFacetSearchStrategy"
+		  parent="abstractFacetSearchStrategy">
+		<property name="solrSearchProviderFactory" ref="solrSearchProviderFactory" />
+		<property name="facetSearchContextFactory" ref="facetSearchContextFactory" />
+		<property name="facetSearchQueryConverter" ref="facetSearchQueryConverter" />
+		<property name="facetSearchResultConverter" ref="facetSearchResultConverter" />
+		<property name="solrIndexService" ref="solrIndexService" />
+		<property name="userService" ref="userService" />
+	</bean>
+
+	<!-- Rest Services -->
+	<alias name="defaultSolgroupB2BWamIntegrationService" alias="solgroupB2BWamIntegrationService" />
+	<bean id="defaultSolgroupB2BWamIntegrationService"
+		  class="com.solgroup.core.service.wamintegration.impl.DefaultSolgroupB2BWamIntegrationService">
+		<property name="restClient" ref="defaultSpringRestTemplate" />
+	</bean>
+
+	<!-- Extends already existing solrRestTemplate for naming purpose -->
+	<alias alias="defaultSpringRestTemplate" name="springRestTemplate" />
+	<bean id="springRestTemplate"
+		  parent="solrRestTemplate" />
+
+</beans>

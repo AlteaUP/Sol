@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<process xmlns="http://www.hybris.de/xsd/processdefinition"
+         start="quoteBuyerSubmitAction" name="quote-buyer-process"
+         processClass="de.hybris.platform.commerceservices.model.process.QuoteProcessModel">
+
+    <action id="quoteBuyerSubmitAction" bean="quoteBuyerSubmitAction">
+        <transition name="OK" to="generateBuyerQuoteSubmissionEmail"/>
+        <transition name="NOK" to="failed"/>
+    </action>
+
+    <action id="generateBuyerQuoteSubmissionEmail" bean="generateBuyerQuoteSubmissionEmail">
+        <transition name="OK" to="sendEmailToBuyer"/>
+        <transition name="NOK" to="error"/>
+    </action>
+
+    <action id="sendEmailToBuyer" bean="sendEmail">
+        <transition name="OK" to="removeSentEmailToBuyer"/>
+        <transition name="NOK" to="error"/>
+    </action>
+    
+    <action id="removeSentEmailToBuyer" bean="removeSentEmail">
+        <transition name="OK" to="generateVendorAlertQuoteSubmissionEmail"/>
+        <transition name="NOK" to="error"/>
+    </action>
+    
+    <action id="generateVendorAlertQuoteSubmissionEmail" bean="generateVendorAlertQuoteSubmissionEmail">
+        <transition name="OK" to="sendAlertToVendor"/>
+        <transition name="NOK" to="error"/>
+    </action>
+    
+    <action id="sendAlertToVendor" bean="sendEmail">
+        <transition name="OK" to="removeSentAlertToVendor"/>
+        <transition name="NOK" to="error"/>
+    </action>
+    
+    <action id="removeSentAlertToVendor" bean="removeSentEmail">
+        <transition name="OK" to="success"/>
+        <transition name="NOK" to="error"/>
+    </action>
+
+    <end id="error" state="ERROR">Something went wrong.</end>
+    <end id="failed" state="FAILED">Buyer quote not placed.</end>
+    <end id="success" state="SUCCEEDED">Buyer quote placed.</end>
+
+</process>

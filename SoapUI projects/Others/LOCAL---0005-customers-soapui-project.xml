@@ -1,0 +1,1350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="00b6a350-ce88-4917-854d-ebdc10036d7a" activeEnvironment="Default" name="LOCAL - 0005 customers" resourceRoot="" soapui-version="5.3.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="525c8634-aa43-4738-b758-d87238cd26ae" wsaVersion="NONE" name="DefaultCustomerImportWSServiceSoapBinding" type="wsdl" bindingName="{http://importws.ws.solgroup.com/}DefaultCustomerImportWSServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="https://solgroupit.local:9002/solgroupwebservices/services/customerimportws?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="https://solgroupit.local:9002/solgroupwebservices/services/customerimportws?wsdl"><con:part><con:url>https://solgroupit.local:9002/solgroupwebservices/services/customerimportws?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="DefaultCustomerImportWSService" targetNamespace="http://importws.ws.solgroup.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://importws.ws.solgroup.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema targetNamespace="urn:solgroup:com:CustomerImport" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:solgroup:com:CustomerImport">
+      <xs:element name="CustomerImport_Hybris">
+        <xs:complexType>
+          <xs:all>
+            <xs:element name="header" type="tns:header"/>
+            <xs:element name="country" type="xs:string"/>
+            <xs:element name="companies" type="tns:companies"/>
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="header">
+        <xs:sequence>
+          <xs:element name="sourceSystem" type="xs:string"/>
+          <xs:element name="messageID" type="xs:string"/>
+          <xs:element name="timestamp" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="companies">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="company">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="erpCode" type="xs:string"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="default" type="xs:boolean"/>
+                <xs:element minOccurs="0" name="organizations1" type="tns:organizations1"/>
+                <xs:element minOccurs="0" name="b2bUnits" type="tns:b2bUnits"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="organizations1">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="organizationUnit1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="erpCode" type="xs:string"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element minOccurs="0" name="currency" type="xs:string"/>
+                <xs:element name="b2bUnits" type="tns:b2bUnits"/>
+                <xs:element minOccurs="0" name="organizations2" type="tns:organizations2"/>
+                <xs:element minOccurs="0" name="addresses" type="tns:addresses"/>
+                <xs:element minOccurs="0" name="customers" type="tns:customers"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="b2bUnits">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="b2bUnit">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="erpCode" type="xs:string"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element minOccurs="0" name="currency" type="xs:string"/>
+                <xs:element minOccurs="0" name="vatID" type="xs:string"/>
+                <xs:element minOccurs="0" name="taxPayerCode" type="xs:string"/>
+                <xs:element minOccurs="0" name="publicClient" type="xs:boolean"/>
+                <xs:element minOccurs="0" name="clientType" type="xs:string"/>
+                <xs:element minOccurs="0" name="creditState" type="xs:string"/>
+                <xs:element minOccurs="0" name="activeState" type="xs:string"/>
+                <xs:element minOccurs="0" name="vendorCode" type="xs:string"/>
+                <xs:element name="customers" type="tns:customers"/>
+                <xs:element minOccurs="0" name="addresses" type="tns:addresses"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="customers">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="customerId" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="addresses">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="address" type="tns:address"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="address">
+        <xs:sequence>
+          <xs:element name="erpCode" type="xs:string"/>
+          <xs:element minOccurs="0" name="hybrisCode" type="xs:string"/>
+          <xs:element name="street" type="xs:string"/>
+          <xs:element minOccurs="0" name="streetNumber" type="xs:string"/>
+          <xs:element name="town" type="xs:string"/>
+          <xs:element minOccurs="0" name="postalCode" type="xs:string"/>
+          <xs:element name="country" type="xs:string"/>
+          <xs:element minOccurs="0" name="email" type="xs:string"/>
+          <xs:element minOccurs="0" name="phone" type="xs:string"/>
+          <xs:element minOccurs="0" name="fax" type="xs:string"/>
+          <xs:element name="shipping" type="xs:boolean"/>
+          <xs:element name="billing" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="organizations2">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="organizationUnit2">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="erpCode" type="xs:string"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element minOccurs="0" name="currency" type="xs:string"/>
+                <xs:element name="b2bUnits" type="tns:b2bUnits"/>
+                <xs:element minOccurs="0" name="addresses" type="tns:addresses"/>
+                <xs:element minOccurs="0" name="customers" type="tns:customers"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://importws.ws.solgroup.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="urn:solgroup:com:CustomerImport">
+      <xs:import namespace="urn:solgroup:com:CustomerImport"/>
+      <xs:element name="importData" type="tns:importData"/>
+      <xs:element name="importDataResponse" type="tns:importDataResponse"/>
+      <xs:complexType name="importData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Import_Hybris">
+            <xs:complexType>
+              <xs:all>
+                <xs:element name="header" type="ns1:header"/>
+                <xs:element name="country" type="xs:string"/>
+                <xs:element name="companies" type="ns1:companies"/>
+              </xs:all>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="importDataResponse">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:element name="Exception" type="tns:Exception"/>
+      <xs:complexType name="Exception">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="importData">
+    <wsdl:part element="tns:importData" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="importDataResponse">
+    <wsdl:part element="tns:importDataResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="tns:Exception" name="Exception"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ImportWS">
+    <wsdl:operation name="importData">
+      <wsdl:input message="tns:importData" name="importData"></wsdl:input>
+      <wsdl:output message="tns:importDataResponse" name="importDataResponse"></wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DefaultCustomerImportWSServiceSoapBinding" type="tns:ImportWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="importData">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="importData">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="importDataResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DefaultCustomerImportWSService">
+    <wsdl:port binding="tns:DefaultCustomerImportWSServiceSoapBinding" name="DefaultCustomerImportWSPort">
+      <soap:address location="https://solgroupit.local:9002/solgroupwebservices/services/customerimportws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://solgroupit.local:9002/solgroupwebservices/services/customerimportws</con:endpoint></con:endpoints><con:operation id="153b697d-9194-489b-9930-f095123fbbd6" isOneWay="false" action="" name="importData" bindingOperationName="importData" type="Request-Response" outputName="importDataResponse" inputName="importData" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="f3a16a45-5d0b-43f3-9e36-1e205e641bd2" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://solgroupit.local:9002/solgroupwebservices/services/customerimportws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <imp:importData>
+         <!--Optional:-->
+         <Import_Hybris>
+            <!--You may enter the following 3 items in any order-->
+            <header>
+               <sourceSystem>RAMSES_IT</sourceSystem>
+               <messageID>1234567890987654321</messageID>
+               <timestamp></timestamp>
+            </header>
+            <country>IT</country>
+            <companies>
+               <!--1 or more repetitions:-->
+               <company>
+                  <erpCode>c0001</erpCode>
+                  <name>SOL it</name>
+                  <default>true</default>
+                  <b2bUnits>
+                     <!--1 or more repetitions:-->
+                     <b2bUnit>
+                        <erpCode>b002</erpCode>
+                        <name>cliente 1</name>
+                        <currency>eur</currency>
+                        <vatID>1234543</vatID>
+                        <!--Optional:-->
+                        <taxPayerCode>qwerty12345</taxPayerCode>
+                        <!--Optional:-->
+                        <publicClient>false</publicClient>
+                        <!--Optional:-->
+                        <clientType>1</clientType>
+                        <!--Optional:-->
+                        <creditState>0</creditState>
+                        <!--Optional:-->
+                        <activeState>true</activeState>
+                        <!--Optional:-->
+                        <vendorCode>01</vendorCode>
+                        <customers>
+                           <!--1 or more repetitions:-->
+                           <customerId>cliente1@cliente1.org</customerId>
+                        </customers>
+                        <!--Optional:-->
+                        <addresses>
+                           <!--1 or more repetitions:-->
+                           <address>
+                              <erpCode>a12</erpCode>
+                              <!--Optional:-->
+                              <hybrisCode>?</hybrisCode>
+                              <street>via g verdi</street>
+                              <!--Optional:-->
+                              <streetNumber>27</streetNumber>
+                              <town>putignano</town>
+                              <!--Optional:-->
+                              <postalCode>70017</postalCode>
+                              <country>it</country>
+                              <shipping>true</shipping>
+                              <billing>false</billing>
+                           </address>
+                        </addresses>
+                     </b2bUnit>
+                  </b2bUnits>
+               </company>
+            </companies>
+         </Import_Hybris>
+      </imp:importData>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>test</con:username><con:password>gjw~N!Z~3LLNcwfQ</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importData"/><con:wsrmConfig version="1.2"/></con:call><con:call id="4e8c257b-9ae1-4cc0-b721-1002dc2fdaed" name="Request 2"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://solgroupit.local:9002/solgroupwebservices/services/customerimportws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <imp:importData>
+         <!--Optional:-->
+         <Import_Hybris>
+            <!--You may enter the following 3 items in any order-->
+            <header>
+               <sourceSystem>RAMSES_IT</sourceSystem>
+               <messageID>qwertyuiuytrewq</messageID>
+               <timestamp>?</timestamp>
+            </header>
+            <country>CH</country>
+            <companies>
+               <!--1 or more repetitions:-->
+               <company>
+                  <erpCode>com005</erpCode>
+                  <name>sol ch</name>
+                  <default>false</default>
+
+                  <b2bUnits>
+                     <!--1 or more repetitions:-->
+                     <b2bUnit>
+                        <erpCode>c0009</erpCode>
+                        <name>cliente svizzero</name>
+                        <!--Optional:-->
+                        <currency>CHF</currency>
+                        <!--Optional:-->
+                        <vatID>345234523452</vatID>
+                        <!--Optional:-->
+                        <taxPayerCode>234523452345</taxPayerCode>
+                        <!--Optional:-->
+                        <publicClient>true</publicClient>
+                        <!--Optional:-->
+                        <clientType>4</clientType>
+                        <!--Optional:-->
+                        <creditState>0</creditState>
+                        <!--Optional:-->
+                        <activeState>true</activeState>
+                        <!--Optional:-->
+                        <vendorCode>34</vendorCode>
+                        <customers>
+                           <!--1 or more repetitions:-->
+                           <customerId>clientesvizzero01@clientesvizzero1.ch</customerId>
+                           <customerId>clientesvizzero02@clientesvizzero1.ch</customerId>
+                        </customers>
+                        <!--Optional:-->
+                        <addresses>
+                           <!--1 or more repetitions:-->
+                           <address>
+                              <erpCode>add03</erpCode>
+                              <!--Optional:-->
+                              <hybrisCode>?</hybrisCode>
+                              <street>via roma</street>
+                              <!--Optional:-->
+                              <streetNumber>23</streetNumber>
+                              <town>lugano</town>
+                              <!--Optional:-->
+                              <postalCode>12343</postalCode>
+                              <country>CH</country>
+                              <!--Optional:-->
+                              <email>clientesvizzero01@clientesvizzero1.ch</email>
+                              <!--Optional:-->
+                              <phone>1234578765</phone>
+                              <!--Optional:-->
+                              <fax>1234578765</fax>
+                              <shipping>false</shipping>
+                              <billing>true</billing>
+                           </address>
+                        </addresses>
+                     </b2bUnit>
+                  </b2bUnits>
+               </company>
+            </companies>
+         </Import_Hybris>
+      </imp:importData>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>test</con:username><con:password>gjw~N!Z~3LLNcwfQ</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importData"/><con:wsrmConfig version="1.2"/></con:call><con:call id="73c32267-d4ea-4e29-b052-ed986daa42a8" name="Request 3"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://solgroupit.local:9002/solgroupwebservices/services/customerimportws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <imp:importData>
+         <!--Optional:-->
+         <Import_Hybris>
+            <!--You may enter the following 3 items in any order-->
+            <header>
+               <sourceSystem>RAMSES_IT</sourceSystem>
+               <messageID>876543235678754</messageID>
+               <timestamp>?</timestamp>
+            </header>
+            <country>IT</country>
+            <companies>
+               <!--1 or more repetitions:-->
+               <company>
+                  <erpCode>c0001</erpCode>
+                  <name>SOL it</name>
+                  <default>true</default>
+                  <!--Optional:-->
+                  <organizations1>
+                     <!--1 or more repetitions:-->
+                     <organizationUnit1>
+                        <erpCode>org0002</erpCode>
+                        <name>org 2</name>
+                        <!--Optional:-->
+                        <currency>EUR</currency>
+                        <b2bUnits>
+                           <!--1 or more repetitions:-->
+                           <b2bUnit>
+                              <erpCode>c004</erpCode>
+                              <name>cliente 004</name>
+                              <!--Optional:-->
+                              <currency>EUR</currency>
+                              <!--Optional:-->
+                              <vatID>2343234</vatID>
+                              <!--Optional:-->
+                              <taxPayerCode>234323</taxPayerCode>
+                              <!--Optional:-->
+                              <publicClient>false</publicClient>
+                              <!--Optional:-->
+                              <clientType>5</clientType>
+                              <!--Optional:-->
+                              <creditState>0</creditState>
+                              <!--Optional:-->
+                              <activeState>false</activeState>
+                              <!--Optional:-->
+                              <vendorCode>23</vendorCode>
+                              <customers>
+                                 <!--1 or more repetitions:-->
+                                 <customerId>cliente004.1@cliente004.it</customerId>
+                              </customers>
+                              <!--Optional:-->
+                              <addresses>
+                                 <!--1 or more repetitions:-->
+                                 <address>
+                                    <erpCode>add90</erpCode>
+                                    <!--Optional:-->
+                                    <hybrisCode>?</hybrisCode>
+                                    <street>via novara</street>
+                                    <!--Optional:-->
+                                    <streetNumber>235</streetNumber>
+                                    <town>milano</town>
+                                    <!--Optional:-->
+                                    <postalCode>90100</postalCode>
+                                    <country>IT</country>
+                                    <!--Optional:-->
+                                    <email>cliente004@cliente004.it</email>
+                                    <!--Optional:-->
+                                    <phone>123456543</phone>
+                                    <!--Optional:-->
+                                    <fax>2345432345</fax>
+                                    <shipping>false</shipping>
+                                    <billing>false</billing>
+                                 </address>
+                              </addresses>
+                           </b2bUnit>
+                        </b2bUnits>
+                        <!--Optional:-->
+                        <organizations2>
+                           <!--1 or more repetitions:-->
+                           <organizationUnit2>
+                              <erpCode>org96</erpCode>
+                              <name>org96</name>
+                              <!--Optional:-->
+                              <currency>EUR</currency>
+                              <b2bUnits>
+                                 <!--1 or more repetitions:-->
+                                 <b2bUnit>
+                                    <erpCode>c96.01</erpCode>
+                                    <name>clientec96.01</name>
+                                    <!--Optional:-->
+                                    <currency>EUR</currency>
+                                    <!--Optional:-->
+                                    <vatID>1234565432</vatID>
+                                    <!--Optional:-->
+                                    <taxPayerCode>2345654324</taxPayerCode>
+                                    <!--Optional:-->
+                                    <publicClient>true</publicClient>
+                                    <!--Optional:-->
+                                    <clientType>3</clientType>
+
+                                    <creditState>0</creditState>
+                                    <!--Optional:-->
+                                    <activeState>true</activeState>
+                                    <!--Optional:-->
+                                    <vendorCode>234</vendorCode>
+                                    <customers>
+                                       <!--1 or more repetitions:-->
+                                       <customerId>clientec96.01@clientec96.01.com</customerId>
+                                    </customers>
+                                    <!--Optional:-->
+                                    <addresses>
+                                       <!--1 or more repetitions:-->
+                                       <address>
+                                          <erpCode>addclientec96.01</erpCode>
+                                          <!--Optional:-->
+                                          <hybrisCode>?</hybrisCode>
+                                          <street>via cadorna</street>
+                                          <!--Optional:-->
+                                          <streetNumber>12</streetNumber>
+                                          <town>milano</town>
+                                          <!--Optional:-->
+                                          <postalCode>20100</postalCode>
+                                          <country>IT</country>
+                                          <!--Optional:-->
+                                          <email>clientec96.01@clientec96.01.com</email>
+                                          <shipping>false</shipping>
+                                          <billing>true</billing>
+                                       </address>
+                                    </addresses>
+                                 </b2bUnit>
+                              </b2bUnits>
+                              <!--Optional:-->
+                              <addresses>
+                                 <!--1 or more repetitions:-->
+                                 <address>
+                                    <erpCode>add51</erpCode>
+                                    <!--Optional:-->
+                                    <hybrisCode>?</hybrisCode>
+                                    <street>via monza</street>
+                                    <!--Optional:-->
+                                    <streetNumber>12</streetNumber>
+                                    <town>milano</town>
+                                    <!--Optional:-->
+                                    <postalCode>12345</postalCode>
+                                    <country>it</country>
+                                    <!--Optional:-->
+                                    <email>qwertytrew@wert.com</email>
+                                    <!--Optional:-->
+                                    <phone>12345678</phone>
+                                    <!--Optional:-->
+                                    <fax>1234567</fax>
+                                    <shipping>false</shipping>
+                                    <billing>true</billing>
+                                 </address>
+                              </addresses>
+                              <!--Optional:-->
+                              <customers>
+                                 <!--1 or more repetitions:-->
+                                 <customerId>org96.01@org96.01.com</customerId>
+                              </customers>
+                           </organizationUnit2>
+                        </organizations2>
+                        <!--Optional:-->
+                        <addresses>
+                           <!--1 or more repetitions:-->
+                           <address>
+                              <erpCode>add123</erpCode>
+                              <!--Optional:-->
+                              <hybrisCode>?</hybrisCode>
+                              <street>Largo porta nuova</street>
+                              <!--Optional:-->
+                              <streetNumber>1</streetNumber>
+                              <town>Putignano</town>
+                              <!--Optional:-->
+                              <postalCode>70017</postalCode>
+                              <country>IT</country>
+                              <!--Optional:-->
+                              <email>org0002@org0002.com</email>
+                              <shipping>false</shipping>
+                              <billing>true</billing>
+                           </address>
+                        </addresses>
+                        <!--Optional:-->
+                        <customers>
+                           <!--1 or more repetitions:-->
+                           <customerId>org0002@org0002.com</customerId>
+                        </customers>
+                     </organizationUnit1>
+                  </organizations1>
+                  <!--Optional:-->
+                  <b2bUnits>
+                     <!--1 or more repetitions:-->
+                     <b2bUnit>
+                        <erpCode>c12</erpCode>
+                        <name>cliente sparso</name>
+                        <!--Optional:-->
+                        <currency>EUR</currency>
+                        <!--Optional:-->
+                        <vatID>234234</vatID>
+                        <!--Optional:-->
+                        <taxPayerCode>234234234</taxPayerCode>
+                        <!--Optional:-->
+                        <publicClient>true</publicClient>
+                        <!--Optional:-->
+                        <clientType>6</clientType>
+                        <!--Optional:-->
+                        <creditState>0</creditState>
+                        <!--Optional:-->
+                        <activeState>true</activeState>
+                        <!--Optional:-->
+                        <vendorCode>234</vendorCode>
+                        <customers>
+                           <!--1 or more repetitions:-->
+                           <customerId>cliente_sparso@clientesparso.com</customerId>
+                           <customerId>cliente_sparso2@clientesparso.com</customerId>
+                        </customers>
+                        <!--Optional:-->
+                        <addresses>
+                           <!--1 or more repetitions:-->
+                           <address>
+                              <erpCode>add2222</erpCode>
+                              <!--Optional:-->
+                              <hybrisCode>?</hybrisCode>
+                              <street>via roma </street>
+                              <!--Optional:-->
+                              <streetNumber>52</streetNumber>
+                              <town>milano</town>
+                              <!--Optional:-->
+                              <postalCode>20100</postalCode>
+                              <country>it</country>
+                              <shipping>true</shipping>
+                              <billing>false</billing>
+                           </address>
+                           <address>
+                              <erpCode>add2222</erpCode>
+                              <!--Optional:-->
+                              <hybrisCode>?</hybrisCode>
+                              <street>via roma</street>
+                              <!--Optional:-->
+                              <streetNumber>54</streetNumber>
+                              <town>milano</town>
+                              <!--Optional:-->
+                              <postalCode>20100</postalCode>
+                              <country>it</country>
+                              <!--Optional:-->
+                              <email>cliente_sparso@clientesparso.com</email>
+                              <!--Optional:-->
+                              <phone>12345678</phone>
+                              <!--Optional:-->
+                              <fax>1235678</fax>
+                              <shipping>false</shipping>
+                              <billing>true</billing>
+                           </address>
+                        </addresses>
+                     </b2bUnit>
+                  </b2bUnits>
+               </company>
+            </companies>
+         </Import_Hybris>
+      </imp:importData>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>test</con:username><con:password>gjw~N!Z~3LLNcwfQ</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importData"/><con:wsrmConfig version="1.2"/></con:call><con:call id="6bdfe962-5d0d-4f8f-836b-4a6370903118" name="Request 4"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://solgroupit.local:9002/solgroupwebservices/services/customerimportws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <imp:importData>
+         <!--Optional:-->
+         <Import_Hybris>
+            <!--You may enter the following 3 items in any order-->
+            <header>
+               <sourceSystem>RAINBOW</sourceSystem>
+               <messageID>iuyfewerty9865434567</messageID>
+               <timestamp>?</timestamp>
+            </header>
+            <country>IT</country>
+            <companies>
+               <!--1 or more repetitions:-->
+               <company>
+                  <erpCode>c0001</erpCode>
+                  <name>SOL it</name>
+                  <default>true</default>
+                  <!--Optional:-->
+                  <organizations1>
+                     <!--1 or more repetitions:-->
+                     <organizationUnit1>
+                        <erpCode>org0002</erpCode>
+                        <name>org 2</name>
+                        <!--Optional:-->
+                        <currency>EUR</currency>
+                        <b2bUnits>
+                           <!--1 or more repetitions:-->
+                           <b2bUnit>
+                              <erpCode>c004</erpCode>
+                              <name>cliente 004</name>
+                              <!--Optional:-->
+                              <currency>EUR</currency>
+                              <!--Optional:-->
+                              <vatID>2343234</vatID>
+                              <!--Optional:-->
+                              <taxPayerCode>234323</taxPayerCode>
+                              <!--Optional:-->
+                              <publicClient>false</publicClient>
+                              <!--Optional:-->
+                              <clientType>5</clientType>
+                              <!--Optional:-->
+                              <creditState>0</creditState>
+                              <!--Optional:-->
+                              <activeState>false</activeState>
+                              <!--Optional:-->
+                              <vendorCode>23</vendorCode>
+                              <customers>
+                                 <!--1 or more repetitions:-->
+                                 <customerId>cliente004.1@cliente004.it</customerId>
+                              </customers>
+                              <!--Optional:-->
+                              <addresses>
+                                 <!--1 or more repetitions:-->
+                                 <address>
+                                    <erpCode>add90</erpCode>
+                                    <!--Optional:-->
+                                    <hybrisCode>1234567</hybrisCode>
+                                    <street>via novara</street>
+                                    <!--Optional:-->
+                                    <streetNumber>235</streetNumber>
+                                    <town>milano</town>
+                                    <!--Optional:-->
+                                    <postalCode>90100</postalCode>
+                                    <country>IT</country>
+                                    <!--Optional:-->
+                                    <email>cliente004@cliente004.it</email>
+                                    <!--Optional:-->
+                                    <phone>123456543</phone>
+                                    <!--Optional:-->
+                                    <fax>2345432345</fax>
+                                    <shipping>false</shipping>
+                                    <billing>false</billing>
+                                 </address>
+                              </addresses>
+                           </b2bUnit>
+                        </b2bUnits>
+                        <!--Optional:-->
+                        <organizations2>
+                           <!--1 or more repetitions:-->
+                           <organizationUnit2>
+                              <erpCode>org96</erpCode>
+                              <name>org96</name>
+                              <!--Optional:-->
+                              <currency>EUR</currency>
+                              <b2bUnits>
+                                 <!--1 or more repetitions:-->
+                                 <b2bUnit>
+                                    <erpCode>c96.01</erpCode>
+                                    <name>clientec96.01</name>
+                                    <!--Optional:-->
+                                    <currency>EUR</currency>
+                                    <!--Optional:-->
+                                    <vatID>1234565432</vatID>
+                                    <!--Optional:-->
+                                    <taxPayerCode>2345654324</taxPayerCode>
+                                    <!--Optional:-->
+                                    <publicClient>true</publicClient>
+                                    <!--Optional:-->
+                                    <clientType>3</clientType>
+
+                                    <creditState>0</creditState>
+                                    <!--Optional:-->
+                                    <activeState>true</activeState>
+                                    <!--Optional:-->
+                                    <vendorCode>234</vendorCode>
+                                    <customers>
+                                       <!--1 or more repetitions:-->
+                                       <customerId>clientec96.01@clientec96.01.com</customerId>
+                                    </customers>
+                                    <!--Optional:-->
+                                    <addresses>
+                                       <!--1 or more repetitions:-->
+                                       <address>
+                                          <erpCode>addclientec96.01</erpCode>
+                                          <!--Optional:-->
+                                          <hybrisCode>2345</hybrisCode>
+                                          <street>via cadorna</street>
+                                          <!--Optional:-->
+                                          <streetNumber>12</streetNumber>
+                                          <town>milano</town>
+                                          <!--Optional:-->
+                                          <postalCode>20100</postalCode>
+                                          <country>IT</country>
+                                          <!--Optional:-->
+                                          <email>clientec96.01@clientec96.01.com</email>
+                                          <shipping>false</shipping>
+                                          <billing>true</billing>
+                                       </address>
+                                    </addresses>
+                                 </b2bUnit>
+                              </b2bUnits>
+                              <!--Optional:-->
+                              <addresses>
+                                 <!--1 or more repetitions:-->
+                                 <address>
+                                    <erpCode>add51</erpCode>
+                                    <!--Optional:-->
+                                    <hybrisCode>34</hybrisCode>
+                                    <street>via monza</street>
+                                    <!--Optional:-->
+                                    <streetNumber>12</streetNumber>
+                                    <town>milano</town>
+                                    <!--Optional:-->
+                                    <postalCode>12345</postalCode>
+                                    <country>it</country>
+                                    <!--Optional:-->
+                                    <email>qwertytrew@wert.com</email>
+                                    <!--Optional:-->
+                                    <phone>12345678</phone>
+                                    <!--Optional:-->
+                                    <fax>1234567</fax>
+                                    <shipping>false</shipping>
+                                    <billing>true</billing>
+                                 </address>
+                              </addresses>
+                              <!--Optional:-->
+                              <customers>
+                                 <!--1 or more repetitions:-->
+                                 <customerId>org96.01@org96.01.com</customerId>
+                              </customers>
+                           </organizationUnit2>
+                        </organizations2>
+                        <!--Optional:-->
+                        <addresses>
+                           <!--1 or more repetitions:-->
+                           <address>
+                              <erpCode>add123</erpCode>
+                              <street>Largo porta nuova</street>
+                              <!--Optional:-->
+                              <streetNumber>1</streetNumber>
+                              <town>Putignano</town>
+                              <!--Optional:-->
+                              <postalCode>70017</postalCode>
+                              <country>IT</country>
+                              <!--Optional:-->
+                              <email>org0002@org0002.com</email>
+                              <shipping>false</shipping>
+                              <billing>true</billing>
+                           </address>
+                        </addresses>
+                        <!--Optional:-->
+                        <customers>
+                           <!--1 or more repetitions:-->
+                           <customerId>org0002@org0002.com</customerId>
+                        </customers>
+                     </organizationUnit1>
+                  </organizations1>
+                  <!--Optional:-->
+                  <b2bUnits>
+                     <!--1 or more repetitions:-->
+                     <b2bUnit>
+                        <erpCode>c12</erpCode>
+                        <name>cliente sparso</name>
+                        <!--Optional:-->
+                        <currency>EUR</currency>
+                        <!--Optional:-->
+                        <vatID>234234</vatID>
+                        <!--Optional:-->
+                        <taxPayerCode>234234234</taxPayerCode>
+                        <!--Optional:-->
+                        <publicClient>true</publicClient>
+                        <!--Optional:-->
+                        <clientType>6</clientType>
+                        <!--Optional:-->
+                        <creditState>0</creditState>
+                        <!--Optional:-->
+                        <activeState>true</activeState>
+                        <!--Optional:-->
+                        <vendorCode>234</vendorCode>
+                        <customers>
+                           <!--1 or more repetitions:-->
+                           <customerId>cliente_sparso@clientesparso.com</customerId>
+                           <customerId>cliente_sparso2@clientesparso.com</customerId>
+                        </customers>
+                        <!--Optional:-->
+                        <addresses>
+                           <!--1 or more repetitions:-->
+                           <address>
+                              <erpCode>add2222</erpCode>
+                              <!--Optional:-->
+                              <hybrisCode>435</hybrisCode>
+                              <street>via roma </street>
+                              <!--Optional:-->
+                              <streetNumber>52</streetNumber>
+                              <town>milano</town>
+                              <!--Optional:-->
+                              <postalCode>20100</postalCode>
+                              <country>it</country>
+                              <shipping>true</shipping>
+                              <billing>false</billing>
+                           </address>
+                           <address>
+                              <erpCode>add2222</erpCode>
+                              <street>via roma</street>
+                              <!--Optional:-->
+                              <streetNumber>54</streetNumber>
+                              <town>milano</town>
+                              <!--Optional:-->
+                              <postalCode>20100</postalCode>
+                              <country>it</country>
+                              <!--Optional:-->
+                              <email>cliente_sparso@clientesparso.com</email>
+                              <!--Optional:-->
+                              <phone>12345678</phone>
+                              <!--Optional:-->
+                              <fax>1235678</fax>
+                              <shipping>false</shipping>
+                              <billing>true</billing>
+                           </address>
+                        </addresses>
+                     </b2bUnit>
+                  </b2bUnits>
+               </company>
+               <company>
+                  <erpCode>c007</erpCode>
+                  <name>vivisol spa</name>
+                  <default>false</default>
+                  <!--Optional:-->
+                  <organizations1>
+                     <!--1 or more repetitions:-->
+                     <organizationUnit1>
+                        <erpCode>orgMar1</erpCode>
+                        <name>marcegaglia</name>
+                        <!--Optional:-->
+                        <currency>EUR</currency>
+                        <b2bUnits>
+                           <!--1 or more repetitions:-->
+                           <b2bUnit>
+                              <erpCode>cMar01</erpCode>
+                              <name>Ufficio centrale marcegaglia</name>
+                              <!--Optional:-->
+                              <currency>CHF</currency>
+                              <!--Optional:-->
+                              <vatID>23452345</vatID>
+                              <!--Optional:-->
+                              <taxPayerCode>23452345</taxPayerCode>
+                              <!--Optional:-->
+                              <publicClient>true</publicClient>
+                              <!--Optional:-->
+                              <clientType>4</clientType>
+                              <!--Optional:-->
+                              <creditState>1</creditState>
+                              <!--Optional:-->
+                              <activeState>1</activeState>
+                              <!--Optional:-->
+                              <vendorCode>234</vendorCode>
+                              <customers>
+                                 <!--1 or more repetitions:-->
+                                 <customerId>marcegaglia1@marcegaglia.it</customerId>
+                              </customers>
+                              <!--Optional:-->
+                              <addresses>
+                                 <!--1 or more repetitions:-->
+                                 <address>
+                                    <erpCode>add1232</erpCode>
+                                    <!--Optional:-->
+                                    <hybrisCode>6778</hybrisCode>
+                                    <street>via grandi costruzioni</street>
+                                    <!--Optional:-->
+                                    <streetNumber>31</streetNumber>
+                                    <town>Milano</town>
+                                    <!--Optional:-->
+                                    <postalCode>00100</postalCode>
+                                    <country>it</country>
+                                    <!--Optional:-->
+                                    <email>ufficio1@marcegaglia.it</email>
+                                    <!--Optional:-->
+                                    <phone>1234567890</phone>
+                                    <!--Optional:-->
+                                    <fax>1234567890</fax>
+                                    <shipping>false</shipping>
+                                    <billing>true</billing>
+                                 </address>
+                                 <address>
+                                    <erpCode>add1233</erpCode>
+                                    <street>via grandi costruzioni</street>
+                                    <!--Optional:-->
+                                    <streetNumber>31</streetNumber>
+                                    <town>Milano</town>
+                                    <!--Optional:-->
+                                    <postalCode>00100</postalCode>
+                                    <country>it</country>
+                                    <!--Optional:-->
+                                    <email>ufficio2@marcegaglia.it</email>
+                                    <!--Optional:-->
+                                    <phone>0987654321</phone>
+                                    <!--Optional:-->
+                                    <fax>0987654321</fax>
+                                    <shipping>true</shipping>
+                                    <billing>false</billing>
+                                 </address>
+                                </addresses>
+                           </b2bUnit>
+                           <b2bUnit>
+                              <erpCode>cMar02</erpCode>
+                              <name>filiale 01 marcegaglia</name>
+                              <!--Optional:-->
+                              <currency>EUR</currency>
+                              <!--Optional:-->
+                              <vatID>234523452345</vatID>
+                              <!--Optional:-->
+                              <taxPayerCode>234523452345</taxPayerCode>
+                              <!--Optional:-->
+                              <publicClient>true</publicClient>
+                              <!--Optional:-->
+                              <clientType>1</clientType>
+                              <!--Optional:-->
+                              <creditState>1</creditState>
+                              <!--Optional:-->
+                              <activeState>1</activeState>
+                              <!--Optional:-->
+                              <vendorCode>234</vendorCode>
+                              <customers>
+                                 <!--1 or more repetitions:-->
+                                 <customerId>francesca@marcegaglia.it</customerId>
+                                 <customerId>francesco@marcegaglia.it</customerId>
+                              </customers>
+                              <!--Optional:-->
+                              <addresses>
+                                 <!--1 or more repetitions:-->
+                                 <address>
+                                    <erpCode>add78</erpCode>
+                                    <!--Optional:-->
+                                    <hybrisCode>787</hybrisCode>
+                                    <street>via piccole costruzioni</street>
+                                    <!--Optional:-->
+                                    <streetNumber>1</streetNumber>
+                                    <town>rocca imperiale</town>
+                                    <!--Optional:-->
+                                    <postalCode>12345</postalCode>
+                                    <country>it</country>
+                                    <!--Optional:-->
+                                    <email>francesca@marcegaglia.it</email>
+                                    <!--Optional:-->
+                                    <phone>1234512345</phone>
+                                    <!--Optional:-->
+                                    <fax>1234512345</fax>
+                                    <shipping>false</shipping>
+                                    <billing>false</billing>
+                                 </address>
+                                 <address>
+                                    <erpCode>add79</erpCode>
+                                    <street>vicolo stretto</street>
+                                    <!--Optional:-->
+                                    <streetNumber>3</streetNumber>
+                                    <town>piovarolo</town>
+                                    <!--Optional:-->
+                                    <postalCode>23453</postalCode>
+                                    <country>it</country>
+                                    <!--Optional:-->
+                                    <email>francesca@marcegaglia.it</email>
+                                    <!--Optional:-->
+                                    <phone>123565432</phone>
+                                    <!--Optional:-->
+                                    <fax>2345676543</fax>
+                                    <shipping>true</shipping>
+                                    <billing>true</billing>
+                                 </address>
+                              </addresses>
+                           </b2bUnit>
+                        </b2bUnits>
+                        <!--Optional:-->
+                        <organizations2>
+                           <!--1 or more repetitions:-->
+                           <organizationUnit2>
+                              <erpCode>org2MarFil1</erpCode>
+                              <name>Filiale marcegaglia org2 numero 1</name>
+                              <!--Optional:-->
+                              <currency>GBP</currency>
+                              <b2bUnits>
+                                 <!--1 or more repetitions:-->
+                                 <b2bUnit>
+                                    <erpCode>cMarOrg2C003</erpCode>
+                                    <name>ufficio marcegaglia org2 c003</name>
+                                    <!--Optional:-->
+                                    <currency>eur</currency>
+                                    <!--Optional:-->
+                                    <vatID>2345432</vatID>
+                                    <!--Optional:-->
+                                    <taxPayerCode>sgtrewrt</taxPayerCode>
+                                    <!--Optional:-->
+                                    <publicClient>false</publicClient>
+                                    <!--Optional:-->
+                                    <clientType>1</clientType>
+                                    <!--Optional:-->
+                                    <creditState>1</creditState>
+                                    <!--Optional:-->
+                                    <activeState>0</activeState>
+                                    <!--Optional:-->
+                                    <vendorCode>1</vendorCode>
+                                    <customers>
+                                       <!--1 or more repetitions:-->
+                                       <customerId>ufficio.marcegaglia.org2.c003@marcegaglia.it</customerId>
+                                       <customerId>ufficio2.marcegaglia.org2.c003@marcegaglia.it</customerId>
+                                    </customers>
+                                    <!--Optional:-->
+                                    <addresses>
+                                       <!--1 or more repetitions:-->
+                                       <address>
+                                          <erpCode>add80</erpCode>
+                                          <!--Optional:-->
+                                          <hybrisCode>099</hybrisCode>
+                                          <street>corso sempione</street>
+                                          <!--Optional:-->
+                                          <streetNumber>234</streetNumber>
+                                          <town>pavia</town>
+                                          <!--Optional:-->
+                                          <postalCode>2341234</postalCode>
+                                          <country>ch</country>
+                                          <shipping>false</shipping>
+                                          <billing>false</billing>
+                                       </address>
+                                       <address>
+                                          <erpCode>add81</erpCode>
+                                          <!--Optional:-->
+                                          <hybrisCode>4567</hybrisCode>
+                                          <street>corso sempione</street>
+                                          <!--Optional:-->
+                                          <streetNumber>345</streetNumber>
+                                          <town>pavia</town>
+                                          <!--Optional:-->
+                                          <postalCode>2341234</postalCode>
+                                          <country>ch</country>
+                                          <shipping>true</shipping>
+                                          <billing>true</billing>
+                                       </address>
+                                    </addresses>
+                                 </b2bUnit>
+                                 <b2bUnit>
+                                    <erpCode>cMarOrg2C004</erpCode>
+                                    <name>ufficio marcegaglia org2 c004</name>
+                                    <!--Optional:-->
+                                    <currency>EUR</currency>
+                                    <!--Optional:-->
+                                    <vatID>23452345</vatID>
+                                    <!--Optional:-->
+                                    <taxPayerCode>234523452345</taxPayerCode>
+                                    <!--Optional:-->
+                                    <publicClient>true</publicClient>
+                                    <!--Optional:-->
+                                    <clientType>5</clientType>
+                                    <!--Optional:-->
+                                    <creditState>1</creditState>
+                                    <!--Optional:-->
+                                    <activeState>0</activeState>
+                                    <!--Optional:-->
+                                    <vendorCode>45</vendorCode>
+                                    <customers>
+                                       <customerId>ufficio.marcegaglia.org2.c004@marcegaglia.it</customerId>
+                                       <customerId>ufficio2.marcegaglia.org2.c004@marcegaglia.it</customerId>
+                                    </customers>
+                                    <!--Optional:-->
+                                    <addresses>
+                                       <!--1 or more repetitions:-->
+                                       <address>
+                                          <erpCode>add1234</erpCode>
+                                          <!--Optional:-->
+                                          <hybrisCode>3456</hybrisCode>
+                                          <street>via novara</street>
+                                          <!--Optional:-->
+                                          <streetNumber>9</streetNumber>
+                                          <town>milano</town>
+                                          <!--Optional:-->
+                                          <postalCode>20100</postalCode>
+                                          <country>it</country>
+                                          <shipping>false</shipping>
+                                          <billing>false</billing>
+                                       </address>
+                                    </addresses>
+                                 </b2bUnit>
+                              </b2bUnits>
+                              <!--Optional:-->
+                              <addresses>
+                                 <!--1 or more repetitions:-->
+                                 <address>
+                                    <erpCode>add23</erpCode>
+                                    <!--Optional:-->
+                                    <hybrisCode>222222222</hybrisCode>
+                                    <street>piazza cordusio</street>
+                                    <!--Optional:-->
+                                    <streetNumber>3</streetNumber>
+                                    <town>milano</town>
+                                    <!--Optional:-->
+                                    <postalCode>34534</postalCode>
+                                    <country>it</country>
+                                    <shipping>true</shipping>
+                                    <billing>true</billing>
+                                 </address>
+                              </addresses>
+                              <!--Optional:-->
+                              <customers>
+                                 <!--1 or more repetitions:-->
+                                 <customerId>customer01.marcegagliaOrg2@marcegaglia.it</customerId>
+                              </customers>
+                           </organizationUnit2>
+                           <organizationUnit2>
+                              <erpCode>org2MarFil2</erpCode>
+                              <name>Filiale marcegaglia org2 numero 2</name>
+                              <!--Optional:-->
+                              <currency>EUR</currency>
+                              <b2bUnits>
+                                 <!--1 or more repetitions:-->
+                                 <b2bUnit>
+                                    <erpCode>cMarOrg2C005</erpCode>
+                                    <name>ufficio marcegaglia org2.2 c005</name>
+                                    <!--Optional:-->
+                                    <currency>EUR</currency>
+                                    <!--Optional:-->
+                                    <vatID>567898765</vatID>
+                                    <!--Optional:-->
+                                    <taxPayerCode>2342345</taxPayerCode>
+                                    <!--Optional:-->
+                                    <publicClient>true</publicClient>
+                                    <!--Optional:-->
+                                    <clientType>7</clientType>
+                                    <!--Optional:-->
+                                    <creditState>0</creditState>
+                                    <!--Optional:-->
+                                    <activeState>0</activeState>
+                                    <!--Optional:-->
+                                    <vendorCode>34</vendorCode>
+                                    <customers>
+                                       <!--1 or more repetitions:-->
+                                       <customerId>ufficio.marcegaglia.org2.2.c005@marcegaglia.it</customerId>
+                                    </customers>
+                                    <!--Optional:-->
+                                    <addresses>
+                                       <!--1 or more repetitions:-->
+                                       <address>
+                                          <erpCode>add81</erpCode>
+                                          <!--Optional:-->
+                                          <hybrisCode>87777777</hybrisCode>
+                                          <street>via noci</street>
+                                          <!--Optional:-->
+                                          <streetNumber>3</streetNumber>
+                                          <town>turi</town>
+                                          <!--Optional:-->
+                                          <postalCode>23455</postalCode>
+                                          <country>fr</country>
+                                          <shipping>true</shipping>
+                                          <billing>true</billing>
+                                       </address>
+                                    </addresses>
+                                 </b2bUnit>
+                              </b2bUnits>
+                              <!--Optional:-->
+                              <addresses>
+                                 <!--1 or more repetitions:-->
+                                 <address>
+                                    <erpCode>add82</erpCode>
+                                    <!--Optional:-->
+                                    <hybrisCode>345345</hybrisCode>
+                                    <street>via milano</street>
+                                    <!--Optional:-->
+                                    <streetNumber>4</streetNumber>
+                                    <town>genova</town>
+                                    <!--Optional:-->
+                                    <postalCode>23545</postalCode>
+                                    <country>it</country>
+                                    <shipping>true</shipping>
+                                    <billing>false</billing>
+                                 </address>
+                              </addresses>
+                              <!--Optional:-->
+                              <customers>
+                                 <!--1 or more repetitions:-->
+                                 <customerId>customer01.org2MarFil2@marcegaglia.it</customerId>
+                              </customers>
+                           </organizationUnit2>
+                        </organizations2>
+                        <!--Optional:-->
+                        <addresses>
+                           <!--1 or more repetitions:-->
+                           <address>
+                              <erpCode>add85</erpCode>
+                              <!--Optional:-->
+                              <hybrisCode>11111111111111111</hybrisCode>
+                              <street>via oiuytrtyuio</street>
+                              <!--Optional:-->
+                              <streetNumber>34</streetNumber>
+                              <town>milano</town>
+                              <!--Optional:-->
+                              <postalCode>23453</postalCode>
+                              <country>it</country>
+                              <shipping>false</shipping>
+                              <billing>true</billing>
+                           </address>
+                        </addresses>
+                        <!--Optional:-->
+                        <customers>
+                           <!--1 or more repetitions:-->
+                           <customerId>giuseppe@marcegaglia.it</customerId>
+                        </customers>
+                     </organizationUnit1>
+                     <organizationUnit1>
+                        <erpCode>org1Maugeri</erpCode>
+                        <name>Maugeri</name>
+                        <!--Optional:-->
+                        <currency>eur</currency>
+                        <b2bUnits>
+                           <!--1 or more repetitions:-->
+                           <b2bUnit>
+                              <erpCode>c0987</erpCode>
+                              <name>Maugeri01</name>
+                              <!--Optional:-->
+                              <currency>eur</currency>
+                              <!--Optional:-->
+                              <vatID>12345</vatID>
+                              <!--Optional:-->
+                              <taxPayerCode>12345</taxPayerCode>
+                              <!--Optional:-->
+                              <publicClient>false</publicClient>
+                              <!--Optional:-->
+                              <clientType>3</clientType>
+                              <!--Optional:-->
+                              <creditState>0</creditState>
+                              <!--Optional:-->
+                              <activeState>1</activeState>
+                              <!--Optional:-->
+                              <vendorCode>3456</vendorCode>
+                              <customers>
+                                 <!--1 or more repetitions:-->
+                                 <customerId>Maugeri01@Maugeri01.it</customerId>
+                              </customers>
+                              <!--Optional:-->
+                              <addresses>
+                                 <!--1 or more repetitions:-->
+                                 <address>
+                                    <erpCode>add56</erpCode>
+                                    <!--Optional:-->
+                                    <hybrisCode>1</hybrisCode>
+                                    <street>via pavia</street>
+                                    <!--Optional:-->
+                                    <streetNumber>45</streetNumber>
+                                    <town>Milano</town>
+                                    <!--Optional:-->
+                                    <postalCode>32455</postalCode>
+                                    <country>it</country>
+                                    <shipping>false</shipping>
+                                    <billing>true</billing>
+                                 </address>
+                              </addresses>
+                           </b2bUnit>
+                        </b2bUnits>
+                        <!--Optional:-->
+                        <!--Optional:-->
+                        <addresses>
+                           <!--1 or more repetitions:-->
+                           <address>
+                              <erpCode>add90</erpCode>
+                              <!--Optional:-->
+                              <hybrisCode>345</hybrisCode>
+                              <street>first way</street>
+                              <!--Optional:-->
+                              <streetNumber>4</streetNumber>
+                              <town>new york</town>
+                              <!--Optional:-->
+                              <postalCode>23455</postalCode>
+                              <country>usa</country>
+                              <shipping>true</shipping>
+                              <billing>true</billing>
+                           </address>
+                        </addresses>
+                        <!--Optional:-->
+                        <customers>
+                           <!--1 or more repetitions:-->
+                           <customerId>Maugeri02@Maugeri02.it</customerId>
+                        </customers>
+                     </organizationUnit1>
+                  </organizations1>
+                  <!--Optional:-->
+                  <b2bUnits>
+                     <!--1 or more repetitions:-->
+                     <b2bUnit>
+                        <erpCode>c0987654</erpCode>
+                        <name>dentista salvatore</name>
+                        <!--Optional:-->
+                        <currency>eur</currency>
+                        <!--Optional:-->
+                        <vatID>35674567</vatID>
+                        <!--Optional:-->
+                        <taxPayerCode>674567567</taxPayerCode>
+                        <!--Optional:-->
+                        <publicClient>true</publicClient>
+                        <!--Optional:-->
+                        <clientType>2</clientType>
+                        <!--Optional:-->
+                        <creditState>0</creditState>
+                        <!--Optional:-->
+                        <activeState>0</activeState>
+                        <!--Optional:-->
+                        <vendorCode>45</vendorCode>
+                        <customers>
+                           <!--1 or more repetitions:-->
+                           <customerId>salvatore@ildentista.it</customerId>
+                        </customers>
+                        <!--Optional:-->
+                        <addresses>
+                           <!--1 or more repetitions:-->
+                           <address>
+                              <erpCode>add91</erpCode>
+                              <street>via qewrqer</street>
+                              <!--Optional:-->
+                              <streetNumber>fori imperiali</streetNumber>
+                              <town>roma</town>
+                              <!--Optional:-->
+                              <postalCode>00100</postalCode>
+                              <country>it</country>
+                              <shipping>true</shipping>
+                              <billing>true</billing>
+                           </address>
+                        </addresses>
+                     </b2bUnit>
+                  </b2bUnits>
+               </company>
+            </companies>
+         </Import_Hybris>
+      </imp:importData>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>test</con:username><con:password>gjw~N!Z~3LLNcwfQ</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importData"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

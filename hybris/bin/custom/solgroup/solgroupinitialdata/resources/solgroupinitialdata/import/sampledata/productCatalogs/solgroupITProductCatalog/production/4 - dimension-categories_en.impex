@@ -1,0 +1,844 @@
+$solPrefix=solgroupIT
+$lang=en
+$productCatalog=$solPrefixProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+
+
+
+
+UPDATE VariantCategory;code[unique=true];name[lang=$lang];$catalogVersion
+;$solPrefix_VC_1;Tipo stoccaggio
+;$solPrefix_VC_2;Capacità
+;$solPrefix_VC_4;Estensore
+;$solPrefix_VC_5;Sonde
+;$solPrefix_VC_6;Ugelli
+;$solPrefix_VC_7;Capacità in fiale
+;$solPrefix_VC_8;Apertura
+;$solPrefix_VC_9;Medical Device
+;$solPrefix_VC_10;Alimentazione
+;$solPrefix_VC_11;Capacità riempimento
+;$solPrefix_VC_12;Tipo fiale
+;$solPrefix_VC_13;Taglia
+;$solPrefix_VC_14;Lunghezza
+;$solPrefix_VC_15;Tipo rilevatore
+;$solPrefix_VC_16;Numero livelli rack
+;$solPrefix_VC_17;Tipo rack
+;$solPrefix_VC_18;Capacità in sacche
+;$solPrefix_VC_19;Capacità in paillettes
+;$solPrefix_VC_20;Modello
+;$solPrefix_VC_22;Proprietà
+;$solPrefix_VC_23;Attacco
+;$solPrefix_VC_24;Categoria alimenti
+;$solPrefix_VC_25;Confezione
+;$solPrefix_VC_26;Configurazione
+;$solPrefix_VC_27;diametro
+;$solPrefix_VC_28;Dimensioni cassa
+;$solPrefix_VC_29;Farmacopea
+;$solPrefix_VC_30;gas
+;$solPrefix_VC_31;Numero di manometri
+;$solPrefix_VC_32;Numero di posti
+;$solPrefix_VC_33;Numero gas di alimentazione
+;$solPrefix_VC_34;Packaging
+;$solPrefix_VC_35;Portata
+;$solPrefix_VC_36;Posizione
+;$solPrefix_VC_37;Preriscaldo
+;$solPrefix_VC_38;Pressione di uscita
+;$solPrefix_VC_39;Purezza / Qualità
+;$solPrefix_containerType;Recipiente
+;$solPrefix_VC_41;Scala
+;$solPrefix_VC_42;Tipo di funzionamento
+;$solPrefix_assetOwner;Proprietà recipiente
+
+UPDATE VariantValueCategory;code[unique=true];name[lang=$lang];$catalogVersion
+;$solPrefix_VC_1_1;Fiale
+;$solPrefix_VC_1_2;Sacche sangue
+;$solPrefix_VC_1_3;Paillettes
+;$solPrefix_VC_1_4;Azoto
+;$solPrefix_VC_2_1;0 litri
+;$solPrefix_VC_2_2;0,25 litri
+;$solPrefix_VC_2_3;0,35 litri
+;$solPrefix_VC_2_4;0,5 litri
+;$solPrefix_VC_2_5;0,6 litri
+;$solPrefix_VC_2_6;0,75 litri
+;$solPrefix_VC_2_7;1 litri
+;$solPrefix_VC_2_8;1,2 litri
+;$solPrefix_VC_2_9;1,5 litri
+;$solPrefix_VC_2_10;1,7 litri
+;$solPrefix_VC_2_11;2 litri
+;$solPrefix_VC_2_12;2,2 litri
+;$solPrefix_VC_2_13;2,50 litri
+;$solPrefix_VC_2_14;2,70 litri
+;$solPrefix_VC_2_15;3 litri
+;$solPrefix_VC_2_16;3,3 litri
+;$solPrefix_VC_2_17;3,5 litri
+;$solPrefix_VC_2_18;4 litri
+;$solPrefix_VC_2_19;5 litri
+;$solPrefix_VC_2_20;5,5 litri
+;$solPrefix_VC_2_21;6 litri
+;$solPrefix_VC_2_22;7 litri
+;$solPrefix_VC_2_23;8 litri
+;$solPrefix_VC_2_24;9 litri
+;$solPrefix_VC_2_25;9,5 litri
+;$solPrefix_VC_2_26;10 litri
+;$solPrefix_VC_2_27;11 litri
+;$solPrefix_VC_2_28;12 litri
+;$solPrefix_VC_2_29;13 litri
+;$solPrefix_VC_2_30;14 litri
+;$solPrefix_VC_2_31;15 litri
+;$solPrefix_VC_2_32;16 litri
+;$solPrefix_VC_2_33;17 litri
+;$solPrefix_VC_2_34;18 litri
+;$solPrefix_VC_2_35;20 litri
+;$solPrefix_VC_2_36;20,5 litri
+;$solPrefix_VC_2_37;21 litri
+;$solPrefix_VC_2_38;22 litri
+;$solPrefix_VC_2_39;23 litri
+;$solPrefix_VC_2_40;23,4 litri
+;$solPrefix_VC_2_41;23,5 litri
+;$solPrefix_VC_2_42;25 litri
+;$solPrefix_VC_2_43;25,5 litri
+;$solPrefix_VC_2_44;26 litri
+;$solPrefix_VC_2_45;27 litri
+;$solPrefix_VC_2_46;29 litri
+;$solPrefix_VC_2_47;30 litri
+;$solPrefix_VC_2_48;31 litri
+;$solPrefix_VC_2_49;32
+;$solPrefix_VC_2_50;33 litri
+;$solPrefix_VC_2_51;33,3litri
+;$solPrefix_VC_2_52;34 litri
+;$solPrefix_VC_2_53;34,5 litri
+;$solPrefix_VC_2_54;35 litri
+;$solPrefix_VC_2_55;36 litri
+;$solPrefix_VC_2_56;37 litri
+;$solPrefix_VC_2_57;38 litri
+;$solPrefix_VC_2_58;40 litri
+;$solPrefix_VC_2_59;41 litri
+;$solPrefix_VC_2_60;42,66 litri
+;$solPrefix_VC_2_61;43 litri
+;$solPrefix_VC_2_62;45 litri
+;$solPrefix_VC_2_63;46 litri
+;$solPrefix_VC_2_64;47 litri
+;$solPrefix_VC_2_65;48 litri
+;$solPrefix_VC_2_66;50 litri
+;$solPrefix_VC_2_67;51,5 litri
+;$solPrefix_VC_2_68;54 litri
+;$solPrefix_VC_2_69;55 litri
+;$solPrefix_VC_2_70;57 litri
+;$solPrefix_VC_2_71;60 litri
+;$solPrefix_VC_2_72;66 litri
+;$solPrefix_VC_2_73;70 litri
+;$solPrefix_VC_2_74;75 litri
+;$solPrefix_VC_2_75;80 litri
+;$solPrefix_VC_2_76;82 litri
+;$solPrefix_VC_2_77;88 litri
+;$solPrefix_VC_2_78;89 litri
+;$solPrefix_VC_2_79;90 litri
+;$solPrefix_VC_2_80;100 litri
+;$solPrefix_VC_2_81;110 litri
+;$solPrefix_VC_2_82;120 litri
+;$solPrefix_VC_2_83;124 litri
+;$solPrefix_VC_2_84;130 litri
+;$solPrefix_VC_2_85;140 litri
+;$solPrefix_VC_2_86;150 litri
+;$solPrefix_VC_2_87;159 litri
+;$solPrefix_VC_2_88;160 litri
+;$solPrefix_VC_2_89;170 litri
+;$solPrefix_VC_2_90;180 litri
+;$solPrefix_VC_2_91;190 litri
+;$solPrefix_VC_2_92;195 litri
+;$solPrefix_VC_2_93;200 litri
+;$solPrefix_VC_2_94;220 litri
+;$solPrefix_VC_2_95;230 litri
+;$solPrefix_VC_2_96;236 litri
+;$solPrefix_VC_2_97;237 litri
+;$solPrefix_VC_2_98;240 litri
+;$solPrefix_VC_2_99;243 litri
+;$solPrefix_VC_2_100;250 litri
+;$solPrefix_VC_2_101;260 litri
+;$solPrefix_VC_2_102;264 litri
+;$solPrefix_VC_2_103;280 litri
+;$solPrefix_VC_2_104;297 litri
+;$solPrefix_VC_2_105;300 litri
+;$solPrefix_VC_2_106;320 litri
+;$solPrefix_VC_2_107;324 litri
+;$solPrefix_VC_2_108;330 litri
+;$solPrefix_VC_2_109;338 litri
+;$solPrefix_VC_2_110;340 litri
+;$solPrefix_VC_2_111;350 litri
+;$solPrefix_VC_2_112;360 litri
+;$solPrefix_VC_2_113;370 litri
+;$solPrefix_VC_2_114;375 litri
+;$solPrefix_VC_2_115;376 litri
+;$solPrefix_VC_2_116;390 litri
+;$solPrefix_VC_2_117;400 litri
+;$solPrefix_VC_2_118;420 litri
+;$solPrefix_VC_2_119;422 litri
+;$solPrefix_VC_2_120;432 litri
+;$solPrefix_VC_2_121;450 litri
+;$solPrefix_VC_2_122;463 litri
+;$solPrefix_VC_2_123;470 litri
+;$solPrefix_VC_2_124;474 litri
+;$solPrefix_VC_2_125;480 litri
+;$solPrefix_VC_2_126;500 litri
+;$solPrefix_VC_2_127;540 litri
+;$solPrefix_VC_2_128;550 litri
+;$solPrefix_VC_2_129;600 litri
+;$solPrefix_VC_2_130;624 litri
+;$solPrefix_VC_2_131;640 litri
+;$solPrefix_VC_2_132;650 litri
+;$solPrefix_VC_2_133;657 litri
+;$solPrefix_VC_2_134;669 litri
+;$solPrefix_VC_2_135;700 litri
+;$solPrefix_VC_2_136;750 litri
+;$solPrefix_VC_2_137;756 litri
+;$solPrefix_VC_2_138;756R
+;$solPrefix_VC_2_139;780 litri
+;$solPrefix_VC_2_140;790 litri
+;$solPrefix_VC_2_141;797 litri
+;$solPrefix_VC_2_142;797R
+;$solPrefix_VC_2_143;800 litri
+;$solPrefix_VC_2_144;850 litri
+;$solPrefix_VC_2_145;900 litri
+;$solPrefix_VC_2_146;940 litri
+;$solPrefix_VC_2_147;950 litri
+;$solPrefix_VC_2_148;960 litri
+;$solPrefix_VC_2_149;972 litri
+;$solPrefix_VC_2_150;1000 litri
+;$solPrefix_VC_2_152;1200 litri
+;$solPrefix_VC_2_154;1612 litri
+;$solPrefix_VC_2_155;1612R
+;$solPrefix_VC_2_156;1770 litri
+;$solPrefix_VC_2_157;1829 litri
+;$solPrefix_VC_2_158;3600 litri
+;$solPrefix_VC_2_159;4500 litri
+;$solPrefix_VC_2_160;4000 litri
+;$solPrefix_VC_2_161;7500 litri
+;$solPrefix_VC_2_162;15000 litri
+;$solPrefix_VC_2_163;23500 litri
+;$solPrefix_VC_2_164;30000 litri
+;$solPrefix_VC_2_165;20 palloncini
+;$solPrefix_VC_2_166;30 palloncini
+;$solPrefix_VC_2_167;1300 litri
+;$solPrefix_VC_2_168;1500 litri
+;$solPrefix_VC_4_1;Diritto
+;$solPrefix_VC_4_2;Diritto 3”
+;$solPrefix_VC_4_3;Diritto 16 g
+;$solPrefix_VC_4_4;Diritto 18 g
+;$solPrefix_VC_4_5;Diritto 20 g
+;$solPrefix_VC_4_6;Ricurvo grosso
+;$solPrefix_VC_4_7;Ricurvo 1,5”
+;$solPrefix_VC_4_8;Ricurvo 20 g – 3”
+;$solPrefix_VC_4_9;Diritto 20g – 3”
+;$solPrefix_VC_5_1;Minisonda 1mm
+;$solPrefix_VC_5_2;Minisonda 2mm 
+;$solPrefix_VC_5_3;Minisonda 3mm
+;$solPrefix_VC_5_4;Minisonda 6mm
+;$solPrefix_VC_5_5;Minisonda Punta sottile aguzza
+;$solPrefix_VC_5_6;Sonda ginecologica bombata 19mm
+;$solPrefix_VC_5_7;Sonda ginecologica bombata 25mm
+;$solPrefix_VC_5_8;Sonda ginecologica piatta 19mm
+;$solPrefix_VC_5_9;Sonda ginecologica piatta 25mm
+;$solPrefix_VC_5_10;Sonda ginecologica 19 x 5 x 5mm
+;$solPrefix_VC_5_11;Sonda ginecologica 25 x 5 x 5mm
+;$solPrefix_VC_6_1;Ugello spray A
+;$solPrefix_VC_6_2;Ugello spray B
+;$solPrefix_VC_6_3;Ugello spray C
+;$solPrefix_VC_6_4;Ugello spray D
+;$solPrefix_VC_6_5;Ugello spray acne
+;$solPrefix_VC_6_6;Conico
+;$solPrefix_VC_6_7;Cilindrico
+;$solPrefix_VC_6_8;Per Puntatura
+;$solPrefix_VC_6_9;A Bottiglia
+;$solPrefix_VC_7_1;9
+;$solPrefix_VC_7_2;24
+;$solPrefix_VC_7_3;25
+;$solPrefix_VC_7_4;30
+;$solPrefix_VC_7_5;48
+;$solPrefix_VC_7_6;60
+;$solPrefix_VC_7_7;81
+;$solPrefix_VC_7_8;100
+;$solPrefix_VC_7_9;106
+;$solPrefix_VC_7_10;180
+;$solPrefix_VC_7_11;500
+;$solPrefix_VC_7_12;784
+;$solPrefix_VC_7_13;960
+;$solPrefix_VC_7_14;966
+;$solPrefix_VC_7_15;1134
+;$solPrefix_VC_7_16;1452
+;$solPrefix_VC_7_17;<1000
+;$solPrefix_VC_7_18;1001-5000
+;$solPrefix_VC_7_19;5001-10000
+;$solPrefix_VC_7_20;10001-25000
+;$solPrefix_VC_7_21;25001-50000
+;$solPrefix_VC_7_22;5046
+;$solPrefix_VC_7_23;6006
+;$solPrefix_VC_7_24;8410
+;$solPrefix_VC_7_25;12000
+;$solPrefix_VC_7_26;14470
+;$solPrefix_VC_7_27;22000
+;$solPrefix_VC_8_1;Top opening
+;$solPrefix_VC_8_2;Front opening
+;$solPrefix_VC_8_3;Front opening-MD
+;$solPrefix_VC_8_4;Top opening - MD
+;$solPrefix_VC_8_5;Top opening con Delta T
+;$solPrefix_VC_9_1;Sì
+;$solPrefix_VC_9_2;No
+;$solPrefix_VC_10_1;Da presurizzato
+;$solPrefix_VC_10_2;Da serbatoio esterno
+;$solPrefix_VC_10_3;5 segnali 220 V
+;$solPrefix_VC_10_4;5 segnali 24 V
+;$solPrefix_VC_11_1;Dewar aperto max. 6 litri
+;$solPrefix_VC_11_2;Dewar aperto max. 6 litri + Dewar stoccaggio max. 47 litri
+;$solPrefix_VC_11_3;Dewar aperto max. 6 litri + Dewar stoccaggio max. 47 lt + Presurizzato max. 180 litri
+;$solPrefix_VC_12_1;1
+;$solPrefix_VC_12_2;2
+;$solPrefix_VC_12_3;3
+;$solPrefix_VC_12_4;4
+;$solPrefix_VC_12_5;4.5
+;$solPrefix_VC_12_6;5
+;$solPrefix_VC_13_1;8 HP
+;$solPrefix_VC_13_2;8 HD
+;$solPrefix_VC_13_3;8 PLUS
+;$solPrefix_VC_13_4;8 KIT
+;$solPrefix_VC_13_5;9 HP
+;$solPrefix_VC_13_6;9 HD
+;$solPrefix_VC_13_7;9 PLUS
+;$solPrefix_VC_13_8;9 KIT
+;$solPrefix_VC_13_9;10 HP
+;$solPrefix_VC_13_10;10  HD
+;$solPrefix_VC_13_11;10 PLUS
+;$solPrefix_VC_13_12;10 KIT
+;$solPrefix_VC_13_13;11 HP
+;$solPrefix_VC_13_14;11 HD
+;$solPrefix_VC_13_15;11 PLUS
+;$solPrefix_VC_13_16;11 KIT
+;$solPrefix_VC_13_17;8
+;$solPrefix_VC_13_18;9
+;$solPrefix_VC_13_19;10
+;$solPrefix_VC_13_20;11
+;$solPrefix_VC_13_21;7
+;$solPrefix_VC_14_1;38cm
+;$solPrefix_VC_14_2;40cm
+;$solPrefix_VC_14_3;45cm
+;$solPrefix_VC_14_4;50cm 
+;$solPrefix_VC_14_5;55cm
+;$solPrefix_VC_14_6; 65cm
+;$solPrefix_VC_14_7;90cm
+;$solPrefix_VC_14_8;100cm
+;$solPrefix_VC_14_9;110cm
+;$solPrefix_VC_14_10;120cm
+;$solPrefix_VC_14_11;135cm
+;$solPrefix_VC_14_12;180cm
+;$solPrefix_VC_14_13;260mm
+;$solPrefix_VC_14_14;368mm
+;$solPrefix_VC_14_15;460mm
+;$solPrefix_VC_14_16;1,5m
+;$solPrefix_VC_14_17;2m
+;$solPrefix_VC_14_18;3m
+;$solPrefix_VC_14_19;8m
+;$solPrefix_VC_14_20;4m
+;$solPrefix_VC_14_21;5m
+;$solPrefix_VC_15_1;O2
+;$solPrefix_VC_15_2;CO2
+;$solPrefix_VC_15_3;T/UR
+;$solPrefix_VC_15_4;monogas
+;$solPrefix_VC_15_5;O2/CO/CH4/H2S
+;$solPrefix_VC_15_6;O2/CO2
+;$solPrefix_VC_15_7;O2/ T/UR
+;$solPrefix_VC_15_8;CO2/ T/UR
+;$solPrefix_VC_15_9;O2/CO2/ T/UR
+;$solPrefix_VC_15_10;CO
+;$solPrefix_VC_16_1;1
+;$solPrefix_VC_16_2;2
+;$solPrefix_VC_16_3;3
+;$solPrefix_VC_16_4;4
+;$solPrefix_VC_16_5;5
+;$solPrefix_VC_16_6;6
+;$solPrefix_VC_16_7;7
+;$solPrefix_VC_16_8;8
+;$solPrefix_VC_16_9;9
+;$solPrefix_VC_16_10;10
+;$solPrefix_VC_16_11;11
+;$solPrefix_VC_16_12;12
+;$solPrefix_VC_16_13;13
+;$solPrefix_VC_16_14;14
+;$solPrefix_VC_16_15;15
+;$solPrefix_VC_17_1;Grande
+;$solPrefix_VC_17_2;Mini
+;$solPrefix_VC_18_1;25
+;$solPrefix_VC_18_2;50
+;$solPrefix_VC_18_3;200
+;$solPrefix_VC_18_4;250
+;$solPrefix_VC_18_5;500
+;$solPrefix_VC_18_6;DF200
+;$solPrefix_VC_18_7;DF700
+;$solPrefix_VC_18_8;3
+;$solPrefix_VC_18_9;6
+;$solPrefix_VC_18_10;10
+;$solPrefix_VC_18_11;11
+;$solPrefix_VC_18_12;12
+;$solPrefix_VC_19_1;0-10000
+;$solPrefix_VC_19_2;10001-50000
+;$solPrefix_VC_19_3;50001-80000
+;$solPrefix_VC_19_4;80001-100000
+;$solPrefix_VC_19_5;100001-200000
+;$solPrefix_VC_19_6;200001-300000
+;$solPrefix_VC_19_7;100-200
+;$solPrefix_VC_19_8;201-500
+;$solPrefix_VC_19_9;501-1000
+;$solPrefix_VC_19_10;1001-3000
+;$solPrefix_VC_19_11;3001-5000
+;$solPrefix_VC_19_12;5001-10000
+;$solPrefix_VC_19_13;501-750
+;$solPrefix_VC_19_14;751-900
+;$solPrefix_VC_19_15;901-1200
+;$solPrefix_VC_19_16;2
+;$solPrefix_VC_19_17;3
+;$solPrefix_VC_19_18;4
+;$solPrefix_VC_19_19;15
+;$solPrefix_VC_19_20;38
+;$solPrefix_VC_20_1;V00
+;$solPrefix_VC_20_2;V03
+;$solPrefix_VC_20_3;V10
+;$solPrefix_VC_20_4;V20
+;$solPrefix_VC_20_5;V30
+;$solPrefix_VC_20_6;V31
+;$solPrefix_VC_20_7;V32
+;$solPrefix_VC_20_8;V34
+;$solPrefix_VC_20_9;SAF
+;$solPrefix_VC_20_10;SAF SFX100
+;$solPrefix_VC_20_11;MICRO IV
+;$solPrefix_VC_20_12;BW CLIP
+;$solPrefix_VC_20_13;ALTAIR 4X
+;$solPrefix_VC_20_14;SSD6G4
+;$solPrefix_VC_20_15;F2000
+;$solPrefix_VC_20_16;MSA
+;$solPrefix_VC_20_17;70XV
+;$solPrefix_VC_20_18;TRH100D
+;$solPrefix_VC_20_19;7OXV
+;$solPrefix_VC_20_20;205
+;$solPrefix_VC_20_21;510
+;$solPrefix_VC_20_22;616
+;$solPrefix_VC_20_23;1426
+;$solPrefix_VC_20_24;1839
+;$solPrefix_VC_20_25;2 ml/100 pz
+;$solPrefix_VC_20_26;2 ml/25 pz
+;$solPrefix_VC_20_27;2 ml/81 pz
+;$solPrefix_VC_20_28;2 ml/25 pz b
+;$solPrefix_VC_20_29;5 ml/81 pz
+;$solPrefix_VC_20_30;Piccolo
+;$solPrefix_VC_20_31;750
+;$solPrefix_VC_20_32;2000
+;$solPrefix_VC_20_33;4000
+;$solPrefix_VC_20_34;6000
+;$solPrefix_VC_20_35;Liquido - NO Centralina
+;$solPrefix_VC_20_36;NO centralina ma con predisposizione
+;$solPrefix_VC_20_37;Liquido con Centralina
+;$solPrefix_VC_20_38;Vapore con Centralina
+;$solPrefix_VC_20_39;Con automazione riempimento
+;$solPrefix_VC_20_40;Con autofil e controllo livello
+;$solPrefix_VC_20_41;Signature
+;$solPrefix_VC_20_42;Millennium II
+;$solPrefix_VC_20_43;E
+;$solPrefix_VC_20_44;33
+;$solPrefix_VC_20_45;34
+;$solPrefix_VC_20_46;PLUS
+;$solPrefix_VC_20_47;43
+;$solPrefix_VC_20_48;11/6
+;$solPrefix_VC_20_49;11/10
+;$solPrefix_VC_20_50;11/6SQ
+;$solPrefix_VC_20_51;Con Datalogger
+;$solPrefix_VC_20_52;No canister
+;$solPrefix_VC_20_53;Bocca larga
+;$solPrefix_VC_20_54;Con ruote
+;$solPrefix_VC_20_55;Cryogen 2D
+;$solPrefix_VC_20_56;Grande1
+;$solPrefix_VC_20_57;Mini
+;$solPrefix_VC_20_58;Contiene 1 BIO01P
+;$solPrefix_VC_20_59;Contiene 1 BIO02S
+;$solPrefix_VC_20_60;Contiene 1 BIO03M
+;$solPrefix_VC_20_61;Contiene 1 BIO03M e 1 BIO04L
+;$solPrefix_VC_20_62;Contiene 2 BIO01P/BIO02S/BIO03M
+;$solPrefix_VC_20_63;Contiene 1 BIO04L
+;$solPrefix_VC_20_64;Contiene 1 EMO01P
+;$solPrefix_VC_20_65;Contiene 1 EMO02S
+;$solPrefix_VC_20_66;Contiene 1 EMO03M
+;$solPrefix_VC_20_67;EMO 02LPP
+;$solPrefix_VC_20_68;EMO 04LPP
+;$solPrefix_VC_20_69;EMO 06LPP
+;$solPrefix_VC_20_70;ECC 04L PPS 
+;$solPrefix_VC_20_71;TTE 04PP 
+;$solPrefix_VC_20_72;Kryo 1.7
+;$solPrefix_VC_20_73;Krio 3.3
+;$solPrefix_VC_20_74;560
+;$solPrefix_VC_20_75;360
+;$solPrefix_VC_20_76;BIO
+;$solPrefix_VC_20_77;CRIO
+;$solPrefix_VC_20_78;Generico
+;$solPrefix_VC_20_79;SC 4/2
+;$solPrefix_VC_20_80;SC 4/3
+;$solPrefix_VC_20_81;Cryoshipper
+;$solPrefix_VC_20_82;Cryomoover
+;$solPrefix_VC_20_83;Ricambio
+;$solPrefix_VC_20_84;SC 20/3
+;$solPrefix_VC_20_85;BMP 21 con Labelmark
+;$solPrefix_VC_20_86;BMP 41 con Labelmark
+;$solPrefix_VC_20_87;BMP 51
+;$solPrefix_VC_20_88;BMP 51 con Labelmark
+;$solPrefix_VC_20_89;BMP 61
+;$solPrefix_VC_20_90;BMP 61 con Labelmark
+;$solPrefix_VC_20_91;BBP 12
+;$solPrefix_VC_20_92;BP-PR
+;$solPrefix_VC_20_93;Zebra S4M
+;$solPrefix_VC_20_94;Zebra ZT230
+;$solPrefix_VC_20_95;GRYPHON
+;$solPrefix_VC_20_96;GRYPHON D4130 HC
+;$solPrefix_VC_20_97;CR 1400
+;$solPrefix_VC_20_98;FOCUS
+;$solPrefix_VC_20_99;B423
+;$solPrefix_VC_20_100;300 mt
+;$solPrefix_VC_20_101;110X450
+;$solPrefix_VC_20_102;B 427
+;$solPrefix_VC_20_103;B461
+;$solPrefix_VC_20_104;B490 25X15
+;$solPrefix_VC_20_105;B492 55X25
+;$solPrefix_VC_20_106;B423 THT
+;$solPrefix_VC_20_107;B490 50X70
+;$solPrefix_VC_20_108;B490 100X100
+;$solPrefix_VC_20_109;B461 0.5
+;$solPrefix_VC_20_110;B492 THT
+;$solPrefix_VC_20_111;Visiera Clear Cryo 
+;$solPrefix_VC_20_112;Visiera Cryo Visor
+;$solPrefix_VC_20_113;Occhiali Vision Cryo
+;$solPrefix_VC_20_114;AP1
+;$solPrefix_VC_20_115;AP3
+;$solPrefix_VC_20_116;Miltenyi 260x14x140
+;$solPrefix_VC_20_117;150x15x240
+;$solPrefix_VC_20_118;Interno 510
+;$solPrefix_VC_20_119;Esterno 510
+;$solPrefix_VC_20_120;Interno 616
+;$solPrefix_VC_20_121;Esterno 1426
+;$solPrefix_VC_20_122;Interno 1426
+;$solPrefix_VC_20_123;Grande
+;$solPrefix_VC_20_124;Extra grande
+;$solPrefix_VC_20_125;BIO 2
+;$solPrefix_VC_20_126;BIO 3
+;$solPrefix_VC_20_126;BIO 5
+;$solPrefix_VC_20_127;BIO 8
+;$solPrefix_VC_20_128;BIO 10 - 125mm
+;$solPrefix_VC_20_129;BIO 10 - 280 mm
+;$solPrefix_VC_20_130;BIO 12
+;$solPrefix_VC_20_131;BIO 20 - 125 mm
+;$solPrefix_VC_20_132;BIO 20 - 280 mm
+;$solPrefix_VC_20_133;BIO 21
+;$solPrefix_VC_20_134;BIO 22
+;$solPrefix_VC_20_135;BIO 24
+;$solPrefix_VC_20_136;BIO 34
+;$solPrefix_VC_20_137;BIO 35 - 125 mm
+;$solPrefix_VC_20_138;BIO 35 - 280 mm
+;$solPrefix_VC_20_139;BIO 36
+;$solPrefix_VC_20_140;Hardware
+;$solPrefix_VC_20_141;Batterie
+;$solPrefix_VC_20_142;SC 3/3
+;$solPrefix_VC_20_143;SC 8/5
+;$solPrefix_VC_20_144;SC 11/7
+;$solPrefix_VC_20_145;SC 20/20, 33/26, 36/32
+;$solPrefix_VC_20_146;SC SUPER 2
+;$solPrefix_VC_20_147;SC 20/20, 33/26, 36/32, 11/7 CENTRALE
+;$solPrefix_VC_20_148;22/5
+;$solPrefix_VC_20_149;21/6
+;$solPrefix_VC_20_150;32/8
+;$solPrefix_VC_20_151;33/22
+;$solPrefix_VC_20_152;34/18
+;$solPrefix_VC_20_153;43/28
+;$solPrefix_VC_20_154;47/11/6
+;$solPrefix_VC_20_155;47/11/10
+;$solPrefix_VC_20_156;Signature/Millennium
+;$solPrefix_VC_20_157;34/18 PLUS
+;$solPrefix_VC_20_158;34/18 centrale
+;$solPrefix_VC_20_159;B2002M
+;$solPrefix_VC_20_160;B2003M
+;$solPrefix_VC_20_161;B2009M, B2011M
+;$solPrefix_VC_20_162;B2016M
+;$solPrefix_VC_20_163;B2020M, B2036M
+;$solPrefix_VC_20_164;B2035/6M
+;$solPrefix_VC_20_165;B2013/6M,B2015
+;$solPrefix_VC_20_166;B2013/10M,B2026
+;$solPrefix_VC_20_167;B2034/12M
+;$solPrefix_VC_20_168;B2035/6M1
+;$solPrefix_VC_20_169;B2009M
+;$solPrefix_VC_20_170;B2020M
+;$solPrefix_VC_20_171;B2036M
+;$solPrefix_VC_20_172;SC 2/1V
+;$solPrefix_VC_20_173;SC 20/12V
+;$solPrefix_VC_20_174;Cryomoover centrale
+;$solPrefix_VC_20_175;Minimoover
+;$solPrefix_VC_20_176;Biotrek 3
+;$solPrefix_VC_20_177;Biotrek 10
+;$solPrefix_VC_20_178;BS2002
+;$solPrefix_VC_20_179;BS2004
+;$solPrefix_VC_20_180;BS2024
+;$solPrefix_VC_20_181;LAB 5
+;$solPrefix_VC_20_182;LAB 10
+;$solPrefix_VC_20_183;LAB 20
+;$solPrefix_VC_20_184;LAB 30,50
+;$solPrefix_VC_20_185;LAB 30
+;$solPrefix_VC_20_186;LAB 50
+;$solPrefix_VC_20_187;LAB 4
+;$solPrefix_VC_20_188;LAB 5/10/20
+;$solPrefix_VC_20_189;Cryolab 10
+;$solPrefix_VC_20_190;Cryolab 25
+;$solPrefix_VC_20_191;Cryolab 20, 25
+;$solPrefix_VC_20_192;Cryolab 20, 35, 50
+;$solPrefix_VC_20_193;Cryolab con flessibile 51mm
+;$solPrefix_VC_20_194;Cryolab con flessibile 63mm
+;$solPrefix_VC_20_195;Cryolab 2
+;$solPrefix_VC_20_196;OD 2
+;$solPrefix_VC_20_197;OD 6
+;$solPrefix_VC_20_198;OD 15
+;$solPrefix_VC_20_199;OD 25 
+;$solPrefix_VC_20_200;OD 80
+;$solPrefix_VC_20_201;con valvola di sicurezza
+;$solPrefix_VC_20_202;senza valvola di sicurezza
+;$solPrefix_VC_20_203;senza valvola di sicurezza UNF M/M
+;$solPrefix_VC_20_204;SIB 1000
+;$solPrefix_VC_20_205;SIB 2000
+;$solPrefix_VC_20_206;SIB 300
+;$solPrefix_VC_20_207;SIB 400
+;$solPrefix_VC_20_208;SIB 800
+;$solPrefix_VC_20_209;Senza automazione riempimento
+;$solPrefix_VC_20_210;Criolite HP
+;$solPrefix_VC_20_211;Crio HD
+;$solPrefix_VC_20_212;Crio Plus 2,0
+;$solPrefix_VC_20_213;Crio Plus 2,1
+;$solPrefix_VC_20_214;Crio Kit 400
+;$solPrefix_VC_20_215;Crio Kit 550
+;$solPrefix_VC_20_216;GRYPHON GD4500
+;$solPrefix_VC_20_217;GRYPHON D4330
+;$solPrefix_VC_20_218;BW clip
+;$solPrefix_VC_20_219;Combustibile
+;$solPrefix_VC_20_220;Comburente
+;$solPrefix_VC_20_221;Bianco
+;$solPrefix_VC_20_222;Ceramico
+;$solPrefix_VC_20_223;Nero
+;$solPrefix_VC_20_224;Corto M6
+;$solPrefix_VC_20_225;Lungo M6
+;$solPrefix_VC_20_226;Corto M8
+;$solPrefix_VC_20_227;Lungo M8
+;$solPrefix_VC_22_1;Criogenia
+;$solPrefix_VC_23_1;1/8” GAS M DX
+;$solPrefix_VC_23_2;1/4” GAS M DX
+;$solPrefix_VC_23_3;EN561 INOX
+;$solPrefix_VC_23_4;EN561 OTTONE
+;$solPrefix_VC_24_1;Per carni
+;$solPrefix_VC_24_2;Per prodotti da forno
+;$solPrefix_VC_25_1;1000lt
+;$solPrefix_VC_25_2;1500lt
+;$solPrefix_VC_25_3;2000lt
+;$solPrefix_VC_25_4;3000lt
+;$solPrefix_VC_25_5;5000lt
+;$solPrefix_VC_25_6;10000lt
+;$solPrefix_VC_25_7;15000lt
+;$solPrefix_VC_25_8;20000lt
+;$solPrefix_VC_25_9;30000lt
+;$solPrefix_VC_25_10;700kg
+;$solPrefix_VC_25_11;1200kg
+;$solPrefix_VC_25_12;1300kg
+;$solPrefix_VC_25_13;1500kg
+;$solPrefix_VC_25_14;N/A
+;$solPrefix_VC_26_1;Da bombola
+;$solPrefix_VC_26_2;Da rampa
+;$solPrefix_VC_26_3;Con Docking
+;$solPrefix_VC_26_4;Con Docking e lettore di codici a barre
+;$solPrefix_VC_27_1;0,8
+;$solPrefix_VC_27_2;1,0
+;$solPrefix_VC_27_3;1,2
+;$solPrefix_VC_27_4;0,6
+;$solPrefix_VC_27_5;1,6
+;$solPrefix_VC_27_6;6
+;$solPrefix_VC_27_7;8
+;$solPrefix_VC_27_8;10
+;$solPrefix_VC_27_9;2,0
+;$solPrefix_VC_27_10;2,4
+;$solPrefix_VC_27_11;1,4
+;$solPrefix_VC_27_12;12
+;$solPrefix_VC_27_13;9,5
+;$solPrefix_VC_27_14;16
+;$solPrefix_VC_27_15;12,8
+;$solPrefix_VC_27_16;19
+;$solPrefix_VC_27_17;5
+;$solPrefix_VC_27_18;0,9
+;$solPrefix_VC_27_19;15
+;$solPrefix_VC_27_20;11,5
+;$solPrefix_VC_27_21;18
+;$solPrefix_VC_27_22;11
+;$solPrefix_VC_27_23;14
+;$solPrefix_VC_27_24;20
+;$solPrefix_VC_27_25;6,4
+;$solPrefix_VC_27_26;9,8
+;$solPrefix_VC_27_27;11,2
+;$solPrefix_VC_27_28;15,7
+;$solPrefix_VC_27_29;3,2
+;$solPrefix_VC_27_30;11
+;$solPrefix_VC_27_31;12,7
+;$solPrefix_VC_27_32;N/A
+;$solPrefix_VC_27_33;8,0
+;$solPrefix_VC_28_1;Ø 52mm
+;$solPrefix_VC_28_2;Ø 63mm
+;$solPrefix_VC_29_1;Italiana
+;$solPrefix_VC_29_2;Europea
+;$solPrefix_VC_30_1;Aria
+;$solPrefix_VC_30_2;Ar, He
+;$solPrefix_VC_30_3;Ar, CO2, He, O2, N2
+;$solPrefix_VC_30_4;CO2
+;$solPrefix_VC_30_5;CO2, N2 
+;$solPrefix_VC_30_6;CO2, N2, O2
+;$solPrefix_VC_30_7;CO2, O2
+;$solPrefix_VC_30_8;O2
+;$solPrefix_VC_30_9;N2
+;$solPrefix_VC_30_10;Ar
+;$solPrefix_VC_30_11;Miscele inerti
+;$solPrefix_VC_31_1;1 manometro
+;$solPrefix_VC_31_2;2 manometri
+;$solPrefix_VC_32_1;1 POSTO
+;$solPrefix_VC_32_2;2 POSTI
+;$solPrefix_VC_32_3;3 POSTI
+;$solPrefix_VC_32_4;5 POSTI
+;$solPrefix_VC_32_5;9 POSTI
+;$solPrefix_VC_32_6;12 POSTI
+;$solPrefix_VC_32_7;16 POSTI
+;$solPrefix_VC_32_8;20 POSTI
+;$solPrefix_VC_33_1;2 GAS
+;$solPrefix_VC_33_2;3 GAS
+;$solPrefix_VC_34_1;D200 random
+;$solPrefix_VC_34_2;S300 random
+;$solPrefix_VC_34_3;S300 spira/spira
+;$solPrefix_VC_34_4;K300 spira/spira
+;$solPrefix_VC_34_5;Standard pack
+;$solPrefix_VC_35_1;200 lt/min
+;$solPrefix_VC_35_2;250 lt/min
+;$solPrefix_VC_35_3;400 lt/min
+;$solPrefix_VC_35_4;600 lt/min
+;$solPrefix_VC_35_5;1000 lt/min
+;$solPrefix_VC_36_1;Posizione Radiale
+;$solPrefix_VC_36_2;Posizione Posteriore
+;$solPrefix_VC_37_1;Senza preriscaldatore
+;$solPrefix_VC_37_2;Con preriscaldatore
+;$solPrefix_VC_38_1;0 – 2bar
+;$solPrefix_VC_38_2;0 – 5bar
+;$solPrefix_VC_38_3;0 – 12bar
+;$solPrefix_VC_39_1;Alimentare
+;$solPrefix_VC_39_2;Industriale
+;$solPrefix_VC_39_3;Industriale Puro
+;$solPrefix_VC_39_4;Laser
+;$solPrefix_VC_39_5;Medical Device
+;$solPrefix_VC_39_6;MD Crioconservazione
+;$solPrefix_VC_39_7;Farmaceutico
+;$solPrefix_VC_39_8;Farmaceutico Low Oxigen
+;$solPrefix_VC_39_9;Puro
+;$solPrefix_VC_39_10;Ricerche
+;$solPrefix_VC_39_11;Ultrapuro
+;$solPrefix_VC_39_12;Scientifico
+;$solPrefix_VC_39_13;Avio
+;$solPrefix_VC_39_14;Agro
+;$solPrefix_VC_39_15;Autotrazione
+;$solPrefix_VC_39_16;Farmaceutico (Farmacopea Italia)
+;$solPrefix_VC_39_17;Farmaceutico (Farmacopea Europea)
+;$solPrefix_VC_39_18;3.5
+;$solPrefix_VC_39_19;4.5
+;$solPrefix_VC_39_20;4.8
+;$solPrefix_VC_39_21;5.5
+;$solPrefix_VC_39_22;6
+;$solPrefix_VC_39_23;3.7
+;$solPrefix_VC_39_24;2.5
+;$solPrefix_VC_39_25;3.0
+;$solPrefix_containerType_01;Bombole
+;$solPrefix_containerType_02;Bomboloni
+;$solPrefix_containerType_03;Bidoni
+;$solPrefix_containerType_04;tank
+;$solPrefix_containerType_05;UNICA - valve integrèe(BTG)
+;$solPrefix_containerType_06;Box refrigeranti x Ghiaccio
+;$solPrefix_containerType_07;Pacco bombole
+;$solPrefix_containerType_08;Dewars/MiniBulk
+;$solPrefix_containerType_09;Bidone
+;$solPrefix_containerType_10;Pacchi Piccoli
+;$solPrefix_containerType_11;Pacchi
+;$solPrefix_containerType_12;Carri
+;$solPrefix_containerType_13;Scarabei
+;$solPrefix_containerType_14;Base Unit - Lox
+;$solPrefix_containerType_15;Bomboline Minisol
+;$solPrefix_containerType_16;Minibulk 500 l ( NOT USED)
+;$solPrefix_containerType_17;Cestello
+;$solPrefix_containerType_18;Bombole+valv.riduttrice
+;$solPrefix_containerType_19;Bombole RDI medie ( FR)
+;$solPrefix_containerType_20;Bomboline Beghelli
+;$solPrefix_containerType_21;MED Palette
+;$solPrefix_containerType_22;Palette Treibgas
+;$solPrefix_containerType_23;Palette MED Klein
+;$solPrefix_containerType_24;Palette 12
+;$solPrefix_containerType_25;Palette Med Klein 49er
+;$solPrefix_containerType_26;Selle
+;$solPrefix_containerType_27;Bombole Medie (FR)
+;$solPrefix_containerType_28;Bombole RDI (FR) piccole
+;$solPrefix_containerType_29;Bombola
+;$solPrefix_containerType_30;PSA
+;$solPrefix_containerType_31;Carro bombolaio
+;$solPrefix_containerType_32;Bombolone
+;$solPrefix_containerType_33;Autocisterna
+;$solPrefix_containerType_34;Bulk (small tank)
+;$solPrefix_containerType_35;Box refrigeranti x Ghiaccio
+;$solPrefix_containerType_36;Vial
+;$solPrefix_containerType_37;Dewars/MiniBulk
+;$solPrefix_containerType_38;Can (mini bulk)
+;$solPrefix_containerType_39;Pacchi Piccoli(CO2 e AD)
+;$solPrefix_containerType_40;Scarabei
+;$solPrefix_containerType_41;Base Unit - Lox
+;$solPrefix_containerType_42;Bomboline Minisol
+;$solPrefix_containerType_43;Minibulk 500 l
+;$solPrefix_containerType_44;Cestello
+;$solPrefix_containerType_45;Bombole con valv.riduttrice
+;$solPrefix_containerType_46;Fixed tank
+;$solPrefix_containerType_47;Bomboline Beghelli
+;$solPrefix_containerType_48;Gas pipeline
+;$solPrefix_containerType_49;Portable unit
+;$solPrefix_containerType_50;Bombola 300bar
+;$solPrefix_containerType_51;xx BLE con Pin Index (NL)
+;$solPrefix_containerType_52;xx BLE Alluminio Pin Index (NL)
+;$solPrefix_containerType_53;xx BLE Alluminio (NL)
+;$solPrefix_containerType_54;xx BLE Alluminio Integr. (NL)
+;$solPrefix_containerType_55;1 kg
+;$solPrefix_containerType_56;15 kg
+;$solPrefix_containerType_57;25 g
+;$solPrefix_containerType_58;250 g
+;$solPrefix_containerType_59;10 kg
+;$solPrefix_containerType_60;Pacco bombole 300bar
+;$solPrefix_containerType_61;Vs. Autocisterna
+;$solPrefix_containerType_62;Vs. Carri
+;$solPrefix_containerType_63;Sfuso
+;$solPrefix_containerType_64;Bidoni<20kg
+;$solPrefix_containerType_65;Bidoni>20kg
+;$solPrefix_containerType_66;Bombola<10kg
+;$solPrefix_containerType_67;Bombola in acciaio
+;$solPrefix_containerType_68;Bombola in alluminio
+;$solPrefix_containerType_69;Contenitori criogenici
+;$solPrefix_containerType_70;500 g
+;$solPrefix_VC_41_1;0 – 2,5bar
+;$solPrefix_VC_41_2;0 – 6bar
+;$solPrefix_VC_41_3;0 – 16bar
+;$solPrefix_VC_41_4;0 – 40bar
+;$solPrefix_VC_41_5;0 – 160bar
+;$solPrefix_VC_41_6;0 – 315bar
+;$solPrefix_VC_42_1;Flow
+;$solPrefix_VC_42_2;Vacuum
+;$solPrefix_VC_42_3;Ossigeno
+;$solPrefix_VC_42_4;Acetilene
+;$solPrefix_VC_42_5;Propano
+;$solPrefix_VC_42_6;Azoto
+;$solPrefix_VC_42_7;Aria
+;$solPrefix_VC_42_8;Idrogeno
+;$solPrefix_VC_42_9;Elio
+;$solPrefix_VC_42_10;Argon
+;$solPrefix_VC_42_11;Anidride Carbonica
+;$solPrefix_assetOwner_0;SOL
+;$solPrefix_assetOwner_1;Cliente

@@ -1,0 +1,26 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# 
+# Import common Units
+#
+
+INSERT_UPDATE Unit ; unitType[unique=true] ; code[unique=true] ; name[lang=en]     ; name[lang=it]     ; conversion ;  
+                   ; pieces                ; pieces            ; pieces            ; pezzi             ; 1          ;  
+                   ; kg                    ; kg                ; Kilogram          ; Kilogrammo        ; 1          ;  
+                   ; lt                    ; lt                ; liter             ; litro             ; 1          ;  
+                   ; mc                    ; mc                ; m3                ; metro cubo        ; 1          ;  
+                   ; mt                    ; mt                ; meter             ; metro             ; 1          ;  
+# New : defined for Rainbow
+                   ; HL                    ; HL                ; ETTOLITRI         ; ETTOLITRI         ; 1          ;  
+                   ; MCD                   ; MCD               ; MC TEDESCO        ; MC TEDESCO        ; 1          ;  
+                   ; NM3                   ; NM3               ; Normal Metro Cubo ; Normal Metro Cubo ; 1          ;  
+                   ; TN                    ; TN                ; TONNELLATE        ; TONNELLATE        ; 1          ;  
+

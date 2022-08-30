@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tomcat-users>
+  <role rolename="wsoperator"/>
+  <role rolename="storefrontguest"/>
+  <user name="admin" password="nimda" roles="admin,manager" />
+  <user name="sap_po" password="CtzT~gV2b-GeZaSx" roles="wsoperator"></user>
+  <user name="test" password="gjw~N!Z~3LLNcwfQ" roles="wsoperator"></user>
+  <user name="ospite" password="etipso" roles="storefrontguest"/>
+</tomcat-users>

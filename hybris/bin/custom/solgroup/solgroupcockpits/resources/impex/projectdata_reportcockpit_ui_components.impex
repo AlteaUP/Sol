@@ -1,0 +1,28 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+$jarResource=jar:com.solgroup.cockpits.constants.SolgroupCockpitsConstants&/solgroupcockpits/reportcockpit
+
+#
+# Setup cockpit configuration
+#
+INSERT_UPDATE ReportTimeRange ; code[unique=true] ; name[lang=it]       
+                              ; LAST7DAYS         ; Ultimi 7 giorni     
+                              ; LAST4WEEKS        ; Ultime 4 settimane  
+                              ; LASTMONTH         ; Mese Scorso         
+                              ; LAST52WEEKS       ; ultime 52 settimane 
+                              ; LAST12MONTHS      ; Ultimi 12 mesi      
+                              ; SPECIFICDAY       ; Giorno specifico    
+                              ; USERDEFINED       ; Definito dall'utente
+
+INSERT_UPDATE OneDayRange ; code[unique=true] ; name[lang=it]   
+                          ; TODAY             ; Oggi            
+                          ; YESTERDAY         ; Ieri            
+                          ; SPECIFICDAY       ; Giorno specifico

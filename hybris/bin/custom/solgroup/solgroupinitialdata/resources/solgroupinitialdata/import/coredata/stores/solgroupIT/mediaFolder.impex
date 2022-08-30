@@ -1,0 +1,20 @@
+$solPrefix = solgroupIT
+
+
+INSERT_UPDATE MediaFolder ; qualifier[unique=true]                      ; path[unique=true]                          
+# MediaFolder for product images
+                          ; images/$solPrefixProductCatalg              ; images/$solPrefixProductCatalg             
+# MediaFolder for content images
+                          ; images/$solPrefixContentCatalg              ; images/$solPrefixContentCatalg             
+# MediaFolder for importProduct
+                          ; WSImport/importProductJob/RAMSES_IT         ; WSImport/importProductJob/RAMSES_IT        
+                          ; WSImport/importProductJob/RAINBOW           ; WSImport/importProductJob/RAINBOW          
+# MediaFolder for importCustomer
+                          ; WSImport/importCustomerJob/RAMSES_IT        ; WSImport/importCustomerJob/RAMSES_IT       
+                          ; WSImport/importCustomerJob/RAINBOW          ; WSImport/importCustomerJob/RAINBOW         
+# MediaFolder for importPrices
+                          ; WSImport/importPriceListsJob/RAMSES_IT      ; WSImport/importPriceListsJob/RAMSES_IT     
+                          ; WSImport/importPriceListsJob/RAINBOW        ; WSImport/importPriceListsJob/RAINBOW       
+# MediaFolder for importStock
+                          ; WSImport/importStockJob/RAMSES_IT           ; WSImport/importStockJob/RAMSES_IT          
+                          ; WSImport/importStockJob/RAINBOW             ; WSImport/importStockJob/RAINBOW            

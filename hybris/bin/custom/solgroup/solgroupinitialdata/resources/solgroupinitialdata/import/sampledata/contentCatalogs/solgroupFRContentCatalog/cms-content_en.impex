@@ -1,0 +1,739 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+##******************************This file is generated - please do not edit it. It will be regenerated after every build.********************************#
+
+$solPrefix = solgroupFR
+
+$contentCatalog=$solPrefixContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$picture=media(code, $contentCV);
+$siteResource=jar:com.solgroup.core.constants.SolgroupCoreConstants&/solgroupinitialdata/import/sampledata/contentCatalogs/$contentCatalog
+$medias=medias(code, $contentCV);
+$mediaContainer=media(qualifier, $contentCV)[lang=$lang];
+
+
+# Language
+$lang=en
+
+# Site Logo Component
+UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+#;;SiteLogoComponent;/images/theme/logo_hybris_b2b_responsive.svg
+;;SiteLogoComponent;/images/theme/logo_sol.png
+
+# CMS Link Components
+UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang]
+;;AboutAcceleratorLink;"About Commerce Accelerator"
+;;AboutHybrisLink;"About hybris"
+;;AddressBookLink;"Address Book"
+;;AgileCommerceBlogLink;"Agile Commerce Blog"
+;;ApprovalDashboardLink;"Approval Dashboard"
+;;ContactUsLink;"Contact Us"
+;;DocumentationLink;"Documentation"
+;;FAQLink;"FAQ"
+;;FacebookLink;"Facebook"
+;;HomepageNavLink;"Home"
+;;ImportSavedCartLink;"Import Saved Cart"
+;;LinkedInLink;"Linked In"
+;;MyQuotesLink;"Quotes"
+#;;MyReplenishmentOrdersLink;"Replenishment Orders"
+;;OrderFormsLink;"Order Forms"
+;;OrderHistoryLink;"Order History"
+;;PaymentDetailsLink;"Payment Details"
+;;PersonalDetailsLink;"Personal Details"
+;;QuickOrderLink;"Quick Order"
+;;SavedCartsLink;"Saved Carts"
+;;TwitterLink;"Twitter"
+;;UpdateEmailLink;"Email Address"
+;;UpdatePasswordLink;"Password"
+
+# Lightbox Banner for Mini Cart (banner is not localizable so we must create a separate banner per language)
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];&imageRef;folder(qualifier)[default='images'];altText
+;;$solPrefix_358x45_HomeDeliveryBanner_EN_01.gif;$siteResource/images/banners/site/$solPrefix_358x45_HomeDeliveryBanner_EN_01.gif;;$solPrefix_358x45_HomeDeliveryBanner_EN_01.gif;;"Order before 6pm for next day delivery"
+
+UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+;;LightboxHomeDeliveryBannerComponent;$solPrefix_358x45_HomeDeliveryBanner_EN_01.gif
+
+# CMS Mini Cart Component
+UPDATE MiniCartComponent;$contentCV[unique=true];uid[unique=true];name;title[lang=$lang]
+;;MiniCart;Mini Cart;"YOUR SHOPPING CART"
+
+# CMS tabs components
+#UPDATE CMSTabParagraphComponent;$contentCV[unique=true];uid[unique=true];title[lang=$lang];content[lang=$lang]
+#;;deliveryTab;Delivery;"<div class=""tab-delivery"">Lorem ipsum dolor sit amet, dolor sed, ut nam ut. Senectus mauris egestas a massa, enim placeat wisi congue purus fermentum. Ut aptent mauris dapibus congue in sit. Sed dolor varius amet feugiat volutpat dignissim, pede a rhoncus sodales aliquam adipiscing, dapibus massa fusce. Dui egestas ornare urna nibh facilisi, cras posuere. Lorem aliquam accumsan eleifend sem libero lorem, aliquam sequi sed urna nec. Eget dolor quisque dolor, amet suspendisse ullamcorper minus elit lectus nunc, est mattis dui id eu et facilisis, conubia sit tristique. Ac fusce gravida condimentum iaculis neque, a platea curabitur accumsan porttitor vel justo. Amet potenti ac, eget amet ducimus sit nulla, ac porttitor rhoncus, justo proin tortor integer turpis nulla vitae. Egestas mollis litora nunc platea dui, eu semper mauris diam, erat quam, porta maecenas fusce libero non aliquet. Amet tellus taciti ligula sed sollicitudin, nonummy cursus enim, hendrerit nec, sed lacus sed at sit quis, semper a arcu mollis sapien nec pretium. Ante mauris eros nec, nonummy mauris, nulla lacinia vel. Volutpat luctus velit eu.</div>"
+
+# JSP include components
+UPDATE JspIncludeComponent;$contentCV[unique=true];uid[unique=true];title[lang=en]
+;;ProductDetailsTabComponent;Product Details
+#;;ProductReviewsTabComponent;Reviews
+;;ProductSpecsTabComponent;Specs
+
+# CMS Footer Component
+UPDATE FooterNavigationComponent;$contentCV[unique=true];uid[unique=true];notice[lang=$lang]
+;;FooterNavigationComponent;"© 2016 hybris software"
+
+# CMS Paragraph Component (Contact information)
+UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];content[lang=$lang]
+;;QuickOrderInfoParagraphComponent;"You can add up to 25 valid SKUs below and add to cart. Stock is reserved once products are added to cart."
+
+# CMS ProductReferences Components
+UPDATE ProductReferencesComponent;$contentCV[unique=true];uid[unique=true];title[lang=$lang]
+;;Similar;"You may also like..."
+;;accessories;"Accessories"
+
+# CMS PurchasedCategorySuggestion Components
+UPDATE PurchasedCategorySuggestionComponent;$contentCV[unique=true];uid[unique=true];title[lang=$lang]
+
+# CMS CartSuggestion Components
+UPDATE CartSuggestionComponent;$contentCV[unique=true];uid[unique=true];title[lang=$lang]
+;;CartSuggestions;"You may also like..."
+
+# Category Pages
+UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];title[lang=$lang]
+
+# CMS Navigation Nodes
+UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang]
+;;AcceleratorNavNode;"Accelerator"
+;;FollowUsNavNode;"Follow Us"
+;;HybrisNavNode;"Hybris"
+;;MyAccountNavNode;"My Account"
+;;$solPrefixNavNode;"$solPrefix Site"
+;;SiteRootNode;"SiteRoot"
+
+###################################
+#### SolGroup top bar categories ##
+###################################
+
+UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang];
+;;$solPrefix_TBC_010000_NavLink;Gas;
+;;$solPrefix_TBC_010100_NavLink;Acetilene - C2H2;
+;;$solPrefix_TBC_010101_NavLink;Industriale;
+;;$solPrefix_TBC_010102_NavLink;Puro;
+;;$solPrefix_TBC_010200_NavLink;Ammoniaca anidra -NH3;
+;;$solPrefix_TBC_010201_NavLink;Industriale;
+;;$solPrefix_TBC_010202_NavLink;Puro;
+;;$solPrefix_TBC_010203_NavLink;Refrigerante;
+;;$solPrefix_TBC_010300_NavLink;Anidride Carbonica - CO2;
+;;$solPrefix_TBC_010301_NavLink;Alimentare;
+;;$solPrefix_TBC_010302_NavLink;Industriale;
+;;$solPrefix_TBC_010303_NavLink;Medicale;
+;;$solPrefix_TBC_010304_NavLink;Puro;
+;;$solPrefix_TBC_010305_NavLink;Ghiaccio Secco;
+;;$solPrefix_TBC_010306_NavLink;Ghiaccio secco - Service Kit;
+;;$solPrefix_TBC_010400_NavLink;Anidride Solforosa - SO2;
+;;$solPrefix_TBC_010401_NavLink;Alimentare;
+;;$solPrefix_TBC_010402_NavLink;Industriale;
+;;$solPrefix_TBC_010500_NavLink;Argon - Ar;
+;;$solPrefix_TBC_010501_NavLink;Alimentare;
+;;$solPrefix_TBC_010502_NavLink;Industriale;
+;;$solPrefix_TBC_010503_NavLink;Medicale;
+;;$solPrefix_TBC_010504_NavLink;Puro;
+;;$solPrefix_TBC_010600_NavLink;Azoto - N2;
+;;$solPrefix_TBC_010601_NavLink;Alimentare;
+;;$solPrefix_TBC_010602_NavLink;Industriale;
+;;$solPrefix_TBC_010603_NavLink;Medicale;
+;;$solPrefix_TBC_010604_NavLink;Puro;
+;;$solPrefix_TBC_010700_NavLink;Elio - He;
+;;$solPrefix_TBC_010701_NavLink;Industriale;
+;;$solPrefix_TBC_010702_NavLink;Flygas;
+;;$solPrefix_TBC_010703_NavLink;Medicale;
+;;$solPrefix_TBC_010704_NavLink;Puro;
+;;$solPrefix_TBC_010800_NavLink;Esafluoruro di Zolfo - SF6;
+;;$solPrefix_TBC_010801_NavLink;Dielettrico;
+;;$solPrefix_TBC_010802_NavLink;Industriale;
+;;$solPrefix_TBC_010803_NavLink;Medicale;
+;;$solPrefix_TBC_010804_NavLink;Puro;
+;;$solPrefix_TBC_010900_NavLink;Idrogeno - H2;
+;;$solPrefix_TBC_010901_NavLink;Industriale;
+;;$solPrefix_TBC_010902_NavLink;Puro;
+;;$solPrefix_TBC_011000_NavLink;Monossido d'Azoto - NO;
+;;$solPrefix_TBC_011001_NavLink;Medicale;
+;;$solPrefix_TBC_011100_NavLink;Propilene - C3H6;
+;;$solPrefix_TBC_011101_NavLink;Industriale;
+;;$solPrefix_TBC_011102_NavLink;Puro;
+;;$solPrefix_TBC_011200_NavLink;Protossido d'Azoto - N2O;
+;;$solPrefix_TBC_011201_NavLink;Alimentare;
+;;$solPrefix_TBC_011202_NavLink;Industriale;
+;;$solPrefix_TBC_011203_NavLink;Medicale;
+;;$solPrefix_TBC_011204_NavLink;Puro;
+;;$solPrefix_TBC_011300_NavLink;Ossigeno - O;
+;;$solPrefix_TBC_011301_NavLink;Alimentare;
+;;$solPrefix_TBC_011302_NavLink;Industriale;
+;;$solPrefix_TBC_011303_NavLink;Medicale;
+;;$solPrefix_TBC_011304_NavLink;Puro;
+;;$solPrefix_TBC_011400_NavLink;GPL - MAPP - Propano;
+;;$solPrefix_TBC_011500_NavLink;Miscele Alimentari;
+;;$solPrefix_TBC_011501_NavLink;AliSOL;
+;;$solPrefix_TBC_011502_NavLink;FruttaSOL;
+;;$solPrefix_TBC_011600_NavLink;Miscele Medicali;
+;;$solPrefix_TBC_011601_NavLink;Aria;
+;;$solPrefix_TBC_011602_NavLink;Donopa;
+;;$solPrefix_TBC_011603_NavLink;Neophyr;
+;;$solPrefix_TBC_011604_NavLink;Altre miscele;
+;;$solPrefix_TBC_011700_NavLink;Miscele Industriali;
+;;$solPrefix_TBC_011701_NavLink;Aria;
+;;$solPrefix_TBC_011702_NavLink;Enermix Premium;
+;;$solPrefix_TBC_011703_NavLink;Enermix Comfort;
+;;$solPrefix_TBC_011704_NavLink;LaserSOL;
+;;$solPrefix_TBC_011705_NavLink;Altre miscele;
+;;$solPrefix_TBC_011800_NavLink;Miscele Specialty;
+;;$solPrefix_TBC_011801_NavLink;Miscele standard e speciali;
+;;$solPrefix_TBC_011802_NavLink;Miscele certificate;
+;;$solPrefix_TBC_011803_NavLink;Miscele di alta precisione;
+;;$solPrefix_TBC_011900_NavLink;Gas Refrigeranti;
+;;$solPrefix_TBC_011901_NavLink;Refrigeranti HFC;
+;;$solPrefix_TBC_011902_NavLink;Refrigeranti Naturali;
+;;$solPrefix_TBC_011903_NavLink;Refrigeranti HFO;
+;;$solPrefix_TBC_011904_NavLink;Refrigeranti HC - Idrocarburi;
+;;$solPrefix_TBC_012000_NavLink;Altri gas;
+;;$solPrefix_TBC_012001_NavLink;1,3 Butadiene C4H6;
+;;$solPrefix_TBC_012002_NavLink;Acido Cloridrico - HCl;
+;;$solPrefix_TBC_012003_NavLink;Esafluoroetano - C2F6;
+;;$solPrefix_TBC_012004_NavLink;Etano - C2H6;
+;;$solPrefix_TBC_012005_NavLink;Etilene - C2H4;
+;;$solPrefix_TBC_012006_NavLink;Idrogeno Solforato - H2S;
+;;$solPrefix_TBC_012007_NavLink;Iso-Butano - C4H10;
+;;$solPrefix_TBC_012008_NavLink;Isobutilene o Isobutene;
+;;$solPrefix_TBC_012009_NavLink;Krypton - Kr;
+;;$solPrefix_TBC_012010_NavLink;Metano - CH4;
+;;$solPrefix_TBC_012011_NavLink;Neon - Ne;
+;;$solPrefix_TBC_012012_NavLink;Normal-Butano C4H10;
+;;$solPrefix_TBC_012013_NavLink;Octafluoropropano C3F8;
+;;$solPrefix_TBC_012014_NavLink;Ossido di Azoto - NO;
+;;$solPrefix_TBC_012015_NavLink;Ossido di Carbonio - CO;
+;;$solPrefix_TBC_012016_NavLink;Propadiene o Allene - C3H4;
+;;$solPrefix_TBC_012017_NavLink;Propano - C3H8;
+;;$solPrefix_TBC_012018_NavLink;Xenon - Xe;
+;;$solPrefix_TBC_020000_NavLink;GAS Equipments;
+;;$solPrefix_TBC_020100_NavLink;Riduttori di pressione;
+;;$solPrefix_TBC_020101_NavLink;Alimentare;
+;;$solPrefix_TBC_020102_NavLink;Industriale;
+;;$solPrefix_TBC_020103_NavLink;Puro;
+;;$solPrefix_TBC_020200_NavLink;Posti presa;
+;;$solPrefix_TBC_020201_NavLink;Alimentare;
+;;$solPrefix_TBC_020202_NavLink;Industriale;
+;;$solPrefix_TBC_020203_NavLink;Puro;
+;;$solPrefix_TBC_020300_NavLink;Centrali di decompressione;
+;;$solPrefix_TBC_020301_NavLink;Alimentare;
+;;$solPrefix_TBC_020302_NavLink;Industriale;
+;;$solPrefix_TBC_020303_NavLink;Puro;
+;;$solPrefix_TBC_020400_NavLink;Serpentine e fruste;
+;;$solPrefix_TBC_020401_NavLink;Alimentare;
+;;$solPrefix_TBC_020402_NavLink;Industriale;
+;;$solPrefix_TBC_020403_NavLink;Puro;
+;;$solPrefix_TBC_020500_NavLink;Valvole antiritorno di fiamma;
+;;$solPrefix_TBC_020501_NavLink;Alimentare;
+;;$solPrefix_TBC_020502_NavLink;Industriale;
+;;$solPrefix_TBC_020503_NavLink;Puro;
+;;$solPrefix_TBC_020600_NavLink;Valvole di linea;
+;;$solPrefix_TBC_020601_NavLink;Alimentare;
+;;$solPrefix_TBC_020602_NavLink;Industriale;
+;;$solPrefix_TBC_020603_NavLink;Puro;
+;;$solPrefix_TBC_020700_NavLink;Raccorderia;
+;;$solPrefix_TBC_020800_NavLink;Rastrelliere e accessori gas compressi;
+;;$solPrefix_TBC_020900_NavLink;Generatori da laboratorio;
+;;$solPrefix_TBC_020901_NavLink;Azoto;
+;;$solPrefix_TBC_020902_NavLink;Aria;
+;;$solPrefix_TBC_020903_NavLink;Azoto - Aria;
+;;$solPrefix_TBC_020904_NavLink;Idrogeno;
+;;$solPrefix_TBC_030000_NavLink;Medical GAS Equipments;
+;;$solPrefix_TBC_030100_NavLink;Accessori;
+;;$solPrefix_TBC_030101_NavLink;Flussimetri;
+;;$solPrefix_TBC_030102_NavLink;Regolatori del vuoto;
+;;$solPrefix_TBC_030103_NavLink;Umidificatori;
+;;$solPrefix_TBC_030104_NavLink;Carrelli portabombola;
+;;$solPrefix_TBC_030200_NavLink;Servizio Ossido Nitrico;
+;;$solPrefix_TBC_030201_NavLink;Dispositivi per sistema NoxBox;
+;;$solPrefix_TBC_030202_NavLink;Dispositivi per taratura sistema somministrazione/monitoraggio;
+;;$solPrefix_TBC_030300_NavLink;Servizio Analgesia;
+;;$solPrefix_TBC_030301_NavLink;Dispositivo per evacuazione EMONO;
+;;$solPrefix_TBC_030302_NavLink;Accessori Somministrazione /Evacuazione del farmaco;
+;;$solPrefix_TBC_030400_NavLink;Riduttori di pressione;
+;;$solPrefix_TBC_030500_NavLink;Posti presa;
+;;$solPrefix_TBC_030600_NavLink;Centrali di decompressione;
+;;$solPrefix_TBC_030700_NavLink;Serpentine e fruste;
+;;$solPrefix_TBC_030800_NavLink;Valvole antiritorno di fiamma;
+;;$solPrefix_TBC_030900_NavLink;Valvole di linea;
+;;$solPrefix_TBC_031000_NavLink;Servizio Ossido Nitrico;
+;;$solPrefix_TBC_040000_NavLink;Welding products;
+;;$solPrefix_TBC_040100_NavLink;Saldatura MIG / MAG;
+;;$solPrefix_TBC_040101_NavLink;Gas di protezione;
+;;$solPrefix_TBC_040102_NavLink;Torce;
+;;$solPrefix_TBC_040103_NavLink;Impianti di saldatura;
+;;$solPrefix_TBC_040104_NavLink;Consumabili;
+;;$solPrefix_TBC_040200_NavLink;Saldatura TIG;
+;;$solPrefix_TBC_040201_NavLink;Gas di protezione;
+;;$solPrefix_TBC_040202_NavLink;Torce;
+;;$solPrefix_TBC_040203_NavLink;Impianti di saldatura;
+;;$solPrefix_TBC_040204_NavLink;Accessori;
+;;$solPrefix_TBC_040205_NavLink;Consumabili;
+;;$solPrefix_TBC_040300_NavLink;Saldatura ad elettrodo;
+;;$solPrefix_TBC_040301_NavLink;Impianti di saldatura;
+;;$solPrefix_TBC_040400_NavLink;Processi Ossi-gas;
+;;$solPrefix_TBC_040401_NavLink;Gas di processo;
+;;$solPrefix_TBC_040402_NavLink;Riduttori di pressione;
+;;$solPrefix_TBC_040403_NavLink;Cannelli;
+;;$solPrefix_TBC_040404_NavLink;Valvole di sicurezza;
+;;$solPrefix_TBC_040405_NavLink;Accessori;
+;;$solPrefix_TBC_040406_NavLink;Consumabili;
+;;$solPrefix_TBC_040500_NavLink;Processi Plasma;
+;;$solPrefix_TBC_040501_NavLink;Gas plasma;
+;;$solPrefix_TBC_040502_NavLink;Gas di protezione;
+;;$solPrefix_TBC_040503_NavLink;Impianti di saldatura;
+;;$solPrefix_TBC_040504_NavLink;Impianti di Taglio;
+;;$solPrefix_TBC_040600_NavLink;Proccessi Laser;
+;;$solPrefix_TBC_040601_NavLink;Miscele laseranti;
+;;$solPrefix_TBC_040602_NavLink;Gas di processo;
+;;$solPrefix_TBC_040700_NavLink;Finitura;
+;;$solPrefix_TBC_040701_NavLink;Dischi abrasivi;
+;;$solPrefix_TBC_040702_NavLink;Prodotti chimici;
+;;$solPrefix_TBC_040800_NavLink;Aspirazione Fumi;
+;;$solPrefix_TBC_040801_NavLink;Aspiratori portatili;
+;;$solPrefix_TBC_050000_NavLink;Cryo products;
+;;$solPrefix_TBC_050100_NavLink;Cryoblasting;
+;;$solPrefix_TBC_050101_NavLink;Microclean;
+;;$solPrefix_TBC_050102_NavLink;Snow Cleaning;
+;;$solPrefix_TBC_050103_NavLink;Blaster;
+;;$solPrefix_TBC_050104_NavLink;Scatole poilistirolo;
+;;$solPrefix_TBC_050105_NavLink;Pastigliatrice dryice;
+;;$solPrefix_TBC_050106_NavLink;Gel refrigerante;
+;;$solPrefix_TBC_050200_NavLink;Contenitori criobiologici e criogenici (dewar);
+;;$solPrefix_TBC_050201_NavLink;Contenitori per stoccaggio di campioni biologici;
+;;$solPrefix_TBC_050202_NavLink;Contenitori per stoccaggio e trasporto di azoto liquido;
+;;$solPrefix_TBC_050300_NavLink;Congelatori;
+;;$solPrefix_TBC_050301_NavLink;Congelatori a discesa programmata della temperatura;
+;;$solPrefix_TBC_050302_NavLink;Congelatori meccanici;
+;;$solPrefix_TBC_050400_NavLink;Sistemi hardware e software per Criobiologia;
+;;$solPrefix_TBC_050401_NavLink;Centraline di controllo;
+;;$solPrefix_TBC_050402_NavLink;Stampanti e lettori;
+;;$solPrefix_TBC_050403_NavLink;Software di tracciabilità e archiviazione;
+;;$solPrefix_TBC_060000_NavLink;Dispositivi medici;
+;;$solPrefix_TBC_070000_NavLink;DPI;
+;;$solPrefix_TBC_070100_NavLink;DPI;
+;;$solPrefix_TBC_070101_NavLink;Protezione Viso;
+;;$solPrefix_TBC_070102_NavLink;Protezione Arti;
+;;$solPrefix_TBC_070103_NavLink;Protezione Corpo;
+;;$solPrefix_TBC_070104_NavLink;Sistemi di aspirazione fumi;
+;;$solPrefix_TBC_070105_NavLink;Impianti e quadri di controllo - SolMet;
+;;$solPrefix_TBC_070106_NavLink;Autoproduzione di ossigeno - OxySOL;
+;;$solPrefix_TBC_070107_NavLink;Autoproduzione di azoto - NitroSOL;
+;;$solPrefix_TBC_070108_NavLink;Trattamento acque di processo e reflue;
+;;$solPrefix_TBC_070109_NavLink;Controlli non distruttivi - SOLcontrol;
+;;$solPrefix_TBC_070110_NavLink;Pulizia criogenica - DryBlast;
+;;$solPrefix_TBC_070200_NavLink;DPI criogenici;
+;;$solPrefix_TBC_070201_NavLink;Sistemi per travaso azoto in sicurezza;
+;;$solPrefix_TBC_070202_NavLink;DPI criogenici;
+;;$solPrefix_TBC_070203_NavLink;DPI sicurezza;
+;;;;
+UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=en];
+;;$solPrefix_TBC_010000_NavNode;Gas;
+;;$solPrefix_TBC_010100_NavNode;Acetilene - C2H2;
+;;$solPrefix_TBC_010101_NavNode;Industriale;
+;;$solPrefix_TBC_010102_NavNode;Puro;
+;;$solPrefix_TBC_010200_NavNode;Ammoniaca anidra -NH3;
+;;$solPrefix_TBC_010201_NavNode;Industriale;
+;;$solPrefix_TBC_010202_NavNode;Puro;
+;;$solPrefix_TBC_010203_NavNode;Refrigerante;
+;;$solPrefix_TBC_010300_NavNode;Anidride Carbonica - CO2;
+;;$solPrefix_TBC_010301_NavNode;Alimentare;
+;;$solPrefix_TBC_010302_NavNode;Industriale;
+;;$solPrefix_TBC_010303_NavNode;Medicale;
+;;$solPrefix_TBC_010304_NavNode;Puro;
+;;$solPrefix_TBC_010305_NavNode;Ghiaccio Secco;
+;;$solPrefix_TBC_010306_NavNode;Ghiaccio secco - Service Kit;
+;;$solPrefix_TBC_010400_NavNode;Anidride Solforosa - SO2;
+;;$solPrefix_TBC_010401_NavNode;Alimentare;
+;;$solPrefix_TBC_010402_NavNode;Industriale;
+;;$solPrefix_TBC_010500_NavNode;Argon - Ar;
+;;$solPrefix_TBC_010501_NavNode;Alimentare;
+;;$solPrefix_TBC_010502_NavNode;Industriale;
+;;$solPrefix_TBC_010503_NavNode;Medicale;
+;;$solPrefix_TBC_010504_NavNode;Puro;
+;;$solPrefix_TBC_010600_NavNode;Azoto - N2;
+;;$solPrefix_TBC_010601_NavNode;Alimentare;
+;;$solPrefix_TBC_010602_NavNode;Industriale;
+;;$solPrefix_TBC_010603_NavNode;Medicale;
+;;$solPrefix_TBC_010604_NavNode;Puro;
+;;$solPrefix_TBC_010700_NavNode;Elio - He;
+;;$solPrefix_TBC_010701_NavNode;Industriale;
+;;$solPrefix_TBC_010702_NavNode;Flygas;
+;;$solPrefix_TBC_010703_NavNode;Medicale;
+;;$solPrefix_TBC_010704_NavNode;Puro;
+;;$solPrefix_TBC_010800_NavNode;Esafluoruro di Zolfo - SF6;
+;;$solPrefix_TBC_010801_NavNode;Dielettrico;
+;;$solPrefix_TBC_010802_NavNode;Industriale;
+;;$solPrefix_TBC_010803_NavNode;Medicale;
+;;$solPrefix_TBC_010804_NavNode;Puro;
+;;$solPrefix_TBC_010900_NavNode;Idrogeno - H2;
+;;$solPrefix_TBC_010901_NavNode;Industriale;
+;;$solPrefix_TBC_010902_NavNode;Puro;
+;;$solPrefix_TBC_011000_NavNode;Monossido d'Azoto - NO;
+;;$solPrefix_TBC_011001_NavNode;Medicale;
+;;$solPrefix_TBC_011100_NavNode;Propilene - C3H6;
+;;$solPrefix_TBC_011101_NavNode;Industriale;
+;;$solPrefix_TBC_011102_NavNode;Puro;
+;;$solPrefix_TBC_011200_NavNode;Protossido d'Azoto - N2O;
+;;$solPrefix_TBC_011201_NavNode;Alimentare;
+;;$solPrefix_TBC_011202_NavNode;Industriale;
+;;$solPrefix_TBC_011203_NavNode;Medicale;
+;;$solPrefix_TBC_011204_NavNode;Puro;
+;;$solPrefix_TBC_011300_NavNode;Ossigeno - O;
+;;$solPrefix_TBC_011301_NavNode;Alimentare;
+;;$solPrefix_TBC_011302_NavNode;Industriale;
+;;$solPrefix_TBC_011303_NavNode;Medicale;
+;;$solPrefix_TBC_011304_NavNode;Puro;
+;;$solPrefix_TBC_011400_NavNode;GPL - MAPP - Propano;
+;;$solPrefix_TBC_011500_NavNode;Miscele Alimentari;
+;;$solPrefix_TBC_011501_NavNode;AliSOL;
+;;$solPrefix_TBC_011502_NavNode;FruttaSOL;
+;;$solPrefix_TBC_011600_NavNode;Miscele Medicali;
+;;$solPrefix_TBC_011601_NavNode;Aria;
+;;$solPrefix_TBC_011602_NavNode;Donopa;
+;;$solPrefix_TBC_011603_NavNode;Neophyr;
+;;$solPrefix_TBC_011604_NavNode;Altre miscele;
+;;$solPrefix_TBC_011700_NavNode;Miscele Industriali;
+;;$solPrefix_TBC_011701_NavNode;Aria;
+;;$solPrefix_TBC_011702_NavNode;Enermix Premium;
+;;$solPrefix_TBC_011703_NavNode;Enermix Comfort;
+;;$solPrefix_TBC_011704_NavNode;LaserSOL;
+;;$solPrefix_TBC_011705_NavNode;Altre miscele;
+;;$solPrefix_TBC_011800_NavNode;Miscele Specialty;
+;;$solPrefix_TBC_011801_NavNode;Miscele standard e speciali;
+;;$solPrefix_TBC_011802_NavNode;Miscele certificate;
+;;$solPrefix_TBC_011803_NavNode;Miscele di alta precisione;
+;;$solPrefix_TBC_011900_NavNode;Gas Refrigeranti;
+;;$solPrefix_TBC_011901_NavNode;Refrigeranti HFC;
+;;$solPrefix_TBC_011902_NavNode;Refrigeranti Naturali;
+;;$solPrefix_TBC_011903_NavNode;Refrigeranti HFO;
+;;$solPrefix_TBC_011904_NavNode;Refrigeranti HC - Idrocarburi;
+;;$solPrefix_TBC_012000_NavNode;Altri gas;
+;;$solPrefix_TBC_012001_NavNode;1,3 Butadiene C4H6;
+;;$solPrefix_TBC_012002_NavNode;Acido Cloridrico - HCl;
+;;$solPrefix_TBC_012003_NavNode;Esafluoroetano - C2F6;
+;;$solPrefix_TBC_012004_NavNode;Etano - C2H6;
+;;$solPrefix_TBC_012005_NavNode;Etilene - C2H4;
+;;$solPrefix_TBC_012006_NavNode;Idrogeno Solforato - H2S;
+;;$solPrefix_TBC_012007_NavNode;Iso-Butano - C4H10;
+;;$solPrefix_TBC_012008_NavNode;Isobutilene o Isobutene;
+;;$solPrefix_TBC_012009_NavNode;Krypton - Kr;
+;;$solPrefix_TBC_012010_NavNode;Metano - CH4;
+;;$solPrefix_TBC_012011_NavNode;Neon - Ne;
+;;$solPrefix_TBC_012012_NavNode;Normal-Butano C4H10;
+;;$solPrefix_TBC_012013_NavNode;Octafluoropropano C3F8;
+;;$solPrefix_TBC_012014_NavNode;Ossido di Azoto - NO;
+;;$solPrefix_TBC_012015_NavNode;Ossido di Carbonio - CO;
+;;$solPrefix_TBC_012016_NavNode;Propadiene o Allene - C3H4;
+;;$solPrefix_TBC_012017_NavNode;Propano - C3H8;
+;;$solPrefix_TBC_012018_NavNode;Xenon - Xe;
+;;$solPrefix_TBC_020000_NavNode;GAS Equipments;
+;;$solPrefix_TBC_020100_NavNode;Riduttori di pressione;
+;;$solPrefix_TBC_020101_NavNode;Alimentare;
+;;$solPrefix_TBC_020102_NavNode;Industriale;
+;;$solPrefix_TBC_020103_NavNode;Puro;
+;;$solPrefix_TBC_020200_NavNode;Posti presa;
+;;$solPrefix_TBC_020201_NavNode;Alimentare;
+;;$solPrefix_TBC_020202_NavNode;Industriale;
+;;$solPrefix_TBC_020203_NavNode;Puro;
+;;$solPrefix_TBC_020300_NavNode;Centrali di decompressione;
+;;$solPrefix_TBC_020301_NavNode;Alimentare;
+;;$solPrefix_TBC_020302_NavNode;Industriale;
+;;$solPrefix_TBC_020303_NavNode;Puro;
+;;$solPrefix_TBC_020400_NavNode;Serpentine e fruste;
+;;$solPrefix_TBC_020401_NavNode;Alimentare;
+;;$solPrefix_TBC_020402_NavNode;Industriale;
+;;$solPrefix_TBC_020403_NavNode;Puro;
+;;$solPrefix_TBC_020500_NavNode;Valvole antiritorno di fiamma;
+;;$solPrefix_TBC_020501_NavNode;Alimentare;
+;;$solPrefix_TBC_020502_NavNode;Industriale;
+;;$solPrefix_TBC_020503_NavNode;Puro;
+;;$solPrefix_TBC_020600_NavNode;Valvole di linea;
+;;$solPrefix_TBC_020601_NavNode;Alimentare;
+;;$solPrefix_TBC_020602_NavNode;Industriale;
+;;$solPrefix_TBC_020603_NavNode;Puro;
+;;$solPrefix_TBC_020700_NavNode;Raccorderia;
+;;$solPrefix_TBC_020800_NavNode;Rastrelliere e accessori gas compressi;
+;;$solPrefix_TBC_020900_NavNode;Generatori da laboratorio;
+;;$solPrefix_TBC_020901_NavNode;Azoto;
+;;$solPrefix_TBC_020902_NavNode;Aria;
+;;$solPrefix_TBC_020903_NavNode;Azoto - Aria;
+;;$solPrefix_TBC_020904_NavNode;Idrogeno;
+;;$solPrefix_TBC_030000_NavNode;Medical GAS Equipments;
+;;$solPrefix_TBC_030100_NavNode;Accessori;
+;;$solPrefix_TBC_030101_NavNode;Flussimetri;
+;;$solPrefix_TBC_030102_NavNode;Regolatori del vuoto;
+;;$solPrefix_TBC_030103_NavNode;Umidificatori;
+;;$solPrefix_TBC_030104_NavNode;Carrelli portabombola;
+;;$solPrefix_TBC_030200_NavNode;Servizio Ossido Nitrico;
+;;$solPrefix_TBC_030201_NavNode;Dispositivi per sistema NoxBox;
+;;$solPrefix_TBC_030202_NavNode;Dispositivi per taratura sistema somministrazione/monitoraggio;
+;;$solPrefix_TBC_030300_NavNode;Servizio Analgesia;
+;;$solPrefix_TBC_030301_NavNode;Dispositivo per evacuazione EMONO;
+;;$solPrefix_TBC_030302_NavNode;Accessori Somministrazione /Evacuazione del farmaco;
+;;$solPrefix_TBC_030400_NavNode;Riduttori di pressione;
+;;$solPrefix_TBC_030500_NavNode;Posti presa;
+;;$solPrefix_TBC_030600_NavNode;Centrali di decompressione;
+;;$solPrefix_TBC_030700_NavNode;Serpentine e fruste;
+;;$solPrefix_TBC_030800_NavNode;Valvole antiritorno di fiamma;
+;;$solPrefix_TBC_030900_NavNode;Valvole di linea;
+;;$solPrefix_TBC_031000_NavNode;Servizio Ossido Nitrico;
+;;$solPrefix_TBC_040000_NavNode;Welding products;
+;;$solPrefix_TBC_040100_NavNode;Saldatura MIG / MAG;
+;;$solPrefix_TBC_040101_NavNode;Gas di protezione;
+;;$solPrefix_TBC_040102_NavNode;Torce;
+;;$solPrefix_TBC_040103_NavNode;Impianti di saldatura;
+;;$solPrefix_TBC_040104_NavNode;Consumabili;
+;;$solPrefix_TBC_040200_NavNode;Saldatura TIG;
+;;$solPrefix_TBC_040201_NavNode;Gas di protezione;
+;;$solPrefix_TBC_040202_NavNode;Torce;
+;;$solPrefix_TBC_040203_NavNode;Impianti di saldatura;
+;;$solPrefix_TBC_040204_NavNode;Accessori;
+;;$solPrefix_TBC_040205_NavNode;Consumabili;
+;;$solPrefix_TBC_040300_NavNode;Saldatura ad elettrodo;
+;;$solPrefix_TBC_040301_NavNode;Impianti di saldatura;
+;;$solPrefix_TBC_040400_NavNode;Processi Ossi-gas;
+;;$solPrefix_TBC_040401_NavNode;Gas di processo;
+;;$solPrefix_TBC_040402_NavNode;Riduttori di pressione;
+;;$solPrefix_TBC_040403_NavNode;Cannelli;
+;;$solPrefix_TBC_040404_NavNode;Valvole di sicurezza;
+;;$solPrefix_TBC_040405_NavNode;Accessori;
+;;$solPrefix_TBC_040406_NavNode;Consumabili;
+;;$solPrefix_TBC_040500_NavNode;Processi Plasma;
+;;$solPrefix_TBC_040501_NavNode;Gas plasma;
+;;$solPrefix_TBC_040502_NavNode;Gas di protezione;
+;;$solPrefix_TBC_040503_NavNode;Impianti di saldatura;
+;;$solPrefix_TBC_040504_NavNode;Impianti di Taglio;
+;;$solPrefix_TBC_040600_NavNode;Proccessi Laser;
+;;$solPrefix_TBC_040601_NavNode;Miscele laseranti;
+;;$solPrefix_TBC_040602_NavNode;Gas di processo;
+;;$solPrefix_TBC_040700_NavNode;Finitura;
+;;$solPrefix_TBC_040701_NavNode;Dischi abrasivi;
+;;$solPrefix_TBC_040702_NavNode;Prodotti chimici;
+;;$solPrefix_TBC_040800_NavNode;Aspirazione Fumi;
+;;$solPrefix_TBC_040801_NavNode;Aspiratori portatili;
+;;$solPrefix_TBC_050000_NavNode;Cryo products;
+;;$solPrefix_TBC_050100_NavNode;Cryoblasting;
+;;$solPrefix_TBC_050101_NavNode;Microclean;
+;;$solPrefix_TBC_050102_NavNode;Snow Cleaning;
+;;$solPrefix_TBC_050103_NavNode;Blaster;
+;;$solPrefix_TBC_050104_NavNode;Scatole poilistirolo;
+;;$solPrefix_TBC_050105_NavNode;Pastigliatrice dryice;
+;;$solPrefix_TBC_050106_NavNode;Gel refrigerante;
+;;$solPrefix_TBC_050200_NavNode;Contenitori criobiologici e criogenici (dewar);
+;;$solPrefix_TBC_050201_NavNode;Contenitori per stoccaggio di campioni biologici;
+;;$solPrefix_TBC_050202_NavNode;Contenitori per stoccaggio e trasporto di azoto liquido;
+;;$solPrefix_TBC_050300_NavNode;Congelatori;
+;;$solPrefix_TBC_050301_NavNode;Congelatori a discesa programmata della temperatura;
+;;$solPrefix_TBC_050302_NavNode;Congelatori meccanici;
+;;$solPrefix_TBC_050400_NavNode;Sistemi hardware e software per Criobiologia;
+;;$solPrefix_TBC_050401_NavNode;Centraline di controllo;
+;;$solPrefix_TBC_050402_NavNode;Stampanti e lettori;
+;;$solPrefix_TBC_050403_NavNode;Software di tracciabilità e archiviazione;
+;;$solPrefix_TBC_060000_NavNode;Dispositivi medici;
+;;$solPrefix_TBC_070000_NavNode;DPI;
+;;$solPrefix_TBC_070100_NavNode;DPI;
+;;$solPrefix_TBC_070101_NavNode;Protezione Viso;
+;;$solPrefix_TBC_070102_NavNode;Protezione Arti;
+;;$solPrefix_TBC_070103_NavNode;Protezione Corpo;
+;;$solPrefix_TBC_070104_NavNode;Sistemi di aspirazione fumi;
+;;$solPrefix_TBC_070105_NavNode;Impianti e quadri di controllo - SolMet;
+;;$solPrefix_TBC_070106_NavNode;Autoproduzione di ossigeno - OxySOL;
+;;$solPrefix_TBC_070107_NavNode;Autoproduzione di azoto - NitroSOL;
+;;$solPrefix_TBC_070108_NavNode;Trattamento acque di processo e reflue;
+;;$solPrefix_TBC_070109_NavNode;Controlli non distruttivi - SOLcontrol;
+;;$solPrefix_TBC_070110_NavNode;Pulizia criogenica - DryBlast;
+;;$solPrefix_TBC_070200_NavNode;DPI criogenici;
+;;$solPrefix_TBC_070201_NavNode;Sistemi per travaso azoto in sicurezza;
+;;$solPrefix_TBC_070202_NavNode;DPI criogenici;
+;;$solPrefix_TBC_070203_NavNode;DPI sicurezza;
+
+######## End SolGroup top bar categories
+
+
+# $solPrefix FAQ Page
+
+# CMS Paragraph Component (Contact information)
+UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];content[lang=en];
+;;faqMenuParagraph;"<div class=""nav_column"">	<div class=""title_holder"">		<div class=""title"">			<div class=""title-top"">				<span></span>			</div>		</div>		<h2>Frequently asked questions</h2>	</div>	<div class=""item"">		<ul class=""facet_block indent"">			<li><a href=""#a00"">Returns and refunds</a></li>			<li><a href=""#b00"">Delivery information</a></li>			<li><a href=""#c00"">Registration</a></li>			<li><a href=""#d00"">Your online account</a></li>			<li><a href=""#e00"">Orders</a></li>			<li><a href=""#f00"">Promotions and discounts</a></li>			<li><a href=""#g00"">Product and general Informations</a></li>			<li><a href=""#h00"">Store information</a></li>			<li><a href=""#i00"">Business contacts</a></li>			<li><a href=""#j00"">Buying guides</a></li>			<li><a href=""#k00"">Size guides</a></li>			<li><a href=""#l00"">Privacy and security</a></li>		</ul>	</div></div>";
+;;faqTextParagraph;"<div class=""global-alerts""><div class=""alert alert-info"" role=""alert""><strong>Information:</strong> Page Under Construction - Not Completely Functional</div></div><a name=""00""></a><div class=""textpage textpage-faqs""><div class=""item_container"">		<h2><a name=""a00""></a>Returns and refunds</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""b00""></a>Delivery information</h2>		<a class=""faq-menulink"" href=""#b01"">Delivery Options</a>		<a class=""faq-menulink"" href=""#b02"">Delivery times &amp; charges</a>		<a class=""faq-menulink"" href=""#b03"">Order tracking information</a>		<a class=""faq-menulink"" href=""#b04"">Courier status information</a>			<h3><a name=""b01""></a>Delivery Options</h3>		<p>			The delivery options available to you are shown in the Checkout area under Delivery Method.<br><br>			Based on your deliver address, these options may not all be available:			</p><ul>			<li>					<b>Home Delivery</b> - Free UK standard delivery on all orders over L50 within 4 working days (*exceptions may apply)				</li>				<li>					<b>Standard delivery</b> -  1 to 2 business days				</li>				<li>					<b>Other delivery method</b>  &ndash; 3 to 5 business days				</li>				<li>				<b>International delivery</b> &ndash; 7 to 10 business days (not all countries are available)				</li>			</ul>		<p></p>		<h3><a name=""b02""></a>Delivery times &amp; charges</h3>		<p>			We deliver the majority of our orders within 4 working days* for L3.99 or FREE on orders over L50 (*exceptions apply, see table below).			</p><ul>				<li>					Deliveries to UK addresses are made Monday to Friday between 9am to 6pm, excluding Bank Holidays. 				</li>				<li>					Deliveries to the Scottish Highlands and Islands, offshore locations and Northern Ireland may take a little longer.<br>					For delivery to ROI addresses please visit our Irish website at hybris.com				</li>				<li>					Multiple items may be delivered in more than one parcel and at different times.				</li>			</ul>		<p></p>	<h3><a name=""b03""></a>Order tracking information</h3>		<p>			We will send you email updates through every stage of your order. In each email your current order's status will be shown. Each order status is explained in the table below. We deliver most parcels via our courier. You can track these parcels by clicking on the parcel reference link on your email. Once you have clicked on the link you will be directed to the courier website. For information on courier statuses please <a href=""#b04"">click here</a>.		</p>		<table width=""100%"" cellspacing=""0"" cellpadding=""0"" border=""0"">			<tbody>				<tr>					<th>Status</th>					<th>Description</th>				</tr>				<!--ROW 1-->				<tr>					<td class=""blue3"">						<strong>Processing</strong><br>					</td>					<td class=""grey3"">						Your order is being processed.<br>					</td>				</tr>				<!--ROW 2-->	<tr>					<td class=""blue3"">						<strong>Despatched</strong><br>					</td>					<td class=""grey3"">						Your order has been despatched to the courier.<br><br>    For heavy and large products your order is ready to be despatched by our carrier. The carrier will contact you to arrange a suitable date for delivery.<br><br>For Collect from store orders you will receive a further order status update when your item(s) are ready to collect (see below for more information on collect from store statuses)<br><br>					</td>				</tr>				<!--ROW 3-->				<tr>					<td class=""blue3"">						<strong>Cancelled<br>Unable to fulfill<br> payment reversal</strong><br>					</td>					<td class=""grey3"">						Your order has been cancelled due to stock availability, no payment has been taken.<br><br>					</td>				</tr>				<!--ROW 4-->				<tr>					<td class=""blue3"">						<strong>Cancelled<br>Unable to fulfil<br>Payment refunded</strong><br>				</td>					<td class=""grey3"">						Your order has been cancelled due to stock availability. We have processed a refund to your payment card.<br><br>					</td>				</tr>				<!--ROW 5-->				<tr>					<td class=""blue3"">						<strong>Return received</strong><br>					</td>					<td class=""grey3"">Your return has been received. However, due to goods being addressed to the incorrect warehouse there may be a short delay in your refund being processes while the goods are being re-directed.<br><br>					</td>				</tr>				<!--ROW 6-->				<tr>					<td class=""blue3"">						<strong>Order ready for collection</strong><br>					</td>					<td class=""grey3"">						Your order is ready for collection at your chosen store.<br><br><strong><i>Please note:</i></strong> You must collect your order within 14 days of receiving your notification email.<br><br>					</td>				</tr>				<!--ROW 7-->				<tr>					<td class=""blue3"">						<strong>Collected</strong><br>					</td>					<td class=""grey3"">					Your order has been collected.<br><br>					</td>				</tr>				<!--ROW 8-->				<tr>					<td class=""blue3"">						<strong>Return in progress</strong><br>					</td>					<td class=""grey3"">						We are processing your return.<br><br>					</td>				</tr>				<!--ROW 9-->				<tr>					<td class=""blue3"">						<strong>Return refund complete</strong><br>					</td>					<td class=""grey3"">						We have processed your return.<br><br><strong><i>Please note:</i></strong>  Some banks may take longer than others to process refunds.<br><br>					</td>				</tr>			</tbody>		</table>		<p></p>		<h3><a name=""b04""></a>Courier status information</h3>		<p></p>		<table width=""100%"" cellspacing=""0"" cellpadding=""0"" border=""0"">			<tbody>				<tr>					<th>Status</th>					<th>Description</th>				</tr>			<!--ROW 1-->				<tr>					<td class=""blue3"">						<strong>Order generated</strong><br>					</td>					<td class=""grey3"">						Your order is ready for delivery and has entered into the courier system.<br>					</td>				</tr>				<!--ROW 2-->				<tr>					<td class=""blue3"">						<strong>Receipt at depot </strong><br>					</td>					<td class=""grey3"">					Your parcel has been received at the depot. <br><br>					</td>				</tr>				<!--ROW 3-->				<tr>					<td class=""blue3"">						<strong>Processed at depot</strong><br>					</td>					<td class=""grey3"">						Your parcel has processed through the depot operation and is ready for onward despatch to the courier.<br><br>					</td>				</tr>				<!--ROW 4-->				<tr>					<td class=""blue3"">						<strong>Out for delivery to courier</strong><br>					</td>					<td class=""grey3"">						Your parcel has left the depot for delivery to courier.<br><br>					</td>				</tr>				<!--ROW 5-->				<tr>					<td class=""blue3"">						<strong>Courier to re-attempt</strong><br>					</td>					<td class=""grey3"">						The courier has attempted to deliver your parcel and will try again. You will receive a card to confirm delivery has been attempted.<br><br>					</td>				</tr>			<!--ROW 6-->				<tr>					<td class=""blue3"">						<strong>Delivered to</strong><br>					</td>					<td class=""grey3"">						Your parcel has been delivered.<br><br>					</td>				</tr>			</tbody>		</table>		<p></p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""c00""></a>Registration</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>	<div class=""item_container"">		<h2><a name=""d00""></a>Your online account</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>	<div class=""item_container"">		<h2><a name=""e00""></a>Orders</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>	<div class=""item_container"">		<h2><a name=""f00""></a>Promotions and discounts</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>	<div class=""item_container"">		<h2><a name=""g00""></a>Product and general informations</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>	<div class=""item_container"">		<h2><a name=""h00""></a>Store information</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>	<div class=""item_container"">		<h2><a name=""i00""></a>Business contacts</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""j00""></a>Buying guides</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""k00""></a>Size guides</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""l00""></a>Privacy and security</h2>		<p>Text</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div></div>";
+
+# $solPrefix Order Expired Page
+
+UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];content[lang=en];
+;;orderExpiredMenuParagraph;;
+;;orderExpiredTextParagraph;"<div class='cms-content order-expired'><div class='information_message neutral'><span class='single'></span><p>This page has expired.</p></div><h2>Dear Customer,</h2><p>Order Status for guest users are only kept for 3 months following the date the order was placed.<br>If you have not received your delivery or have other inquiries, please contact our Customer Service Dept.</p><h3>Be prepared with:</h3><ul class='bullet-list'><li>Your Name</li><li>Order Number (Your Order Number can be found on the confirmation email sent shortly after your order was placed.)</li><li>Order Delivery Address or Pick Up in Store Location</li></ul><p>Our Customer Service professionals will be happy to update you on the status of your order.</p><p class='cms-content-emphasized-big'>Thank you for shopping at hybrisstore.</p></div>";
+
+# $solPrefix Terms and Conditions Page
+
+# CMS Paragraph Component (Contact information)
+UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];content[lang=en];
+;;termsAndConditionsMenuParagraph;"<div class=""nav_column"">	<div class=""title_holder"">		<div class=""title"">			<div class=""title-top"">				<span></span>			</div>		</div>		<h2>Terms and Conditions</h2>	</div>	<div class=""item"">		<ul class=""facet_block indent"">			<li><a href=""#a00"">Registration</a></li>			<li><a href=""#b00"">Eligibility to purchase</a></li>			<li><a href=""#c00"">Orders</a></li>			<li><a href=""#d00"">Pricing policy</a></li>			<li><a href=""#e00"">Sales price adjustment policy</a></li>			<li><a href=""#f00"">Acceptance of your order</a></li>			<li><a href=""#g00"">Payment</a></li>			<li><a href=""#h00"">Insurance and delivery</a></li>			<li><a href=""#i00"">Returns and exchanges</a></li>			<li><a href=""#j00"">Intellectual property rights</a></li>			<li><a href=""#k00"">Content</a></li>			<li><a href=""#l00"">No commercial use</a></li>			<li><a href=""#m00"">Your activity</a></li>			<li><a href=""#n00"">Third party</a></li>			<li><a href=""#o00"">General</a></li>			<li><a href=""#p00"">Indemnification</a></li>			<li><a href=""#q00"">General legal terms</a></li>		</ul>	</div></div>";
+;;termsAndConditionsTextParagraph;"<a name=""00""></a><div class=""textpage textpage-termsAndConditions""><div class=""item_container"">		<h2><a name=""a00""></a>Registration</h2>		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem augue, luctus interdum pellentesque ut, luctus congue ligula. Sed adipiscing lacus sit amet libero accumsan volutpat. Sed porta semper dui ut interdum. Suspendisse vitae eleifend quam. Nunc eu felis in diam ultricies ultricies nec at arcu. Etiam vehicula enim arcu, vel viverra arcu. Vivamus varius adipiscing posuere.</br>Maecenas interdum varius metus, sed feugiat lorem iaculis non. Donec congue, nulla quis ultrices euismod, dui odio fringilla risus, ac ultrices sapien ipsum sed lectus. Quisque accumsan ligula tincidunt arcu condimentum at dignissim lacus dapibus. Pellentesque fermentum nunc eget lectus vestibulum sagittis. Aenean iaculis, nulla sit amet condimentum suscipit, sapien odio pretium dui, sed euismod nunc risus cursus nibh. Sed volutpat, ante in scelerisque cursus, elit elit pellentesque magna, eu semper tellus magna et massa. Nullam erat lorem, porttitor eget mollis tempus, blandit quis velit. Curabitur turpis orci, sollicitudin eget dapibus a, pulvinar sed lorem. Sed ac felis metus, sed tempor odio.</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""b00""></a>Eligibility to purchase</h2>		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem augue, luctus interdum pellentesque ut, luctus congue ligula. Sed adipiscing lacus sit amet libero accumsan volutpat. Sed porta semper dui ut interdum. Suspendisse vitae eleifend quam. Nunc eu felis in diam ultricies ultricies nec at arcu. Etiam vehicula enim arcu, vel viverra arcu. Vivamus varius adipiscing posuere.</br>Maecenas interdum varius metus, sed feugiat lorem iaculis non. Donec congue, nulla quis ultrices euismod, dui odio fringilla risus, ac ultrices sapien ipsum sed lectus. Quisque accumsan ligula tincidunt arcu condimentum at dignissim lacus dapibus. Pellentesque fermentum nunc eget lectus vestibulum sagittis. Aenean iaculis, nulla sit amet condimentum suscipit, sapien odio pretium dui, sed euismod nunc risus cursus nibh. Sed volutpat, ante in scelerisque cursus, elit elit pellentesque magna, eu semper tellus magna et massa. Nullam erat lorem, porttitor eget mollis tempus, blandit quis velit. Curabitur turpis orci, sollicitudin eget dapibus a, pulvinar sed lorem. Sed ac felis metus, sed tempor odio.</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>	<div class=""item_container"">		<h2><a name=""c00""></a>Orders</h2>		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem augue, luctus interdum pellentesque ut, luctus congue ligula. Sed adipiscing lacus sit amet libero accumsan volutpat. Sed porta semper dui ut interdum. Suspendisse vitae eleifend quam. Nunc eu felis in diam ultricies ultricies nec at arcu. Etiam vehicula enim arcu, vel viverra arcu. Vivamus varius adipiscing posuere.</br>Maecenas interdum varius metus, sed feugiat lorem iaculis non. Donec congue, nulla quis ultrices euismod, dui odio fringilla risus, ac ultrices sapien ipsum sed lectus. Quisque accumsan ligula tincidunt arcu condimentum at dignissim lacus dapibus. Pellentesque fermentum nunc eget lectus vestibulum sagittis. Aenean iaculis, nulla sit amet condimentum suscipit, sapien odio pretium dui, sed euismod nunc risus cursus nibh. Sed volutpat, ante in scelerisque cursus, elit elit pellentesque magna, eu semper tellus magna et massa. Nullam erat lorem, porttitor eget mollis tempus, blandit quis velit. Curabitur turpis orci, sollicitudin eget dapibus a, pulvinar sed lorem. Sed ac felis metus, sed tempor odio.</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>	<div class=""item_container"">		<h2><a name=""d00""></a>Pricing policy</h2>		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem augue, luctus interdum pellentesque ut, luctus congue ligula. Sed adipiscing lacus sit amet libero accumsan volutpat. Sed porta semper dui ut interdum. Suspendisse vitae eleifend quam. Nunc eu felis in diam ultricies ultricies nec at arcu. Etiam vehicula enim arcu, vel viverra arcu. Vivamus varius adipiscing posuere.</br>Maecenas interdum varius metus, sed feugiat lorem iaculis non. Donec congue, nulla quis ultrices euismod, dui odio fringilla risus, ac ultrices sapien ipsum sed lectus. Quisque accumsan ligula tincidunt arcu condimentum at dignissim lacus dapibus. Pellentesque fermentum nunc eget lectus vestibulum sagittis. Aenean iaculis, nulla sit amet condimentum suscipit, sapien odio pretium dui, sed euismod nunc risus cursus nibh. Sed volutpat, ante in scelerisque cursus, elit elit pellentesque magna, eu semper tellus magna et massa. Nullam erat lorem, porttitor eget mollis tempus, blandit quis velit. Curabitur turpis orci, sollicitudin eget dapibus a, pulvinar sed lorem. Sed ac felis metus, sed tempor odio.</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>	<div class=""item_container"">		<h2><a name=""e00""></a>Sales price adjustment policy</h2>		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem augue, luctus interdum pellentesque ut, luctus congue ligula. Sed adipiscing lacus sit amet libero accumsan volutpat. Sed porta semper dui ut interdum. Suspendisse vitae eleifend quam. Nunc eu felis in diam ultricies ultricies nec at arcu. Etiam vehicula enim arcu, vel viverra arcu. Vivamus varius adipiscing posuere.</br>Maecenas interdum varius metus, sed feugiat lorem iaculis non. Donec congue, nulla quis ultrices euismod, dui odio fringilla risus, ac ultrices sapien ipsum sed lectus. Quisque accumsan ligula tincidunt arcu condimentum at dignissim lacus dapibus. Pellentesque fermentum nunc eget lectus vestibulum sagittis. Aenean iaculis, nulla sit amet condimentum suscipit, sapien odio pretium dui, sed euismod nunc risus cursus nibh. Sed volutpat, ante in scelerisque cursus, elit elit pellentesque magna, eu semper tellus magna et massa. Nullam erat lorem, porttitor eget mollis tempus, blandit quis velit. Curabitur turpis orci, sollicitudin eget dapibus a, pulvinar sed lorem. Sed ac felis metus, sed tempor odio.</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>	<div class=""item_container"">		<h2><a name=""f00""></a>Acceptance of your order</h2>		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem augue, luctus interdum pellentesque ut, luctus congue ligula. Sed adipiscing lacus sit amet libero accumsan volutpat. Sed porta semper dui ut interdum. Suspendisse vitae eleifend quam. Nunc eu felis in diam ultricies ultricies nec at arcu. Etiam vehicula enim arcu, vel viverra arcu. Vivamus varius adipiscing posuere.</br>Maecenas interdum varius metus, sed feugiat lorem iaculis non. Donec congue, nulla quis ultrices euismod, dui odio fringilla risus, ac ultrices sapien ipsum sed lectus. Quisque accumsan ligula tincidunt arcu condimentum at dignissim lacus dapibus. Pellentesque fermentum nunc eget lectus vestibulum sagittis. Aenean iaculis, nulla sit amet condimentum suscipit, sapien odio pretium dui, sed euismod nunc risus cursus nibh. Sed volutpat, ante in scelerisque cursus, elit elit pellentesque magna, eu semper tellus magna et massa. Nullam erat lorem, porttitor eget mollis tempus, blandit quis velit. Curabitur turpis orci, sollicitudin eget dapibus a, pulvinar sed lorem. Sed ac felis metus, sed tempor odio.</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>	<div class=""item_container"">		<h2><a name=""g00""></a>Payment</h2>		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem augue, luctus interdum pellentesque ut, luctus congue ligula. Sed adipiscing lacus sit amet libero accumsan volutpat. Sed porta semper dui ut interdum. Suspendisse vitae eleifend quam. Nunc eu felis in diam ultricies ultricies nec at arcu. Etiam vehicula enim arcu, vel viverra arcu. Vivamus varius adipiscing posuere.</br>Maecenas interdum varius metus, sed feugiat lorem iaculis non. Donec congue, nulla quis ultrices euismod, dui odio fringilla risus, ac ultrices sapien ipsum sed lectus. Quisque accumsan ligula tincidunt arcu condimentum at dignissim lacus dapibus. Pellentesque fermentum nunc eget lectus vestibulum sagittis. Aenean iaculis, nulla sit amet condimentum suscipit, sapien odio pretium dui, sed euismod nunc risus cursus nibh. Sed volutpat, ante in scelerisque cursus, elit elit pellentesque magna, eu semper tellus magna et massa. Nullam erat lorem, porttitor eget mollis tempus, blandit quis velit. Curabitur turpis orci, sollicitudin eget dapibus a, pulvinar sed lorem. Sed ac felis metus, sed tempor odio.</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""h00""></a>Insurance and delivery</h2>		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem augue, luctus interdum pellentesque ut, luctus congue ligula. Sed adipiscing lacus sit amet libero accumsan volutpat. Sed porta semper dui ut interdum. Suspendisse vitae eleifend quam. Nunc eu felis in diam ultricies ultricies nec at arcu. Etiam vehicula enim arcu, vel viverra arcu. Vivamus varius adipiscing posuere.</br>Maecenas interdum varius metus, sed feugiat lorem iaculis non. Donec congue, nulla quis ultrices euismod, dui odio fringilla risus, ac ultrices sapien ipsum sed lectus. Quisque accumsan ligula tincidunt arcu condimentum at dignissim lacus dapibus. Pellentesque fermentum nunc eget lectus vestibulum sagittis. Aenean iaculis, nulla sit amet condimentum suscipit, sapien odio pretium dui, sed euismod nunc risus cursus nibh. Sed volutpat, ante in scelerisque cursus, elit elit pellentesque magna, eu semper tellus magna et massa. Nullam erat lorem, porttitor eget mollis tempus, blandit quis velit. Curabitur turpis orci, sollicitudin eget dapibus a, pulvinar sed lorem. Sed ac felis metus, sed tempor odio.</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""i00""></a>Returns and exchanges</h2>		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem augue, luctus interdum pellentesque ut, luctus congue ligula. Sed adipiscing lacus sit amet libero accumsan volutpat. Sed porta semper dui ut interdum. Suspendisse vitae eleifend quam. Nunc eu felis in diam ultricies ultricies nec at arcu. Etiam vehicula enim arcu, vel viverra arcu. Vivamus varius adipiscing posuere.</br>Maecenas interdum varius metus, sed feugiat lorem iaculis non. Donec congue, nulla quis ultrices euismod, dui odio fringilla risus, ac ultrices sapien ipsum sed lectus. Quisque accumsan ligula tincidunt arcu condimentum at dignissim lacus dapibus. Pellentesque fermentum nunc eget lectus vestibulum sagittis. Aenean iaculis, nulla sit amet condimentum suscipit, sapien odio pretium dui, sed euismod nunc risus cursus nibh. Sed volutpat, ante in scelerisque cursus, elit elit pellentesque magna, eu semper tellus magna et massa. Nullam erat lorem, porttitor eget mollis tempus, blandit quis velit. Curabitur turpis orci, sollicitudin eget dapibus a, pulvinar sed lorem. Sed ac felis metus, sed tempor odio.</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""j00""></a>Intellectual property rights</h2>		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem augue, luctus interdum pellentesque ut, luctus congue ligula. Sed adipiscing lacus sit amet libero accumsan volutpat. Sed porta semper dui ut interdum. Suspendisse vitae eleifend quam. Nunc eu felis in diam ultricies ultricies nec at arcu. Etiam vehicula enim arcu, vel viverra arcu. Vivamus varius adipiscing posuere.</br>Maecenas interdum varius metus, sed feugiat lorem iaculis non. Donec congue, nulla quis ultrices euismod, dui odio fringilla risus, ac ultrices sapien ipsum sed lectus. Quisque accumsan ligula tincidunt arcu condimentum at dignissim lacus dapibus. Pellentesque fermentum nunc eget lectus vestibulum sagittis. Aenean iaculis, nulla sit amet condimentum suscipit, sapien odio pretium dui, sed euismod nunc risus cursus nibh. Sed volutpat, ante in scelerisque cursus, elit elit pellentesque magna, eu semper tellus magna et massa. Nullam erat lorem, porttitor eget mollis tempus, blandit quis velit. Curabitur turpis orci, sollicitudin eget dapibus a, pulvinar sed lorem. Sed ac felis metus, sed tempor odio.</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""k00""></a>Content</h2>		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem augue, luctus interdum pellentesque ut, luctus congue ligula. Sed adipiscing lacus sit amet libero accumsan volutpat. Sed porta semper dui ut interdum. Suspendisse vitae eleifend quam. Nunc eu felis in diam ultricies ultricies nec at arcu. Etiam vehicula enim arcu, vel viverra arcu. Vivamus varius adipiscing posuere.</br>Maecenas interdum varius metus, sed feugiat lorem iaculis non. Donec congue, nulla quis ultrices euismod, dui odio fringilla risus, ac ultrices sapien ipsum sed lectus. Quisque accumsan ligula tincidunt arcu condimentum at dignissim lacus dapibus. Pellentesque fermentum nunc eget lectus vestibulum sagittis. Aenean iaculis, nulla sit amet condimentum suscipit, sapien odio pretium dui, sed euismod nunc risus cursus nibh. Sed volutpat, ante in scelerisque cursus, elit elit pellentesque magna, eu semper tellus magna et massa. Nullam erat lorem, porttitor eget mollis tempus, blandit quis velit. Curabitur turpis orci, sollicitudin eget dapibus a, pulvinar sed lorem. Sed ac felis metus, sed tempor odio.</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""l00""></a>No commercial use</h2>		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem augue, luctus interdum pellentesque ut, luctus congue ligula. Sed adipiscing lacus sit amet libero accumsan volutpat. Sed porta semper dui ut interdum. Suspendisse vitae eleifend quam. Nunc eu felis in diam ultricies ultricies nec at arcu. Etiam vehicula enim arcu, vel viverra arcu. Vivamus varius adipiscing posuere.</br>Maecenas interdum varius metus, sed feugiat lorem iaculis non. Donec congue, nulla quis ultrices euismod, dui odio fringilla risus, ac ultrices sapien ipsum sed lectus. Quisque accumsan ligula tincidunt arcu condimentum at dignissim lacus dapibus. Pellentesque fermentum nunc eget lectus vestibulum sagittis. Aenean iaculis, nulla sit amet condimentum suscipit, sapien odio pretium dui, sed euismod nunc risus cursus nibh. Sed volutpat, ante in scelerisque cursus, elit elit pellentesque magna, eu semper tellus magna et massa. Nullam erat lorem, porttitor eget mollis tempus, blandit quis velit. Curabitur turpis orci, sollicitudin eget dapibus a, pulvinar sed lorem. Sed ac felis metus, sed tempor odio.</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""m00""></a>Your activity</h2>		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem augue, luctus interdum pellentesque ut, luctus congue ligula. Sed adipiscing lacus sit amet libero accumsan volutpat. Sed porta semper dui ut interdum. Suspendisse vitae eleifend quam. Nunc eu felis in diam ultricies ultricies nec at arcu. Etiam vehicula enim arcu, vel viverra arcu. Vivamus varius adipiscing posuere.</br>Maecenas interdum varius metus, sed feugiat lorem iaculis non. Donec congue, nulla quis ultrices euismod, dui odio fringilla risus, ac ultrices sapien ipsum sed lectus. Quisque accumsan ligula tincidunt arcu condimentum at dignissim lacus dapibus. Pellentesque fermentum nunc eget lectus vestibulum sagittis. Aenean iaculis, nulla sit amet condimentum suscipit, sapien odio pretium dui, sed euismod nunc risus cursus nibh. Sed volutpat, ante in scelerisque cursus, elit elit pellentesque magna, eu semper tellus magna et massa. Nullam erat lorem, porttitor eget mollis tempus, blandit quis velit. Curabitur turpis orci, sollicitudin eget dapibus a, pulvinar sed lorem. Sed ac felis metus, sed tempor odio.</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""n00""></a>Third party</h2>		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem augue, luctus interdum pellentesque ut, luctus congue ligula. Sed adipiscing lacus sit amet libero accumsan volutpat. Sed porta semper dui ut interdum. Suspendisse vitae eleifend quam. Nunc eu felis in diam ultricies ultricies nec at arcu. Etiam vehicula enim arcu, vel viverra arcu. Vivamus varius adipiscing posuere.</br>Maecenas interdum varius metus, sed feugiat lorem iaculis non. Donec congue, nulla quis ultrices euismod, dui odio fringilla risus, ac ultrices sapien ipsum sed lectus. Quisque accumsan ligula tincidunt arcu condimentum at dignissim lacus dapibus. Pellentesque fermentum nunc eget lectus vestibulum sagittis. Aenean iaculis, nulla sit amet condimentum suscipit, sapien odio pretium dui, sed euismod nunc risus cursus nibh. Sed volutpat, ante in scelerisque cursus, elit elit pellentesque magna, eu semper tellus magna et massa. Nullam erat lorem, porttitor eget mollis tempus, blandit quis velit. Curabitur turpis orci, sollicitudin eget dapibus a, pulvinar sed lorem. Sed ac felis metus, sed tempor odio.</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""o00""></a>General</h2>		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem augue, luctus interdum pellentesque ut, luctus congue ligula. Sed adipiscing lacus sit amet libero accumsan volutpat. Sed porta semper dui ut interdum. Suspendisse vitae eleifend quam. Nunc eu felis in diam ultricies ultricies nec at arcu. Etiam vehicula enim arcu, vel viverra arcu. Vivamus varius adipiscing posuere.</br>Maecenas interdum varius metus, sed feugiat lorem iaculis non. Donec congue, nulla quis ultrices euismod, dui odio fringilla risus, ac ultrices sapien ipsum sed lectus. Quisque accumsan ligula tincidunt arcu condimentum at dignissim lacus dapibus. Pellentesque fermentum nunc eget lectus vestibulum sagittis. Aenean iaculis, nulla sit amet condimentum suscipit, sapien odio pretium dui, sed euismod nunc risus cursus nibh. Sed volutpat, ante in scelerisque cursus, elit elit pellentesque magna, eu semper tellus magna et massa. Nullam erat lorem, porttitor eget mollis tempus, blandit quis velit. Curabitur turpis orci, sollicitudin eget dapibus a, pulvinar sed lorem. Sed ac felis metus, sed tempor odio.</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""p00""></a>Indemnification</h2>		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem augue, luctus interdum pellentesque ut, luctus congue ligula. Sed adipiscing lacus sit amet libero accumsan volutpat. Sed porta semper dui ut interdum. Suspendisse vitae eleifend quam. Nunc eu felis in diam ultricies ultricies nec at arcu. Etiam vehicula enim arcu, vel viverra arcu. Vivamus varius adipiscing posuere.</br>Maecenas interdum varius metus, sed feugiat lorem iaculis non. Donec congue, nulla quis ultrices euismod, dui odio fringilla risus, ac ultrices sapien ipsum sed lectus. Quisque accumsan ligula tincidunt arcu condimentum at dignissim lacus dapibus. Pellentesque fermentum nunc eget lectus vestibulum sagittis. Aenean iaculis, nulla sit amet condimentum suscipit, sapien odio pretium dui, sed euismod nunc risus cursus nibh. Sed volutpat, ante in scelerisque cursus, elit elit pellentesque magna, eu semper tellus magna et massa. Nullam erat lorem, porttitor eget mollis tempus, blandit quis velit. Curabitur turpis orci, sollicitudin eget dapibus a, pulvinar sed lorem. Sed ac felis metus, sed tempor odio.</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div>		<div class=""item_container"">		<h2><a name=""q00""></a>General legal terms</h2>		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lorem augue, luctus interdum pellentesque ut, luctus congue ligula. Sed adipiscing lacus sit amet libero accumsan volutpat. Sed porta semper dui ut interdum. Suspendisse vitae eleifend quam. Nunc eu felis in diam ultricies ultricies nec at arcu. Etiam vehicula enim arcu, vel viverra arcu. Vivamus varius adipiscing posuere.</br>Maecenas interdum varius metus, sed feugiat lorem iaculis non. Donec congue, nulla quis ultrices euismod, dui odio fringilla risus, ac ultrices sapien ipsum sed lectus. Quisque accumsan ligula tincidunt arcu condimentum at dignissim lacus dapibus. Pellentesque fermentum nunc eget lectus vestibulum sagittis. Aenean iaculis, nulla sit amet condimentum suscipit, sapien odio pretium dui, sed euismod nunc risus cursus nibh. Sed volutpat, ante in scelerisque cursus, elit elit pellentesque magna, eu semper tellus magna et massa. Nullam erat lorem, porttitor eget mollis tempus, blandit quis velit. Curabitur turpis orci, sollicitudin eget dapibus a, pulvinar sed lorem. Sed ac felis metus, sed tempor odio.</p>		<a class=""pagetop-link"" href=""#00"">back to top</a>	</div></div>";
+
+# $solPrefix Homepage
+
+UPDATE ProductCarouselComponent;$contentCV[unique=true];uid[unique=true];title[lang=en]
+ ;;$solPrefixHomepageNewProductCarouselComponent;"WHAT'S NEW"
+ ;;$solPrefixHomepageProductCarouselComponent;"Our Bestselling Products"
+ ;;PremiumbuyersgroupHomepageProductCarouselComponent;"Our Bestselling Products"
+
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/jpeg'];$contentCV[unique=true];folder(qualifier)[default=images];
+#;widescreen;$solPrefix_1400x480_BigSplash_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_1400x480_BigSplash_EN_01_1400W.jpg;$solPrefix_1400x480_BigSplash_EN_01_1400W.jpg;"The Most Powerful Tools in their Price Range";
+;widescreen;$solPrefix_1400x384_BigSplashTruck_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_1400x384_BigSplashTruck_EN_01_1400W.jpg;$solPrefix_1400x384_BigSplashTruck_EN_01_1400W.jpg;"Technical and Medical Gases";
+;widescreen;$solPrefix_1400x70_Brands_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_1400x70_Brands_EN_01_1400W.jpg;$solPrefix_1400x70_Brands_EN_01_1400W.jpg;"Bosch | Black & Decker | Einhall | Skil | Hitachi";
+;mobile;$solPrefix_160x139_24Service_EN_01_160W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_160x139_24Service_EN_01_160W.jpg;$solPrefix_160x139_24Service_EN_01_160W.jpg;"24/7 - Great Service After You Buy";
+;mobile;$solPrefix_160x139_25Deal_EN_01_160W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_160x139_25Deal_EN_01_160W.jpg;$solPrefix_160x139_25Deal_EN_01_160W.jpg;"25% Great Prices and Great Deals";
+;mobile;$solPrefix_160x139_30Day_EN_01_160W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_160x139_30Day_EN_01_160W.jpg;$solPrefix_160x139_30Day_EN_01_160W.jpg;"30 Day - Shop with Confidence";
+;mobile;$solPrefix_160x139_6pm_EN_01_160W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_160x139_6pm_EN_01_160W.jpg;$solPrefix_160x139_6pm_EN_01_160W.jpg;"6pm - Order by 6pm for Same Day Shipping";
+;desktop;$solPrefix_240x200_24Service_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_240x200_24Service_EN_01_240W.jpg;$solPrefix_240x200_24Service_EN_01_240W.jpg;"24/7 - Great Service After You Buy";
+;desktop;$solPrefix_240x200_25Deal_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_240x200_25Deal_EN_01_240W.jpg;$solPrefix_240x200_25Deal_EN_01_240W.jpg;"25% Great Prices and Great Deals";
+;desktop;$solPrefix_240x200_30Day_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_240x200_30Day_EN_01_240W.jpg;$solPrefix_240x200_30Day_EN_01_240W.jpg;"30 Day - Shop with Confidence";
+;desktop;$solPrefix_240x200_6pm_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_240x200_6pm_EN_01_240W.jpg;$solPrefix_240x200_6pm_EN_01_240W.jpg;"6pm - Order by 6pm for Same Day Shipping";
+;desktop;$solPrefix_240x200_AngleGrinders_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_240x200_AngleGrinders_EN_01_240W.jpg;$solPrefix_240x200_AngleGrinders_EN_01_240W.jpg;"Angle Grinders";
+;desktop;$solPrefix_240x200_PowerDrills_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_240x200_PowerDrills_EN_01_240W.jpg;$solPrefix_240x200_PowerDrills_EN_01_240W.jpg;"Power Drills";
+;desktop;$solPrefix_240x200_Sanders_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_240x200_Sanders_EN_01_240W.jpg;$solPrefix_240x200_Sanders_EN_01_240W.jpg;"Sanders";
+;desktop;$solPrefix_240x200_Screwdrivers_EN_01_240W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_240x200_Screwdrivers_EN_01_240W.jpg;$solPrefix_240x200_Screwdrivers_EN_01_240W.jpg;"Screwdrivers";
+;mobile;$solPrefix_320x100_Brands_EN_01_320W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_320x100_Brands_EN_01_320W.jpg;$solPrefix_320x100_Brands_EN_01_320W.jpg;"Bosch | Black & Decker | Einhall | Skil | Hitachi";
+;mobile;$solPrefix_320x260_AngleGrinders_EN_01_320W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_320x260_AngleGrinders_EN_01_320W.jpg;$solPrefix_320x260_AngleGrinders_EN_01_320W.jpg;"Angle Grinders";
+;mobile;$solPrefix_320x260_PowerDrills_EN_01_320W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_320x260_PowerDrills_EN_01_320W.jpg;$solPrefix_320x260_PowerDrills_EN_01_320W.jpg;"Power Drills";
+;mobile;$solPrefix_320x260_Sanders_EN_01_320W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_320x260_Sanders_EN_01_320W.jpg;$solPrefix_320x260_Sanders_EN_01_320W.jpg;"Sanders";
+;mobile;$solPrefix_320x260_Screwdrivers_EN_01_320W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_320x260_Screwdrivers_EN_01_320W.jpg;$solPrefix_320x260_Screwdrivers_EN_01_320W.jpg;"Screwdrivers";
+#;mobile;$solPrefix_320x300_BigSplash_EN_01_320W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_320x300_BigSplash_EN_01_320W.jpg;$solPrefix_320x300_BigSplash_EN_01_320W.jpg;"The Most Powerful Tools in their Price Range";
+;mobile;$solPrefix_320x88_BigSplashTruck_EN_01_320W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_320x88_BigSplashTruck_EN_01_320W.jpg;$solPrefix_320x88_BigSplashTruck_EN_01_320W.jpg;"Technical and Medical Gases";
+;widescreen;$solPrefix_350x280_24Service_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_350x280_24Service_EN_01_350W.jpg;$solPrefix_350x280_24Service_EN_01_350W.jpg;"24/7 - Great Service After You Buy";
+;widescreen;$solPrefix_350x280_25Deal_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_350x280_25Deal_EN_01_350W.jpg;$solPrefix_350x280_25Deal_EN_01_350W.jpg;"25% Great Prices and Great Deals";
+;widescreen;$solPrefix_350x280_30Day_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_350x280_30Day_EN_01_350W.jpg;$solPrefix_350x280_30Day_EN_01_350W.jpg;"30 Day - Shop with Confidence";
+;widescreen;$solPrefix_350x280_6pm_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_350x280_6pm_EN_01_350W.jpg;$solPrefix_350x280_6pm_EN_01_350W.jpg;"6pm - Order by 6pm for Same Day Shipping";
+;widescreen;$solPrefix_350x290_AngleGrinders_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_350x290_AngleGrinders_EN_01_350W.jpg;$solPrefix_350x290_AngleGrinders_EN_01_350W.jpg;"Angle Grinders";
+;widescreen;$solPrefix_350x290_PowerDrills_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_350x290_PowerDrills_EN_01_350W.jpg;$solPrefix_350x290_PowerDrills_EN_01_350W.jpg;"Power Drills";
+;widescreen;$solPrefix_350x290_Sanders_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_350x290_Sanders_EN_01_350W.jpg;$solPrefix_350x290_Sanders_EN_01_350W.jpg;"Sanders";
+;widescreen;$solPrefix_350x290_Screwdrivers_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_350x290_Screwdrivers_EN_01_350W.jpg;$solPrefix_350x290_Screwdrivers_EN_01_350W.jpg;"Screwdrivers";
+;widescreen;$solPrefix_350x290_PowerDrills_EN_01_350W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_350x290_PowerDrills_EN_01_350W.jpg;$solPrefix_350x290_PowerDrills_EN_01_350W.jpg;"Power Drills";
+
+#Application images (widescreen format)
+;widescreen;$solPrefix_155x147_energy_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_155x147_energy_EN_01_1400W.jpg;$solPrefix_155x147_energy_EN_01_1400W.jpg;"Energy";
+;widescreen;$solPrefix_155x147_food_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_155x147_food_EN_01_1400W.jpg;$solPrefix_155x147_food_EN_01_1400W.jpg;"Food";
+;widescreen;$solPrefix_155x147_medical_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_155x147_medical_EN_01_1400W.jpg;$solPrefix_155x147_medical_EN_01_1400W.jpg;"Medical";
+;widescreen;$solPrefix_155x147_metProd_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_155x147_metProd_EN_01_1400W.jpg;$solPrefix_155x147_metProd_EN_01_1400W.jpg;"Metal production";
+;widescreen;$solPrefix_155x147_metFab_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_155x147_metFab_EN_01_1400W.jpg;$solPrefix_155x147_metFab_EN_01_1400W.jpg;"Metal fabrication";
+;widescreen;$solPrefix_155x147_oil_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_155x147_oil_EN_01_1400W.jpg;$solPrefix_155x147_oil_EN_01_1400W.jpg;"Oil";
+;widescreen;$solPrefix_155x147_pharma_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_155x147_pharma_EN_01_1400W.jpg;$solPrefix_155x147_pharma_EN_01_1400W.jpg;"Pharma";
+;widescreen;$solPrefix_155x147_speciality_EN_01_1400W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_155x147_speciality_EN_01_1400W.jpg;$solPrefix_155x147_speciality_EN_01_1400W.jpg;"Speciality";
+
+;tablet;$solPrefix_385x280_24Service_EN_01_385W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_385x280_24Service_EN_01_385W.jpg;$solPrefix_385x280_24Service_EN_01_385W.jpg;"24/7 - Great Service After You Buy";
+;tablet;$solPrefix_385x280_25Deal_EN_01_385W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_385x280_25Deal_EN_01_385W.jpg;$solPrefix_385x280_25Deal_EN_01_385W.jpg;"25% Great Prices and Great Deals";
+;tablet;$solPrefix_385x280_30Day_EN_01_385W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_385x280_30Day_EN_01_385W.jpg;$solPrefix_385x280_30Day_EN_01_385W.jpg;"30 Day - Shop with Confidence";
+;tablet;$solPrefix_385x280_6pm_EN_01_385W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_385x280_6pm_EN_01_385W.jpg;$solPrefix_385x280_6pm_EN_01_385W.jpg;"6pm - Order by 6pm for Same Day Shipping";
+;tablet;$solPrefix_385x290_AngleGrinders_EN_01_385W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_385x290_AngleGrinders_EN_01_385W.jpg;$solPrefix_385x290_AngleGrinders_EN_01_385W.jpg;"Angle Grinders";
+;tablet;$solPrefix_385x290_PowerDrills_EN_01_385W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_385x290_PowerDrills_EN_01_385W.jpg;$solPrefix_385x290_PowerDrills_EN_01_385W.jpg;"Power Drills";
+;tablet;$solPrefix_385x290_Sanders_EN_01_385W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_385x290_Sanders_EN_01_385W.jpg;$solPrefix_385x290_Sanders_EN_01_385W.jpg;"Sanders";
+;tablet;$solPrefix_385x290_Screwdrivers_EN_01_385W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_385x290_Screwdrivers_EN_01_385W.jpg;$solPrefix_385x290_Screwdrivers_EN_01_385W.jpg;"Screwdrivers";
+#;tablet;$solPrefix_770x350_BigSplash_EN_01_770W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_770x350_BigSplash_EN_01_770W.jpg;$solPrefix_770x350_BigSplash_EN_01_770W.jpg;"The Most Powerful Tools in their Price Range";
+;tablet;$solPrefix_770x211_BigSplashTruck_EN_01_770W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_770x211_BigSplashTruck_EN_01_770W.jpg;$solPrefix_770x211_BigSplashTruck_EN_01_770W.jpg;"Technical and Medical Gases";
+;tablet;$solPrefix_770x70_Brands_EN_01_770W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_770x70_Brands_EN_01_770W.jpg;$solPrefix_770x70_Brands_EN_01_770W.jpg;"Bosch | Black & Decker | Einhall | Skil | Hitachi";
+#;desktop;$solPrefix_960x400_BigSplash_EN_01_960W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_960x400_BigSplash_EN_01_960W.jpg;$solPrefix_960x400_BigSplash_EN_01_960W.jpg;"The Most Powerful Tools in their Price Range";
+;desktop;$solPrefix_960x263_BigSplashTruck_EN_01_960W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_960x263_BigSplashTruck_EN_01_960W.jpg;$solPrefix_960x263_BigSplashTruck_EN_01_960W.jpg;"Technical and Medical Gases";
+;desktop;$solPrefix_960x70_Brands_EN_01_960W.jpg;$siteResource/images/banners/homepage/responsive/$solPrefix_960x70_Brands_EN_01_960W.jpg;$solPrefix_960x70_Brands_EN_01_960W.jpg;"Bosch | Black & Decker | Einhall | Skil | Hitachi";
+
+
+INSERT_UPDATE MediaContainer;qualifier[unique=true];$medias;$contentCV[unique=true]
+;$solPrefix-homepage-24/7service-en;$solPrefix_350x280_24Service_EN_01_350W.jpg,$solPrefix_240x200_24Service_EN_01_240W.jpg,$solPrefix_160x139_24Service_EN_01_160W.jpg,$solPrefix_385x280_24Service_EN_01_385W.jpg
+;$solPrefix-homepage-25%-deal-en;$solPrefix_350x280_25Deal_EN_01_350W.jpg,$solPrefix_240x200_25Deal_EN_01_240W.jpg,$solPrefix_160x139_25Deal_EN_01_160W.jpg,$solPrefix_385x280_25Deal_EN_01_385W.jpg
+;$solPrefix-homepage-30Day-en;$solPrefix_350x280_30Day_EN_01_350W.jpg,$solPrefix_240x200_30Day_EN_01_240W.jpg,$solPrefix_160x139_30Day_EN_01_160W.jpg,$solPrefix_385x280_30Day_EN_01_385W.jpg
+;$solPrefix-homepage-6pm-en;$solPrefix_350x280_6pm_EN_01_350W.jpg,$solPrefix_240x200_6pm_EN_01_240W.jpg,$solPrefix_160x139_6pm_EN_01_160W.jpg,$solPrefix_385x280_6pm_EN_01_385W.jpg
+;$solPrefix-homepage-anglegranders-en;$solPrefix_350x290_AngleGrinders_EN_01_350W.jpg,$solPrefix_240x200_AngleGrinders_EN_01_240W.jpg,$solPrefix_320x260_AngleGrinders_EN_01_320W.jpg,$solPrefix_385x290_AngleGrinders_EN_01_385W.jpg
+;$solPrefix-homepage-brands-en;$solPrefix_1400x70_Brands_EN_01_1400W.jpg,$solPrefix_960x70_Brands_EN_01_960W.jpg,$solPrefix_320x100_Brands_EN_01_320W.jpg,$solPrefix_770x70_Brands_EN_01_770W.jpg
+;$solPrefix-homepage-powerdrills-en;$solPrefix_350x290_PowerDrills_EN_01_350W.jpg,$solPrefix_240x200_PowerDrills_EN_01_240W.jpg,$solPrefix_320x260_PowerDrills_EN_01_320W.jpg,$solPrefix_385x290_PowerDrills_EN_01_385W.jpg
+;$solPrefix-homepage-sanders-en;$solPrefix_350x290_Sanders_EN_01_350W.jpg,$solPrefix_240x200_Sanders_EN_01_240W.jpg,$solPrefix_320x260_Sanders_EN_01_320W.jpg,$solPrefix_385x290_Sanders_EN_01_385W.jpg
+;$solPrefix-homepage-screwdrivers-en;$solPrefix_350x290_Screwdrivers_EN_01_350W.jpg,$solPrefix_240x200_Screwdrivers_EN_01_240W.jpg,$solPrefix_320x260_Screwdrivers_EN_01_320W.jpg,$solPrefix_385x290_Screwdrivers_EN_01_385W.jpg
+#;$solPrefix-homepage-spalsh-en;$solPrefix_1400x480_BigSplash_EN_01_1400W.jpg,$solPrefix_960x400_BigSplash_EN_01_960W.jpg,$solPrefix_320x300_BigSplash_EN_01_320W.jpg,$solPrefix_770x350_BigSplash_EN_01_770W.jpg
+;$solPrefix-homepage-spalsh-en;$solPrefix_1400x384_BigSplashTruck_EN_01_1400W.jpg,$solPrefix_960x263_BigSplashTruck_EN_01_960W.jpg,$solPrefix_320x88_BigSplashTruck_EN_01_320W.jpg,$solPrefix_770x211_BigSplashTruck_EN_01_770W.jpg
+#Application categories
+;$solPrefix-homepage-energy-en;$solPrefix_155x147_energy_EN_01_1400W.jpg
+;$solPrefix-homepage-food-en;$solPrefix_155x147_food_EN_01_1400W.jpg
+;$solPrefix-homepage-medical-en;$solPrefix_155x147_medical_EN_01_1400W.jpg
+;$solPrefix-homepage-metal_production-en;$solPrefix_155x147_metProd_EN_01_1400W.jpg
+;$solPrefix-homepage-metal_fabrication-en;$solPrefix_155x147_metFab_EN_01_1400W.jpg
+;$solPrefix-homepage-oil-en;$solPrefix_155x147_oil_EN_01_1400W.jpg
+;$solPrefix-homepage-pharma-en;$solPrefix_155x147_pharma_EN_01_1400W.jpg
+;$solPrefix-homepage-speciality-en;$solPrefix_155x147_speciality_EN_01_1400W.jpg
+
+
+
+INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV[unique=true];uid[unique=true];$mediaContainer
+;;$solPrefixHompage24/7BannerComponent;$solPrefix-homepage-24/7service-en
+;;$solPrefixHompage25%BannerComponent;$solPrefix-homepage-25%-deal-en
+;;$solPrefixHompage30dayBannerComponent;$solPrefix-homepage-30Day-en
+;;$solPrefixHompage6pmBannerComponent;$solPrefix-homepage-6pm-en
+;;$solPrefixHompageAngleGrindersBannerComponent;$solPrefix-homepage-anglegranders-en
+;;$solPrefixHompageBrandsBannerComponent;$solPrefix-homepage-brands-en
+;;$solPrefixHompagePowerDrillsBannerComponent;$solPrefix-homepage-powerdrills-en
+;;$solPrefixHompageSandersBannerComponent;$solPrefix-homepage-sanders-en
+;;$solPrefixHompageScrewdriversBannerComponent;$solPrefix-homepage-screwdrivers-en
+;;$solPrefixHompageSplashBannerComponent;$solPrefix-homepage-spalsh-en
+#Application categories
+;;$solPrefixHompageEnergyBannerComponent;$solPrefix-homepage-energy-en
+;;$solPrefixHompageFoodBannerComponent;$solPrefix-homepage-food-en
+;;$solPrefixHompageMedicalBannerComponent;$solPrefix-homepage-medical-en
+;;$solPrefixHompageMetalProductionBannerComponent;$solPrefix-homepage-metal_production-en
+;;$solPrefixHompageMetalFabricationBannerComponent;$solPrefix-homepage-metal_fabrication-en
+;;$solPrefixHompageOilBannerComponent;$solPrefix-homepage-oil-en
+;;$solPrefixHompagePharmaBannerComponent;$solPrefix-homepage-pharma-en
+;;$solPrefixHompageSpecialityBannerComponent;$solPrefix-homepage-speciality-en
+
+
+# $solPrefix Search Results Page
+
+# Media Content
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];folder(qualifier)[default='images'];altText
+;;$solPrefix_148x318_SearchResultsSideBanner_EN_01.jpg;$siteResource/images/banners/site/$solPrefix_148x318_SearchResultsSideBanner_EN_01.jpg;;;""
+
+UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+;;SearchResultsSideBanner;$solPrefix_148x318_SearchResultsSideBanner_EN_01.jpg
+
+UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];content[lang=$lang]
+;;EmptyCartParagraphComponent;"<h2>Your shopping cart is empty</h2><p>Suggestions</p><ul><li>Browse our products by selecting a category above</li></ul>"
+;;NoSearchResultsParagraphComponent;"<h2>Sorry, we couldn't find any results for your search</h2><p>Suggestions:</p><ul><li>You may have typed your keywords incorrectly - please check for misspellings.</li><li>You may have been too specific - please broaden your search by using fewer keywords.</li><li>Browse our products by selecting a category above.</li></ul>"
+
+# $solPrefix Cart Page
+
+# Media Content
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];folder(qualifier)[default='images'];altText
+;;$solPrefix_148x300_HelpBanner_EN_01.jpg;$siteResource/images/banners/site/$solPrefix_148x300_HelpBanner_EN_01.jpg;;;"Need Help? Click here for help with checking out"
+;;$solPrefix_788x120_HomeDeliveryBanner_EN_01.jpg;$siteResource/images/banners/site/$solPrefix_788x120_HomeDeliveryBanner_EN_01.jpg;;;"Order before 6pm for next day delivery"
+
+UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+;;HelpBanner;$solPrefix_148x300_HelpBanner_EN_01.jpg
+;;NextDayDeliveryBanner120;$solPrefix_788x120_HomeDeliveryBanner_EN_01.jpg
+
+UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];content[lang=$lang]
+;;EmptyCartParagraphComponent;"<h2>Your shopping cart is empty</h2><p>Suggestions</p><ul><li>Browse our products by clicking a category above</li></ul>"
+;;HelpParagraphComponent;"<strong>Need Help with your checkout process?</strong> <span>Contact Us or Call phone number.</span>"
+
+# $solPrefix Store Finder Page
+
+# Media Content
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];folder(qualifier)[default='images'];altText
+;;$solPrefix_148x318_StoreFinderSideBanner_EN_01.jpg;$siteResource/images/banners/site/$solPrefix_148x318_StoreFinderSideBanner_EN_01.jpg;;;""
+
+UPDATE SimpleBannerComponent;$contentCV[unique=true];uid[unique=true];$picture[lang=$lang]
+;;StoreFinderSideBanner;$solPrefix_148x318_StoreFinderSideBanner_EN_01.jpg;
+
+
+INSERT_UPDATE Media;mediaFormat(qualifier);code[unique=true];@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator][forceWrite=true];realfilename;altText;mime[default='image/svg+xml'];$contentCV[unique=true];folder(qualifier)[default=images]
+;widescreen;$solPrefix_1400x401_ErrorPage_EN_1400W.svg;$siteResource/images/banners/site/$solPrefix_1400x401_ErrorPage_EN_1400W.svg;$solPrefix_1400x401_ErrorPage_EN_1400W.svg;"Page not found";
+;mobile;$solPrefix_480x170_ErrorPage_EN_480W.svg;$siteResource/images/banners/site/$solPrefix_1400x401_ErrorPage_EN_1400W.svg;$solPrefix_1400x401_ErrorPage_EN_1400W.svg;"Page not found";
+;tablet;$solPrefix_770x221_ErrorPage_EN_770W.svg;$siteResource/images/banners/site/$solPrefix_1400x401_ErrorPage_EN_1400W.svg;$solPrefix_1400x401_ErrorPage_EN_1400W.svg;"Page not found";
+;desktop;$solPrefix_960x275_ErrorPage_EN_960W.svg;$siteResource/images/banners/site/$solPrefix_1400x401_ErrorPage_EN_1400W.svg;$solPrefix_1400x401_ErrorPage_EN_1400W.svg;"Page not found";
+
+INSERT_UPDATE MediaContainer;qualifier[unique=true];$medias;$contentCV[unique=true]
+;$solPrefix-errorpage-pagenotfound-en;$solPrefix_480x170_ErrorPage_EN_480W.svg,$solPrefix_770x221_ErrorPage_EN_770W.svg,$solPrefix_960x275_ErrorPage_EN_960W.svg,$solPrefix_1400x401_ErrorPage_EN_1400W.svg
+
+INSERT_UPDATE SimpleResponsiveBannerComponent;$contentCV[unique=true];uid[unique=true];name;&componentRef;$mediaContainer
+;;$solPrefixtronicsErrorpageBannerComponent;$solPrefixtronics Error Page Banner Component;$solPrefixtronicsErrorpageBannerComponent;$solPrefix-errorpage-pagenotfound-en

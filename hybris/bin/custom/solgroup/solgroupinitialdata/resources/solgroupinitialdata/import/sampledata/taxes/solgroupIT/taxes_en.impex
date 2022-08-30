@@ -1,0 +1,16 @@
+$solPrefix = solgroupIT
+$lang=en
+$productCatalog=$solPrefixProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+# Creazione della Tax
+UPDATE Tax ; code[unique=true] ; name[lang=$lang]
+           ; code1             ; IVA Ordinaria   
+           ; code2             ; IVA Ridotta     
+           ; code3             ; IVA PDT Pharma  
+
+# Create class Tax Class
+UPDATE ProductTaxGroup ; code[unique=true] ; name[lang=$lang]
+                       ; iva-pharma        ; IVA PDT Pharma  
+                       ; iva-ridotta       ; IVA Ridotta     
+                       ; iva-ordinaria     ; IVA Ordinaria   

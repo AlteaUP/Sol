@@ -1,0 +1,20 @@
+# Import config properties into impex macros
+UPDATE GenericItem[processor=de.hybris.platform.commerceservices.impex.impl.ConfigPropertyImportProcessor];pk[unique=true]
+
+$solPrefix=solgroupIT
+$legacySystem = RAINBOW
+
+# Macros / Replacement Parameter definitions
+$catalogVersion=catalogversion(catalog(id[default='$legacySystem_commonCatalog']),version[default='Online'])[unique=true,default=$legacySystem_commonCatalog:Online]
+$siteResource=jar:com.solgroup.core.constants.SolgroupCoreConstants&/solgroupinitialdata/import/sampledata/commerceorg/$solPrefix/$config-solgroupEnv/$legacySystem
+
+
+
+# sol
+INSERT_UPDATE Media ; code[unique=true]                      ; @media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator] ; mime[default='application/xml'] ; $catalogVersion ; folder(qualifier)[default=WSImport/importCustomerJob/$legacySystem]
+                    ; $solPrefix_$legacySystem_customers.xml ; $siteResource/customers.xml                                                ;                                 ;                 ;                                                                    
+
+                    
+                    
+INSERT_UPDATE BatchImportCronJob ; code[unique=true]                            ; site(uid)[default=$solPrefix] ; job(code)         ; sessionUser(uid) ; sessionLanguage(isocode) ; importMedia(code)                      ; legacySystem(code) ; country(isocode) ; executionOrder ; errorMode(code) ; removeOnExit ;  
+                                 ; $solPrefix_importCustomerJob_$legacySystem_0 ;                               ; importCustomerJob ; admin            ; it                       ; $solPrefix_$legacySystem_customers.xml ; $legacySystem      ; IT               ; 0              ; FAIL            ; true         ;  

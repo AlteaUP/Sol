@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Ant build for UNIT TEST -->
+<project name="techedge-hybris-quality">
+
+	<!-- IMPORT -->
+	<!-- All workspace paths needed -->
+	<import file="./paths.xml"/>
+
+	<!-- All libraries needed -->
+	<taskdef classpath="${build.lib.dir}/ant-contrib-1.0b3/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml" />
+	
+	<!-- All build xml needed -->
+	<import file="./hybris_env.xml" />
+	<import file="./quality.xml" />
+
+	<!-- MACROs -->
+	<macrodef name="quality-prepare">
+
+		<sequential>
+			<quality-setup />
+		</sequential>
+	</macrodef>
+	
+	<!-- TARGETs -->
+	<target name="quality-full-check" depends="quality-checkstyle, quality-pmd, quality-cpd, quality-findbugs, quality-sonar, quality-rscbundlecheck">
+		<echo message="Quality full check completed." />
+	</target>
+
+	<target name="quality-checkstyle" depends="init-env">
+
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/test_splash_2.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Checkstyle quality analysis..." />
+			</then>
+		</if>
+		
+		<quality-checkstyle />
+	</target>
+
+	<target name="quality-pmd" depends="init-env">
+
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/test_splash_2.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="PMD quality analysis..." />
+			</then>
+		</if>
+		
+		<quality-pmd />
+	</target>
+
+	<target name="quality-cpd" depends="init-env">
+
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/test_splash_2.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="CPD quality analysis..." />
+			</then>
+		</if>
+		
+		<quality-cpd />
+	</target>
+
+	<target name="quality-findbugs" depends="init-env">
+
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/test_splash_2.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="FindBugs quality analysis..." />
+			</then>
+		</if>
+		
+		<quality-findbugs />
+	</target>
+
+        <target name="quality-sonar" depends="init-env">
+
+                <if>
+                        <equals arg1="${splash.enabled}" arg2="true" />
+                        <then>
+                                <splash imageurl="file:${build.img.dir}/test_splash_2.png" progressRegExp="Progress: (.*)%"
+                                        showduration="0" displayText="Sonar quality analysis..." />
+                        </then>
+                </if>
+
+                <quality-sonar />
+        </target>
+
+	<target name="quality-rscbundlecheck" depends="init-env">
+
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/test_splash_2.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="ResourceBundle Check quality analysis..." />
+			</then>
+		</if>
+		
+		<quality-rscbundlecheck />
+	</target>
+
+
+</project>

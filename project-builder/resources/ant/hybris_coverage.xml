@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Ant build for UNIT TEST -->
+<project name="techedge-hybris-coverage">
+
+	<!-- IMPORT -->
+	<!-- All workspace paths needed -->
+	<import file="./paths.xml"/>
+
+	<!-- All libraries needed -->
+	<!-- <taskdef classpath="${build.lib.dir}/ant-contrib-1.0b3/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml" /> -->
+	
+	<!-- All build xml needed -->
+	<import file="./hybris_env.xml" />
+	<import file="./coverage.xml" />
+	
+	<!-- MACROs -->
+	<macrodef name="coverage-prepare" description="">
+
+		<sequential>
+			<cobertura-project-setup />
+		</sequential>
+	</macrodef>
+	
+
+	<!-- TARGETs -->
+	<target name="coverage-init" depends="init-env" description="">
+		<cobertura-project-init />
+	</target>
+
+	<target name="coverage-instrument" depends="coverage-init" description="Instrument the project with coverage tracking code.">
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/test_splash_2.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Cobertura coverage analysis..." />
+			</then>
+		</if>
+		
+		<cobertura-project-instrument />
+	</target>
+
+	<target name="coverage-report" depends="init-env" description="Collect code-coverage informations.">
+		<cobertura-project-report />
+	</target>
+
+	<target name="coverage-clean" description="Collect code-coverage informations">
+		<cobertura-project-clean />
+	</target>
+
+</project>

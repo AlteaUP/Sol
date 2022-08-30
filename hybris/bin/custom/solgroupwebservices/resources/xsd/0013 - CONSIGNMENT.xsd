@@ -1,0 +1,51 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="urn:solgroup:com:OrderConsignment" xmlns:solns="urn:solgroup:com:OrderConsignment">
+
+    <xsd:element name="OrderConsignment_Hybris">
+        <xsd:complexType>
+            <xsd:all>
+                <xsd:element name="header" maxOccurs="1" minOccurs="1" type="solns:header"/>
+                <xsd:element name="order" maxOccurs="1" minOccurs="1" type="solns:order"/>
+            </xsd:all>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="header">
+        <xsd:sequence>
+            <xsd:element name="sourceSystem" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+            <xsd:element name="messageID" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+            <xsd:element name="timestamp" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="order">
+        <xsd:sequence>
+            <!--Codice ordine hybris-->
+            <xsd:element name="orderCode" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+            <xsd:element name="consignments">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="consignment" type="solns:consignment" minOccurs="1" maxOccurs="unbounded"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="consignment">
+        <xsd:sequence>
+            <!--Codice consegna-->
+            <xsd:element name="consignmentCode" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+            <xsd:element name="documentType" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+            <xsd:element name="documentNumber" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+            <!--Codice variante-->
+            <xsd:element name="productCode" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+            <!--Codice riga ordine generato da hybris-->
+            <xsd:element name="orderEntryNumber" type="xsd:int" maxOccurs="1" minOccurs="1"/>
+            <xsd:element name="quantity" type="xsd:int" maxOccurs="1" minOccurs="1"/>
+            <!--Campo dedicato alla definizione di stato della riga [ ACCEPTED, PLANNED, SHIPPED, DELIVERED, CANCELLED ]-->
+            <xsd:element name="status" type="xsd:string" maxOccurs="1" minOccurs="1"/>
+            <xsd:element name="trackingLink" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+            <xsd:element name="trackingNumber" type="xsd:string" maxOccurs="1" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

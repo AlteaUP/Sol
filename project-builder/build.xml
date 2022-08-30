@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="techedge-hylab" default="all" basedir="./..">
+
+	<!-- IMPORT -->
+	<!-- All workspace paths needed -->
+	<!-- <import file="./resources/ant/paths.xml" /> -->
+
+	<!-- ANT-CONTRIB library -->
+	<!-- <taskdef classpath="${build.lib.dir}/ant-contrib-1.0b3/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml" /> -->
+
+	<!-- All build xml needed -->
+	<import file="./build_techedge.xml" />
+
+
+	<!-- All buildcallbacks xml -->
+	<!-- <import file="./buildcallbacks.xml" /> -->
+
+
+	<!-- PROPERTies -->
+	<!-- <property name="current.hybris.platform" value="platform" /> -->
+	<property name="current.hybris.platform" value="commerce-suite" />
+	<!-- <property name="current.hybris.platform" value="commerce-accelerator-for-b2c" /> -->
+	<!-- <property name="current.hybris.platform" value="commerce-accelerator-for-b2b" /> -->
+	<!-- <property name="current.hybris.platform" value="telco-accelerator" /> -->
+
+
+	<target name="init-mmfg-project" extensionOf="before-build">
+		<echo>*--------------------------------------------------</echo>
+		<echo>*</echo>
+		<echo>*  SolGroup B2B Project</echo>
+		<echo>*</echo>
+		<echo>*--------------------------------------------------</echo>
+	</target>
+
+	<!-- SCRIPTs -->
+	
+
+	<!-- MACROs -->
+
+
+	<!-- TASKs -->
+
+
+	<!-- EXTENSION POINTs -->
+
+
+	<!-- TARGETs - Examples -->
+	<!-- 
+	<target name="call-internal-target" description="Call an ant target declared in this ant build.xml tree.">
+	
+		<antcall target="update">
+			<param name="tenant" value="master" />
+		</antcall>
+	</target>
+	-->
+	
+	<!-- 
+	<target name="call-external-target" description="Call an ant target declared in another ant build.xml tree.">
+	
+		<ant dir="${hybris.platform.dir}" target="update" inheritall="false">
+			 <property name="tenant" value="master"/>
+		</ant>
+	</target>
+	-->
+	
+	<!-- 
+	<target name="export-all-properties">
+	
+		<echoproperties destfile="${basedir}/all.properties" failonerror="false" format="text" />
+		<echoproperties destfile="${basedir}/all_properties.xml" failonerror="false" format="xml" />
+	</target>
+	-->
+	
+	
+	<!-- TARGETs -->
+	<target name="generic-test">
+		
+		<echo>end of generic test</echo>
+	</target>
+
+
+</project>

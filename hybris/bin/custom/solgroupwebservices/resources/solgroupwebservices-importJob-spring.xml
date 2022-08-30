@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- [y] hybris Platform Copyright (c) 2017 SAP SE or an SAP affiliate company. 
+	All rights reserved. This software is the confidential and proprietary information 
+	of SAP ("Confidential Information"). You shall not disclose such Confidential 
+	Information and shall use it only in accordance with the terms of the license 
+	agreement you entered into with SAP. -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:annotation-config />
+
+	<bean id="abstractImportJob"
+		class="com.solgroup.job.importData.abstractJob.AbstractImportJob"
+		parent="abstractJobPerformable" abstract="true" autowire="byName">
+		<property name="commonWsService" ref="commonWsService" />
+		<property name="mediaService" ref="mediaService" />
+		<property name="modelService" ref="modelService" />
+		<property name="commonDao" ref="commonDao" />
+		<property name="solGroupUtilities" ref="solGroupUtilities" />
+		<property name="userService" ref="userService" />
+		<property name="enumerationService" ref="enumerationService" />
+	</bean>
+
+	<bean id="importProductJob" class="com.solgroup.job.importData.jobs.ImportProductJob"
+		parent="abstractImportJob" autowire="byName">
+		<property name="catalogVersionService" ref="catalogVersionService" />
+		<property name="productDao" ref="productDao" />
+		<property name="solGroupCategoryService" ref="solGroupCategoryService" />
+ 		<property name="solGroupTaxRowDao" ref="solGroupTaxRowDao" />
+	</bean>
+
+	<bean id="importCustomerJob" class="com.solgroup.job.importData.jobs.ImportCustomerJob"
+		parent="abstractImportJob" autowire="byName">
+		<property name="countryDao" ref="countryDao" />
+		<property name="currencyDao" ref="currencyDao" />
+		<property name="solGroupB2BUnitDao" ref="solGroupB2BUnitDao" />
+		<property name="solGroupB2BUnitService" ref="solGroupB2BUnitService" />
+		<property name="solGroupAddressService" ref="solGroupAddressService" />
+	</bean>
+
+
+	<bean id="importPriceListsJob" class="com.solgroup.job.importData.jobs.ImportPriceListsJob"
+		parent="abstractImportJob" autowire="byName">
+		<property name="currencyDao" ref="currencyDao" />
+		<property name="userService" ref="userService" />
+		<property name="solGroupB2BUnitDao" ref="solGroupB2BUnitDao" />
+		<property name="solGroupProductService" ref="solGroupProductService" />
+		<property name="solGroupB2BUnitService" ref="solGroupB2BUnitService" />
+	</bean>
+
+	<bean id="importStockJob" class="com.solgroup.job.importData.jobs.ImportStockJob"
+		parent="abstractImportJob" autowire="byName">
+		<property name="threshold"  value="0" />
+		<property name="solGroupBaseCommerceService" ref="solGroupBaseCommerceService" />
+		<property name="solGroupProductService" ref="solGroupProductService" />
+	</bean>
+	
+</beans>

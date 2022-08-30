@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="4c450bc3-9703-46b1-a426-33c5a38b6e19" activeEnvironment="Default" name="DEV - 0001 - import product" resourceRoot="" soapui-version="5.3.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="e5c98117-286d-4792-80ac-34782a79bc06" wsaVersion="NONE" name="ProductsImport_Legacy_OBBinding" type="wsdl" bindingName="{urn:solgroup:com:ProductsImport}ProductsImport_Legacy_OBBinding" soapVersion="1_1" anonymous="optional" definition="http://10.177.120.199:50000/dir/wsdl?p=sa/e2e69e515d583b71b9a1564aaca2d59d&amp;opt_name=ProductsImport_Legacy_OB&amp;opt_namespace=urn%3Asolgroup%3Acom%3AProductsImport&amp;opt_swcv_guid=f75457e1663111e7a735fa6ec0a83cc7&amp;oah_name=ProductsImport_Legacy_OB&amp;oah_interfaceNamespace=urn%3Asolgroup%3Acom%3AProductsImport" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://10.177.120.199:50000/dir/wsdl?p=sa/e2e69e515d583b71b9a1564aaca2d59d&amp;opt_name=ProductsImport_Legacy_OB&amp;opt_namespace=urn%3Asolgroup%3Acom%3AProductsImport&amp;opt_swcv_guid=f75457e1663111e7a735fa6ec0a83cc7&amp;oah_name=ProductsImport_Legacy_OB&amp;oah_interfaceNamespace=urn%3Asolgroup%3Acom%3AProductsImport"><con:part><con:url>http://10.177.120.199:50000/dir/wsdl?p=sa/e2e69e515d583b71b9a1564aaca2d59d&amp;opt_name=ProductsImport_Legacy_OB&amp;opt_namespace=urn%3Asolgroup%3Acom%3AProductsImport&amp;opt_swcv_guid=f75457e1663111e7a735fa6ec0a83cc7&amp;oah_name=ProductsImport_Legacy_OB&amp;oah_interfaceNamespace=urn%3Asolgroup%3Acom%3AProductsImport</con:url><con:content><![CDATA[<wsdl:definitions name="ProductsImport_Legacy_OB" targetNamespace="urn:solgroup:com:ProductsImport" xmlns:p1="urn:solgroup:com:ProductsImport" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation/>
+  <wsp:UsingPolicy wsdl:required="true"/>
+  <wsp:Policy wsu:Id="OP_ProductsImport_Legacy_OB"/>
+  <wsdl:types>
+    <xsd:schema targetNamespace="urn:solgroup:com:ProductsImport" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:solgroup:com:ProductsImport">
+      <xsd:element name="ProductsImport_Legacy" type="ProductsImport_Legacy"/>
+      <xsd:complexType name="ProductsImport_Legacy">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">d27994ecbfb411e7c2b20000003c182e</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="country" type="xsd:string"/>
+          <xsd:element name="baseProducts">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">f10f25ba6e0411e794bc00059a3c7800</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="baseProduct" maxOccurs="unbounded">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">f10f25b96e0411e7b72100059a3c7800</xsd:appinfo>
+                  </xsd:annotation>
+                  <xsd:complexType>
+                    <xsd:sequence>
+                      <xsd:element name="erpCode" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">f10cc7706e0411e79e4200059a3c7800</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="names">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">f10cc7736e0411e7a2cf00059a3c7800</xsd:appinfo>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                          <xsd:sequence>
+                            <xsd:element name="name" maxOccurs="unbounded">
+                              <xsd:annotation>
+                                <xsd:appinfo source="http://sap.com/xi/TextID">f10cc7726e0411e7b57100059a3c7800</xsd:appinfo>
+                              </xsd:annotation>
+                              <xsd:complexType>
+                                <xsd:simpleContent>
+                                  <xsd:extension base="xsd:string">
+                                    <xsd:attribute name="lang" type="xsd:string" use="required">
+                                      <xsd:annotation>
+                                        <xsd:appinfo source="http://sap.com/xi/TextID">754365f56e0b11e7833700059a3c7800</xsd:appinfo>
+                                      </xsd:annotation>
+                                    </xsd:attribute>
+                                  </xsd:extension>
+                                </xsd:simpleContent>
+                              </xsd:complexType>
+                            </xsd:element>
+                          </xsd:sequence>
+                        </xsd:complexType>
+                      </xsd:element>
+                      <xsd:element name="commercialCategories" minOccurs="0">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">f10cc7766e0411e78cf500059a3c7800</xsd:appinfo>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                          <xsd:sequence>
+                            <xsd:element name="commercialCategory" maxOccurs="unbounded">
+                              <xsd:annotation>
+                                <xsd:appinfo source="http://sap.com/xi/TextID">f10cc7756e0411e7b82d00059a3c7800</xsd:appinfo>
+                              </xsd:annotation>
+                              <xsd:complexType>
+                                <xsd:sequence>
+                                  <xsd:element name="code" type="xsd:string">
+                                    <xsd:annotation>
+                                      <xsd:appinfo source="http://sap.com/xi/TextID">f10cc7746e0411e7a05b00059a3c7800</xsd:appinfo>
+                                    </xsd:annotation>
+                                  </xsd:element>
+                                </xsd:sequence>
+                              </xsd:complexType>
+                            </xsd:element>
+                          </xsd:sequence>
+                        </xsd:complexType>
+                      </xsd:element>
+                      <xsd:element name="material" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">f10cc7776e0411e7aeb800059a3c7800</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="stockable" type="xsd:boolean" minOccurs="0">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">f10cc7786e0411e7be6c00059a3c7800</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="weight" type="xsd:decimal" minOccurs="0">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">f10cc7796e0411e788dd00059a3c7800</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="um" type="xsd:string" minOccurs="0">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">f10cc77a6e0411e7b15c00059a3c7800</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="taxCode" type="xsd:string" minOccurs="0">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">f10cc77b6e0411e7a4a200059a3c7800</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="genericAttributes" minOccurs="0">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">f10cc77f6e0411e7939c00059a3c7800</xsd:appinfo>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                          <xsd:sequence>
+                            <xsd:element name="genericAttribute" maxOccurs="unbounded">
+                              <xsd:annotation>
+                                <xsd:appinfo source="http://sap.com/xi/TextID">f10cc77e6e0411e7afe600059a3c7800</xsd:appinfo>
+                              </xsd:annotation>
+                              <xsd:complexType>
+                                <xsd:sequence>
+                                  <xsd:element name="key" type="xsd:string">
+                                    <xsd:annotation>
+                                      <xsd:appinfo source="http://sap.com/xi/TextID">f10cc77c6e0411e7896900059a3c7800</xsd:appinfo>
+                                    </xsd:annotation>
+                                  </xsd:element>
+                                  <xsd:element name="value" type="xsd:string">
+                                    <xsd:annotation>
+                                      <xsd:appinfo source="http://sap.com/xi/TextID">f10cc77d6e0411e7a35200059a3c7800</xsd:appinfo>
+                                    </xsd:annotation>
+                                  </xsd:element>
+                                </xsd:sequence>
+                              </xsd:complexType>
+                            </xsd:element>
+                          </xsd:sequence>
+                        </xsd:complexType>
+                      </xsd:element>
+                      <xsd:element name="status" type="xsd:string">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">f10cc7806e0411e78e3500059a3c7800</xsd:appinfo>
+                        </xsd:annotation>
+                      </xsd:element>
+                      <xsd:element name="variants" minOccurs="0">
+                        <xsd:annotation>
+                          <xsd:appinfo source="http://sap.com/xi/TextID">f10f25b86e0411e7c7dd00059a3c7800</xsd:appinfo>
+                        </xsd:annotation>
+                        <xsd:complexType>
+                          <xsd:sequence>
+                            <xsd:element name="variant" maxOccurs="unbounded">
+                              <xsd:annotation>
+                                <xsd:appinfo source="http://sap.com/xi/TextID">f10cc7906e0411e7af2c00059a3c7800</xsd:appinfo>
+                              </xsd:annotation>
+                              <xsd:complexType>
+                                <xsd:sequence>
+                                  <xsd:element name="erpCode" type="xsd:string">
+                                    <xsd:annotation>
+                                      <xsd:appinfo source="http://sap.com/xi/TextID">f10cc7816e0411e7855600059a3c7800</xsd:appinfo>
+                                    </xsd:annotation>
+                                  </xsd:element>
+                                  <xsd:element name="names">
+                                    <xsd:annotation>
+                                      <xsd:appinfo source="http://sap.com/xi/TextID">f10cc7836e0411e7c74e00059a3c7800</xsd:appinfo>
+                                    </xsd:annotation>
+                                    <xsd:complexType>
+                                      <xsd:sequence>
+                                        <xsd:element name="name" maxOccurs="unbounded">
+                                          <xsd:annotation>
+                                            <xsd:appinfo source="http://sap.com/xi/TextID">f10cc7826e0411e7b1dd00059a3c7800</xsd:appinfo>
+                                          </xsd:annotation>
+                                          <xsd:complexType>
+                                            <xsd:simpleContent>
+                                              <xsd:extension base="xsd:string">
+                                                <xsd:attribute name="lang" type="xsd:string" use="required">
+                                                  <xsd:annotation>
+                                                    <xsd:appinfo source="http://sap.com/xi/TextID">754394ee6e0b11e78b3800059a3c7800</xsd:appinfo>
+                                                  </xsd:annotation>
+                                                </xsd:attribute>
+                                              </xsd:extension>
+                                            </xsd:simpleContent>
+                                          </xsd:complexType>
+                                        </xsd:element>
+                                      </xsd:sequence>
+                                    </xsd:complexType>
+                                  </xsd:element>
+                                  <xsd:element name="status" type="xsd:string">
+                                    <xsd:annotation>
+                                      <xsd:appinfo source="http://sap.com/xi/TextID">f10cc7846e0411e7a8c000059a3c7800</xsd:appinfo>
+                                    </xsd:annotation>
+                                  </xsd:element>
+                                  <xsd:element name="variantsCategories" minOccurs="0">
+                                    <xsd:annotation>
+                                      <xsd:appinfo source="http://sap.com/xi/TextID">f10cc7886e0411e7c3e000059a3c7800</xsd:appinfo>
+                                    </xsd:annotation>
+                                    <xsd:complexType>
+                                      <xsd:sequence>
+                                        <xsd:element name="variantCategory" maxOccurs="unbounded">
+                                          <xsd:annotation>
+                                            <xsd:appinfo source="http://sap.com/xi/TextID">f10cc7876e0411e7837400059a3c7800</xsd:appinfo>
+                                          </xsd:annotation>
+                                          <xsd:complexType>
+                                            <xsd:sequence>
+                                              <xsd:element name="variantCategory" type="xsd:string">
+                                                <xsd:annotation>
+                                                  <xsd:appinfo source="http://sap.com/xi/TextID">f10cc7856e0411e78d3200059a3c7800</xsd:appinfo>
+                                                </xsd:annotation>
+                                              </xsd:element>
+                                              <xsd:element name="variantValueCategory" type="xsd:string">
+                                                <xsd:annotation>
+                                                  <xsd:appinfo source="http://sap.com/xi/TextID">f10cc7866e0411e78f1600059a3c7800</xsd:appinfo>
+                                                </xsd:annotation>
+                                              </xsd:element>
+                                            </xsd:sequence>
+                                          </xsd:complexType>
+                                        </xsd:element>
+                                      </xsd:sequence>
+                                    </xsd:complexType>
+                                  </xsd:element>
+                                  <xsd:element name="weight" type="xsd:decimal" minOccurs="0">
+                                    <xsd:annotation>
+                                      <xsd:appinfo source="http://sap.com/xi/TextID">f10cc7896e0411e7af0300059a3c7800</xsd:appinfo>
+                                    </xsd:annotation>
+                                  </xsd:element>
+                                  <xsd:element name="um" type="xsd:string" minOccurs="0">
+                                    <xsd:annotation>
+                                      <xsd:appinfo source="http://sap.com/xi/TextID">f10cc78a6e0411e7cc8a00059a3c7800</xsd:appinfo>
+                                    </xsd:annotation>
+                                  </xsd:element>
+                                  <xsd:element name="taxCode" type="xsd:string" minOccurs="0">
+                                    <xsd:annotation>
+                                      <xsd:appinfo source="http://sap.com/xi/TextID">f10cc78b6e0411e791e500059a3c7800</xsd:appinfo>
+                                    </xsd:annotation>
+                                  </xsd:element>
+                                  <xsd:element name="genericAttributes" minOccurs="0">
+                                    <xsd:annotation>
+                                      <xsd:appinfo source="http://sap.com/xi/TextID">f10cc78f6e0411e7c1bb00059a3c7800</xsd:appinfo>
+                                    </xsd:annotation>
+                                    <xsd:complexType>
+                                      <xsd:sequence>
+                                        <xsd:element name="genericAttribute" maxOccurs="unbounded">
+                                          <xsd:annotation>
+                                            <xsd:appinfo source="http://sap.com/xi/TextID">f10cc78e6e0411e79b3e00059a3c7800</xsd:appinfo>
+                                          </xsd:annotation>
+                                          <xsd:complexType>
+                                            <xsd:sequence>
+                                              <xsd:element name="key" type="xsd:string">
+                                                <xsd:annotation>
+                                                  <xsd:appinfo source="http://sap.com/xi/TextID">f10cc78c6e0411e7aa9100059a3c7800</xsd:appinfo>
+                                                </xsd:annotation>
+                                              </xsd:element>
+                                              <xsd:element name="value" type="xsd:string">
+                                                <xsd:annotation>
+                                                  <xsd:appinfo source="http://sap.com/xi/TextID">f10cc78d6e0411e7ca0b00059a3c7800</xsd:appinfo>
+                                                </xsd:annotation>
+                                              </xsd:element>
+                                            </xsd:sequence>
+                                          </xsd:complexType>
+                                        </xsd:element>
+                                      </xsd:sequence>
+                                    </xsd:complexType>
+                                  </xsd:element>
+                                </xsd:sequence>
+                              </xsd:complexType>
+                            </xsd:element>
+                          </xsd:sequence>
+                        </xsd:complexType>
+                      </xsd:element>
+                    </xsd:sequence>
+                  </xsd:complexType>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ProductsImport_Legacy">
+    <wsdl:documentation/>
+    <wsdl:part name="ProductsImport_Legacy" element="p1:ProductsImport_Legacy"/>
+  </wsdl:message>
+  <wsdl:portType name="ProductsImport_Legacy_OB">
+    <wsdl:documentation/>
+    <wsdl:operation name="ProductsImport_Legacy_OB">
+      <wsdl:documentation/>
+      <wsp:Policy>
+        <wsp:PolicyReference URI="#OP_ProductsImport_Legacy_OB"/>
+      </wsp:Policy>
+      <wsdl:input message="p1:ProductsImport_Legacy"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ProductsImport_Legacy_OBBinding" type="p1:ProductsImport_Legacy_OB">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+    <wsdl:operation name="ProductsImport_Legacy_OB">
+      <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      <wsdl:input>
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProductsImport_Legacy_OBService">
+    <wsdl:port name="HTTP_Port" binding="p1:ProductsImport_Legacy_OBBinding">
+      <soap:address location="http://vitapppodev1.solgroup-it.solworld.com:50000/XISOAPAdapter/MessageServlet?senderParty=IT&amp;senderService=RAMSES&amp;receiverParty=&amp;receiverService=&amp;interface=ProductsImport_Legacy_OB&amp;interfaceNamespace=urn%3Asolgroup%3Acom%3AProductsImport" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+    </wsdl:port>
+    <wsdl:port name="HTTPS_Port" binding="p1:ProductsImport_Legacy_OBBinding">
+      <soap:address location="https://vitapppodev1.solgroup-it.solworld.com:50001/XISOAPAdapter/MessageServlet?senderParty=IT&amp;senderService=RAMSES&amp;receiverParty=&amp;receiverService=&amp;interface=ProductsImport_Legacy_OB&amp;interfaceNamespace=urn%3Asolgroup%3Acom%3AProductsImport" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://vitapppodev1.solgroup-it.solworld.com:50000/XISOAPAdapter/MessageServlet?senderParty=IT&amp;senderService=RAMSES&amp;receiverParty=&amp;receiverService=&amp;interface=ProductsImport_Legacy_OB&amp;interfaceNamespace=urn:solgroup:com:ProductsImport</con:endpoint><con:endpoint>https://vitapppodev1.solgroup-it.solworld.com:50001/XISOAPAdapter/MessageServlet?senderParty=IT&amp;senderService=RAMSES&amp;receiverParty=&amp;receiverService=&amp;interface=ProductsImport_Legacy_OB&amp;interfaceNamespace=urn:solgroup:com:ProductsImport</con:endpoint></con:endpoints><con:operation id="c5f5d5d0-b44e-424a-8461-846d54ebd279" isOneWay="false" action="http://sap.com/xi/WebService/soap1.1" name="ProductsImport_Legacy_OB" bindingOperationName="ProductsImport_Legacy_OB" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c23b61c4-ded0-4797-89ed-98492feb05d5" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://10.177.120.199:50000/XISOAPAdapter/MessageServlet?senderParty=IT&amp;senderService=RAMSES&amp;receiverParty=&amp;receiverService=&amp;interface=ProductsImport_Legacy_OB&amp;interfaceNamespace=urn:solgroup:com:ProductsImport</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:solgroup:com:ProductsImport">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:ProductsImport_Legacy>
+
+        <country>IT</country>
+        <baseProducts>
+          <baseProduct>
+            <erpCode>X00001</erpCode>
+            <names>
+              <name lang="de">Sauerstoff Ind.</name>
+              <name lang="en">OSSIGENO IND.</name>
+              <name lang="it">OSSIGENO IND.</name>
+            </names>
+            <commercialCategories>
+              <commercialCategory>
+                <code>CAT1</code>
+              </commercialCategory>
+              <commercialCategory>
+                <code>CAT2</code>
+              </commercialCategory>
+            </commercialCategories>
+            <material>gas</material>
+            <stockable>true</stockable>
+            <status>1</status>
+            <variants>
+              <variant>
+                <erpCode>04330</erpCode>
+                <names>
+                  <name lang="en">OSSIGENO IND. IN VS MINISOL/5</name>
+                  <name lang="it">OSSIGENO IND. IN VS MINISOL/5</name>
+                </names>
+                <status>1</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>Vc_Default</variantCategory>
+                    <variantValueCategory>Vc_Default_Default</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+              <variant>
+                <erpCode>01636</erpCode>
+                <names>
+                  <name lang="it">TGM OSSIGENO LASER IN PACCHI</name>
+                </names>
+                <status>0</status>
+                <variantsCategories>
+                  <variantCategory>
+                    <variantCategory>Vc_Default</variantCategory>
+                    <variantValueCategory>Vc_Default_Default</variantValueCategory>
+                  </variantCategory>
+                </variantsCategories>
+                <weight>0</weight>
+                <um>pieces</um>
+              </variant>
+            </variants>
+          </baseProduct>
+          
+        </baseProducts>
+      
+      </urn:ProductsImport_Legacy>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>SOL_TEST_WS</con:username><con:password>Techedge1</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://sap.com/xi/WebService/soap1.1"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

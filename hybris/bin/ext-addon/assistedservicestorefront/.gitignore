@@ -1,0 +1,32 @@
+##############################################################
+################# Hybris build generated files ###############
+
+classes/
+gensrc/
+
+build.xml
+extensioninfo.xsd
+platformhome.properties
+ruleset.xml
+
+resources/**/*-testclasses.xml
+resources/**/*-webtestclasses.xml
+resources/beans.xsd
+resources/items.xsd
+
+##############################################################
+################## Eclipse generated files ###################
+
+eclipsebin/
+.metadata/
+RemoteSystemsTempFiles/
+.eclipsebin
+
+##############################################################
+####################### Other files ##########################
+
+.DS_Store
+/**/.DS_Store
+
+##############################################################
+/.classpath.bak

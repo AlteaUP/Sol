@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ SubOrder Export Process
+-->
+
+<process xmlns="http://www.hybris.de/xsd/processdefinition" start="sendsubOrderToLegacy" name="suborder-export-process"
+         processClass="com.solgroup.core.model.SubOrderProcessModel">
+  
+    <action id="sendsubOrderToLegacy" bean="sendSubOrderToLegacyAction">
+        <transition name="OK" to="waitForLegacyResponse"/>
+        <transition name="NOK" to="error"/>
+    </action>
+
+    <wait id="waitForLegacyResponse" then="updateStock" prependProcessCode="false" >
+        <event>${process.code}_orderUpdate</event>
+    </wait>
+    
+    <action id="updateStock" bean="updateStockAction">
+        <transition name="OK" to="waitForExternalAction"/>
+        <transition name="NOK" to="error"/>
+    </action>
+
+	<wait id="waitForExternalAction" then="checkOrderUpdate" prependProcessCode="false">
+		<event>${process.code}_externalAction</event>
+	</wait>
+	
+    <action id="checkOrderUpdate" bean="checkOrderUpdateAction">
+        <transition name="ERROR" to="error"/>
+        <transition name="BACKOFFICE_UPDATE" to="sendsubOrderToLegacy"/>
+        <transition name="LEGACY_UPDATE" to="updateStock"/>
+        <transition name="ORDER_FREEZED" to="freezeOrder"/>
+    </action>
+
+    <action id="freezeOrder" bean="freezeOrderAction">
+        <transition name="OK" to="success"/>
+        <transition name="NOK" to="error"/>
+    </action>
+        
+    <end id="error" state="ERROR">All went wrong.</end>
+    <end id="failed" state="FAILED">Order not placed.</end>
+    <end id="success" state="SUCCEEDED">Order placed.</end>
+    
+</process>

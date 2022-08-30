@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="93aab479-23d4-42d2-85e5-9deca9390cec" activeEnvironment="Default" name="0005 – CUSTOMER IMPORT" resourceRoot="" soapui-version="5.3.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="b3fed29e-6440-4425-a7d6-750bf26cd95a" wsaVersion="NONE" name="DefaultCustomerImportWSServiceSoapBinding" type="wsdl" bindingName="{http://importws.ws.solgroup.com/}DefaultCustomerImportWSServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="file:/work/solgroup/sol-hycomm-b2b/hybris/bin/custom/solgroupwebservices/resources/wsdl/0005%20–%20CUSTOMER%20IMPORT.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/work/solgroup/sol-hycomm-b2b/hybris/bin/custom/solgroupwebservices/resources/wsdl/0005%20–%20CUSTOMER%20IMPORT.wsdl"><con:part><con:url>file:/work/solgroup/sol-hycomm-b2b/hybris/bin/custom/solgroupwebservices/resources/wsdl/0005%20–%20CUSTOMER%20IMPORT.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="DefaultCustomerImportWSService" targetNamespace="http://importws.ws.solgroup.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://importws.ws.solgroup.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema targetNamespace="urn:solgroup:com:CustomerImport" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:solgroup:com:CustomerImport">
+      <xs:element name="CustomerImport_Hybris" type="tns:CustomerImport_Hybris"/>
+      <xs:complexType name="CustomerImport_Hybris">
+        <xs:all>
+          <xs:element name="header" type="tns:header"/>
+          <xs:element name="companies" type="tns:companies"/>
+        </xs:all>
+      </xs:complexType>
+      <xs:complexType name="header">
+        <xs:sequence>
+          <xs:element name="sourceSystem" type="xs:string"/>
+          <xs:element name="messageID" type="xs:string"/>
+          <xs:element name="timestamp" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="companies">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="company">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="erpCode" type="xs:string"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="default" type="xs:boolean"/>
+                <xs:element minOccurs="0" name="organizations1" type="tns:organization1"/>
+                <xs:element minOccurs="0" name="b2bUnits" type="tns:b2bUnits"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="organization1">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="organizationUnit1">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="erpCode" type="xs:string"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="b2bUnits" type="tns:b2bUnits"/>
+                <xs:element minOccurs="0" name="organization2" type="tns:organization2"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="b2bUnits">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="b2bUnit">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="erpCode" type="xs:string"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element minOccurs="0" name="vatID" type="xs:string"/>
+                <xs:element minOccurs="0" name="taxPayerCode" type="xs:string"/>
+                <xs:element minOccurs="0" name="publicClient" type="xs:boolean"/>
+                <xs:element minOccurs="0" name="clientType" type="xs:string"/>
+                <xs:element minOccurs="0" name="creditState" type="xs:string"/>
+                <xs:element minOccurs="0" name="activeState" type="xs:string"/>
+                <xs:element minOccurs="0" name="vendorCode" type="xs:string"/>
+                <xs:element name="customers" type="tns:customers"/>
+                <xs:element name="address" type="tns:address"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="customers">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="customerId" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="address">
+        <xs:sequence>
+          <xs:element name="erpCode" type="xs:string"/>
+          <xs:element name="street" type="xs:string"/>
+          <xs:element minOccurs="0" name="streetNumber" type="xs:string"/>
+          <xs:element name="town" type="xs:string"/>
+          <xs:element minOccurs="0" name="postalCode" type="xs:string"/>
+          <xs:element name="country" type="xs:string"/>
+          <xs:element minOccurs="0" name="email" type="xs:string"/>
+          <xs:element minOccurs="0" name="phone" type="xs:string"/>
+          <xs:element minOccurs="0" name="fax" type="xs:string"/>
+          <xs:element name="shipping" type="xs:boolean"/>
+          <xs:element name="billing" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="organization2">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" name="organizationUnit2">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="erpCode" type="xs:string"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="b2bUnits" type="tns:b2bUnits"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://importws.ws.solgroup.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="urn:solgroup:com:CustomerImport">
+      <xs:import namespace="urn:solgroup:com:CustomerImport"/>
+      <xs:element name="importData" type="tns:importData"/>
+      <xs:element name="importDataResponse" type="tns:importDataResponse"/>
+      <xs:complexType name="importData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Import_Hybris" type="ns1:CustomerImport_Hybris"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="importDataResponse">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:element name="Exception" type="tns:Exception"/>
+      <xs:complexType name="Exception">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="importData">
+    <wsdl:part element="tns:importData" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="importDataResponse">
+    <wsdl:part element="tns:importDataResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="tns:Exception" name="Exception"/>
+  </wsdl:message>
+  <wsdl:portType name="ImportWS">
+    <wsdl:operation name="importData">
+      <wsdl:input message="tns:importData" name="importData"/>
+      <wsdl:output message="tns:importDataResponse" name="importDataResponse"/>
+      <wsdl:fault message="tns:Exception" name="Exception"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DefaultCustomerImportWSServiceSoapBinding" type="tns:ImportWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="importData">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="importData">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="importDataResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DefaultCustomerImportWSService">
+    <wsdl:port binding="tns:DefaultCustomerImportWSServiceSoapBinding" name="DefaultCustomerImportWSPort">
+      <soap:address location="https://localhost:9002/solgroupwebservices/services/customerimportws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>https://localhost:9002/solgroupwebservices/services/customerimportws</con:endpoint></con:endpoints><con:operation id="e7f14393-ec48-4adf-8fba-e26fbdf81953" isOneWay="false" action="" name="importData" bindingOperationName="importData" type="Request-Response" outputName="importDataResponse" inputName="importData" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="f47c94a0-c537-4932-81ff-425b7a961cef" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>https://localhost:9002/solgroupwebservices/services/customerimportws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <imp:importData>
+         <!--Optional:-->
+         <Import_Hybris>
+            <!--You may enter the following 2 items in any order-->
+            <header>
+               <sourceSystem>RAMSES_IT</sourceSystem>
+               <messageID>msg12345678765432</messageID>
+               <timestamp>?</timestamp>
+            </header>
+            <companies>
+               <!--1 or more repetitions:-->
+               <company>
+                  <erpCode>c0001</erpCode>
+                  <name>cliente 1</name>
+                  <default>false</default>
+                  <!--Optional:-->
+                  <organizations1>
+                     <!--1 or more repetitions:-->
+                     <organizationUnit1>
+                        <erpCode>org1</erpCode>
+                        <name>organization 1</name>
+                        <b2bUnits>
+                           <!--1 or more repetitions:-->
+                           <b2bUnit>
+                              <erpCode>b2bunit1</erpCode>
+                              <name>b2bunit 1</name>
+                              <!--Optional:-->
+                              <vatID>1234567890</vatID>
+                              <!--Optional:-->
+                              <taxPayerCode>1234567890</taxPayerCode>
+                              <!--Optional:-->
+                              <publicClient>true</publicClient>
+                              <customers>
+                                 <customerId>mario.rossi@posta.it</customerId>
+                              </customers>
+                              <address>
+                                 <erpCode>a1</erpCode>
+                                 <street>via roma 12</street>
+                                 <town>roma</town>
+                                 <postalCode>00100</postalCode>
+                                 <country>it</country>
+                                 <shipping>true</shipping>
+                                 <billing>true</billing>
+                              </address>
+                           </b2bUnit>
+                        </b2bUnits>
+                        <!--Optional:-->
+                     </organizationUnit1>
+                  </organizations1>
+                  <!--Optional:-->
+                  <b2bUnits>
+                     <!--1 or more repetitions:-->
+                     <b2bUnit>
+                        <erpCode>b2bunit2</erpCode>
+                        <name>b2bunit 2</name>
+                        <customers>
+                           <!--1 or more repetitions:-->
+                           <customerId>giuseppe.bianchi@posta.com</customerId>
+                        </customers>
+                        <address>
+                           <erpCode>a2</erpCode>
+                           <street>via genova</street>
+                           <town>genova</town>
+                           <postalCode>20100</postalCode>
+                           <country>it</country>
+                           <shipping>true</shipping>
+                           <billing>true</billing>
+                        </address>
+                     </b2bUnit>
+                  </b2bUnits>
+               </company>
+            </companies>
+         </Import_Hybris>
+      </imp:importData>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importData"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

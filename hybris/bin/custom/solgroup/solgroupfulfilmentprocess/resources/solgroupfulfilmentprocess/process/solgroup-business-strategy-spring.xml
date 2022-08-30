@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Order Export beans
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+    <!--Override b2bApprovalStrategy-->
+    <alias name="defaultSolGroupCreateOrderFromCartStrategy" alias="defaultB2BCreateOrderFromCartStrategy"/>
+    <bean id="defaultSolGroupCreateOrderFromCartStrategy"
+          class="com.solgroup.fulfilmentprocess.actions.orderexport.DefaultSolGroupCreateOrderFromCartStrategy"
+          parent="defaultCreateOrderFromCartStrategy">
+        <property name="businessProcessStrategies">
+            <list>
+                <ref bean="b2bExportOrderBusinessProcessStrategy"/>
+            </list>
+        </property>
+    </bean>
+
+    <alias name="defaultSolGroupCreateOrderProcessStrategy" alias="b2bExportOrderBusinessProcessStrategy"/>
+    <bean id="defaultSolGroupCreateOrderProcessStrategy"
+          class="com.solgroup.fulfilmentprocess.actions.orderexport.DefaultSolGroupCreateOrderProcessStrategy">
+        <property name="processCodeGenerator" ref="b2bProcessCodeGenerator"/>
+        <property name="businessProcessService" ref="businessProcessService"/>
+        <property name="modelService" ref="modelService"/>
+    </bean>
+
+    <alias alias="b2bProcessCodeGenerator" name="defaultb2bprocessCodeGenerator"/>
+    <bean id="defaultb2bprocessCodeGenerator"
+          class="de.hybris.platform.servicelayer.keygenerator.impl.PersistentKeyGenerator"
+          init-method="init">
+        <property name="key" value="B2B_PROCESS"/>
+        <property name="digits" value="8"/>
+        <property name="start" value="00000000"/>
+        <property name="type" value="alphanumeric"/>
+    </bean>
+
+</beans>

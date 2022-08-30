@@ -1,0 +1,10 @@
+$solPrefix=solgroupIT
+$solrIndexedType=$solPrefixProductType
+
+
+UPDATE SolrSearchConfig ; description[unique=true] ; restrictFieldsInResponse ;  
+                        ; Default                  ; true                     ;  
+
+UPDATE SolrSearchQueryTemplate ; name[unique=true] ; indexedType(identifier)[unique=true] ; restrictFieldsInResponse ;  
+                               ; DEFAULT           ; $solrIndexedType                     ; true                     ;  
+

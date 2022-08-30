@@ -1,0 +1,51 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# 
+# Create the SOL FR BaseStore (based on Powertools BaseStore)
+#
+
+$solPrefix = solgroupFR
+
+$productCatalog=$solPrefixProductCatalog
+$classificationCatalog=$solPrefixClassification
+$currencies=EUR
+$net=true
+$storeUid=$solPrefix
+$defaultCurrency=EUR
+#$languages=en,de,fr
+$languages=en,de
+$defaultLanguage=en
+$unitedKingdom=GB,GG,IM,JE
+$europeNotUK=AD,AL,AT,BA,BE,BG,BY,CH,CY,CZ,DE,DK,EE,ES,FI,FO,FR,GI,GL,GR,HR,HU,IE,IS,IT,LI,LT,LU,LV,MC,MD,ME,MK,MT,NL,NO,PL,PT,RO,RS,RU,SE,SI,SK,SM,TR,UA,VA
+$asianCountries=CN,JP,VN,HK,KP,KR
+$deliveryCountries=$unitedKingdom,$europeNotUK,$asianCountries,US,CA
+$orderProcessCode=order-process
+$pickupInStoreMode=DISABLED
+$customerAllowedToIgnoreSuggestions=true
+$paymentProvider=Mockup
+$expressCheckoutEnabled=false
+$checkoutGroup=b2bCheckoutGroup
+$returnProcessCode=return-process
+
+INSERT_UPDATE PromotionGroup;Identifier[unique=true];
+;$solPrefixPromoGrp;
+
+# Base Store
+INSERT_UPDATE BaseStore; uid[unique=true];	catalogs(id);								currencies(isocode);		net;	taxGroup(code);	storelocatorDistanceUnit(code);		defaultCurrency(isocode);	languages(isocode);		defaultLanguage(isocode);		deliveryCountries(isocode);		submitOrderProcessCode;		paymentProvider;		pickupInStoreMode(code);	customerAllowedToIgnoreSuggestions;			expressCheckoutEnabled;		maxRadiusForPoSSearch;	checkoutFlowGroup;		createReturnProcessCode;	
+						;$storeUid;			$productCatalog,$classificationCatalog;		$currencies;				$net;	us-taxes;		miles;								$defaultCurrency;			$languages;				$defaultLanguage;				$deliveryCountries;				$orderProcessCode;			$paymentProvider;		$pickupInStoreMode;			$customerAllowedToIgnoreSuggestions;		$expressCheckoutEnabled;	300;					$checkoutGroup;			$returnProcessCode;			
+
+INSERT_UPDATE BaseStore2DeliveryModeRel;source(uid)[unique=true];target(code)[unique=true]
+;$solPrefix;premium-net
+;$solPrefix;standard-net
+;$solPrefix;premium-gross
+;$solPrefix;standard-gross
+;$solPrefix;free-standard-shipping
+

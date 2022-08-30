@@ -1,0 +1,22 @@
+$solPrefix = solgroupIT
+$productCatalog=$solPrefixProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+# Creazione della Tax
+INSERT_UPDATE Tax ; code[unique=true] ; value ; currency(isocode) ;  
+                  ; code1             ; 22    ;                   ;  
+                  ; code2             ; 10    ;                   ;  
+                  ; code3             ; 4     ;                   ;  
+
+# Create class Tax Class
+INSERT_UPDATE ProductTaxGroup ; code[unique=true] ;  
+                              ; iva-pharma        ;  
+                              ; iva-ridotta       ;  
+                              ; iva-ordinaria     ;  
+
+# Create default tax row for all products in product catalog
+INSERT_UPDATE TaxRow ; $catalogVersion ; tax(code)[unique=true] ; pg(code)[unique=true] ; defaultTax[default=false] ;  
+                     ;                 ; code1                  ; iva-ordinaria         ; true                      ;  
+                     ;                 ; code2                  ; iva-ridotta           ;                           ;  
+                     ;                 ; code3                  ; iva-pharma            ;                           ;  
+

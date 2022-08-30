@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Ant build for QUALITY -->
+<project name="techedge-quality" basedir="./../../../" xmlns:sonar="antlib:org.sonar.ant">
+
+	<!-- IMPORT -->
+	<!-- All workspace paths needed -->
+	<import file="./paths.xml" />
+
+	<!-- All build xml needed -->
+	<import file="./ant_utils.xml" />
+
+
+	<!-- PROPERTies -->
+	<!-- GENERAL -->
+	<path id="path.hybris">
+		<fileset dir="${hybris.project.dir}" erroronmissingdir="false">
+			<include name="**/*.jar" />
+		</fileset>
+		
+		<fileset dir="${hybris.platform.dir}">
+			<include name="**/*.jar" />
+			<include name="**/*.class" />
+		</fileset>
+
+		<fileset dir="${hybris.bin.dir}">
+			<include name="/ext-*/**/*.jar" />
+			<include name="/ext-*/**/*.class" />
+		</fileset>
+	</path>
+	
+	<!-- CHECKSTYLE -->
+	<taskdef classpath="${build.lib.dir}/checkstyle-5.6/checkstyle-5.6-all.jar" resource="checkstyletask.properties" />
+	<property name="checkstyle.report.type" value="xml"/>
+	<property name="checkstyle.report.file" value="checkstyle_report.${checkstyle.report.type}"/>
+
+	<!-- PMD -->
+	<path id="pmd.classpath">
+		<pathelement location="${build}"/>
+		<fileset dir="${build.lib.dir}/pmd-5.0.5/lib/">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	<taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="pmd.classpath"/>
+	<property name="pmd.report.type" value="html"/>
+	<property name="pmd.report.file" value="pmd_report.${pmd.report.type}"/>
+
+	<!-- CPD -->
+	<taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="pmd.classpath"/>
+	<property name="cpd.report.type" value="xml"/>
+	<property name="cpd.report.file" value="cpd_report.${cpd.report.type}"/>
+
+	<!-- FINDBUGS -->
+	<path id="findbugs.classpath">
+		<pathelement location="${build}"/>
+		<fileset dir="${build.lib.dir}/findbugs-2.0.3/lib/">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask" classpathref="findbugs.classpath"/>
+	<property name="findbugs.project.file" value="${build.temp.dir}/quality/findbug_project.fbp"/>
+	<property name="findbugs.report.type" value="xml:withMessages"/>
+	<property name="findbugs.report.file" value="findbugs_report.xml"/>
+
+	<!-- SONAR -->
+	<path id="sonar.classpath">
+		<pathelement location="${build}"/>
+		<fileset dir="${build.lib.dir}/sonar-ant-task-2.2/">
+			<include name="*.jar"/>
+		</fileset>
+		</path>
+	<taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml" classpathref="sonar.classpath" />
+	
+	<!-- BUNDLE CHECK -->
+	<taskdef classpath="${build.lib.dir}/resourcebundle-check-1.31/rscbundlecheck-1.31-bin.jar" resource="task.properties"/>
+	<!-- <property name="resourcebundle.report.type" value="xml"/> -->
+	<!-- <property name="resourcebundle.report.file" value="resourcebundle_report.${resourcebundle.report.type}"/> -->
+
+
+	<!-- SCRIPTs -->
+
+
+	<!-- MACROs -->
+	<macrodef name="quality-setup">
+
+		<sequential>
+			<property name="ff" value="${findbugs.project.file}" />
+
+			<write-on-file append="false" filename="${ff}">
+				<out>
+<![CDATA[
+	<Project projectName="techedge-project-quality">
+]]>
+				</out>
+			</write-on-file>
+			<for-each-ext>
+				<do>
+					<if-has-core extname="@{ext.name}">
+						<do>							
+							<write-on-file filename="${ff}">
+								<out>
+<![CDATA[
+		<Jar>${hybris.project.dir}/@{ext.name}/classes</Jar>
+		<SrcDir>${hybris.project.dir}/@{ext.name}/src</SrcDir>
+]]>
+								</out>
+							</write-on-file>
+						</do>
+					</if-has-core>
+				</do>
+			</for-each-ext>
+			<for param="file">
+				<path>
+					<fileset dir="${hybris.project.dir}" erroronmissingdir="false">
+						<include name="**/*.jar"/>
+					</fileset>
+					<fileset dir="${hybris.bin.dir}">
+						<include name="ext-*/**/*.jar"/>
+						<include name="platform/**/*.jar"/>
+						<exclude name="**/probe/**"/>
+					</fileset>
+					<dirset dir="${hybris.bin.dir}">
+						<include name="ext-*/**/classes"/>
+						<include name="platform/**/classes"/>
+					</dirset>					
+				</path>
+				<sequential>
+					<write-on-file filename="${ff}">
+						<out>
+<![CDATA[
+		<AuxClasspathEntry>@{file}</AuxClasspathEntry>
+]]>
+						</out>
+					</write-on-file>
+				</sequential>
+			</for>
+			<if>
+				<isset property="findbugs.suppressionfilters" />
+				<then>					
+					<write-on-file filename="${ff}">
+						<out>
+							${findbugs.suppressionfilters}
+						</out>
+					</write-on-file>
+				</then>
+			</if>
+			<write-on-file filename="${ff}">
+				<out>
+<![CDATA[				
+		<Cloud id="edu.umd.cs.findbugs.cloud.doNothingCloud" online="false"></Cloud>
+	</Project>
+]]>
+				</out>
+			</write-on-file>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="quality-sonar">
+		<sequential>
+			<!-- Define the SonarQube global properties (the most usual way is to pass these properties via the command line) -->
+			<!-- <property name="sonar.jdbc.url" value="jdbc:h2:tcp://localhost:9092/sonar"/> -->
+			<property name="sonar.host.url" value="http://10.10.16.11:9000" />
+			<property name="sonar.jdbc.url" value="jdbc:oracle:thin:@b2b-hybdbd001:1521:YDBD"/>
+			<property name="sonar.jdbc.username" value="sonar" />
+			<property name="sonar.jdbc.password" value="techedge" />
+
+			<!-- Define the SonarQube project properties -->
+			<property name="sonar.projectKey" value="com.mmfg:MMFG" />
+			<property name="sonar.projectName" value="MMFG Project" />
+			<property name="sonar.projectVersion" value="1.0" />
+			<property name="sonar.language" value="java" />
+			<property name="sonar.sources" value="src" />
+			<!-- <property name="sonar.binaries" value="classes" /> -->
+			<property name="sonar.sourceEncoding" value="UTF-8" />
+	
+			<!-- Set modules IDs -->
+			<property name="sonar.modules" value="datamanager,mmfgacceleratorcore,mmfgacceleratorinitialdata,mmfgacceleratortest,core.helper,core.services,core.webservices,mmfgacceleratorcockpits,mmfgacceleratorfacades,mmfgacceleratorstorefront,secureportaladdon,backoffice.vaadin,paymentService,cybersourceaddon,mmfgcommercewebservices,mmfgcybersource,mmfgcybersourcetest,mmfgdispatcher,mmfgordermanagement,mmfgordermanagementtest,paypal"/>
+  
+			<!-- Override some properties at module level -->
+			<!-- <property name="b2bacceleratorsampledata.sonar.projectBaseDir" value="hybris/bin/custom/b2bacceleratorsampledata" /> -->
+			<property name="datamanager.sonar.projectBaseDir" value="hybris/bin/custom/datamanager" />
+			<property name="mmfgacceleratorcore.sonar.projectBaseDir" value="hybris/bin/custom/mmfgacceleratorcore" />
+			<property name="mmfgacceleratorinitialdata.sonar.projectBaseDir" value="hybris/bin/custom/mmfgacceleratorinitialdata" />
+			<property name="mmfgacceleratortest.sonar.projectBaseDir" value="hybris/bin/custom/mmfgacceleratortest" />
+			<property name="core.helper.sonar.projectBaseDir" value="hybris/bin/custom/core/core.helper" />
+			<property name="core.services.sonar.projectBaseDir" value="hybris/bin/custom/core/core.services" />
+			<property name="core.webservices.sonar.projectBaseDir" value="hybris/bin/custom/core/core.webservices" />
+			<property name="mmfgacceleratorcockpits.sonar.projectBaseDir" value="hybris/bin/custom/mmfgacceleratorcockpits" />
+			<property name="mmfgacceleratorfacades.sonar.projectBaseDir" value="hybris/bin/custom/mmfgacceleratorfacades" />
+			<property name="mmfgacceleratorstorefront.sonar.projectBaseDir" value="hybris/bin/custom/mmfgacceleratorstorefront" />
+			<property name="secureportaladdon.sonar.projectBaseDir" value="hybris/bin/custom/secureportaladdon" />
+			<property name="backoffice.vaadin.sonar.projectBaseDir" value="hybris/bin/custom/backoffice.vaadin" />
+			<property name="paymentService.sonar.projectBaseDir" value="hybris/bin/cis/paymentService" />
+			<property name="cybersourceaddon.sonar.projectBaseDir" value="hybris/bin/custom/cybersourceaddon" />
+			<property name="mmfgcybersource.sonar.projectBaseDir" value="hybris/bin/custom/mmfgcybersource" />
+			<property name="mmfgcybersourcetest.sonar.projectBaseDir" value="hybris/bin/custom/mmfgcybersourcetest" />
+			<property name="mmfgcommercewebservices.sonar.projectBaseDir" value="hybris/bin/custom/mmfgcommercewebservices" />
+			<property name="mmfgdispatcher.sonar.projectBaseDir" value="hybris/bin/custom/mmfgdispatcher" />
+			<property name="mmfgordermanagement.sonar.projectBaseDir" value="hybris/bin/custom/mmfgordermanagement" />
+			<property name="mmfgordermanagementtest.sonar.projectBaseDir" value="hybris/bin/custom/mmfgordermanagementtest" />
+			<property name="paypal.sonar.projectBaseDir" value="hybris/bin/custom/paypal/paypalec" />
+
+			<property name="mmfgacceleratorstorefront.sonar.sources" value="web/src,web/testsrc,web/webroot" />
+			<property name="backoffice.vaadin.sonar.sources" value="src,testsrc,web/src,web/webroot" />
+			<property name="paymentService.sonar.sources" value="paymentService-web/src,paymentService-integration-test/src,paymentService-service/src,paymentService-test-configuration/src" />
+			<property name="cybersourceaddon.sonar.sources" value="src,testsrc,web/src,web/addonsrc,web/webroot,acceleratoraddon/web/src,acceleratoraddon/web/webroot" />
+			<property name="mmfgcybersourcetest.sonar.sources" value="src,testsrc,web/src,web/webroot" />
+			<property name="mmfgcommercewebservices.sonar.sources" value="src,testsrc,web/src,web/testsrc,web/webroot" />
+			<property name="mmfgordermanagement.sonar.sources" value="src,testsrc,web/src,web/webroot" />
+			<property name="mmfgordermanagementtest.sonar.sources" value="src,testsrc,web/src,web/webroot" />
+			<property name="paypal.sonar.sources" value="src,testsrc,web/src,web/webroot" />
+			
+			
+			<!--
+			<property name="module-one.sonar.projectName" value="Module One" />
+			<property name="module-one.sonar.binaries" value="target" />
+			-->
+			<!-- Default module base directory is <curent_directory>/<module_ID>. It has to be overriden for module-one -->
+			<!--
+			<property name="module-one.sonar.projectBaseDir" value="Module 1" />
+			<property name="module-two.sonar.projectName" value="Module Two" />
+			-->
+			
+			<!-- Execute the SonarQube analysis -->
+			<sonar:sonar />
+			
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="quality-checkstyle">
+
+		<sequential>
+			<checkstyle config="${build.config.dir}/checkstyle/sun_checks.xml" failOnViolation="false" classpathref="path.hybris">
+				<formatter type="${checkstyle.report.type}" tofile="${artifacts.dir}/${checkstyle.report.file}" />
+				
+				<!-- <if>
+					<available file="${hybris.project.dir}" />
+					<then> -->
+						<fileset dir="${hybris.project.dir}">
+							<include name="**/*.java" />
+							<exclude name="**/testsrc/**" />
+							<exclude name="**/gensrc/**" />
+							<exclude name="**/jalo/**" />
+							<exclude name="${checkstyle.excludepattern.1}" if="checkstyle.excludepattern.1"/>					
+							<exclude name="${checkstyle.excludepattern.2}" if="checkstyle.excludepattern.2"/>
+							<exclude name="${checkstyle.excludepattern.3}" if="checkstyle.excludepattern.3"/>
+							<exclude name="${checkstyle.excludepattern.4}" if="checkstyle.excludepattern.4"/>
+							<exclude name="${checkstyle.excludepattern.5}" if="checkstyle.excludepattern.5"/>
+						</fileset>
+					<!-- </then>
+					<else>
+						<echo message="${hybris.project.dir} does not exist" />
+					</else>
+				</if> -->
+			</checkstyle>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="quality-pmd">
+
+		<sequential>
+			<pmd shortFilenames="true">
+				<sourceLanguage name="java" version="1.7"/>
+				
+				<ruleset>java-basic,java-braces,java-clone,java-codesize,java-controversial,java-coupling,java-design,java-finalizers,java-imports,java-junit,java-logging-jakarta-commons,java-logging-java,java-migrating,java-naming,java-optimizations,java-strictexception,java-strings,java-sunsecure,java-typeresolution,java-unusedcode</ruleset>
+				
+				<formatter type="${pmd.report.type}" toFile="${artifacts.dir}/${pmd.report.file}">
+					<param name="linkPrefix" value="http://pmd.sourceforge.net/xref/"/>
+				</formatter>
+				
+				<!-- <if>
+					<available file="${hybris.project.dir}" />
+					<then> -->
+						<fileset dir="${hybris.project.dir}">
+							<include name="**/*.java" />
+							<exclude name="**/testsrc/**" />
+							<exclude name="**/gensrc/**" />				
+							<exclude name="**/jalo/**" />
+							<exclude name="${pmd.excludepattern.1}" if="pmd.excludepattern.1"/>					
+							<exclude name="${pmd.excludepattern.2}" if="pmd.excludepattern.2"/>
+							<exclude name="${pmd.excludepattern.3}" if="pmd.excludepattern.3"/>
+							<exclude name="${pmd.excludepattern.4}" if="pmd.excludepattern.4"/>
+							<exclude name="${pmd.excludepattern.5}" if="pmd.excludepattern.5"/>
+						</fileset>
+					<!-- </then>
+					<else>
+						<echo message="${hybris.project.dir} does not exist" />
+					</else>
+				</if> -->
+			</pmd>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="quality-cpd">
+
+		<sequential>	
+			<cpd minimumTokenCount="100" format="xml" outputFile="${artifacts.dir}/${cpd.report.file}">
+			
+				<!-- <if>
+					<available file="${hybris.project.dir}" />
+					<then> -->
+						<fileset dir="${hybris.project.dir}">
+							<include name="**/*.java" />
+							<exclude name="**/testsrc/de/**" />
+							<exclude name="**/gensrc/**" />
+							<exclude name="**/jalo/**" />
+							
+							<!-- Base HMC generated classes --> 
+							<exclude name="**/*HMCExtension.java" />
+						</fileset>
+					<!-- </then>
+					<else>
+						<echo message="${hybris.project.dir} does not exist" />
+					</else>
+				</if> -->
+			</cpd>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="quality-findbugs">
+
+		<sequential>
+			<findbugs home="${build.lib.dir}/findbugs-2.0.3" output="${findbugs.report.type}"
+				outputFile="${artifacts.dir}/${findbugs.report.file}" timeout="1200000"
+				applysuppression="true" projectFile="${findbugs.project.file}" />
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="quality-rscbundlecheck">
+
+		<sequential>
+			<resourceCheck failonerror="false" sortresult="true" verbose="false">
+			
+				<!-- <if>
+					<available file="${hybris.project.dir}" />
+					<then> -->
+						<fileset dir="${hybris.project.dir}/">
+							<!-- project properties -->
+							<include name="**/project.properties" />
+							
+							<!-- localization -->
+							<include name="**/resources/**/*locales*.properties" />
+							<include name="**/resources/**/*messages*.properties" />
+							
+							<!-- hmc -->
+							<include name="**/hmc/resources/**/*locales*.properties" />
+							
+							<!-- web -->
+							<include name="**/web/webroot/WEB-INF/**/*messages*.properties" />
+						</fileset>
+					<!-- </then>
+					<else>
+						<echo message="${hybris.project.dir} does not exist" />
+					</else>
+				</if> -->
+				
+				<checks>
+					<!-- All predefined rules -->
+					<!-- <include name="*" /> -->
+					
+					
+					<!-- Single rules -->
+					<!-- Checks if unicodes are well-formed and valid -->
+					<include name="unicode check" />
+					
+					<!-- Checks if lines across the bundles have consistent cases, e.g "the Street invalid" vs. "Die Strasse ungültig" -->
+					<!-- <include name="upper lower check" /> -->
+					
+					<!-- Checks each line for trailing whitespaces/tabs -->
+					<!-- <include name="line end check" /> -->
+					
+					<!-- Checks if there are empty key ("= value without a key") -->
+					<include name="empty key check" />
+					
+					<!-- Checks if placeholders are used consistent (e.g. "Got {0}, expected {1}" vs. "Erhalten {0}") -->
+					<!-- <include name="placeholder check" /> -->
+					
+					<!-- Checks if a key is defined more than once in one file -->
+					<include name="duplicate key check" />
+					
+					<!-- Checks if there are empty values ("key without a value =") -->
+					<include name="empty value check" />
+					
+					<!-- Checks if a value has invalid characters (ASCII value > 127) -->
+					<!-- <include name="invalid char check" /> -->
+					
+					<!-- Checks if MessageFormat can be instantiated with each value -->
+					<!-- <include name="messageformat check" /> -->
+					
+					<!-- Checks if each key is found in all bundles -->
+					<!-- <include name="cross bundle check" /> -->
+				</checks>
+			</resourceCheck>
+		</sequential>
+	</macrodef>
+	
+
+	<!-- TASKs -->
+
+
+	<!-- EXTENSION POINTs -->
+
+
+	<!-- TARGETs -->
+
+
+</project>

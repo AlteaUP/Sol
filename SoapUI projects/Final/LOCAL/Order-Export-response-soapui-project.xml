@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="9089340a-b10d-4995-a519-ff15c2c4f1a5" activeEnvironment="Default" name="Order export" resourceRoot="" soapui-version="5.3.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="3b4969a8-718d-4c06-92d3-860d9aee94da" wsaVersion="NONE" name="DefaultOrderExportResponseWSServiceSoapBinding" type="wsdl" bindingName="{http://importws.ws.solgroup.com/}DefaultOrderExportResponseWSServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="https://solgroupit.local:9002/solgroupwebservices/services/orderExportResponse?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="https://solgroupit.local:9002/solgroupwebservices/services/orderExportResponse?wsdl"><con:part><con:url>https://solgroupit.local:9002/solgroupwebservices/services/orderExportResponse?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="DefaultOrderExportResponseWSService" targetNamespace="http://importws.ws.solgroup.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://importws.ws.solgroup.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema targetNamespace="urn:solgroup:com:ProcessSAPPOResponse" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:solgroup:com:ProcessSAPPOResponse">
+      <xs:element name="OrderExportResponse_Hybris">
+        <xs:complexType>
+          <xs:all>
+            <xs:element name="header" type="tns:header"/>
+            <xs:element name="order" type="tns:order"/>
+          </xs:all>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="header">
+        <xs:sequence>
+          <xs:element name="sourceSystem" type="xs:string"/>
+          <xs:element name="timestamp" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="order">
+        <xs:sequence>
+          <xs:element name="code" type="xs:string"/>
+          <xs:element name="orderStatus" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" name="entryList" type="tns:entryList"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="entryList">
+        <xs:sequence>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="entry" nillable="true">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="productCode" type="xs:string"/>
+                <xs:element name="orderEntryNumber" type="xs:string"/>
+                <xs:element name="importStatus" type="xs:string"/>
+                <xs:element minOccurs="0" name="errorDescription" type="xs:string"/>
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://importws.ws.solgroup.com/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="urn:solgroup:com:ProcessSAPPOResponse">
+      <xs:import namespace="urn:solgroup:com:ProcessSAPPOResponse"/>
+      <xs:element name="importData" type="tns:importData"/>
+      <xs:element name="importDataResponse" type="tns:importDataResponse"/>
+      <xs:complexType name="importData">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Import_Hybris">
+            <xs:complexType>
+              <xs:all>
+                <xs:element name="header" type="ns1:header"/>
+                <xs:element name="order" type="ns1:order"/>
+              </xs:all>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="importDataResponse">
+        <xs:sequence/>
+      </xs:complexType>
+      <xs:element name="Exception" type="tns:Exception"/>
+      <xs:complexType name="Exception">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="message" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="importData">
+    <wsdl:part element="tns:importData" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="importDataResponse">
+    <wsdl:part element="tns:importDataResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Exception">
+    <wsdl:part element="tns:Exception" name="Exception"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ImportWS">
+    <wsdl:operation name="importData">
+      <wsdl:input message="tns:importData" name="importData"></wsdl:input>
+      <wsdl:output message="tns:importDataResponse" name="importDataResponse"></wsdl:output>
+      <wsdl:fault message="tns:Exception" name="Exception"></wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DefaultOrderExportResponseWSServiceSoapBinding" type="tns:ImportWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="importData">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="importData">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="importDataResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="Exception">
+        <soap:fault name="Exception" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DefaultOrderExportResponseWSService">
+    <wsdl:port binding="tns:DefaultOrderExportResponseWSServiceSoapBinding" name="DefaultOrderExportResponseWSPort">
+      <soap:address location="https://solgroupit.local:9002/solgroupwebservices/services/orderExportResponse"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://dave-TECRA-Z50-C:8088/mockDefaultOrderExportResponseWSServiceSoapBinding</con:endpoint><con:endpoint>https://solgroupit.local:9002/solgroupwebservices/services/orderExportResponse</con:endpoint></con:endpoints><con:operation id="b400ecea-e016-4bfa-b4f3-435b2102a6af" isOneWay="false" action="" name="importData" bindingOperationName="importData" type="Request-Response" outputName="importDataResponse" inputName="importData" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="ed355df9-3acd-4304-8d22-55459383b135" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://dave-TECRA-Z50-C:8088/mockDefaultOrderExportResponseWSServiceSoapBinding</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <imp:importData>
+         <!--Optional:-->
+         <Import_Hybris>
+            <!--You may enter the following 2 items in any order-->
+            <header>
+               <sourceSystem>Ramses</sourceSystem>
+               <timestamp>?</timestamp>
+            </header>
+            <order>
+               <code>1234</code>
+               <orderStatus>OK</orderStatus>
+               <!--1 or more repetitions:-->
+               <entryList>
+                  <!--Zero or more repetitions:-->
+                  <entry>
+                     <productCode>?</productCode>
+                     <orderEntryNumber>?</orderEntryNumber>
+                     <importStatus>?</importStatus>
+                     <!--Optional:-->
+                     <errorDescription>?</errorDescription>
+                  </entry>
+               </entryList>
+            </order>
+         </Import_Hybris>
+      </imp:importData>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:username>sap_po</con:username><con:password>CtzT~gV2b-GeZaSx</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importData"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" id="45f249e9-516f-47ab-ba9e-fc0adc310112" wsaVersion="NONE" name="OrdersExport_OBBinding" type="wsdl" bindingName="{urn:solgroup:com:OrdersExport}OrdersExport_OBBinding" soapVersion="1_1" anonymous="optional" definition="file:/home/dave/Downloads/OrdersExport.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/home/dave/Downloads/OrdersExport.wsdl"><con:part><con:url>file:/home/dave/Downloads/OrdersExport.wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="OrdersExport_OB" targetNamespace="urn:solgroup:com:OrdersExport" xmlns:p1="urn:solgroup:com:OrdersExport" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation/>
+  <wsp:UsingPolicy wsdl:required="true"/>
+  <wsp:Policy wsu:Id="OP_OrdersDelete"/>
+  <wsp:Policy wsu:Id="OP_OrdersInsert"/>
+  <wsp:Policy wsu:Id="OP_OrdersUpdate"/>
+  <wsdl:types>
+    <xsd:schema targetNamespace="urn:solgroup:com:OrdersExport" xmlns="urn:solgroup:com:OrdersExport" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:element name="OrdersUpdate" type="OrdersUpdate"/>
+      <xsd:element name="OrdersInsert" type="OrdersInsert"/>
+      <xsd:element name="OrdersDelete" type="OrdersDelete"/>
+      <xsd:complexType name="OrdersUpdate">
+        <xsd:sequence>
+          <xsd:element name="order">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="code" type="xsd:string"/>
+                <xsd:element name="b2bUnitLegacyCode" type="xsd:string"/>
+                <xsd:element name="b2bUnithybrisCode" type="xsd:string"/>
+                <xsd:element name="currency" type="xsd:string"/>
+                <xsd:element name="deliveryCost" type="xsd:double"/>
+                <xsd:element name="notes" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="creationDate" type="xsd:dateTime"/>
+                <xsd:element name="shippingAddress">
+                  <xsd:complexType>
+                    <xsd:sequence>
+                      <xsd:element name="erpCode" type="xsd:string" minOccurs="0"/>
+                      <xsd:element name="hybrisCode" type="xsd:string" minOccurs="0"/>
+                      <xsd:element name="street" type="xsd:string"/>
+                      <xsd:element name="streetNumber" type="xsd:string"/>
+                      <xsd:element name="town" type="xsd:string"/>
+                      <xsd:element name="postalCode" type="xsd:string"/>
+                      <xsd:element name="country" type="xsd:string"/>
+                      <xsd:element name="email" type="xsd:string" minOccurs="0"/>
+                      <xsd:element name="phone" type="xsd:string" minOccurs="0"/>
+                      <xsd:element name="fax" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                  </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="entryList">
+                  <xsd:complexType>
+                    <xsd:sequence>
+                      <xsd:element name="entry" maxOccurs="unbounded">
+                        <xsd:complexType>
+                          <xsd:sequence>
+                            <xsd:element name="productCode" type="xsd:string"/>
+                            <xsd:element name="orderEntryNumber" type="xsd:int"/>
+                            <xsd:element name="quantity" type="xsd:int"/>
+                            <xsd:element name="basePrice" type="xsd:double"/>
+                            <xsd:element name="totalPrice" type="xsd:double"/>
+                            <xsd:element name="percentageDiscount" type="xsd:double"/>
+                            <xsd:element name="purchaseOrderNumber" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="cig" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="cup" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="orderDate" type="xsd:dateTime"/>
+                            <xsd:element name="deliveryDate" type="xsd:dateTime"/>
+                            <xsd:element name="rowAction" type="xsd:string"/>
+                          </xsd:sequence>
+                        </xsd:complexType>
+                      </xsd:element>
+                    </xsd:sequence>
+                  </xsd:complexType>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="OrdersDelete">
+        <xsd:sequence>
+          <xsd:element name="order">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="code" type="xsd:string"/>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="OrdersInsert">
+        <xsd:sequence>
+          <xsd:element name="order">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="code" type="xsd:string"/>
+                <xsd:element name="b2bUnitLegacyCode" type="xsd:string"/>
+                <xsd:element name="b2bUnithybrisCode" type="xsd:string"/>
+                <xsd:element name="currency" type="xsd:string"/>
+                <xsd:element name="deliveryCost" type="xsd:double"/>
+                <xsd:element name="notes" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="creationDate" type="xsd:dateTime"/>
+                <xsd:element name="shippingAddress">
+                  <xsd:complexType>
+                    <xsd:sequence>
+                      <xsd:element name="erpCode" type="xsd:string" minOccurs="0"/>
+                      <xsd:element name="hybrisCode" type="xsd:string" minOccurs="0"/>
+                      <xsd:element name="street" type="xsd:string"/>
+                      <xsd:element name="streetNumber" type="xsd:string"/>
+                      <xsd:element name="town" type="xsd:string"/>
+                      <xsd:element name="postalCode" type="xsd:string"/>
+                      <xsd:element name="country" type="xsd:string"/>
+                      <xsd:element name="email" type="xsd:string" minOccurs="0"/>
+                      <xsd:element name="phone" type="xsd:string" minOccurs="0"/>
+                      <xsd:element name="fax" type="xsd:string" minOccurs="0"/>
+                    </xsd:sequence>
+                  </xsd:complexType>
+                </xsd:element>
+                <xsd:element name="entryList">
+                  <xsd:complexType>
+                    <xsd:sequence>
+                      <xsd:element name="entry" maxOccurs="unbounded">
+                        <xsd:complexType>
+                          <xsd:sequence>
+                            <xsd:element name="productCode" type="xsd:string"/>
+                            <xsd:element name="orderEntryNumber" type="xsd:int"/>
+                            <xsd:element name="quantity" type="xsd:int"/>
+                            <xsd:element name="basePrice" type="xsd:double"/>
+                            <xsd:element name="totalPrice" type="xsd:double"/>
+                            <xsd:element name="percentageDiscount" type="xsd:double"/>
+                            <xsd:element name="purchaseOrderNumber" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="cig" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="cup" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="orderDate" type="xsd:dateTime"/>
+                            <xsd:element name="deliveryDate" type="xsd:dateTime"/>
+                            <xsd:element name="rowAction" type="xsd:string"/>
+                          </xsd:sequence>
+                        </xsd:complexType>
+                      </xsd:element>
+                    </xsd:sequence>
+                  </xsd:complexType>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="OrdersDelete">
+    <wsdl:documentation/>
+    <wsdl:part name="OrdersDelete" element="p1:OrdersDelete"/>
+  </wsdl:message>
+  <wsdl:message name="OrdersInsert">
+    <wsdl:documentation/>
+    <wsdl:part name="OrdersInsert" element="p1:OrdersInsert"/>
+  </wsdl:message>
+  <wsdl:message name="OrdersUpdate">
+    <wsdl:documentation/>
+    <wsdl:part name="OrdersUpdate" element="p1:OrdersUpdate"/>
+  </wsdl:message>
+  <wsdl:portType name="OrdersExport_OB">
+    <wsdl:documentation/>
+    <wsdl:operation name="OrdersDelete">
+      <wsdl:documentation/>
+      <wsp:Policy>
+        <wsp:PolicyReference URI="#OP_OrdersDelete"/>
+      </wsp:Policy>
+      <wsdl:input message="p1:OrdersDelete"/>
+    </wsdl:operation>
+    <wsdl:operation name="OrdersInsert">
+      <wsdl:documentation/>
+      <wsp:Policy>
+        <wsp:PolicyReference URI="#OP_OrdersInsert"/>
+      </wsp:Policy>
+      <wsdl:input message="p1:OrdersInsert"/>
+    </wsdl:operation>
+    <wsdl:operation name="OrdersUpdate">
+      <wsdl:documentation/>
+      <wsp:Policy>
+        <wsp:PolicyReference URI="#OP_OrdersUpdate"/>
+      </wsp:Policy>
+      <wsdl:input message="p1:OrdersUpdate"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="OrdersExport_OBBinding" type="p1:OrdersExport_OB">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+    <wsdl:operation name="OrdersDelete">
+      <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      <wsdl:input>
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="OrdersInsert">
+      <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      <wsdl:input>
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="OrdersUpdate">
+      <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      <wsdl:input>
+        <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://dave-TECRA-Z50-C:8088/mockOrdersExport_OBBinding</con:endpoint></con:endpoints><con:operation id="28ba081d-cea4-44fc-9c3d-90cc509c7ce8" isOneWay="false" action="http://sap.com/xi/WebService/soap1.1" name="OrdersDelete" bindingOperationName="OrdersDelete" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="a9fbfbe9-71ef-468f-800e-78b2c0eace8f" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://dave-TECRA-Z50-C:8088/mockOrdersExport_OBBinding</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:solgroup:com:OrdersExport">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:OrdersDelete>
+         <order>
+            <code>?</code>
+         </order>
+      </urn:OrdersDelete>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://sap.com/xi/WebService/soap1.1"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="5bfdb7b4-214b-46d5-aea2-771fa3d446c6" isOneWay="false" action="http://sap.com/xi/WebService/soap1.1" name="OrdersInsert" bindingOperationName="OrdersInsert" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="8766947e-0e62-4752-b296-977bf1c1822f" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://dave-TECRA-Z50-C:8088/mockOrdersExport_OBBinding</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:solgroup:com:OrdersExport">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:OrdersInsert>
+         <order>
+            <code>?</code>
+            <b2bUnitLegacyCode>?</b2bUnitLegacyCode>
+            <b2bUnithybrisCode>?</b2bUnithybrisCode>
+            <currency>?</currency>
+            <deliveryCost>?</deliveryCost>
+            <!--Optional:-->
+            <notes>?</notes>
+            <creationDate>?</creationDate>
+            <shippingAddress>
+               <!--Optional:-->
+               <erpCode>?</erpCode>
+               <!--Optional:-->
+               <hybrisCode>?</hybrisCode>
+               <street>?</street>
+               <streetNumber>?</streetNumber>
+               <town>?</town>
+               <postalCode>?</postalCode>
+               <country>?</country>
+               <!--Optional:-->
+               <email>?</email>
+               <!--Optional:-->
+               <phone>?</phone>
+               <!--Optional:-->
+               <fax>?</fax>
+            </shippingAddress>
+            <entryList>
+               <!--1 or more repetitions:-->
+               <entry>
+                  <productCode>?</productCode>
+                  <orderEntryNumber>?</orderEntryNumber>
+                  <quantity>?</quantity>
+                  <basePrice>?</basePrice>
+                  <totalPrice>?</totalPrice>
+                  <percentageDiscount>?</percentageDiscount>
+                  <!--Optional:-->
+                  <purchaseOrderNumber>?</purchaseOrderNumber>
+                  <!--Optional:-->
+                  <cig>?</cig>
+                  <!--Optional:-->
+                  <cup>?</cup>
+                  <orderDate>?</orderDate>
+                  <deliveryDate>?</deliveryDate>
+                  <rowAction>?</rowAction>
+               </entry>
+            </entryList>
+         </order>
+      </urn:OrdersInsert>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://sap.com/xi/WebService/soap1.1"/><con:wsrmConfig version="1.2"/></con:call><con:call id="c55b0e2f-b102-4e16-a278-5b414d4b29f3" name="Request 2"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://dave-TECRA-Z50-C:8088/mockOrdersExport_OBBinding</con:endpoint><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://sap.com/xi/WebService/soap1.1"/></con:call></con:operation><con:operation id="52cca046-8ea7-4a7a-955a-4ff1fad58e15" isOneWay="false" action="http://sap.com/xi/WebService/soap1.1" name="OrdersUpdate" bindingOperationName="OrdersUpdate" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="983e36d0-e553-4b07-aebd-19a4cd5bf612" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://dave-TECRA-Z50-C:8088/mockOrdersExport_OBBinding</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:solgroup:com:OrdersExport">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <urn:OrdersUpdate>
+         <order>
+            <code>?</code>
+            <b2bUnitLegacyCode>?</b2bUnitLegacyCode>
+            <b2bUnithybrisCode>?</b2bUnithybrisCode>
+            <currency>?</currency>
+            <deliveryCost>?</deliveryCost>
+            <!--Optional:-->
+            <notes>?</notes>
+            <creationDate>?</creationDate>
+            <shippingAddress>
+               <!--Optional:-->
+               <erpCode>?</erpCode>
+               <!--Optional:-->
+               <hybrisCode>?</hybrisCode>
+               <street>?</street>
+               <streetNumber>?</streetNumber>
+               <town>?</town>
+               <postalCode>?</postalCode>
+               <country>?</country>
+               <!--Optional:-->
+               <email>?</email>
+               <!--Optional:-->
+               <phone>?</phone>
+               <!--Optional:-->
+               <fax>?</fax>
+            </shippingAddress>
+            <entryList>
+               <!--1 or more repetitions:-->
+               <entry>
+                  <productCode>?</productCode>
+                  <orderEntryNumber>?</orderEntryNumber>
+                  <quantity>?</quantity>
+                  <basePrice>?</basePrice>
+                  <totalPrice>?</totalPrice>
+                  <percentageDiscount>?</percentageDiscount>
+                  <!--Optional:-->
+                  <purchaseOrderNumber>?</purchaseOrderNumber>
+                  <!--Optional:-->
+                  <cig>?</cig>
+                  <!--Optional:-->
+                  <cup>?</cup>
+                  <orderDate>?</orderDate>
+                  <deliveryDate>?</deliveryDate>
+                  <rowAction>?</rowAction>
+               </entry>
+            </entryList>
+         </order>
+      </urn:OrdersUpdate>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://sap.com/xi/WebService/soap1.1"/></con:call></con:operation></con:interface><con:mockService id="3676a43c-a3c6-4616-b2c8-7409b9a50558" port="8088" path="/mockDefaultOrderExportResponseWSServiceSoapBinding" host="dave-TECRA-Z50-C" name="DefaultOrderExportResponseWSServiceSoapBinding MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="importData" id="27e2bdca-ef1a-4650-9c0d-315187ce69ae" interface="DefaultOrderExportResponseWSServiceSoapBinding" operation="importData"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="f365ec36-fe59-4657-a9ca-23070806079e" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:imp="http://importws.ws.solgroup.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <imp:importDataResponse/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://importws.ws.solgroup.com/ImportWS/importDataResponse"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:mockService id="7024f4fa-a744-43cb-b521-1fec3fc14e01" port="8088" path="/mockOrdersExport_OBBinding" host="dave-TECRA-Z50-C" name="OrdersExport_OBBinding MockService"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="OrdersDelete" id="ebe7bf59-0b47-41d3-ac31-ae7e0db97059" interface="OrdersExport_OBBinding" operation="OrdersDelete"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="149d7e52-98b0-4866-84c4-ebcbc60f0122" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://sap.com/xi/WebService/soap1.1"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="OrdersInsert" id="d52cc980-4ee3-4c04-a386-a1a3f603372b" interface="OrdersExport_OBBinding" operation="OrdersInsert"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="16662bd2-2858-4510-8bd6-94abf89b2693" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://sap.com/xi/WebService/soap1.1"/></con:response><con:dispatchConfig/></con:mockOperation><con:mockOperation name="OrdersUpdate" id="653c44d6-16cb-4a5a-a213-3eecb84c8bc6" interface="OrdersExport_OBBinding" operation="OrdersUpdate"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="41a3b7a4-ee26-4b25-925f-f9ee3b91bb17" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://sap.com/xi/WebService/soap1.1"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

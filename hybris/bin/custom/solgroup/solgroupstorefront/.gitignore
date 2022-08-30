@@ -1,0 +1,59 @@
+##############################################################
+################# Hybris build generated files ###############
+
+classes/
+gensrc/
+testclasses/
+
+build.xml
+extensioninfo.xsd
+hmc.xsd
+items.xsd
+platformhome.properties
+ruleset.xml
+junitexcludelist.txt
+
+resources/solgroupstorefront
+resources/**/*-testclasses.xml
+resources/**/*-webtestclasses.xml
+resources/beans.xsd
+
+resources/wro_addons.xml
+
+web/webroot/_ui/responsive/common/js/*
+
+##############################################################
+################## Accelerator addon files ###################
+web/addonsrc
+web/addontestsrc
+web/webroot/_ui/addons
+web/webroot/messages/addons
+web/webroot/WEB-INF/tags/addons
+web/webroot/WEB-INF/views/addons
+web/webroot/WEB-INF/messages/addons
+web/webroot/yacceleratorstorefront
+
+
+web/webroot/cockpit
+
+##############################################################
+################## Common web files ###################
+web/commonwebsrc
+
+##############################################################
+################## Eclipse generated files ###################
+
+eclipsebin/
+.metadata/
+RemoteSystemsTempFiles/
+.eclipsebin
+
+##############################################################
+####################### Other files ##########################
+
+.DS_Store
+/**/.DS_Store
+
+##############################################################
+
+/.settings/

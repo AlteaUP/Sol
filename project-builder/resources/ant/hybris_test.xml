@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Ant build for UNIT TEST -->
+<project name="techedge-hybris-test">
+
+	<!-- IMPORT -->
+	<!-- All workspace paths needed -->
+	<import file="./paths.xml"/>
+
+	<!-- All libraries needed -->
+	<taskdef classpath="${build.lib.dir}/ant-contrib-1.0b3/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml" />
+
+	<!-- All build xml needed -->
+	<import file="./hybris_env.xml" />
+	<import file="./hybris_tenant.xml" />
+
+
+	<!-- PROPERTies -->
+	
+
+	<!-- SCRIPTs -->
+	
+
+	<!-- MACROs -->
+	<macrodef name="input-test-info" description="Select type of test and extensions/packages to test (properties: test.type, test.extensions, test.packages).">
+		
+		<element name="additional-tasks" optional="yes" />
+
+		<sequential>
+			<input message="Which type of test (only one per time!) do you want to execute ([unit], integration, manual, performance, demo, all, all-web) ?" 
+				addproperty="test.type" />
+			<fail unless="test.type" message="Type of test not set." />
+			<if>
+				<or>
+					<equals arg1="${test.type}" arg2="unit" />
+					<equals arg1="${test.type}" arg2="integration" />
+					<equals arg1="${test.type}" arg2="manual" />
+					<equals arg1="${test.type}" arg2="performance" />
+					<equals arg1="${test.type}" arg2="demo" />
+					<equals arg1="${test.type}" arg2="all" />
+					<equals arg1="${test.type}" arg2="all-web" />
+				</or>
+				<else>
+					<reset-property name="test.type" value="unit" />
+				</else>
+			</if>
+			
+			<input message="Do you want to restrict test (extension, package, [none]) ?" addproperty="test.restrict" />
+			<fail unless="test.restrict" message="Test restriction not set." />
+			<if>
+				<and>
+					<not>
+						<equals arg1="${test.restrict}" arg2="extension" />
+					</not>
+					<not>
+						<equals arg1="${test.restrict}" arg2="package" />
+					</not>
+				</and>
+				<then>
+					<reset-property name="test.restrict" value="" />
+				</then>
+				<elseif>
+					<equals arg1="${test.restrict}" arg2="extension" />
+					<then>
+						<!-- Loading extensions list -->
+						<prepare-extension-list />
+						<echo message="Extensions list: ${extension.names}" />
+						<input message="Specify which extensions from the list above you want to test (comma separated):" addproperty="test.extensions" />
+						<fail unless="test.extensions" message="Test extensions list not set." />
+						<if>
+							<equals arg1="${test.extensions}" arg2="" />
+							<then>
+								<echo message="No extensions specified. Restriction reset to none." />
+								<reset-property name="test.restrict" value="" />
+							</then>
+						</if>
+					</then>
+				</elseif>
+				<elseif>
+					<equals arg1="${test.restrict}" arg2="package" />
+					<then>
+						<input message="Specify which packages you want to test (comma separated):" addproperty="test.packages" />
+						<fail unless="test.packages" message="Test packages list not set." />
+						<if>
+							<equals arg1="${test.packages}" arg2="" />
+							<then>
+								<echo message="No package specified. Restriction reset to none." />
+								<reset-property name="test.restrict" value="" />
+							</then>
+						</if>
+					</then>
+				</elseif>
+			</if>
+			
+			<!-- Check extensions input -->
+			<if>
+				<and>
+					<equals arg1="${test.restrict}" arg2="extension" />
+					
+					<equals arg1="${test.extensions}" arg2="" />
+				</and>
+				<then>
+					<fail message="You have to specify at least an extension to restrict test." />
+				</then>
+			</if>
+			
+			<!-- Check packages input -->
+			<if>
+				<and>
+					<equals arg1="${test.restrict}" arg2="package" />
+					
+					<equals arg1="${test.packages}" arg2="" />
+				</and>
+				<then>
+					<fail message="You have to specify at least a package to restrict test." />
+				</then>
+			</if>
+			
+			<echo message="Test type: ${test.type}" />
+			<echo message="Test restrict: ${test.restrict}" />
+			<echo message="Test extensions: ${test.extensions}" />
+			<echo message="Test packages: ${test.packages}" />
+			
+			<additional-tasks />
+		</sequential>
+	</macrodef>
+	
+
+	<!-- TASKs -->
+
+
+	<!-- EXTENSION POINTs -->
+
+
+	<!-- TARGETs -->
+
+	<!-- TEST -->
+	<!-- extensions: acceleratorservices -->
+	<!-- packages: de.hybris.platform.acceleratorservices.dataimport.* -->
+	<target name="run-tests" depends="junit-initialize" 
+		description="Initializes master and junit tenants and executes unit tests.">
+
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="" showduration="1" />
+			</then>
+		</if>
+
+		<input-test-info />
+		
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/test_splash_1.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Testing hybris..." />
+			</then>
+		</if>
+
+		<if>
+			<and>
+				<isset property="test.extensions" />
+				<isset property="test.packages" />
+			</and>
+			<then>
+				<ant dir="${hybris.platform.dir}" target="${test.type}tests" inheritall="false">
+					<!-- <property name="net.sourceforge.cobertura.datafile" value="${artifacts.cobertura.file}" /> -->
+					
+					<property name="testclasses.extensions" value="${test.extensions}" />
+					<property name="testclasses.packages" value="${test.packages}" />
+				</ant>
+			</then>
+			<elseif>
+				<isset property="test.extensions" />
+				<then>
+					<ant dir="${hybris.platform.dir}" target="${test.type}tests" inheritall="false">
+						<property name="testclasses.extensions" value="${test.extensions}" />
+					</ant>
+				</then>
+			</elseif>
+			<elseif>
+				<isset property="test.packages" />
+				<then>
+					<ant dir="${hybris.platform.dir}" target="${test.type}tests" inheritall="false">
+						<property name="testclasses.packages" value="${test.packages}" />
+					</ant>
+				</then>
+			</elseif>
+			<else>
+				<ant dir="${hybris.platform.dir}" target="${test.type}tests" inheritall="false" />
+			</else>
+		</if>
+	</target>
+	
+	<target name="ci-unit-tests" depends="junit-initialize" 
+		description="Initializes master and junit tenants and executes unit tests.">
+
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/test_splash_1.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Building hybris project..." />
+			</then>
+		</if>
+		
+		<ant dir="${hybris.platform.dir}" target="unittests" inheritall="false">
+			<!-- <property name="net.sourceforge.cobertura.datafile" value="${artifacts.cobertura.file}" /> -->
+		</ant>
+	</target>
+
+
+</project>

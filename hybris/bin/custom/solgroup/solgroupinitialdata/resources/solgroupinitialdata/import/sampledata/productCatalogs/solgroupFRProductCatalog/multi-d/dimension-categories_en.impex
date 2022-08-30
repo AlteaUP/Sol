@@ -1,0 +1,199 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+#CATEGORIES
+$solPrefix=solgroupFR
+
+# Language
+$lang=en
+
+# Macros / Replacement Parameter definitions
+$productCatalog=$solPrefixProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+# Localized Category Names
+
+#########################
+### SolGroup ###
+#########################
+
+# Localize variant categories;;
+UPDATE VariantCategory;code[unique=true];name[lang=$lang]
+;$solPrefix_VC_1;Alimentazione
+;$solPrefix_VC_2;Attacco
+;$solPrefix_VC_3;campo magnetico
+;$solPrefix_VC_4;Capacità
+;$solPrefix_VC_5;Categoria alimenti
+;$solPrefix_VC_6;CND
+;$solPrefix_VC_7;composizione
+;$solPrefix_VC_8;diametro filo
+;$solPrefix_VC_9;Dimensioni cassa
+;$solPrefix_VC_10;fissaggio
+;$solPrefix_VC_11;flussimetro
+;$solPrefix_VC_12;gas
+;$solPrefix_VC_13;materiale
+;$solPrefix_VC_14;numero di manometri
+;$solPrefix_VC_15;Numero di posti
+;$solPrefix_VC_16;Numero gas di alimentazione
+;$solPrefix_VC_17;oggetto del trasporto
+;$solPrefix_VC_18;Omologazione
+;$solPrefix_VC_19;Preriscaldo
+;$solPrefix_VC_20;presenza lattice
+;$solPrefix_VC_21;pressione di riempimento
+;$solPrefix_VC_22;Pressione di uscita
+;$solPrefix_VC_23;RDM
+;$solPrefix_VC_24;Recipiente
+;$solPrefix_VC_25;Scala
+;$solPrefix_VC_26;standard presa
+;$solPrefix_VC_27;taglia
+;$solPrefix_VC_28;Capacità
+;$solPrefix_VC_29;Tipo di funzionamento
+;$solPrefix_VC_30;Configurazione
+;$solPrefix_VC_31;Posizione
+;$solPrefix_VC_32;Lunghezza
+;$solPrefix_VC_33;Portata
+;$solPrefix_VC_34;Packaging
+;$solPrefix_VC_35;selettore
+;$solPrefix_VC_36;valvola
+;$solPrefix_VC_37;confezione
+# Localize variant value categories;;
+UPDATE VariantValueCategory;code[unique=true];name[lang=$lang]
+;$solPrefix_VC_1_1;5 segnali 220 V
+;$solPrefix_VC_2_1;1/8” GAS M DX
+;$solPrefix_VC_3_1;non amagnetico
+;$solPrefix_VC_4_1;20 litri
+;$solPrefix_VC_5_1;Per carni
+;$solPrefix_VC_6_1;Z1203019099
+;$solPrefix_VC_7_1;mono
+;$solPrefix_VC_8_1;0,8
+;$solPrefix_VC_9_1;Ø 52 mm
+;$solPrefix_VC_10_1;assente ghiera di fissaggio
+;$solPrefix_VC_11_1;con flussimetro
+;$solPrefix_VC_12_1;O2
+;$solPrefix_VC_13_1;alluminio
+;$solPrefix_VC_14_1;1 manometro
+;$solPrefix_VC_15_1;1 POSTO
+;$solPrefix_VC_16_1;2 GAS
+;$solPrefix_VC_17_1;Emono
+;$solPrefix_VC_18_1;ISO 9001-4001
+;$solPrefix_VC_19_1;Senza preriscaldatore
+;$solPrefix_VC_20_1;privo di lattice
+;$solPrefix_VC_21_1;135 bar
+;$solPrefix_VC_22_1;0 – 2 bar
+;$solPrefix_VC_23_1;1286390
+;$solPrefix_VC_24_1;Bombola
+;$solPrefix_VC_25_1;0 – 160 bar
+;$solPrefix_VC_26_1;AFNOR
+;$solPrefix_VC_27_1;Infant (1)
+;$solPrefix_VC_28_1;0,35 LT
+;$solPrefix_VC_29_1;Flow
+;$solPrefix_VC_30_1;Da bombola
+;$solPrefix_VC_31_1;Posizione Radiale
+;$solPrefix_VC_32_1;1 mt
+;$solPrefix_VC_33_1;200 lit/min
+;$solPrefix_VC_34_1;D200 random
+;$solPrefix_VC_35_1;a scatti
+;$solPrefix_VC_36_1;integrata
+;$solPrefix_VC_37_1;bombola
+;$solPrefix_VC_1_2;5 segnali 24 V
+;$solPrefix_VC_2_2;1/4” GAS M DX
+;$solPrefix_VC_3_2;amagnetico
+;$solPrefix_VC_4_2;100 litri
+;$solPrefix_VC_5_2;Per prodotti da forno
+;$solPrefix_VC_6_2;R060202
+;$solPrefix_VC_7_2;doppio
+;$solPrefix_VC_8_2;1,0
+;$solPrefix_VC_9_2;Ø 63 mm
+;$solPrefix_VC_10_2;ghiera di fissaggio
+;$solPrefix_VC_11_2;senza flussimetro
+;$solPrefix_VC_12_2;Aria
+;$solPrefix_VC_13_2;monouso
+;$solPrefix_VC_14_2;2 manometri
+;$solPrefix_VC_15_2;2 POSTI
+;$solPrefix_VC_16_2;3 GAS
+;$solPrefix_VC_17_2;bombola 5/7 LT
+;$solPrefix_VC_18_2;ABS
+;$solPrefix_VC_19_2;Con preriscaldatore
+;$solPrefix_VC_21_2;185 bar
+;$solPrefix_VC_22_2;0 – 5 bar
+;$solPrefix_VC_23_2;119493
+;$solPrefix_VC_24_2;Pacco bombole
+;$solPrefix_VC_25_2;0 – 315 bar
+;$solPrefix_VC_26_2;DIN
+;$solPrefix_VC_27_2;Small (2)
+;$solPrefix_VC_28_2;0,5 LT
+;$solPrefix_VC_29_2;Vacuum
+;$solPrefix_VC_30_2;Da rampa
+;$solPrefix_VC_31_2;Posizione Posteriore
+;$solPrefix_VC_32_2;2 mt
+;$solPrefix_VC_33_2;250 lit/min
+;$solPrefix_VC_34_2;S300 random
+;$solPrefix_VC_35_2;manuale
+;$solPrefix_VC_36_2;non integrata
+;$solPrefix_VC_37_2;pacco da 9 bombole
+;$solPrefix_VC_6_3;Q030103
+;$solPrefix_VC_8_3;1,2
+;$solPrefix_VC_12_3;O2 CO2
+;$solPrefix_VC_13_3;acciaio
+;$solPrefix_VC_15_3;3 POSTI
+;$solPrefix_VC_17_3;bombola 5/7/10/14 LT
+;$solPrefix_VC_18_3;CWB
+;$solPrefix_VC_22_3;0 -12 bar
+;$solPrefix_VC_23_3;623027
+;$solPrefix_VC_24_3;Carro bombolaio
+;$solPrefix_VC_26_3;UNI
+;$solPrefix_VC_27_3;Large (3)
+;$solPrefix_VC_28_3;2 LT
+;$solPrefix_VC_30_3;Con Docking
+;$solPrefix_VC_33_3;400 Lit/min
+;$solPrefix_VC_34_3;S300 spira/spira
+;$solPrefix_VC_37_3;pacco da 12 bombole
+;$solPrefix_VC_8_4;0,6
+;$solPrefix_VC_12_4;N2
+;$solPrefix_VC_15_4;5 POSTI
+;$solPrefix_VC_18_4;DB
+;$solPrefix_VC_23_4;640909
+;$solPrefix_VC_24_4;Bidone
+;$solPrefix_VC_27_4;Medium (4)
+;$solPrefix_VC_28_4;3 LT
+;$solPrefix_VC_30_4;Con Docking e lettore di codici a barre
+;$solPrefix_VC_33_4;600 lit/min
+;$solPrefix_VC_34_4;K300 spira/spira
+;$solPrefix_VC_8_5;1,6
+;$solPrefix_VC_12_5;He Ar
+;$solPrefix_VC_18_5;GL
+;$solPrefix_VC_28_5;5 LT
+;$solPrefix_VC_33_5;1000 lit/min
+;$solPrefix_VC_34_5;Standard pack
+;$solPrefix_VC_12_6;O2 N2 He Ar CO2
+;$solPrefix_VC_28_6;7 LT
+;$solPrefix_VC_12_7;O2 CO2
+;$solPrefix_VC_28_7;10 LT
+;$solPrefix_VC_12_8;N2 CO2
+;$solPrefix_VC_28_8;50 LT
+;$solPrefix_VC_12_9;N2 O2 CO2
+;$solPrefix_VC_12_10;CO2
+;$solPrefix_VC_12_11;N2O
+
+
+
+#########################
+### PowerTools ###
+#########################
+
+
+UPDATE Category;code[unique=true];name[lang=$lang];description[lang=$lang];$catalogVersion
+ ;1800;Safety;
+ ;1801;Apparel;
+ ;1802;Footwear;
+ ;1803;Men's;
+ ;1804;Women's;
+ ;1805;Men's;
+ ;1806;Women's;

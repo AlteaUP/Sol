@@ -1,0 +1,488 @@
+# Language                                                                                                 
+$lang=en  
+
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang];
+	      
+###################################################################################################
+##
+## Email sent to customer when a new ticket is created
+##
+;TickSystem_Customer_TicketCreated_Text;Ticket System Ticket Created Customer Plain Text Email;"
+	Dear ${ctx.name}, 
+	
+	As from Your request we have created a customer support ticket with the following reference number: ${ctx.ticketId}.
+	
+	Please quote this reference number in the next communications with us.
+	
+	Thank you for your kind cooperation
+	
+	SOL Customer Service Team
+
+	";
+;TickSystem_Customer_TicketCreated_HTML;Ticket System Ticket Created Customer HTML Email;"<html>
+	<head>
+	</head>
+	<body bgcolor='#e4e7e8'>
+		<table width='100%' border='0' align='center' cellpadding='0' cellspacing='0' bgcolor='#e4e7e8'>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td align='center' valign='top'>
+					<table width='610' border='6' align='center' cellpadding='0' cellspacing='0' bordercolor='#ebedee'>
+						<tr>
+							<td align='center' valign='top' bgcolor='#FFFFFF'>
+								<table width='570' cellpadding='0' cellspacing='0' border='0' align='center'>
+									<tr>
+										<td valign='middle'>&nbsp;</td>
+									</tr>
+									<tr>
+										<td valign='middle' >
+											<img src='http://www.sol.it/logo.png' alt='Sol Group' border='0' align='left' style='margin: 20px 10px; height: 94px; width: 176px' />
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='left' valign='middle' bgcolor='#75787B'>
+											<font color='#FFFFFF' size='2' face='FS Albert Pro Regular, Arial, Helvetica, sans-serif'>
+												<div>
+													Category: ${ctx.ticket.category}
+												</div>
+											</font>
+										</td>
+									</tr>
+									<tr>
+										<td align='left' valign='middle'>
+											<div style='margin-top: 10px; margin-bottom: 10px'>
+												<p>Dear ${ctx.name},</p>
+												<p>As from Your request we have created a customer support ticket with the following reference number: ${ctx.ticketId}.</p>
+												<p>Please quote this reference number in the next communications with us.</p>
+												<p>Thank you for your kind cooperation</p>
+												<p>SOL Customer Service Team</p>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='right' valign='middle' bgcolor='#75787B'>
+											
+										</td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</body>
+</html>";
+	
+##
+## Email sent to customer when the message has been updated or added
+##
+;TickSystem_Customer_CustomerEmail_Text;Ticket System Customer Email Plain Text Email;"
+	Dear ${ctx.name}
+
+	Your customer support ticket has been updated:
+
+	${ctx.text}
+
+	Your ticket status is ${ctx.ticket.state}
+	
+	Please quote your reference number ${ctx.ticketId} in the next communications with us.
+	
+	Thank you for your kind cooperation
+	
+	SOL Customer Service Team
+	";
+
+;TickSystem_Customer_CustomerEmail_HTML;Ticket System Customer Email HTML Email;"<html>
+	<head>
+	</head>
+	<body bgcolor='#e4e7e8'>
+		<table width='100%' border='0' align='center' cellpadding='0' cellspacing='0' bgcolor='#e4e7e8'>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td align='center' valign='top'>
+					<table width='610' border='6' align='center' cellpadding='0' cellspacing='0' bordercolor='#ebedee'>
+						<tr>
+							<td align='center' valign='top' bgcolor='#FFFFFF'>
+								<table width='570' cellpadding='0' cellspacing='0' border='0' align='center'>
+									<tr>
+										<td valign='middle'>&nbsp;</td>
+									</tr>
+									<tr>
+										<td valign='middle' >
+											<img src='http://www.sol.it/logo.png' alt='Sol Group' border='0' align='left' style='margin: 20px 10px; height: 94px; width: 176px' />
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='left' valign='middle' bgcolor='#75787B'>
+											<font color='#FFFFFF' size='2' face='FS Albert Pro Regular, Arial, Helvetica, sans-serif'>
+												<div>
+													Category: ${ctx.ticket.category}
+												</div>
+											</font>
+										</td>
+									</tr>
+									<tr>
+										<td align='left' valign='middle'>
+											<div style='margin-top: 10px; margin-bottom: 10px'>
+												<p>Dear ${ctx.name}</p>
+												<p>Your customer support ticket has been updated:</p>
+												<i>${ctx.htmlText}</i>
+												<p>Your ticket status is ${ctx.ticket.state}</p>
+												<p>Please quote your reference number ${ctx.ticketId} in the next communications with us.</p>
+												<p>Thank you for your kind cooperation</p>
+												<p>SOL Customer Service Team</p>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='right' valign='middle' bgcolor='#75787B'>
+											
+										</td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</body>
+</html>"; 
+
+##
+## Email sent to customer when the ticket state has been changed
+##
+;TickSystem_Customer_TicketStateChanged_Text;Ticket System Customer Email Plain Text Email;"
+	Dear ${ctx.name}
+
+	Your customer support ticket has been updated:
+
+	${ctx.text}
+
+	Your ticket status is ${ctx.ticket.state}
+	
+	Please quote your reference number ${ctx.ticketId} in the next communications with us.
+	
+	Thank you for your kind cooperation
+	
+	Your Customer Service Team
+	";
+;TickSystem_Customer_TicketStateChanged_HTML;Ticket System Customer Email HTML Email;"<html>
+	<head>
+	</head>
+	<body bgcolor='#e4e7e8'>
+		<table width='100%' border='0' align='center' cellpadding='0' cellspacing='0' bgcolor='#e4e7e8'>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td align='center' valign='top'>
+					<table width='610' border='6' align='center' cellpadding='0' cellspacing='0' bordercolor='#ebedee'>
+						<tr>
+							<td align='center' valign='top' bgcolor='#FFFFFF'>
+								<table width='570' cellpadding='0' cellspacing='0' border='0' align='center'>
+									<tr>
+										<td valign='middle'>&nbsp;</td>
+									</tr>
+									<tr>
+										<td valign='middle' >
+											<img src='http://www.sol.it/logo.png' alt='Sol Group' border='0' align='left' style='margin: 20px 10px; height: 94px; width: 176px' />
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='left' valign='middle' bgcolor='#75787B'>
+											<font color='#FFFFFF' size='2' face='FS Albert Pro Regular, Arial, Helvetica, sans-serif'>
+												<div>
+													Category: ${ctx.ticket.category}
+												</div>
+											</font>
+										</td>
+									</tr>
+									<tr>
+										<td align='left' valign='middle'>
+											<div style='margin-top: 10px; margin-bottom: 10px'>
+												<p>Dear ${ctx.name}</p>
+												<p>Your customer support ticket has been updated:</p>
+												<i>${ctx.htmlText}</i>
+												<p>Your ticket status is ${ctx.ticket.state}</p>
+												<p>Please quote your reference number ${ctx.ticketId} in the next communications with us.</p>
+												<p>Thank you for your kind cooperation</p>
+												<p>Your Customer Service Team</p>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='right' valign='middle' bgcolor='#75787B'>
+											
+										</td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</body>
+</html>";
+
+###################################################################################################
+##
+## Email sent to CS Agent when a new ticket is created
+##
+;TickSystem_csAgent_TicketCreated_Text;Ticket System Ticket Created Customer Plain Text Email;"
+	Dear ${ctx.name}
+	
+	The following customer support ticket  has been assigned to you: ticket number ${ctx.ticketId}
+	
+	Thank you
+	
+	SOL Customer Service Team	
+	";
+;TickSystem_csAgent_TicketCreated_HTML;Ticket System Ticket Created Customer HTML Email;"<html>
+	<head>
+	</head>
+	<body bgcolor='#e4e7e8'>
+		<table width='100%' border='0' align='center' cellpadding='0' cellspacing='0' bgcolor='#e4e7e8'>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td align='center' valign='top'>
+					<table width='610' border='6' align='center' cellpadding='0' cellspacing='0' bordercolor='#ebedee'>
+						<tr>
+							<td align='center' valign='top' bgcolor='#FFFFFF'>
+								<table width='570' cellpadding='0' cellspacing='0' border='0' align='center'>
+									<tr>
+										<td valign='middle'>&nbsp;</td>
+									</tr>
+									<tr>
+										<td valign='middle' >
+											<img src='http://www.sol.it/logo.png' alt='Sol Group' border='0' align='left' style='margin: 20px 10px; height: 94px; width: 176px' />
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='left' valign='middle' bgcolor='#75787B'>
+											<font color='#FFFFFF' size='2' face='FS Albert Pro Regular, Arial, Helvetica, sans-serif'>
+												<div>
+													Category: ${ctx.ticket.category}
+												</div>
+											</font>
+										</td>
+									</tr>
+									<tr>
+										<td align='left' valign='middle'>
+											<div style='margin-top: 10px; margin-bottom: 10px'>
+												<p>Dear ${ctx.name}</p>
+												<p>The following customer support ticket has been assigned to you: ticket number ${ctx.ticketId}</p>
+												<p>Thank you</p>
+												<p>SOL Customer Service Team</p>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='right' valign='middle' bgcolor='#75787B'>
+											
+										</td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</body>
+</html>";
+
+###################################################################################################
+##
+## Email sent to CS Agent when the message has been updated or added
+##
+;TickSystem_csAgent_CustomerEmail_Text;Ticket System Customer Email Plain Text Email;"
+	Dear ${ctx.name}
+	
+	The customer support ticket ${ctx.ticketId} has been updated:
+
+	${ctx.text}
+
+	The ticket status is ${ctx.ticket.state}
+
+	Thank you
+	
+	SOL Customer Service Team
+";
+;TickSystem_csAgent_CustomerEmail_HTML;Ticket System Customer Email HTML Email;"<html>
+	<head>
+	</head>
+	<body bgcolor='#e4e7e8'>
+		<table width='100%' border='0' align='center' cellpadding='0' cellspacing='0' bgcolor='#e4e7e8'>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td align='center' valign='top'>
+					<table width='610' border='6' align='center' cellpadding='0' cellspacing='0' bordercolor='#ebedee'>
+						<tr>
+							<td align='center' valign='top' bgcolor='#FFFFFF'>
+								<table width='570' cellpadding='0' cellspacing='0' border='0' align='center'>
+									<tr>
+										<td valign='middle'>&nbsp;</td>
+									</tr>
+									<tr>
+										<td valign='middle' >
+											<img src='http://www.sol.it/logo.png' alt='Sol Group' border='0' align='left' style='margin: 20px 10px; height: 94px; width: 176px' />
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='left' valign='middle' bgcolor='#75787B'>
+											<font color='#FFFFFF' size='2' face='FS Albert Pro Regular, Arial, Helvetica, sans-serif'>
+												<div>
+													Category: ${ctx.ticket.category}
+												</div>
+											</font>
+										</td>
+									</tr>
+									<tr>
+										<td align='left' valign='middle'>
+											<div style='margin-top: 10px; margin-bottom: 10px'>
+												<p>Dear ${ctx.name}</p>
+												<p>The customer support ticket ${ctx.ticketId} has been updated:</p>
+												<i>${ctx.htmlText}</i>
+												<p>The ticket status is ${ctx.ticket.state}</p>
+												<p>Thank you</p>
+												<p>SOL Customer Service Team</p>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='right' valign='middle' bgcolor='#75787B'>
+											
+										</td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</body>
+</html>";
+
+##
+## Email sent to CS Agent when the ticket state has been changed
+##
+;TickSystem_csAgent_TicketStateChanged_Text;Ticket System Customer Email Plain Text Email;"
+	Dear ${ctx.name}
+	
+	The customer support ticket ${ctx.ticketId} has been updated:
+
+	${ctx.text}
+
+	The ticket status is ${ctx.ticket.state}
+
+	Thank you
+	
+	SOL Customer Service Team
+";
+
+;TickSystem_csAgent_TicketStateChanged_HTML;Ticket System Customer Email HTML Email;"<html>
+		<head>
+	</head>
+	<body bgcolor='#e4e7e8'>
+		<table width='100%' border='0' align='center' cellpadding='0' cellspacing='0' bgcolor='#e4e7e8'>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td align='center' valign='top'>
+					<table width='610' border='6' align='center' cellpadding='0' cellspacing='0' bordercolor='#ebedee'>
+						<tr>
+							<td align='center' valign='top' bgcolor='#FFFFFF'>
+								<table width='570' cellpadding='0' cellspacing='0' border='0' align='center'>
+									<tr>
+										<td valign='middle'>&nbsp;</td>
+									</tr>
+									<tr>
+										<td valign='middle' >
+											<img src='http://www.sol.it/logo.png' alt='Sol Group' border='0' align='left' style='margin: 20px 10px; height: 94px; width: 176px' />
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='left' valign='middle' bgcolor='#75787B'>
+											<font color='#FFFFFF' size='2' face='FS Albert Pro Regular, Arial, Helvetica, sans-serif'>
+												<div>
+													Category: ${ctx.ticket.category}
+												</div>
+											</font>
+										</td>
+									</tr>
+									<tr>
+										<td align='left' valign='middle'>
+											<div style='margin-top: 10px; margin-bottom: 10px'>
+												<p>Dear ${ctx.name}</p>
+												<p>The customer support ticket ${ctx.ticketId} has been updated:</p>
+												<i>${ctx.htmlText}</i>
+												<p>The ticket status is ${ctx.ticket.state}</p>
+												<p>Thank you</p>
+												<p>SOL Customer Service Team</p>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='right' valign='middle' bgcolor='#75787B'>
+											
+										</td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</body>
+</html>";
+

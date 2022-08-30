@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ Order Export beans
+-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config/>
+
+    <!-- Order Process Actions -->
+
+    <bean id="abstractOrderAction" class="com.solgroup.fulfilmentprocess.actions.orderexport.AbstractOrderAction"
+          abstract="true" parent="abstractAction">
+        <property name="timeService" ref="timeService"/>
+    </bean>
+
+    <bean id="firstCheckOrderAction" class="com.solgroup.fulfilmentprocess.actions.orderexport.FirstCheckOrderAction"
+          parent="abstractAction">
+    </bean>
+    <bean id="sendOrderPlacedNotificationAction" class="com.solgroup.fulfilmentprocess.actions.order.SendOrderPlacedNotificationAction"  parent="abstractAction">
+        <property name="eventService" ref="eventService"/>
+    </bean>
+    <bean id="checkSelfRegistrationAction"
+          class="com.solgroup.fulfilmentprocess.actions.orderexport.CheckSelfRegistrationAction"
+          parent="abstractAction">
+    </bean>
+    <bean id="exportClientToLegacyAction"
+          class="com.solgroup.fulfilmentprocess.actions.orderexport.ExportClientToLegacyAction" parent="abstractAction">
+    </bean>
+    <bean id="checkPaymentModeAction" class="com.solgroup.fulfilmentprocess.actions.orderexport.CheckPaymentModeAction"
+          parent="abstractAction">
+    </bean>
+    <bean id="captureAction" class="com.solgroup.fulfilmentprocess.actions.orderexport.CaptureAction"
+          parent="abstractAction">
+    </bean>
+    <bean id="subOrdersCreationAction"
+          class="com.solgroup.fulfilmentprocess.actions.orderexport.SubOrdersCreationAction" parent="abstractAction">
+    </bean>
+
+    <bean id="updateOrderStatusAction" class="com.solgroup.fulfilmentprocess.actions.orderexport.UpdateOrderStatusAction" parent="abstractAction">
+    	<property name="solGroupOrderService" ref="solGroupOrderService" />
+    </bean>
+</beans>

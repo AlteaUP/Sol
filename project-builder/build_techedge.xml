@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Ant build for hybris system -->
+<project name="techedge-hybris" default="all" basedir="./..">
+
+	<!-- IMPORT -->
+	<!-- All workspace paths needed -->
+	<import file="./resources/ant/paths.xml" />
+
+	<!-- ANT-CONTRIB library -->
+	<taskdef classpath="${build.lib.dir}/ant-contrib-1.0b3/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml" />
+
+	<!-- All build xml needed -->
+	<import file="./resources/ant/ant_utils.xml"/>
+	<import file="./resources/ant/hybris_utils.xml"/>
+	<import file="./resources/ant/hybris_coverage.xml" />
+	<import file="./resources/ant/hybris_dist.xml" />
+	<!-- <import file="./resources/ant/hybris_doc.xml" /> -->
+	<import file="./resources/ant/hybris_deployment_tables.xml"/>
+	<import file="./resources/ant/hybris_env.xml" />
+	<import file="./resources/ant/hybris_quality.xml" />
+	<import file="./resources/ant/hybris_tenant.xml" />
+	<import file="./resources/ant/hybris_test.xml" />
+	
+
+	<!-- special targets to allow execute actions before and after a specific target -->
+	<extension-point name="before-build" depends="init-env" /> <!-- DEPENDING TARGETS: do-build -->
+
+	<extension-point name="after-build" depends="do-build" /> <!-- DEPENDING TARGETS: build -->
+
+	<!-- TARGETs - Continuous integration -->
+	<target name="ci" depends="clean, all, ci-unit-tests, coverage-instrument, coverage-report, quality-full-check" 
+		description="Target for continuous integration">
+
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<!-- NB: show duration is in milliseconds, 0 is unlimited -->
+				<splash imageurl="file:${build.img.dir}/jenkins_splash.png" progressRegExp="Progress: (.*)%" 
+					showduration="5000" displayText="Continuous Integration completed" />
+			</then>
+		</if>
+		
+		<echo message="Continuous Integration completed." />
+	</target>
+
+
+	<!-- TAGERTs - Build -->
+	<target name="all" depends="build" description="Prepare and build hybris environment.">
+		<echo message="Prepare and build hybris environment completed." />
+	</target>
+	
+	<target name="do-build" depends="before-build" description="Build hybris environment.">
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/compile_hybris_splash.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Building hybris project..." />
+			</then>
+		</if>
+
+		<echo message="Building hybris environment..." />
+
+		<if>
+			<available file="${hybris.platform.dir}" description="Builds entire project. Target 'all' must have been used at least once before!" />
+			<then>
+				<!-- Do 'customize' before building because the files copied to bin/platform may influence the build process. -->
+				<ant dir="${hybris.platform.dir}" inheritall="false">
+					<target name="customize" />
+					<target name="all" />
+				</ant>
+			</then>
+			<else>
+				<fail message="Directory ${hybris.platform.dir} does not exist. Please use target 'all'" />
+			</else>
+		</if>
+	</target>
+
+	<target name="build" depends="after-build" description="Build hybris environment.">
+	
+		<echo message="Build hybris environment completed." />
+	</target>
+
+
+	<!-- TARGETs - Clean -->
+	<target name="clean" description="Clean hybris platform.">
+
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/clean_splash.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Cleaning hybris platform..." />
+			</then>
+		</if>
+
+		<echo message="Cleaning hybris platform..." />
+
+		<if>
+			<available file="${hybris.platform.dir}" />
+			<then>
+				<ant dir="${hybris.platform.dir}" target="clean" inheritall="false" />
+			</then>
+		</if>
+
+		<echo message="Clean hybris platform completed." />
+	</target>
+</project>

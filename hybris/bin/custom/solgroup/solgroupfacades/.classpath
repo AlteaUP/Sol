@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="/platform"/>
+	<classpathentry exported="true" kind="src" path="/acceleratorfacades"/>
+	<classpathentry exported="true" kind="src" path="/solgroupcore"/>
+	<classpathentry exported="true" kind="lib" path="resources"/>
+	<classpathentry kind="src" output="eclipsebin/classes" path="src"/>
+	<classpathentry kind="src" output="eclipsebin/classes" path="testsrc"/>
+	<classpathentry kind="src" output="eclipsebin/classes" path="gensrc"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/b2bacceleratorfacades"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/customerticketingfacades"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/assistedservicefacades"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/consignmenttrackingfacades"/>
+	<classpathentry kind="output" path="eclipsebin/notused"/>
+</classpath>

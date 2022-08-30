@@ -1,0 +1,489 @@
+# Language                                                                                                 
+$lang=it       
+
+UPDATE RendererTemplate;code[unique=true];description[lang=$lang];templateScript[lang=$lang];
+	      
+###################################################################################################
+##
+## Email sent to customer when a new ticket is created
+##
+;TickSystem_Customer_TicketCreated_Text;Ticket System Ticket Created Customer Plain Text Email;"
+	Gentile ${ctx.name},
+	
+	Come da Lei richiesto, abbiamo aperto una segnalazione con il seguente codice identificativo:  ${ctx.ticketId}.
+
+	Le chiediamo gentilmente di fare riferimento a questo codice nelle Sue prossime comunicazioni.
+
+	Grazie per la Sua collaborazione
+
+	Il Servizio Clienti SOL
+
+	";
+;TickSystem_Customer_TicketCreated_HTML;Ticket System Ticket Created Customer HTML Email;"<html>
+	<head>
+	</head>
+	<body bgcolor='#e4e7e8'>
+		<table width='100%' border='0' align='center' cellpadding='0' cellspacing='0' bgcolor='#e4e7e8'>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td align='center' valign='top'>
+					<table width='610' border='6' align='center' cellpadding='0' cellspacing='0' bordercolor='#ebedee'>
+						<tr>
+							<td align='center' valign='top' bgcolor='#FFFFFF'>
+								<table width='570' cellpadding='0' cellspacing='0' border='0' align='center'>
+									<tr>
+										<td valign='middle'>&nbsp;</td>
+									</tr>
+									<tr>
+										<td valign='middle' >
+											<img src='http://www.sol.it/logo.png' alt='Sol Group' border='0' align='left' style='margin: 20px 10px; height: 94px; width: 176px' />
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='left' valign='middle' bgcolor='#75787B'>
+											<font color='#FFFFFF' size='2' face='FS Albert Pro Regular, Arial, Helvetica, sans-serif'>
+												<div>
+													Category: ${ctx.ticket.category}
+												</div>
+											</font>
+										</td>
+									</tr>
+									<tr>
+										<td align='left' valign='middle'>
+											<div style='margin-top: 10px; margin-bottom: 10px'>
+												<p>Gentile ${ctx.name},</p>
+												<p>Come da Lei richiesto, abbiamo aperto una segnalazione con il seguente codice identificativo: ${ctx.ticketId}.</p>
+												<p>Le chiediamo gentilmente di fare riferimento a questo codice nelle Sue prossime comunicazioni.</p>
+												<p>Grazie per la Sua collaborazione</p>
+												<p>Il Servizio Clienti SOL</p>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='right' valign='middle' bgcolor='#75787B'>
+											
+										</td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</body>
+</html>";
+	
+##
+## Email sent to customer when the message has been updated or added
+##
+;TickSystem_Customer_CustomerEmail_Text;Ticket System Customer Email Plain Text Email;"
+	Gentile ${ctx.name},
+	
+	La Sua segnalazione è stata aggiornata:
+	
+	${ctx.text}
+	
+	Lo status attuale della Sua segnalazione è ${ctx.ticket.state}
+	
+	Le chiediamo gentilmente di fare riferimento al codice identificativo della segnalazione nelle Sue prossime comunicazioni.
+	
+	Grazie per la Sua  collaborazione
+	
+	Il Servizio clienti SOL
+	";
+
+;TickSystem_Customer_CustomerEmail_HTML;Ticket System Customer Email HTML Email;"<html>
+	<head>
+	</head>
+	<body bgcolor='#e4e7e8'>
+		<table width='100%' border='0' align='center' cellpadding='0' cellspacing='0' bgcolor='#e4e7e8'>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td align='center' valign='top'>
+					<table width='610' border='6' align='center' cellpadding='0' cellspacing='0' bordercolor='#ebedee'>
+						<tr>
+							<td align='center' valign='top' bgcolor='#FFFFFF'>
+								<table width='570' cellpadding='0' cellspacing='0' border='0' align='center'>
+									<tr>
+										<td valign='middle'>&nbsp;</td>
+									</tr>
+									<tr>
+										<td valign='middle' >
+											<img src='http://www.sol.it/logo.png' alt='Sol Group' border='0' align='left' style='margin: 20px 10px; height: 94px; width: 176px' />
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='left' valign='middle' bgcolor='#75787B'>
+											<font color='#FFFFFF' size='2' face='FS Albert Pro Regular, Arial, Helvetica, sans-serif'>
+												<div>
+													Category: ${ctx.ticket.category}
+												</div>
+											</font>
+										</td>
+									</tr>
+									<tr>
+										<td align='left' valign='middle'>
+											<div style='margin-top: 10px; margin-bottom: 10px'>
+												<p>Gentile ${ctx.name},</p>
+												<p>La Sua segnalazione è stata aggiornata:</p>		
+												<i>${ctx.htmlText}</i>												
+												<p>Lo status attuale della Sua segnalazione è ${ctx.ticket.state}</p>													
+												<p>Le chiediamo gentilmente di fare riferimento al codice identificativo della segnalazione nelle Sue prossime comunicazioni.</p>													
+												<p>Grazie per la Sua  collaborazione</p>		
+												<p>Il Servizio clienti SOL</p>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='right' valign='middle' bgcolor='#75787B'>
+											
+										</td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</body>
+</html>"; 
+
+##
+## Email sent to customer when the ticket state has been changed
+##
+;TickSystem_Customer_TicketStateChanged_Text;Ticket System Customer Email Plain Text Email;"
+	Gentile ${ctx.name},
+	
+	La Sua segnalazione è stata aggiornata:
+	
+	${ctx.text}
+	
+	Lo status attuale della Sua segnalazione è ${ctx.ticket.state}
+	
+	Le chiediamo gentilmente di fare riferimento al codice identificativo della segnalazione nelle Sue prossime comunicazioni.
+	
+	Grazie per la Sua  collaborazione
+	
+	Il Servizio clienti SOL
+	";
+;TickSystem_Customer_TicketStateChanged_HTML;Ticket System Customer Email HTML Email;"<html>
+	<head>
+	</head>
+	<body bgcolor='#e4e7e8'>
+		<table width='100%' border='0' align='center' cellpadding='0' cellspacing='0' bgcolor='#e4e7e8'>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td align='center' valign='top'>
+					<table width='610' border='6' align='center' cellpadding='0' cellspacing='0' bordercolor='#ebedee'>
+						<tr>
+							<td align='center' valign='top' bgcolor='#FFFFFF'>
+								<table width='570' cellpadding='0' cellspacing='0' border='0' align='center'>
+									<tr>
+										<td valign='middle'>&nbsp;</td>
+									</tr>
+									<tr>
+										<td valign='middle' >
+											<img src='http://www.sol.it/logo.png' alt='Sol Group' border='0' align='left' style='margin: 20px 10px; height: 94px; width: 176px' />
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='left' valign='middle' bgcolor='#75787B'>
+											<font color='#FFFFFF' size='2' face='FS Albert Pro Regular, Arial, Helvetica, sans-serif'>
+												<div>
+													Category: ${ctx.ticket.category}
+												</div>
+											</font>
+										</td>
+									</tr>
+									<tr>
+										<td align='left' valign='middle'>
+											<div style='margin-top: 10px; margin-bottom: 10px'>
+												<p>Gentile ${ctx.name},</p>
+												<p>La Sua segnalazione è stata aggiornata:</p>		
+												<i>${ctx.htmlText}</i>												
+												<p>Lo status attuale della Sua segnalazione è ${ctx.ticket.state}</p>													
+												<p>Le chiediamo gentilmente di fare riferimento al codice identificativo della segnalazione nelle Sue prossime comunicazioni.</p>													
+												<p>Grazie per la Sua  collaborazione</p>		
+												<p>Il Servizio clienti SOL</p>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='right' valign='middle' bgcolor='#75787B'>
+											
+										</td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</body>
+</html>"; 
+
+###################################################################################################
+##
+## Email sent to CS Agent when a new ticket is created
+##
+;TickSystem_csAgent_TicketCreated_Text;Ticket System Ticket Created Customer Plain Text Email;"	
+	Gentile ${ctx.name},
+	
+	Le è stata assegnata una segnalazione con il seguente codice: ${ctx.ticketId}
+	
+	Grazie per la collaborazione
+	
+	Il Servizio clienti SOL
+	";
+;TickSystem_csAgent_TicketCreated_HTML;Ticket System Ticket Created Customer HTML Email;"<html>
+	<head>
+	</head>
+	<body bgcolor='#e4e7e8'>
+		<table width='100%' border='0' align='center' cellpadding='0' cellspacing='0' bgcolor='#e4e7e8'>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td align='center' valign='top'>
+					<table width='610' border='6' align='center' cellpadding='0' cellspacing='0' bordercolor='#ebedee'>
+						<tr>
+							<td align='center' valign='top' bgcolor='#FFFFFF'>
+								<table width='570' cellpadding='0' cellspacing='0' border='0' align='center'>
+									<tr>
+										<td valign='middle'>&nbsp;</td>
+									</tr>
+									<tr>
+										<td valign='middle' >
+											<img src='http://www.sol.it/logo.png' alt='Sol Group' border='0' align='left' style='margin: 20px 10px; height: 94px; width: 176px' />
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='left' valign='middle' bgcolor='#75787B'>
+											<font color='#FFFFFF' size='2' face='FS Albert Pro Regular, Arial, Helvetica, sans-serif'>
+												<div>
+													Category: ${ctx.ticket.category}
+												</div>
+											</font>
+										</td>
+									</tr>
+									<tr>
+										<td align='left' valign='middle'>
+											<div style='margin-top: 10px; margin-bottom: 10px'>
+												<p>Gentile ${ctx.name},</p>
+												<p>Le è stata assegnata una segnalazione con il seguente codice: ${ctx.ticketId}</p>												
+												<p>Grazie per la collaborazione</p>												
+												<p>Il Servizio clienti SOL</p>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='right' valign='middle' bgcolor='#75787B'>
+											
+										</td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</body>
+</html>";
+
+###################################################################################################
+##
+## Email sent to CS Agent when the message has been updated or added
+##
+;TickSystem_csAgent_CustomerEmail_Text;Ticket System Customer Email Plain Text Email;"
+	Gentile ${ctx.name},
+	
+	La segnalazione ${ctx.ticketId} è stata aggiornata:
+	
+	${ctx.text}
+	
+	Lo status attuale della segnalazione è ${ctx.ticket.state}
+	
+	Grazie per la collaborazione
+	
+	Il  Servizio clienti SOL
+";
+;TickSystem_csAgent_CustomerEmail_HTML;Ticket System Customer Email HTML Email;"<html>
+	<head>
+	</head>
+	<body bgcolor='#e4e7e8'>
+		<table width='100%' border='0' align='center' cellpadding='0' cellspacing='0' bgcolor='#e4e7e8'>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td align='center' valign='top'>
+					<table width='610' border='6' align='center' cellpadding='0' cellspacing='0' bordercolor='#ebedee'>
+						<tr>
+							<td align='center' valign='top' bgcolor='#FFFFFF'>
+								<table width='570' cellpadding='0' cellspacing='0' border='0' align='center'>
+									<tr>
+										<td valign='middle'>&nbsp;</td>
+									</tr>
+									<tr>
+										<td valign='middle' >
+											<img src='http://www.sol.it/logo.png' alt='Sol Group' border='0' align='left' style='margin: 20px 10px; height: 94px; width: 176px' />
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='left' valign='middle' bgcolor='#75787B'>
+											<font color='#FFFFFF' size='2' face='FS Albert Pro Regular, Arial, Helvetica, sans-serif'>
+												<div>
+													Category: ${ctx.ticket.category}
+												</div>
+											</font>
+										</td>
+									</tr>
+									<tr>
+										<td align='left' valign='middle'>
+											<div style='margin-top: 10px; margin-bottom: 10px'>
+												<p>Gentile ${ctx.name},</p>	
+												<p>La segnalazione ${ctx.ticketId} è stata aggiornata:</p>													
+												<i>${ctx.htmlText}</i>											
+												<p>Lo status attuale della segnalazione è ${ctx.ticket.state}</p>											
+												<p>Grazie per la collaborazione</p>												
+												<p>Il  Servizio clienti SOL</p>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='right' valign='middle' bgcolor='#75787B'>
+											
+										</td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</body>
+</html>";
+
+##
+## Email sent to CS Agent when the ticket state has been changed
+##
+;TickSystem_csAgent_TicketStateChanged_Text;Ticket System Customer Email Plain Text Email;"
+	Gentile ${ctx.name},
+	
+	La segnalazione ${ctx.ticketId} è stata aggiornata:
+	
+	${ctx.text}
+	
+	Lo status attuale della segnalazione è ${ctx.ticket.state}
+	
+	Grazie per la collaborazione
+	
+	Il  Servizio clienti SOL
+";
+
+;TickSystem_csAgent_TicketStateChanged_HTML;Ticket System Customer Email HTML Email;"<html>
+	<head>
+	</head>
+	<body bgcolor='#e4e7e8'>
+		<table width='100%' border='0' align='center' cellpadding='0' cellspacing='0' bgcolor='#e4e7e8'>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+			<tr>
+				<td align='center' valign='top'>
+					<table width='610' border='6' align='center' cellpadding='0' cellspacing='0' bordercolor='#ebedee'>
+						<tr>
+							<td align='center' valign='top' bgcolor='#FFFFFF'>
+								<table width='570' cellpadding='0' cellspacing='0' border='0' align='center'>
+									<tr>
+										<td valign='middle'>&nbsp;</td>
+									</tr>
+									<tr>
+										<td valign='middle' >
+											<img src='http://www.sol.it/logo.png' alt='Sol Group' border='0' align='left' style='margin: 20px 10px; height: 94px; width: 176px' />
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='left' valign='middle' bgcolor='#75787B'>
+											<font color='#FFFFFF' size='2' face='FS Albert Pro Regular, Arial, Helvetica, sans-serif'>
+												<div>
+													Category: ${ctx.ticket.category}
+												</div>
+											</font>
+										</td>
+									</tr>
+									<tr>
+										<td align='left' valign='middle'>
+											<div style='margin-top: 10px; margin-bottom: 10px'>
+												<p>Gentile ${ctx.name},</p>	
+												<p>La segnalazione ${ctx.ticketId} è stata aggiornata:</p>													
+												<i>${ctx.htmlText}</i>											
+												<p>Lo status attuale della segnalazione è ${ctx.ticket.state}</p>											
+												<p>Grazie per la collaborazione</p>												
+												<p>Il  Servizio clienti SOL</p>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td height='30' align='right' valign='middle' bgcolor='#75787B'>
+											
+										</td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+									</tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+			</tr>
+		</table>
+	</body>
+</html>";
+
+    

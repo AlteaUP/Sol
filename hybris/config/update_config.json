@@ -1,0 +1,71 @@
+{
+  "init": "Go",
+  "initmethod": "update",
+  "basecommerce_create geocoding cron job": [
+    "no"
+  ],
+  "solgroupcockpits_importCustomReports": [
+    "yes"
+  ],
+  "mediaconversion_sampledata": [
+    "false"
+  ],
+  "solgroupcore_accessRights": [
+    "yes"
+  ],
+  "solgroupinitialdata_importCoreData": [
+    "yes"
+  ],
+  "solgroupinitialdata_importSampleData": [
+    "yes"
+  ],
+  "solgroupinitialdata_importSampleDataCommons": [
+    "yes"
+  ],
+  "solgroupinitialdata_importSampleDataProducts": [
+    "yes"
+  ],
+  "solgroupinitialdata_importSampleDataProductsLegacy": [
+    "yes"
+  ],
+  "solgroupinitialdata_importSampleDataCustomers": [
+    "yes"
+  ],
+  "solgroupinitialdata_importSampleDataPrices": [
+    "yes"
+  ],
+  "solgroupinitialdata_importSampleDataStocks": [
+    "yes"
+  ],
+  "solgroupinitialdata_importSampleDataContentCatalog": [
+    "yes"
+  ],
+  "solgroupinitialdata_importSampleDataAgents": [
+    "yes"
+  ],
+  "solgroupinitialdata_activateSolrCronJobs": [
+    "yes"
+  ],
+  "solgroupinitialdata_notifyEvent": [
+    "yes"
+  ],
+  "solgroupinitialdata_importSolgroupIT": [
+    "yes"
+  ],
+  "solgroupinitialdata_importSolgroupFR": [
+    "no"
+  ],
+  "solgroupinitialdata_importSolgroupAT": [
+    "no"
+  ],
+  "solgroupinitialdata_solgroup_IT_legacySystem": [
+    "RAMSES_IT,RAINBOW"
+  ],
+  "solgroupinitialdata_solgroup_FR_legacySystem": [
+    "RAMSES_FR,RAINBOW"
+  ],
+  "solgroupinitialdata_solgroup_AT_legacySystem": [
+    "RAMSES_AT,RAINBOW"
+  ],
+  "filteredPatches": "true"
+}

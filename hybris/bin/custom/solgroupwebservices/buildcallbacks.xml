@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+
+ This software is the confidential and proprietary information of SAP
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with SAP.
+-->
+<!--
+ All hybris buildcallbacks.xml macrodefinitions:
+ 
+ Build/Documentation
+ 
+	 before/after ant macro "clean"
+		 <macrodef name="solgroupwebservices_before_clean"/>
+		 <macrodef name="solgroupwebservices_after_clean"/>
+	 
+	 before/after ant macro "build"
+		 <macrodef name="solgroupwebservices_before_build"/>
+		 <macrodef name="solgroupwebservices_after_build"/>
+		 
+	 before/after ant macro "compile_core" - the core module of the extension
+		 <macrodef name="solgroupwebservices_before_compile_core">
+		 <macrodef name="solgroupwebservices_after_compile_core">
+	 
+	 before/after ant macro "compile_web" - the web module of the extension
+		 <macrodef name="solgroupwebservices_before_compile_web" />
+		 <macrodef name="solgroupwebservices_after_compile_web" />
+	 
+	 before/after ant macro "compile_hmc" - the hmc module of the extension
+		 <macrodef name="solgroupwebservices_before_compile_hmc" />
+		 <macrodef name="solgroupwebservices_after_compile_hmc" />
+ 
+ Preparing extension
+ 
+	 will be called in the beginning of the ant call and only once (also when using multiple 
+	 ant targets e.g. ant build yunittest)	
+		 <macrodef name="solgroupwebservices_only_once_prepare"/>
+ 
+ Creating ear module/production
+ 
+	 before/after ant macro "ear"
+		 <macrodef name="solgroupwebservices_before_ear"/>
+		 <macrodef name="solgroupwebservices_after_ear"/>
+
+	 before/after ant macro "production" - for hybris server only
+		 <macrodef name="solgroupwebservices_before_production" />
+		 <macrodef name="solgroupwebservices_after_production" />
+ 
+ JUnit Test
+ 
+	 before/after ant macro "yunitinit" 
+		 <macrodef name="solgroupwebservices_before_yunitinit" />
+		 <macrodef name="solgroupwebservices_after_yunitinit" />
+	 
+	 before/after ant macro "yunit"
+		 <macrodef name="solgroupwebservices_before_yunit" />
+		 <macrodef name="solgroupwebservices_after_yunit" /> 
+		 
+ Distribution package
+ 
+ 	 before/after ant macro "dist" - internal target; only for use when platform is available in source code
+		 <macrodef name="solgroupwebservices_after_dist"/>
+		 <macrodef name="solgroupwebservices_before_dist"/>
+	 
+	 before/after ant macro "dist_copy" - internal target; only for use when platform is available in source code
+		 <macrodef name="solgroupwebservices_before_dist_copy"/>
+		 <macrodef name="solgroupwebservices_after_dist_copy"/>
+		  
+ 	 With these filters you can override the default extension filters defined in platform/resources/ant/dist/filtersets.xml
+ 	  	 <patternset id="extension.solgroupwebservices.binary.filter">
+ 	  	  	 <patternset refid="extension.filter" />
+ 	  	  	 <exclude name="**/*-source.jar" />
+ 	  	 </patternset>
+ 	  	 <patternset id="extension.solgroupwebservices.source.filter">
+ 	  	  	 <exclude name="**/bin/**" />
+ 	  	 </patternset>
+     With this filter you can decide what should be excluded from development zip.
+ 	  	 <patternset id="extension.solgroupwebservices.devzip.filter">
+ 	  	 Include all files from extension.source.filter.
+ 	  	     <patternset refid="extension.source.filter" />
+         Exclude unwanted files.
+ 	  	  	 <exclude name="lib/exclude-me.jar" />
+ 	  	 </patternset>
+ 
+-->
+
+<project name="solgroupwebservices_buildcallbacks">
+
+	<macrodef name="solgroupwebservices_before_compile_core">
+		<sequential>
+
+			<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+				<classpath>
+					<fileset dir="${platformhome}/resources/ant/lib">
+						<include name="*.jar" />
+					</fileset>
+				</classpath>
+			</taskdef>
+
+			<dirname property="extension.solgroupwebservices.home" file="${ant.file.solgroupwebservices_buildcallbacks}" />
+			<if>
+				<not>
+					<available file="${ext.solgroupwebservices.path}/gensrc" />
+				</not>
+				<then>
+					<mkdir dir="${ext.solgroupwebservices.path}/gensrc" />
+				</then>
+			</if>
+
+			<path id="cxf.classpath">
+				<fileset dir="${ext.solgroupwebservices.path}/lib/">
+					<include name="*.jar" />
+				</fileset>
+			</path>
+
+			<echo level="info" message="Generating code using wsdl2java done." />
+
+			<java classname="org.apache.cxf.tools.wsdlto.WSDLToJava" fork="true">
+				<arg value="-p" />
+				<arg value="com.solgroup.core.ws.services.client.sol2po" />
+				<arg value="-client" />
+				<arg value="-d" />
+				<arg value="${ext.solgroupwebservices.path}/gensrc" />
+				<arg value="-exsh" />
+				<arg value="true" />
+				<arg value="${ext.solgroupwebservices.path}/resources/wsdl/OrdersExport.wsdl" />
+				<classpath>
+					<path refid="cxf.classpath" />
+				</classpath>
+			</java>
+
+			<java classname="org.apache.cxf.tools.wsdlto.WSDLToJava" fork="true">
+				<arg value="-p" />
+				<arg value="com.solgroup.core.ws.services.stock" />
+				<arg value="-client" />
+				<arg value="-d" />
+				<arg value="${ext.solgroupwebservices.path}/gensrc" />
+				<arg value="-exsh" />
+				<arg value="true" />
+				<arg value="${ext.solgroupwebservices.path}/resources/wsdl/StockImport.wsdl" />
+				<classpath>
+					<path refid="cxf.classpath" />
+				</classpath>
+			</java>
+
+			<xjc schema="${ext.solgroupwebservices.path}/resources/xsd/0001 – PRODUCT IMPORT.xsd" package="com.solgroup.core.ws.services.product.xml" destdir="${ext.solgroupwebservices.path}/gensrc" />
+
+			<xjc schema="${ext.solgroupwebservices.path}/resources/xsd/0005 – CUSTOMER IMPORT.xsd" package="com.solgroup.core.ws.services.customer.xml" destdir="${ext.solgroupwebservices.path}/gensrc" />
+
+			<xjc schema="${ext.solgroupwebservices.path}/resources/xsd/0006 - CUSTOMERPRICELIST IMPORT.xsd" package="com.solgroup.core.ws.services.customerpricelist.xml" destdir="${ext.solgroupwebservices.path}/gensrc" />
+
+			<xjc schema="${ext.solgroupwebservices.path}/resources/xsd/0011 – CONFIRM_ACTION.xsd" package="com.solgroup.core.ws.services.orderIntegrationLegacy.xml" destdir="${ext.solgroupwebservices.path}/gensrc" />
+			
+			<xjc schema="${ext.solgroupwebservices.path}/resources/xsd/0013 - CONSIGNMENT.xsd" package="com.solgroup.core.ws.services.orderConsignment.xml" destdir="${ext.solgroupwebservices.path}/gensrc" />
+
+		</sequential>
+	</macrodef>
+
+</project>

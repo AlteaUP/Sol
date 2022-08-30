@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Ant build for DOCUMENTATION -->
+<project name="techedge-documentation" xmlns:dx="antlib:org.doxygen.tools" xmlns:tex="antlib:de.dokutransdata.antlatex">
+
+	<!-- IMPORT -->
+	<!-- All workspace paths needed -->
+	<!-- <import file="./paths.xml"/> -->
+
+	<!-- DOXYGEN library -->
+	<!-- <taskdef uri="antlib:org.doxygen.tools" classpath="${build.lib.dir}/ant-doxygen-1.6.1/lib/ant_doxygen.jar" /> -->
+
+	<!-- LATEX library -->
+	<!-- <taskdef uri="antlib:de.dokutransdata.antlatex" classpath="${build.lib.dir}/ant-latex-0.0.9_1/ant_latex_0.0.9_1.jar" /> -->
+
+	<!-- All build xml needed -->
+	<!-- <import file="./ant_utils.xml" /> -->
+	<!-- <import file="./hybris_utils.xml" /> -->
+
+
+	<!-- PROPERTies -->
+	
+
+	<!-- SCRIPTs -->
+	
+
+	<!-- MACROs -->
+
+
+	<!-- TASKs -->
+
+
+	<!-- EXTENSION POINTs -->
+
+
+	<!-- TARGETs -->
+	<!--
+	<target name="doxygen-b2ccore"
+        description="Creates the documentation for B2CCORE."
+        depends="init">
+		<property name="b2bde.dir" value="${basedir}/hybris/bin/custom/b2c/b2ccore"/>
+		<dx:doxygen doxygenPath="${doxygen.path}">
+			<property name="PROJECT_NAME" value="B2BDE"/>
+			<property name="INPUT" value="${b2bde.dir}/src"/>
+			<property name="FILE_PATTERNS" value="*.java"/>
+			<property name="OUTPUT_DIRECTORY" value="${basedir}/b2ccore/doc"/>
+			<property name="RECURSIVE" value="YES"/>
+			<property name="GENERATE_LATEX" value="YES"/>
+			<property name="HIDE_SCOPE_NAMES" value="yes"/>
+			<property name="OPTIMIZE_OUTPUT_JAVA" value="yes"/>
+			<property name="FULL_PATH_NAMES" value="NO"/>
+			<property name="SHOW_NAMESPACES" value="NO"/>
+			<property name="JAVADOC_AUTOBRIEF" value="YES"/>
+			<property name="CLASS_DIAGRAMS" value="NO"/>
+			<property name="LATEX_HEADER" value="${build.config.dir}/latex/header.tex"/>
+		</dx:doxygen>
+
+		<copy file="${build.config.dir}/latex/logo.eps"
+            todir="${b2bde.dir}/doc/latex/"/>
+
+		<tex:latex latexfile="refman.tex" command="${latex.path}"
+            verbose="on"
+            clean="on"
+            pdftex="on"
+            workingDir="${basedir}/temp/b2ccore/latex"
+            reRunPattern="Rerun" />
+	</target>
+
+	<target name="doxygen-centralcatalog"
+        description="Creates the documentation for Central Catalog."
+        depends="init">
+		<property name="centralcatalog.dir" 
+            value="${basedir}/hybris/bin/centralcatalog"/>
+		<delete dir="${centralcatalog.dir}/doc"/>
+		<dx:doxygen doxygenPath="${doxygen.path}">
+			<property name="PROJECT_NAME" value="Central Catalog"/>
+			<property name="INPUT" value="${centralcatalog.dir}/src"/>
+			<property name="FILE_PATTERNS" value="*.java"/>
+			<property name="OUTPUT_DIRECTORY" 
+                value="${centralcatalog.dir}/doc"/>
+			<property name="RECURSIVE" value="YES"/>
+			<property name="GENERATE_LATEX" value="YES"/>
+			<property name="HIDE_SCOPE_NAMES" value="yes"/>
+			<property name="OPTIMIZE_OUTPUT_JAVA" value="yes"/>
+			<property name="FULL_PATH_NAMES" value="NO"/>
+			<property name="SHOW_NAMESPACES" value="NO"/>
+			<property name="JAVADOC_AUTOBRIEF" value="YES"/>
+			<property name="CLASS_DIAGRAMS" value="NO"/>
+			<property name="LATEX_HEADER" value="${build.config.dir}/latex/header.tex"/>
+		</dx:doxygen>
+
+		<copy file="${build.config.dir}/latex/logo.eps"
+            todir="${centralcatalog.dir}/doc/latex/"/>
+
+		<tex:latex latexfile="refman.tex" command="${latex.path}"
+            verbose="on"
+            clean="on"
+            pdftex="on"
+            workingDir="${centralcatalog.dir}/doc/latex/"
+            reRunPattern="Rerun" />
+	</target>
+
+	<target name="doxygen-common"
+        description="Creates the documentation for Common project."
+        depends="init">
+		<property name="common.dir" value="${basedir}/hybris/bin/common"/>
+		<delete dir="${common.dir}/doc"/>
+		<dx:doxygen doxygenPath="${doxygen.path}">
+			<property name="PROJECT_NAME" value="Common"/>
+			<property name="INPUT" value="${common.dir}/src"/>
+			<property name="FILE_PATTERNS" value="*.java"/>
+			<property name="OUTPUT_DIRECTORY" value="${common.dir}/doc"/>
+			<property name="RECURSIVE" value="YES"/>
+			<property name="GENERATE_LATEX" value="YES"/>
+			<property name="HIDE_SCOPE_NAMES" value="yes"/>
+			<property name="OPTIMIZE_OUTPUT_JAVA" value="yes"/>
+			<property name="FULL_PATH_NAMES" value="NO"/>
+			<property name="SHOW_NAMESPACES" value="NO"/>
+			<property name="JAVADOC_AUTOBRIEF" value="YES"/>
+			<property name="CLASS_DIAGRAMS" value="NO"/>
+			<property name="LATEX_HEADER" value="${build.config.dir}/latex/header.tex"/>
+		</dx:doxygen>
+
+		<copy file="${build.config.dir}/latex/logo.eps"
+            todir="${common.dir}/doc/latex/"/>
+
+		<tex:latex latexfile="refman.tex" command="${latex.path}"
+            verbose="on"
+            clean="on"
+            pdftex="on"
+            workingDir="${common.dir}/doc/latex/"
+            reRunPattern="Rerun" />
+	</target>
+
+	<target name="doxygen-marketplaceproxy"
+        description="Creates the documentation for Marketplace Proxy."
+        depends="init">
+		<property name="marketplaceproxy.dir" 
+            value="${basedir}/hybris/bin/marketPlaceProxy"/>
+		<delete dir="${marketplaceproxy.dir}/doc"/>
+		<dx:doxygen doxygenPath="${doxygen.path}">
+			<property name="PROJECT_NAME" value="Marketplace Proxy"/>
+			<property name="INPUT" value="${marketplaceproxy.dir}/src"/>
+			<property name="FILE_PATTERNS" value="*.java"/>
+			<property name="OUTPUT_DIRECTORY" 
+                value="${marketplaceproxy.dir}/doc"/>
+			<property name="RECURSIVE" value="YES"/>
+			<property name="GENERATE_LATEX" value="YES"/>
+			<property name="HIDE_SCOPE_NAMES" value="yes"/>
+			<property name="OPTIMIZE_OUTPUT_JAVA" value="yes"/>
+			<property name="FULL_PATH_NAMES" value="NO"/>
+			<property name="SHOW_NAMESPACES" value="NO"/>
+			<property name="JAVADOC_AUTOBRIEF" value="YES"/>
+			<property name="CLASS_DIAGRAMS" value="NO"/>
+			<property name="LATEX_HEADER" value="${build.config.dir}/latex/header.tex"/>
+		</dx:doxygen>
+
+		<copy file="${build.config.dir}/latex/logo.eps"
+            todir="${marketplaceproxy.dir}/doc/latex/"/>
+
+		<tex:latex latexfile="refman.tex" command="${latex.path}"
+            verbose="on"
+            clean="on"
+            pdftex="on"
+            workingDir="${marketplaceproxy.dir}/doc/latex/"
+            reRunPattern="Rerun" />
+	</target>
+
+	<target name="doxygen-marketplaceservices"
+        description="Creates the documentation for Marketplace Services."
+        depends="init">
+		<property name="marketplaceservices.dir" 
+            value="${basedir}/hybris/bin/marketPlaceServices"/>
+		<delete dir="${marketplaceservices.dir}/doc"/>
+		<dx:doxygen doxygenPath="${doxygen.path}">
+			<property name="PROJECT_NAME" value="Marketplace Services"/>
+			<property name="INPUT" value="${marketplaceservices.dir}/src"/>
+			<property name="FILE_PATTERNS" value="*.java"/>
+			<property name="OUTPUT_DIRECTORY" 
+                value="${marketplaceservices.dir}/doc"/>
+			<property name="RECURSIVE" value="YES"/>
+			<property name="GENERATE_LATEX" value="YES"/>
+			<property name="HIDE_SCOPE_NAMES" value="yes"/>
+			<property name="OPTIMIZE_OUTPUT_JAVA" value="yes"/>
+			<property name="FULL_PATH_NAMES" value="NO"/>
+			<property name="SHOW_NAMESPACES" value="NO"/>
+			<property name="JAVADOC_AUTOBRIEF" value="YES"/>
+			<property name="CLASS_DIAGRAMS" value="NO"/>
+			<property name="LATEX_HEADER" value="${build.config.dir}/latex/header.tex"/>
+		</dx:doxygen>
+
+		<copy file="${build.config.dir}/latex/logo.eps"
+            todir="${marketplaceservices.dir}/doc/latex/"/>
+
+		<tex:latex latexfile="refman.tex" command="${latex.path}"
+            verbose="on"
+            clean="on"
+            pdftex="on"
+            workingDir="${marketplaceservices.dir}/doc/latex/"
+            reRunPattern="Rerun" />
+	</target>
+
+	<target name="doxygen-productcockpit"
+        description="Creates the documentation for Product Cockpit."
+        depends="init">
+		<property name="productcockpit.dir" 
+            value="${basedir}/hybris/bin/pirelliproductcockpit"/>
+		<delete dir="${productcockpit.dir}/doc"/>
+		<dx:doxygen doxygenPath="${doxygen.path}">
+			<property name="PROJECT_NAME" value="Product Cockpit"/>
+			<property name="INPUT" value="${productcockpit.dir}/src"/>
+			<property name="FILE_PATTERNS" value="*.java"/>
+			<property name="OUTPUT_DIRECTORY" 
+                value="${productcockpit.dir}/doc"/>
+			<property name="RECURSIVE" value="YES"/>
+			<property name="GENERATE_LATEX" value="YES"/>
+			<property name="HIDE_SCOPE_NAMES" value="yes"/>
+			<property name="OPTIMIZE_OUTPUT_JAVA" value="yes"/>
+			<property name="FULL_PATH_NAMES" value="NO"/>
+			<property name="SHOW_NAMESPACES" value="NO"/>
+			<property name="JAVADOC_AUTOBRIEF" value="YES"/>
+			<property name="CLASS_DIAGRAMS" value="NO"/>
+			<property name="LATEX_HEADER" value="${build.config.dir}/latex/header.tex"/>
+		</dx:doxygen>
+
+		<copy file="${build.config.dir}/latex/logo.eps"
+            todir="${productcockpit.dir}/doc/latex/"/>
+
+		<tex:latex latexfile="refman.tex" command="${latex.path}"
+            verbose="on"
+            clean="on"
+            pdftex="on"
+            workingDir="${productcockpit.dir}/doc/latex/"
+            reRunPattern="Rerun" />
+	</target>
+
+	<target name="doxygen-all"
+        description="Creates the Doxygen documentation for all projects."
+        depends="
+        doxygen-b2bde,
+        doxygen-centralcatalog,
+        doxygen-common,
+        doxygen-marketplaceproxy,
+        doxygen-marketplaceservices,
+        doxygen-productcockpit">
+
+		<delete dir="${basedir}/doc"/>
+		<mkdir dir="${basedir}/doc"/>
+		<zip destfile="${basedir}/doc/refman.zip">
+			<zipfileset dir="${b2bde.dir}/doc/latex/"
+                includes="refman.pdf"
+                fullpath="refman-b2bde.pdf"/>
+			<zipfileset dir="${centralcatalog.dir}/doc/latex/"
+                includes="refman.pdf"
+                fullpath="refman-centralcatalog.pdf"/>
+			<zipfileset dir="${common.dir}/doc/latex/"
+                includes="refman.pdf"
+                fullpath="refman-common.pdf"/>
+			<zipfileset dir="${marketplaceproxy.dir}/doc/latex/"
+                includes="refman.pdf"
+                fullpath="refman-marketplaceproxy.pdf"/>
+			<zipfileset dir="${marketplaceservices.dir}/doc/latex/"
+                includes="refman.pdf" 
+                fullpath="refman-marketplaceservices.pdf"/>
+			<zipfileset dir="${productcockpit.dir}/doc/latex/"
+                includes="refman.pdf"
+                fullpath="refman-productcockpit.pdf"/>
+		</zip>
+	</target>
+
+    <target name="doxygen"
+        description="Creates an API documentation using Doxygen.">
+        <dx:doxygen>
+            <property name="INPUT" value="${basedir}/hybris/bin/b2bde/src"/>
+            <property name="RECURSIVE" value="yes"/>
+            <property name="GENERATE_LATEX" value="true"/>
+            <property name="PROJECT_NAME" value="Pirelli B2B Marketplace"/>
+        </dx:doxygen>
+        <tex:latex latexfile="refman.tex"
+            verbose="on"
+            clean="on"
+            pdftex="on"
+            workingDir="./doc/latex"
+            reRunPattern="Rerun"
+        />
+    </target>
+	-->
+	
+
+	<!-- JAVADOC TARGETs -->
+	<!--
+	<target name="javadoc-all">
+		<path id="javadoc.classpath">
+			<fileset dir="${basedir}/hybris/bin/platform">
+				<include name="ext/*/lib/*.jar"/>
+				<include name="ext/*/bin/*.jar"/>
+				<include name="ext/*/classes"/>
+				<include name="lib/*.jar"/>
+				<include name="ext/hmc/web/webroot/WEB-INT/classes"/>
+				<include name="ext/hmc/web/webroot/WEB-INT/lib/*.jar"/>
+				<include name="tomcat-6/lib/*.jar"/>
+			</fileset>
+			<fileset dir="${basedir}/hybris/bin/ext-hybris">
+				<include name="*/bin/*.jar"/>
+				<include name="*/lib/*.jar"/>
+			</fileset>
+			<fileset dir="${basedir}/hybris/bin">
+				<include name="*/lib/*.jar"/>
+				<include name="*/web/webroot/WEB-INF/lib/*.jar"/>
+			</fileset>
+		</path>
+
+		<javadoc destdir="${basedir}/hybris/bin/b2bde/doc/javadoc"
+      access="protected"
+      packagenames="com.pirelli.*"
+      linksource="no"
+      breakiterator="no"
+      classpathref="javadoc.classpath"
+      maxmemory="512M">
+
+			<doctitle>
+				<![CDATA[<h1>Pirelli Marketplace source code documentation</h1>]]></doctitle>
+			<bottom>
+				<![CDATA[<i>Copyright &#169; 2011 Pirelli. All Rights Reserved.</i>]]></bottom>
+			<sourcepath>
+				<dirset dir="${basedir}/hybris/bin">
+					<include name="*/src"/>
+					<include name="*/gensrc"/>
+					<include name="*/web/src"/>
+				</dirset>
+
+				<dirset dir="${basedir}/hybris/bin/platform">
+					<include name="ext/*/gensrc"/>
+					<include name="ext/*/src"/>
+				</dirset>
+			</sourcepath>
+		</javadoc>
+	</target>
+
+    <target name="javadoc-all">
+        <path id="classpath">
+            <pathelement path="hybris/bin/platform/ext/servicelayer/classes"/>
+        </path>
+        
+        <javadoc destdir="${basedir}/doc/javadoc"
+            classpathref="classpath">
+            <packageset dir="hybris/bin/common/src"
+                defaultexcludes="yes">
+                <include name="com/pirelli/**"/>
+            </packageset>
+            <packageset dir="hybris/bin/common/gensrc"
+                defaultexcludes="yes">
+                <include name="com/pirelli/**"/>
+            </packageset>
+        </javadoc>
+    </target>
+
+    <path id="docclasspath">
+        <fileset dir="hybris/bin/platform/lib" includes="**/*.jar"/>
+        <fileset dir="hybris/bin/b2bde/lib" includes="**/*.jar"/>
+        <fileset dir="hybris/bin/centralcatalog/lib" includes="**/*.jar"/>
+        <fileset dir="hybris/bin/common/lib" includes="**/*.jar"/>
+        <fileset dir="hybris/bin/marketPlaceProxy/lib" includes="**/*.jar"/>
+        <fileset dir="hybris/bin/marketPlaceServices/lib" includes="**/*.jar"/>
+        <fileset dir="hybris/bin/MockTibcoServices/lib" includes="**/*.jar"/>
+        <fileset dir="hybris/bin/pirelliproductcockpit/lib"
+            includes="**/*.jar"/>
+    </path>
+
+    <target name="javadoc-all">
+        <javadoc destdir="${basedir}/doc/javadoc"
+            author="true"
+            version="true"
+            use="true"
+            windowtitle="Pirelli Marketplace API"
+            classpathref="docclasspath">
+
+            <packageset dir="hybris/bin/b2bde/src"
+                defaultexcludes="yes">
+                <include name="com/pirelli/**"/>
+            </packageset>
+            <packageset dir="hybris/bin/centralcatalog/src"
+                defaultexcludes="yes">
+                <include name="com/pirelli/**"/>
+            </packageset>
+            <packageset dir="hybris/bin/common/src"
+                defaultexcludes="yes">
+                <include name="com/pirelli/**"/>
+            </packageset>
+            <packageset dir="hybris/bin/marketPlaceProxy/src"
+                defaultexcludes="yes">
+                <include name="com/pirelli/**"/>
+            </packageset>
+            <packageset dir="hybris/bin/marketPlaceServices/src"
+                defaultexcludes="yes">
+                <include name="com/pirelli/**"/>
+            </packageset>
+            <packageset dir="hybris/bin/MockTibcoServices/src"
+                defaultexcludes="yes">
+                <include name="com/pirelli/**"/>
+            </packageset>
+            <packageset dir="hybris/bin/pirelliproductcockpit/src"
+                defaultexcludes="yes">
+                <include name="com/pirelli/**"/>
+            </packageset>
+        </javadoc>
+    </target>
+    -->
+
+</project>

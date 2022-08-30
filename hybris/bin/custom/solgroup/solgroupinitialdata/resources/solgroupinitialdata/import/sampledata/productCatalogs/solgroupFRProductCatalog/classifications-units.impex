@@ -1,0 +1,182 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Units into SolGroup FR Store
+
+$solPrefix=solgroupFR
+
+# Macros / Replacement Parameter definitions
+$systemVersion=systemVersion(catalog(id[default='$solPrefixClassification']),version[default='1.0'])
+
+INSERT_UPDATE ClassificationAttributeUnit;code[unique=true];symbol;unitType;$systemVersion[unique=true]
+;127;lbs;127;
+;32;°;32;
+;90;ANSI lumens;90;
+;118;°/sec;118;
+;71;lx;71;
+;102;kWh/year;102;
+;18;MHz;18;
+;125;levels of grey;125;
+;16;"""";16;
+;44;W;44;
+;55;pages;55;
+;84;lpm;84;
+;27;ms;27;
+;190;GB/min;190;
+;161;ft²/h;161;
+;95;pass(es);95;
+;57;GB/h;57;
+;20;GB;20;
+;163;shots;163;
+;109;BTU/h;109;
+;151;W/m·K;151;
+;89;slides;89;
+;175;discs/hour;175;
+;148;L/s;148;
+;31;kHz;31;
+;35;DPI;35;
+;93;mm/min;93;
+;106;bar;106;
+;65;°C;65;
+;138;ipm;138;
+;114;coins/min;114;
+;58;cpm;58;
+;153;m²;153;
+;137;m²/h;137;
+;81;J;81;
+;60;s;60;
+;101;kWh/24h;101;
+;73;an;73;
+;86;user(s);86;
+;76;dB;76;
+;62;sheets;62;
+;67;°C/hr;67;
+;165;MP;165;
+;139;l/min;139;
+;129;m³;129;
+;17;kg;17;
+;186;cm²;186;
+;110;EER;110;
+;82;cpi;82;
+;147;oz;147;
+;168;pps;168;
+;184;cfm;184;
+;135;mW;135;
+;112;characters;112;
+;69;lines;69;
+;191;MB/h;191;
+;49;days;49;
+;178;kW;178;
+;24;mm;24;
+;187;mbar;187;
+;140;kPa;140;
+;124;m³/h;124;
+;104;kg/24h;104;
+;131;l/h;131;
+;181;dBm;181;
+;121;lan;121;
+;79;lpi;79;
+;154;label(s);154;
+;23;Mbit/s;23;
+;126;million characters;126;
+;159;TB;159;
+;160;GB/s;160;
+;176;GT/s;176;
+;47;KB;47;
+;98;nm;98;
+;37;GHz;37;
+;117;kg/m²;117;
+;43;cd/m²;43;
+;33;x;33;
+;21;x;21;
+;63;ns;63;
+;80;VA;80;
+;119;billion texels/sec;119;
+;180;lux/m;180;
+;99;dBi;99;
+;179;dB/s;179;
+;162;min/page;162;
+;72;G;72;
+;74;cycles per logical sector;74;
+;182;K;182;
+;61;copies;61;
+;108;BTU;108;
+;115;banknotes/min;115;
+;92;µ;92;
+;103;kWh;103;
+;113;coins;113;
+;152;ml/hr;152;
+;189;transactions/sec;189;
+;142;ml;142;
+;91;°F;91;
+;167;pulse/min;167;
+;48;KB/s;48;
+;107;disks;107;
+;87;Ω;87;
+;174;bpm;174;
+;77;pages per month;77;
+;133;billion;133;
+;123;dBV;123;
+;50;bit;50;
+;39;pixels;39;
+;64;%;64;
+;97;kA/m;97;
+;41;A;41;
+;52;NIT;52;
+;173;N·m;173;
+;56;entries;56;
+;45;Mbit;45;
+;66;min;66;
+;19;MB;19;
+;54;m;54;
+;70;µm;70;
+;188;MΩ;188;
+;68;Gbit/s;68;
+;166;B;166;
+;88;€;88;
+;116;sec/page;116;
+;136;eps;136;
+;30;M;30;
+;141;kbit/inch;141;
+;144;pcs;144;
+;100;L;100;
+;128;points per second;128;
+;28;RPM;28;
+;120;locations;120;
+;156;g/m²;156;
+;75;year(s);75;
+;40;MB/s;40;
+;83;cps;83;
+;134;m/s;134;
+;192;card/h;192;
+;59;ppm;59;
+;177;lm;177;
+;130;g/h;130;
+;122;mm/sec;122;
+;143;month(s);143;
+;158;g/min;158;
+;22;Kbit/s;22;
+;42;V;42;
+;46;h;46;
+;105;N;105;
+;85;fps;85;
+;185;lps;185;
+;36;Hz;36;
+;183;reads/s;183;
+;51;mAh;51;
+;111;movements per minute;111;
+;146;cm³;146;
+;38;g;38;
+;34;cm;34;
+;169;kWh/week;169;
+;164;uts;164;
+;132;staples;132;
+;171;buttons;171;
+

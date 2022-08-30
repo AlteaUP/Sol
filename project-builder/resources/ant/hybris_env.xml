@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Ant build for UNIT TEST -->
+<project name="techedge-hybris-env">
+
+	<!-- IMPORT -->
+	<!-- All workspace paths needed --> 
+	<import file="./paths.xml"/>
+
+	<!-- All libraries needed -->
+	<taskdef classpath="${build.lib.dir}/ant-contrib-1.0b3/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml" />
+
+	<!-- All build xml needed -->
+	<import file="./ant_utils.xml"/>
+	<import file="./hybris_utils.xml"/>
+	
+
+	<!-- PROPERTies -->
+	<!-- SCRIPTs -->
+
+
+	<!-- MACROs -->
+
+	
+
+	<macrodef name="project-file-setup">
+
+		<element name="task" implicit="yes" />
+
+		<sequential>
+			<write-on-file append="false" filename="${build.temp.project.file}">
+				<out><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+	<!-- Auto-generated - DO NOT MODIFY -->
+	<project name="techedge-project-def"  basedir=".">]]></out>
+			</write-on-file>
+			
+			<task />
+			
+			<write-on-file filename="${build.temp.project.file}">
+				<out>
+<![CDATA[</project>
+]]></out>
+			</write-on-file>
+		</sequential>
+	</macrodef>
+
+
+
+	<!-- EXTENSION POINTs -->
+
+	<!-- special targets to allow execute actions before and after a specific target -->
+	<extension-point name="before-init-env" />
+		<!-- DEPENDING TARGETS: do-init-env -->
+
+	<extension-point name="after-init-env" depends="do-init-env" />
+		<!-- DEPENDING TARGETS: init-env -->
+
+
+	<!-- TARGETs -->
+	<target name="check-env" extensionOf="before-init-env" 
+		description="Check if the platform (folders or zip file) is present, otherwise download and unzip it">
+		
+		<echo message="Checking hybris environment..." />
+
+		<!-- zip dir -->
+		<check-if-dir-is-full directory="${build.zip.dir}" includes="hybris*.zip" propertyToCheck="build.zip.dir.full" />
+
+		<!-- platform dir -->
+		<check-if-dir-is-full directory="${hybris.platform.dir}" includes="*" propertyToCheck="hybris.platform.dir.full" />
+
+		<!-- ext-platform dir -->
+		<check-if-dir-is-full directory="${hybris.bin.dir}/ext-platform" includes="*" propertyToCheck="hybris.ext.platform.dir.full" />
+
+		<if>
+			<or>
+				<!-- zip dir -->
+				<and>
+					<available file="${build.zip.dir}" />
+					<equals arg1="${build.zip.dir.full}" arg2="true" />
+				</and>
+
+				<and>
+					<!-- platform dir -->
+					<and>
+						<available file="${hybris.platform.dir}" />
+						<equals arg1="${hybris.platform.dir.full}" arg2="true" />
+					</and>
+
+					<!-- ext-platform dir -->
+					<and>
+						<available file="${hybris.bin.dir}/ext-platform" />
+						<equals arg1="${hybris.ext.platform.dir.full}" arg2="true" />
+					</and>
+				</and>
+			</or>
+			<then>
+				<echo message="hybris platform and default extensions or zip file already exist." />
+			</then>
+
+			<else>
+				<echo message="Check hybris-modules directory, hybris platform package does not exist" />
+			</else>
+		</if>
+		
+		<echo message="Check hybris environment completed." />
+	</target>
+
+	<target name="prepare-env" extensionOf="before-init-env" depends="check-env" description="Prepare hybris environment.">
+
+		<echo message="Preparing hybris environment..." />
+
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/unzip_splash.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Unzipping..." />
+			</then>
+		</if>
+
+		<unzip-if-required srcDir="${build.zip.dir}" includes="*${current.hybris.platform}*.zip" destDir="${basedir}" />
+		
+		<echo message="Prepare hybris environment completed." />
+	</target>
+
+	<target name="do-init-env" depends="before-init-env" description="Initialize hybris environment.">
+
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/build_splash.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Initializing hybris environment..." />
+			</then>
+		</if>
+
+		<!-- Create workspace directories -->
+		<mkdir dir="${artifacts.dir}" />
+		<mkdir dir="${build.temp.dir}" />
+
+		<echo>Progress: 10%</echo>
+
+		<!-- CONFIG_* to CONFIG -->
+		
+		<if>
+			<available file="${hybris.config.dir}" />
+			<else>
+				
+				<if>
+					<available file="${hybris.config.dir}/customize" />
+					<else>
+						<mkdir dir="${hybris.config.dir}/customize" />
+					</else>
+				</if>
+				<if>
+					<available file="${hybris.config.dir}/languages" />
+					<else>
+						<mkdir dir="${hybris.config.dir}/language" />
+					</else>
+				</if>
+			</else>
+		</if>
+
+		<echo>Progress: 30%</echo>
+
+		<!-- CONFIG/local.properties -->
+		<if>
+			<available file="${hybris.config.file}" />
+			<else>
+				<echo message="Initializing config properties file from: ${hybris.config.file.default}" />
+				<copy file="${hybris.config.file.default}" tofile="${hybris.config.file}" overwrite="false" />
+			</else>
+		</if>
+
+		<echo>Progress: 40%</echo>
+
+		<!-- CONFIG/localextensions.xml -->
+		<if>
+			<available file="${hybris.ext.file}" />
+			<else>
+				<echo message="Initializing config extensions file from: ${hybris.ext.file.default}" />
+				<copy file="${hybris.ext.file.default}" tofile="${hybris.ext.file}" overwrite="false" />
+			</else>
+		</if>
+
+		<echo>Progress: 50%</echo>
+
+		<!-- CONFIG/junitexcludelist.txt -->
+		<if>
+			<available file="${hybris.junit.file}" />
+			<else>
+				<echo message="Initializing config junit exclusion list file from: ${hybris.junit.file.default}" />
+				<copy file="${hybris.junit.file.default}" tofile="${hybris.junit.file}" overwrite="false" />
+			</else>
+		</if>
+
+		<echo>Progress: 60%</echo>
+
+		<!-- CONFIG/.project -->
+		<if>
+			<available file="${hybris.eclipse.file}" />
+			<else>
+				<echo message="Initializing config eclipse project file from: ${hybris.eclipse.file.default}" />
+				<copy file="${hybris.eclipse.file.default}" tofile="${hybris.eclipse.file}" overwrite="true" />
+			</else>
+		</if>
+
+		<echo>Progress: 70%</echo>
+
+		<!-- Initialize project definition file -->
+		<if>
+			<available file="${build.temp.project.file}" />
+			<else>
+				<project-file-setup>
+					<coverage-prepare /> <!-- from ../hybris_coverage.xml -->
+					<quality-prepare /> <!-- from ../hybris_quality.xml -->
+				</project-file-setup>
+			</else>
+		</if>
+		
+		<echo>Progress: 90%</echo>
+
+		<!-- Copy platform initialization properties file -->
+		<if>
+			<available file="${build.temp.init.file}" />
+			<else>
+				<copy file="${build.default.init.file}" tofile="${build.temp.init.file}" overwrite="false" />
+			</else>
+		</if>
+	</target>
+
+	<target name="init-env" depends="after-init-env" description="Initialize hybris environment.">
+		<echo message="Initialize hybris environment completed." />
+	</target>
+	
+
+	<target name="clean-env" description="Clean hybris environment. Use when upgrading hybris version.">
+
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/clean_splash.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Cleaning hybris environment..." />
+			</then>
+		</if>
+
+		<echo message="Cleaning hybris environment..." />
+
+		<delete includeemptydirs="true" failonerror="false">
+			<fileset dir="${hybris.dir}/bin" erroronmissingdir="false">
+				<exclude name="custom/"/>
+			</fileset>
+
+			<fileset dir="${hybris.dir}" erroronmissingdir="false">
+				<exclude name="bin/"/>
+				<exclude name="config_*/"/>
+			</fileset>
+
+			<fileset dir="${basedir}" erroronmissingdir="false">
+				<exclude name=".git/" />
+				<exclude name=".metadata/" />
+				<exclude name="documentation/" />
+				<exclude name="hybris/" />
+				<exclude name="project-builder/" />
+				<exclude name=".gitignore" />
+			</fileset>
+
+			<fileset dir="${build.temp.dir}" erroronmissingdir="false" />
+			
+			<fileset dir="${artifacts.dir}" erroronmissingdir="false" />
+			
+			<fileset dir="${dist.dir}" erroronmissingdir="false" />
+		</delete>
+
+		<echo message="Clean hybris environment completed." />
+	</target>
+
+	<target name="clean-hybris-zip" description="Clean hybris zip files.">
+
+		<if>
+			<equals arg1="${splash.enabled}" arg2="true" />
+			<then>
+				<splash imageurl="file:${build.img.dir}/clean_splash.png" progressRegExp="Progress: (.*)%" 
+					showduration="0" displayText="Cleaning hybris zip files..." />
+			</then>
+		</if>
+
+		<echo message="Cleaning hybris zip files..." />
+
+		<delete includeemptydirs="true">
+			<fileset dir="${build.zip.dir}" erroronmissingdir="false">
+				<exclude name="*.txt" />
+			</fileset>
+		</delete>
+		
+		<echo message="Clean hybris zip files completed." />
+	</target>
+
+
+</project>

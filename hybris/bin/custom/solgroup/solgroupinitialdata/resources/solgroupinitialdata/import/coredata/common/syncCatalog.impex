@@ -1,0 +1,17 @@
+$defaultPassword=123456
+
+INSERT_UPDATE UserGroup ; uid[unique=true] ; groups[ignorenull=false,default=] ; locname[lang=en]       ; description
+                        ; syncusers        ;                                   ; "Syncronization Users" ;            
+
+						                  
+INSERT_UPDATE User ; uid[unique=true] ; name     ; description ; sessionLanguage(isocode) ; sessionCurrency(isocode) ; groups(uid) ; password         ; authorizedToUnlockPages ;  
+                   ; syncuser         ; SyncUser ;             ;                          ;                          ; syncusers   ; $defaultPassword ; false                   ;  
+				               
+				               
+INSERT_UPDATE SearchRestriction ; code[unique=true]         ; generate ; active ; principal(uid) ; query                                                                                                              ; restrictedType(code)
+                                ; sync_approved_product_restriction ; true     ; true   ; syncusers      ; "{approvalStatus} IN ({{ SELECT {art.pk} FROM {ArticleApprovalStatus as art}  WHERE  {art:code}  = 'approved' }})" ; Product             
+#                                ; sync_approved_category_restriction ; true     ; true   ; syncusers      ; "{approvalStatus} IN ({{ SELECT {art.pk} FROM {ArticleApprovalStatus as art}  WHERE  {art:code}  = 'approved' }})" ; Category             
+                                
+                                
+                                
+                                            

@@ -1,0 +1,21 @@
+$solPrefix=solgroupIT
+$classSystemVersion=systemVersion(catalog(id[default='$solPrefixClassification']),version[default='1.0'])
+$classCatalogVersion=catalogVersion(catalog(id[default='$solPrefixClassification']),version[default='1.0'])
+$classAttribute=classificationAttribute(code,$classSystemVersion)
+$classClass=classificationClass(code,$classCatalogVersion)
+$classAttributeAssignment=classAttributeAssignment($classClass,$classAttribute,$classSystemVersion)
+$productCatalog=$solPrefixProductCatalog
+$productCatalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$indexedType=$solPrefixProductType
+$lang=it
+
+
+
+
+UPDATE SolrIndexedProperty ; solrIndexedType(identifier)[unique=true,default=$indexedType] ; name[unique=true]        ; displayName[lang=$lang]
+                           ;                                                               ; applicationCategory_lvl1 ; Applications           ;  
+                           ;                                                               ; applicationCategory_lvl2 ; Applications           ;  
+
+
+
+

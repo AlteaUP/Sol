@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Ant build for general scripts, macros and tasks -->
+<project name="techedge-ant-utils" basedir="./../../../">
+
+	<!-- IMPORT -->
+	<!-- All workspace paths needed -->
+	<import file="./paths.xml" />
+
+	<!-- ANT-CONTRIB library -->
+	<taskdef classpath="${build.lib.dir}/ant-contrib-1.0b3/ant-contrib-1.0b3.jar" resource="net/sf/antcontrib/antlib.xml" />
+
+
+	<!-- PROPERTies -->
+
+
+	<!-- SCRIPTs -->
+	<scriptdef name="reset-property" language="javascript" 
+		description="A hack script to allow alter ant's immutable properties without any additional libs">
+
+		<attribute name="name" />
+		<attribute name="value" />
+
+		<![CDATA[
+			project.setProperty(attributes.get("name"), attributes.get("value"));
+		]]>
+	</scriptdef>
+
+	<scriptdef name="substring-start-end" language="javascript" 
+		description="A hack script to substring from position *start to *end (*end excluded)">
+
+		<attribute name="text" />
+		<attribute name="start" />
+		<attribute name="end" />
+		<attribute name="property" />
+
+		<![CDATA[
+			var text = attributes.get("text");
+			var start = attributes.get("start");
+			var end = attributes.get("end") || text.length();
+
+			project.setProperty(attributes.get("property"), text.substring(start, end));
+		]]>
+	</scriptdef>
+
+	<scriptdef name="string-first-index-of" language="javascript" 
+		description="A hack script to check if a string contains a substring setting a property with the index of">
+
+		<attribute name="text" />
+		<attribute name="subtext" />
+		<attribute name="property" />
+
+		<![CDATA[
+			var text = attributes.get("text");
+			var subtext = attributes.get("subtext");
+
+			project.setProperty(attributes.get("property"), text.indexOf(subtext));
+		]]>
+	</scriptdef>
+
+	<scriptdef name="string-last-index-of" language="javascript" 
+		description="A hack script to get last index of a substring contained in a string">
+
+		<attribute name="text" />
+		<attribute name="subtext" />
+		<attribute name="property" />
+
+		<![CDATA[
+			var text = attributes.get("text");
+			var subtext = attributes.get("subtext");
+
+			project.setProperty(attributes.get("property"), text.lastIndexOf(subtext));
+		]]>
+	</scriptdef>
+
+
+	<!-- MACROs -->
+	<macrodef name="check-file">
+
+		<attribute name="file" />
+		<attribute name="property" />
+
+		<sequential>
+			<!-- 
+				Set @{property} = true if @{file} exists
+				@{property} = [NOT SET] otherwise
+			 -->
+			<available file="@{file}" property="@{property}" />
+			<!-- <fail unless="@{property}" message="File '@{file}' is missing."/> -->
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="write-on-file">
+
+		<attribute name="append" default="true" />
+		<attribute name="filename" />
+
+		<element name="out" />
+
+		<sequential>
+			<echo append="@{append}" file="@{filename}"><out /></echo>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="check-if-dir-is-full" 
+		description="Check if a directory has sub-directories or files, filtering for specific sub-directories or files (property: ${propertyToCheck}).">
+
+		<attribute name="directory" />
+		<attribute name="includes" /> <!-- NB: may contain: wildcards, more values comma separated -->
+		<attribute name="propertyToCheck" />
+
+		<element name="additional-tasks" optional="yes" />
+
+		<sequential>
+			<var name="var_@{propertyToCheck}" value="false" />
+
+			<if>
+				<available file="@{directory}" />
+				<then>
+					<for param="file">
+						<path>
+							<fileset dir="@{directory}" includes="@{includes}" />
+						</path>
+						<sequential>
+							<!-- <echo>@{file}</echo> -->
+							<if>
+								<not>
+									<equals arg1="${var_@{propertyToCheck}}" arg2="true" />
+								</not>
+								<then>
+									<var name="var_@{propertyToCheck}" value="true" />
+								</then>
+							</if>
+						</sequential>
+					</for>
+
+					<for param="dir">
+						<path>
+							<dirset dir="@{directory}" includes="@{includes}" />
+						</path>
+						<sequential>
+							<!-- <echo>@{dir}</echo> -->
+							<if>
+								<not>
+									<equals arg1="${var_@{propertyToCheck}}" arg2="true" />
+								</not>
+								<then>
+									<var name="var_@{propertyToCheck}" value="true" />
+								</then>
+							</if>
+						</sequential>
+					</for>
+				</then>
+			</if>
+
+			<property name="@{propertyToCheck}" value="${var_@{propertyToCheck}}" />
+			<var name="var_@{propertyToCheck}" unset="true" />
+
+			<!-- ALTERNATIVE METHOD -->
+			<!-- <if>
+				<length length="0" when="greater">
+					<fileset dir="${hybris.platform.dir}" followsymlinks="false" />
+				</length>
+				<then>
+					<property name="@{propertyToCheck}" value="true" />
+				</then>
+				<else>
+					<property name="@{propertyToCheck}" value="false" />
+				</else>
+			</if> -->
+
+			<additional-tasks />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="get-and-checksum">
+
+		<attribute name="url" />
+		<attribute name="dest" />
+		<attribute name="filename" />
+		<attribute name="username" />
+		<attribute name="password" />
+		<attribute name="enableChecksum" />
+
+		<element name="additional-tasks" optional="yes" />
+
+		<sequential>
+			<if>
+				<equals arg1="@{enableChecksum}" arg2="true" />
+				<then>
+					<echo>Progress: 10%</echo>
+
+					<!-- Download -->
+					<get dest="@{dest}" username="@{username}" password="@{password}" skipexisting="true" verbose="true">
+						<url url="@{url}" />
+						<url url="@{url}.sha1" />
+
+						<firstmatchmapper>
+							<globmapper from="@{url}" to="@{filename}" />
+							<globmapper from="@{url}.sha1" to="@{filename}.sha" />
+						</firstmatchmapper>
+					</get>
+
+					<echo>Progress: 80%</echo>
+
+					<!-- Checksum -->
+					<local name="checksum.matches" />
+
+					<checksum file="@{dest}" algorithm="sha" fileext=".sha" verifyproperty="checksum.matches" />
+
+					<local name="checksum.matches.fail" />
+
+					<condition property="checksum.matches.fail">
+						<equals arg1="${checksum.matches}" arg2="false" />
+					</condition>
+
+					<fail if="checksum.matches.fail" message="Download FAILED: checksum error on @{filename}.sha" />
+				</then>
+				<else>
+					<echo>Progress: 10%</echo>
+
+					<!-- Download -->
+					<get src="@{url}" dest="@{dest}" username="@{username}" password="@{password}" 
+						skipexisting="true" verbose="true" />
+				</else>
+			</if>
+
+			<echo>Progress: 90%</echo>
+
+			<!-- Check file existance -->
+
+			<if>
+				<available file="@{filename}" filepath="@{dest}" />
+				<then>
+					<echo message="Download of @{filename} completed." />
+				</then>
+				<else>
+					<fail message="Download FAILED: file @{filename} not created" />
+				</else>
+			</if>
+
+			<echo>Progress: 100%</echo>
+
+			<additional-tasks />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="set-proxy" description="Input and set proxy settings">
+
+		<element name="additional-tasks" optional="yes" />
+
+		<sequential>
+			<!-- <echo message="Setting proxy" /> -->
+			
+			<input message="Use a proxy server (Y/[N]) ?" addproperty="proxy.use" />
+			<fail unless="proxy.use" message="Use of proxy not set" />
+
+			<if>
+				<or>
+					<equals arg1="${proxy.use}" arg2="y" />
+					<equals arg1="${proxy.use}" arg2="Y" />
+				</or>
+				<then>
+					<input message="Please enter your proxy host (Press enter if no proxy is needed):" addproperty="proxy.host" />
+					<fail unless="proxy.host" message="Proxy host not set." />
+					<input message="Please enter your proxy port (Press enter if no proxy is needed):" addproperty="proxy.port" />
+					<fail unless="proxy.port" message="Proxy port not set." />
+					
+					<input message="Please enter your proxy username (Press enter if no proxy is needed):" addproperty="proxy.username" />
+					<input message="Please enter your proxy password (Press enter if no proxy is needed):" addproperty="proxy.password" />
+
+					<if>
+						<and>
+							<not>
+								<equals arg1="${proxy.host}" arg2="" />
+							</not>
+
+							<not>
+								<equals arg1="${proxy.port}" arg2="" />
+							</not>
+
+							<isreachable host="${proxy.host}" />
+						</and>
+						<then>
+							<setproxy proxyhost="${proxy.host}" proxyport="${proxy.port}" 
+								proxyuser="${proxy.username}" proxypassword="${proxy.password}" />
+
+							<echo message="Proxy enabled: ${proxy.host}:${proxy.port}" />
+						</then>
+						<else>
+							<fail message="hybris download FAILED: proxy server not reachable." />
+						</else>
+					</if>
+				</then>
+				<else>
+					<echo message="No proxy" />
+				</else>
+			</if>
+
+			<additional-tasks />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="unzip-cycle" description="Unzip all *.zip archive in source directory to destination directory.">
+
+		<attribute name="srcDir" /> <!-- NB: may contain wildcards -->
+		<attribute name="includes" default="*.zip" />
+		<attribute name="excludes" default="" />
+		<attribute name="destDir" default="${basedir}" />
+		<attribute name="failOnEmptyArchive" default="false" />
+
+		<element name="additional-tasks" optional="yes" />
+
+		<sequential>
+			<!-- cycle each file in @{srcDir} to unzip -->
+			<for param="file">
+				<path>
+					<fileset dir="@{srcDir}" includes="@{includes}" excludes="@{excludes}" />
+				</path>
+				<sequential>
+					<unzip src="@{file}" dest="@{destDir}" failOnEmptyArchive="@{failOnEmptyArchive}">
+						<patternset>
+							<exclude name="META-INF" />
+							<exclude name="META-INF/*" />
+						</patternset>
+					</unzip>
+				</sequential>
+			</for>
+
+			<additional-tasks />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="list-files-in-dir" description="List all files in the specified directory (property: @{propertyToSet}).">
+
+		<attribute name="dir" /> <!-- NB: may contain wildcards -->
+		<attribute name="includes" default="**/*" />
+		<attribute name="excludes" default="" />
+		<attribute name="fileListSeparator" default="," />
+		<attribute name="propertyToSet" default="file.list" />
+
+		<element name="additional-tasks" optional="yes" />
+
+		<sequential>
+			<pathconvert property="@{propertyToSet}" pathsep="@{fileListSeparator}" preserveduplicates="true">
+				<map from="@{dir}" to="" />
+				<fileset dir="@{dir}">
+					<include name="@{includes}"/>
+				</fileset>
+			</pathconvert>
+			
+			<!-- 
+			<for list="${@{propertyToSet}}" param="file" delimiter="@{fileListSeparator}">
+				<sequential>
+					<echo message="File found: @{file}" />
+				</sequential>
+			</for>
+			-->
+		
+			<additional-tasks />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="import-properties-from-file" description="Import a set of properties from a specific properties file.">
+
+		<attribute name="filepath" />
+		<attribute name="prefix" default="" />
+
+		<element name="additional-tasks" optional="yes" />
+
+		<sequential>
+			<if>
+				<available file="@{filepath}" />
+				<then>
+					<if>
+						<equals arg1="@{prefix}" arg2="" />
+						<then>
+							<property file="@{filepath}" />
+						</then>
+						<else>
+							<property file="@{filepath}" prefix="@{prefix}" />
+						</else>
+					</if>
+				</then>
+				<else>
+					<echo message="@{filepath} does not exists. No property loaded." />
+				</else>
+			</if>
+		
+			<additional-tasks />
+		</sequential>
+	</macrodef>
+
+	<macrodef name="export-property-to-file" description="Export a property to a specific properties file.">
+
+		<attribute name="filepath" />
+		<attribute name="comment" default="" />
+		<attribute name="propertyKey" />
+		<attribute name="propertyValue" default="" />
+		<!-- 
+			for all datatypes:
+				"del" : deletes an entry
+				"+" : adds a value to the existing value
+				"=" : sets a value instead of the existing value (default)
+			for date and int only:
+				"-" : subtracts a value from the existing value
+		-->
+		<attribute name="operation" default="=" />
+
+		<element name="additional-tasks" optional="yes" />
+
+		<sequential>
+			<if>
+				<equals arg1="@{comment}" arg2="" />
+				<then>
+					<!-- WITHOUT comment -->
+					<propertyfile file="@{filepath}">
+						<entry key="@{propertyKey}" value="@{propertyValue}" operation="@{operation}" />
+					</propertyfile>
+				</then>
+				<else>
+					<!-- WITH comment -->
+					<propertyfile file="@{filepath}" comment="@{comment}">
+						<entry key="@{propertyKey}" value="@{propertyValue}" operation="@{operation}" />
+					</propertyfile>
+				</else>
+			</if>
+			
+			<additional-tasks />
+		</sequential>
+	</macrodef>
+	
+
+	<!-- TASKs -->
+
+
+	<!-- EXTENSION POINTs -->
+
+
+	<!-- TARGETs -->
+
+
+</project>

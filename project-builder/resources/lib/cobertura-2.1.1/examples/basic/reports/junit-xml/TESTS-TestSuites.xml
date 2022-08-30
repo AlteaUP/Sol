@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites>
+  <testsuite errors="0" failures="0" hostname="gioia" id="0" name="SimpleTest" package="com.example.simple" skipped="0" tests="3" time="0.036" timestamp="2015-03-26T21:32:39">
+      <properties>
+          <property name="java.vendor" value="Oracle Corporation" />
+
+          <property name="coverage.summaryxml.dir" value="reports/cobertura-summary-xml" />
+
+          <property name="sun.java.launcher" value="SUN_STANDARD" />
+
+          <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers" />
+
+          <property name="os.name" value="Mac OS X" />
+
+          <property name="sun.boot.class.path" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_60.jdk/Contents/Home/jre/lib/resources.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_60.jdk/Contents/Home/jre/lib/rt.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_60.jdk/Contents/Home/jre/lib/sunrsasign.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_60.jdk/Contents/Home/jre/lib/jsse.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_60.jdk/Contents/Home/jre/lib/jce.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_60.jdk/Contents/Home/jre/lib/charsets.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_60.jdk/Contents/Home/jre/lib/jfr.jar:/Library/Java/JavaVirtualMachines/jdk1.7.0_60.jdk/Contents/Home/jre/classes" />
+
+          <property name="reports.html.dir" value="reports/junit-html" />
+
+          <property name="user.country.format" value="IT" />
+
+          <property name="java.vm.specification.vendor" value="Oracle Corporation" />
+
+          <property name="ant.home" value="/Users/malex/Work/MaxMara/repository/development/code/trunk/hybris/bin/platform/apache-ant-1.9.1" />
+
+          <property name="java.runtime.version" value="1.7.0_60-b19" />
+
+          <property name="cobertura.dir" value="../.." />
+
+          <property name="user.name" value="malex" />
+
+          <property name="user.language" value="en" />
+
+          <property name="sun.boot.library.path" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_60.jdk/Contents/Home/jre/lib" />
+
+          <property name="reports.dir" value="reports" />
+
+          <property name="ant.project.default-target" value="coverage" />
+
+          <property name="ant.project.name" value="cobertura.examples.basic" />
+
+          <property name="ant.file.cobertura.examples.basic" value="/Users/malex/Downloads/cobertura-2.1.1/examples/basic/build.xml" />
+
+          <property name="java.version" value="1.7.0_60" />
+
+          <property name="coverage.html.dir" value="reports/cobertura-html" />
+
+          <property name="user.timezone" value="" />
+
+          <property name="sun.arch.data.model" value="64" />
+
+          <property name="http.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16" />
+
+          <property name="java.endorsed.dirs" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_60.jdk/Contents/Home/jre/lib/endorsed" />
+
+          <property name="sun.cpu.isalist" value="" />
+
+          <property name="sun.jnu.encoding" value="UTF-8" />
+
+          <property name="file.encoding.pkg" value="sun.io" />
+
+          <property name="file.separator" value="/" />
+
+          <property name="java.specification.name" value="Java Platform API Specification" />
+
+          <property name="classes.dir" value="classes" />
+
+          <property name="java.class.version" value="51.0" />
+
+          <property name="user.country" value="US" />
+
+          <property name="java.home" value="/Library/Java/JavaVirtualMachines/jdk1.7.0_60.jdk/Contents/Home/jre" />
+
+          <property name="java.vm.info" value="mixed mode" />
+
+          <property name="ant.file.type.cobertura.examples.basic" value="file" />
+
+          <property name="ant.file" value="/Users/malex/Downloads/cobertura-2.1.1/examples/basic/build.xml" />
+
+          <property name="os.version" value="10.9.5" />
+
+          <property name="path.separator" value=":" />
+
+          <property name="java.vm.version" value="24.60-b09" />
+
+          <property name="ant.library.dir" value="/Users/malex/Work/MaxMara/repository/development/code/trunk/hybris/bin/platform/apache-ant-1.9.1/lib" />
+
+          <property name="java.awt.printerjob" value="sun.lwawt.macosx.CPrinterJob" />
+
+          <property name="sun.io.unicode.encoding" value="UnicodeBig" />
+
+          <property name="awt.toolkit" value="sun.lwawt.macosx.LWCToolkit" />
+
+          <property name="socksNonProxyHosts" value="local|*.local|169.254/16|*.169.254/16" />
+
+          <property name="ftp.nonProxyHosts" value="local|*.local|169.254/16|*.169.254/16" />
+
+          <property name="reports.xml.dir" value="reports/junit-xml" />
+
+          <property name="user.home" value="/Users/malex" />
+
+          <property name="java.specification.vendor" value="Oracle Corporation" />
+
+          <property name="coverage.xml.dir" value="reports/cobertura-xml" />
+
+          <property name="java.library.path" value="/Users/malex/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:." />
+
+          <property name="java.vendor.url" value="http://java.oracle.com/" />
+
+          <property name="java.vm.vendor" value="Oracle Corporation" />
+
+          <property name="gopherProxySet" value="false" />
+
+          <property name="java.runtime.name" value="Java(TM) SE Runtime Environment" />
+
+          <property name="sun.java.command" value="org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner com.example.simple.SimpleTest filtertrace=true haltOnError=false haltOnFailure=false showoutput=false outputtoformatters=true logfailedtests=true logtestlistenerevents=false formatter=org.apache.tools.ant.taskdefs.optional.junit.XMLJUnitResultFormatter,/Users/malex/Downloads/cobertura-2.1.1/examples/basic/reports/junit-xml/TEST-com.example.simple.SimpleTest.xml crashfile=/Users/malex/Downloads/cobertura-2.1.1/examples/basic/junitvmwatcher6095563101810225611.properties propsfile=/Users/malex/Downloads/cobertura-2.1.1/examples/basic/junit6702749496406343620.properties" />
+
+          <property name="java.class.path" value="/Users/malex/Downloads/cobertura-2.1.1/examples/basic/instrumented:/Users/malex/Downloads/cobertura-2.1.1/examples/basic/classes:/Users/malex/Downloads/cobertura-2.1.1/cobertura-2.1.1-javadoc.jar:/Users/malex/Downloads/cobertura-2.1.1/cobertura-2.1.1-sources.jar:/Users/malex/Downloads/cobertura-2.1.1/cobertura-2.1.1.jar:/Users/malex/Downloads/cobertura-2.1.1/lib/asm-5.0.1.jar:/Users/malex/Downloads/cobertura-2.1.1/lib/asm-analysis-5.0.1.jar:/Users/malex/Downloads/cobertura-2.1.1/lib/asm-commons-5.0.1.jar:/Users/malex/Downloads/cobertura-2.1.1/lib/asm-tree-5.0.1.jar:/Users/malex/Downloads/cobertura-2.1.1/lib/asm-util-5.0.1.jar:/Users/malex/Downloads/cobertura-2.1.1/lib/commons-lang3-3.3.2.jar:/Users/malex/Downloads/cobertura-2.1.1/lib/hamcrest-core-1.3.jar:/Users/malex/Downloads/cobertura-2.1.1/lib/jaxen-1.1.4.jar:/Users/malex/Downloads/cobertura-2.1.1/lib/jetty-6.1.14.jar:/Users/malex/Downloads/cobertura-2.1.1/lib/jetty-util-6.1.14.jar:/Users/malex/Downloads/cobertura-2.1.1/lib/junit-4.11.jar:/Users/malex/Downloads/cobertura-2.1.1/lib/logback-classic-1.0.13.jar:/Users/malex/Downloads/cobertura-2.1.1/lib/logback-core-1.0.13.jar:/Users/malex/Downloads/cobertura-2.1.1/lib/oro-2.0.8.jar:/Users/malex/Downloads/cobertura-2.1.1/lib/servlet-api-2.5-6.1.14.jar:/Users/malex/Downloads/cobertura-2.1.1/lib/slf4j-api-1.7.5.jar:/Users/malex/Work/MaxMara/repository/development/code/trunk/hybris/bin/platform/apache-ant-1.9.1/lib/ant-launcher.jar:/Users/malex/Work/MaxMara/repository/development/code/trunk/hybris/bin/platform/apache-ant-1.9.1/lib/ant.jar:/Users/malex/Work/MaxMara/repository/development/code/trunk/hybris/bin/platform/apache-ant-1.9.1/lib/ant-junit.jar:/Users/malex/Work/MaxMara/repository/development/code/trunk/hybris/bin/platform/apache-ant-1.9.1/lib/ant-junit4.jar" />
+
+          <property name="ant.version" value="Apache Ant(TM) version 1.9.1 compiled on May 15 2013" />
+
+          <property name="java.vm.specification.name" value="Java Virtual Machine Specification" />
+
+          <property name="ant.file.type" value="file" />
+
+          <property name="java.vm.specification.version" value="1.7" />
+
+          <property name="sun.cpu.endian" value="little" />
+
+          <property name="sun.os.patch.level" value="unknown" />
+
+          <property name="java.awt.headless" value="true" />
+
+          <property name="java.io.tmpdir" value="/var/folders/xq/x1qxxzkj5k5052xn5r5nsmn40000gp/T/" />
+
+          <property name="java.vendor.url.bug" value="http://bugreport.sun.com/bugreport/" />
+
+          <property name="os.arch" value="x86_64" />
+
+          <property name="java.awt.graphicsenv" value="sun.awt.CGraphicsEnvironment" />
+
+          <property name="instrumented.dir" value="instrumented" />
+
+          <property name="java.ext.dirs" value="/Users/malex/Library/Java/Extensions:/Library/Java/JavaVirtualMachines/jdk1.7.0_60.jdk/Contents/Home/jre/lib/ext:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java" />
+
+          <property name="user.dir" value="/Users/malex/Downloads/cobertura-2.1.1/examples/basic" />
+
+          <property name="line.separator" value="&#xa;" />
+
+          <property name="java.vm.name" value="Java HotSpot(TM) 64-Bit Server VM" />
+
+          <property name="basedir" value="/Users/malex/Downloads/cobertura-2.1.1/examples/basic" />
+
+          <property name="ant.java.version" value="1.7" />
+
+          <property name="ant.core.lib" value="/Users/malex/Work/MaxMara/repository/development/code/trunk/hybris/bin/platform/apache-ant-1.9.1/lib/ant.jar" />
+
+          <property name="file.encoding" value="UTF-8" />
+
+          <property name="java.specification.version" value="1.7" />
+
+          <property name="src.dir" value="src" />
+
+          <property name="ant.project.invoked-targets" value="coverage" />
+
+      </properties>
+
+      <testcase classname="com.example.simple.SimpleTest" name="testSum" time="0.008" />
+
+      <testcase classname="com.example.simple.SimpleTest" name="testF" time="0.002" />
+
+      <testcase classname="com.example.simple.SimpleTest" name="testSquare" time="0.0" />
+
+      <system-out><![CDATA[22:32:38,861 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback.groovy]
+22:32:38,862 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback-test.xml]
+22:32:38,863 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Found resource [logback.xml] at [jar:file:/Users/malex/Downloads/cobertura-2.1.1/cobertura-2.1.1-sources.jar!/logback.xml]
+22:32:38,864 |-WARN in ch.qos.logback.classic.LoggerContext[default] - Resource [logback.xml] occurs multiple times on the classpath.
+22:32:38,864 |-WARN in ch.qos.logback.classic.LoggerContext[default] - Resource [logback.xml] occurs at [jar:file:/Users/malex/Downloads/cobertura-2.1.1/cobertura-2.1.1.jar!/logback.xml]
+22:32:38,864 |-WARN in ch.qos.logback.classic.LoggerContext[default] - Resource [logback.xml] occurs at [jar:file:/Users/malex/Downloads/cobertura-2.1.1/cobertura-2.1.1-sources.jar!/logback.xml]
+22:32:38,882 |-INFO in ch.qos.logback.core.joran.spi.ConfigurationWatchList@382226a7 - URL [jar:file:/Users/malex/Downloads/cobertura-2.1.1/cobertura-2.1.1-sources.jar!/logback.xml] is not of type file
+22:32:38,940 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - debug attribute not set
+22:32:38,945 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+22:32:38,954 |-INFO in ch.qos.logback.core.joran.action.AppenderAction - Naming appender as [STDOUT]
+22:32:38,975 |-INFO in ch.qos.logback.core.joran.action.NestedComplexPropertyIA - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+22:32:39,032 |-INFO in ch.qos.logback.classic.joran.action.LoggerAction - Setting level of logger [net.sourceforge.cobertura] to INFO
+22:32:39,032 |-INFO in ch.qos.logback.classic.joran.action.RootLoggerAction - Setting level of ROOT logger to DEBUG
+22:32:39,032 |-INFO in ch.qos.logback.core.joran.action.AppenderRefAction - Attaching appender named [STDOUT] to Logger[ROOT]
+22:32:39,033 |-INFO in ch.qos.logback.classic.joran.action.ConfigurationAction - End of configuration.
+22:32:39,035 |-INFO in ch.qos.logback.classic.joran.JoranConfigurator@4a17babb - Registering current configuration as safe fallback point
+
+[DEBUG] value: 3
+[DEBUG] value: 5
+[DEBUG] value: 8
+[DEBUG] result: 16
+[DEBUG] x: -1
+[DEBUG] negative x
+[DEBUG] x: -1
+[DEBUG] result: 1
+[DEBUG] x: 6
+[DEBUG] x: 1
+[DEBUG] result: 1
+[DEBUG] x: -1
+[DEBUG] result: 1
+]]></system-out>
+
+      <system-err><![CDATA[]]></system-err>
+
+  </testsuite>
+</testsuites>

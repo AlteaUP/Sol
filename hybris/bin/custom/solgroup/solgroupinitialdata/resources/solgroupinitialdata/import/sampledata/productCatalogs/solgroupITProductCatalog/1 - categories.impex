@@ -1,0 +1,42 @@
+# -----------------------------------------------------------------------
+# [y] hybris Platform
+#
+# Copyright (c) 2017 SAP SE or an SAP affiliate company.  All rights reserved.
+#
+# This software is the confidential and proprietary information of SAP
+# ("Confidential Information"). You shall not disclose such Confidential
+# Information and shall use it only in accordance with the terms of the
+# license agreement you entered into with SAP.
+# -----------------------------------------------------------------------
+# ImpEx for Importing Categories into SolGroup IT Store
+
+$solPrefix=solgroupIT
+
+# Macros / Replacement Parameter definitions
+$productCatalog=$solPrefixProductCatalog
+$productCatalogName=$solPrefix Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=source(code, $catalogVersion)[unique=true]
+$categories=target(code, $catalogVersion)[unique=true]
+
+$lang=it
+
+# Insert Categories                    
+INSERT_UPDATE Category ; code[unique=true] ; allowedPrincipals(uid)[default='customergroup'] ; name[lang=$lang] ; name[lang=en]  ; $catalogVersion
+                       ; $solPrefix_1      ;                                                 ; Open Catalogue   ; Open Catalogue ;                
+
+# Insert defualt variant category
+INSERT_UPDATE VariantCategory ; code[unique=true]     ; allowedPrincipals(uid)[default='customergroup'] ; name[lang=$lang]         ; name[lang=en]            ; masterOn(code) ; $catalogVersion
+                              ; $solPrefix_Vc_Default ;                                                 ; Default Variant Category ; Default Variant Category ; LEGACY         ;                
+
+#Insert default variant value category
+INSERT_UPDATE VariantValueCategory ; code[unique=true]             ; allowedPrincipals(uid)[default='customergroup'] ; name[lang=$lang]               ; name[lang=en]                  ; supercategories(code,$catalogVersion) ; sequence ; masterOn(code) ; $catalogVersion
+                                   ; $solPrefix_Vc_Default_Default ;                                                 ; Default Variant value category ; Default Variant value category ; $solPrefix_Vc_Default                 ; 0        ; LEGACY         ;                
+
+#Insert default visibility category
+INSERT_UPDATE VisibilityCategory ; code[unique=true]            ; allowedPrincipals(uid)[default='customergroup'] ; name[lang=$lang]                     ; name[lang=en]                        ; masterOn(code) ; $catalogVersion
+                                 ; $solPrefix_all_visibility    ;                                                 ; Default Visibility category          ; Default Visibility category          ; LEGACY         ;                
+                                 ; $solPrefix_pharma_visibility ; solPharmaGroup                                  ; Visibility category for pharma users ; Visibility category for pharma users ; LEGACY         ;                
+
+
+                                       
