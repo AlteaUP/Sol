@@ -39,7 +39,6 @@ hybris/config/local.properties
 
 project-builder/temp/
 project-builder/*.log
-project-builder/hybris-modules/
 
 ##############################################################
 ################## Eclipse generated files ###################
